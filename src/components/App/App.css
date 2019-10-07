@@ -52,7 +52,7 @@ input {
   cursor: pointer;
 }
 
-.job-display {
+.list-display {
   display: flexbox;
   flex-flow: column-wrap;
   width: 50%;
@@ -60,15 +60,17 @@ input {
   margin-top: 5%;
 }
 
-.job-list {
+.list {
   display: flexbox;
   flex-direction: column;
 }
 
 .list-item {
   display: inline-flex;
-  width: 100%;
   justify-content: space-between;
+  width: 100%;
+  padding: 10px 20px;
+  border-bottom: 1px solid gray;
 }
 
 .skill-tag {

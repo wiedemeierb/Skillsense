@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-//MATERIAL-UI IMPORTS
-import Divider from '@material-ui/core/Divider';
-
 class JobSearch extends Component {
   state = {
     jobs: [
@@ -41,9 +38,9 @@ class JobSearch extends Component {
     });
 
     return (
-      <div className="job-display">
+      <div className="list-display">
         {/* Job Search List */}
-        <div className="job-list">{jobList}</div>
+        <div className="list">{jobList}</div>
       </div>
     );
   }
