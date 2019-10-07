@@ -10,21 +10,35 @@ import rootSaga from './redux/sagas'; // imports ./redux/sagas/index.js
 
 import App from './components/App/App';
 
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+
+const theme = createMuiTheme({
+	typography: {
+		fontFamily: ['Ubuntu', 'sans-serif']
+	},
+	palette: {
+		primary: { main: '#505d68' },
+		secondary: { main: '#04b8f3' }
+	}
+});
+
 const sagaMiddleware = createSagaMiddleware();
 
 // this line creates an array of all of redux middleware you want to use
 // we don't want a whole ton of console logs in our production code
 // logger will only be added to your project if your in development mode
-const middlewareList = process.env.NODE_ENV === 'development' ?
-  [sagaMiddleware, logger] :
-  [sagaMiddleware];
+const middlewareList =
+	process.env.NODE_ENV === 'development'
+		? [sagaMiddleware, logger]
+		: [sagaMiddleware];
 
 const store = createStore(
-  // tells the saga middleware to use the rootReducer
-  // rootSaga contains all of our other reducers
-  rootReducer,
-  // adds all middleware to our project including saga and logger
-  applyMiddleware(...middlewareList),
+	// tells the saga middleware to use the rootReducer
+	// rootSaga contains all of our other reducers
+	rootReducer,
+	// adds all middleware to our project including saga and logger
+	applyMiddleware(...middlewareList)
 );
 
 // tells the saga middleware to use the rootSaga
@@ -32,8 +46,10 @@ const store = createStore(
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('react-root'),
+	<Provider store={store}>
+		<ThemeProvider theme={theme}>
+			<App />
+		</ThemeProvider>
+	</Provider>,
+	document.getElementById('react-root')
 );
