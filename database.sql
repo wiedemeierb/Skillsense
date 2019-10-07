@@ -36,7 +36,7 @@ CREATE TABLE "users" (
   "linkedin_url" VARCHAR(510),
   "website_url" VARCHAR(510),
   "access_id" integer NOT NULL references "user_type",
-  "active" BOOLEAN NOT NULL,
+  "active" BOOLEAN DEFAULT TRUE,
   "approved_mentor" integer references "mentor_status"
 );
 
