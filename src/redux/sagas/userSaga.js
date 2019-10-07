@@ -23,7 +23,7 @@ function* fetchUser() {
 		console.log('User get request failed', error);
 	}
 }
-function* fetchSelectedUser() {
+function* fetchSelectedUser(action) {
 	try {
 		const response = yield axios.get(`/api/user/${action.payload.id}`);
 		yield put({ type: 'SET_SELECTED_USER', payload: response.data });
