@@ -25,8 +25,9 @@ import MentorSearch from '../MentorSearch/MentorSearch';
 import MyJobs from '../MyJobs/MyJobs';
 import MyMentorships from '../MyMentorships/MyMentorships';
 
+import {CssBaseline} from '@material-ui/core'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import './App.css';
+// import './App.css';
 import 'typeface-roboto';
 
 const theme = createMuiTheme({
@@ -48,6 +49,7 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
+        <CssBaseline />
         <Router>
           <div>
             <Nav />
