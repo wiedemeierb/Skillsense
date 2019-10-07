@@ -45,6 +45,22 @@ router.post('/register', (req, res, next) => {
 // userStrategy.authenticate('local') is middleware that we run on this route
 // this middleware will run our POST if successful
 // this middleware will send a 404 if not successful
+router.get('/username/:email', (req, res) => {
+	const sqlText = `SELECT username from users where email = $1`;
+	pool
+		.query(sqlText, [req.params.email])
+		.then(result => {
+			console.log('successful get of username from db table based on email ');
+			res.send(result.rows[0].username);
+		})
+		.catch(error => {
+			console.log(
+				'error on get of username from db table based on email: ',
+				error
+			);
+			res.sendStatus(500);
+		});
+});
 router.post('/login', userStrategy.authenticate('local'), (req, res) => {
 	res.sendStatus(200);
 });
