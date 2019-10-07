@@ -4,49 +4,53 @@ import { connect } from 'react-redux';
 //COMPONENT IMPORTS
 import JobTabs from '../JobsTabs/JobTabs';
 
+//MATERIAL-UI IMPORTS
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+
 class MyJobs extends Component {
   state = {
     jobs: [
       {
-        project: 'Redesign our website',
-        client: `John Doe's Doughnuts`,
-        location: 'Minneapolis, MN',
-        budget: '$500',
-        deadline: '10/25/19',
-        skills: ['JavaScript', 'React', 'CSS']
+        project: 'Ecommerce Website',
+        client: 'Wall Street',
+        mentor: 'Mr. Monopoly'
+      },
+      {
+        project: 'Video Game Project',
+        client: 'Mario & Luigi',
+        mentor: 'Yoshi'
       }
     ]
   };
+
   render() {
     let jobList = this.state.jobs.map((job, i) => {
       return (
         <div className="list-item">
           <div>
-            {/* left side info */}
             <h2>{job.project}</h2>
             <h3>{job.client}</h3>
-            <h4>{job.location}</h4>
           </div>
-          {/* right side info */}
           <div>
-            <p>Budget: {job.budget}</p>
-            <p>Deadline: {job.deadline}</p>
-            {job.skills.map(skill => {
-              return <h4 className="skill-tag">{skill}</h4>;
-            })}
+            <h3>{job.mentor}</h3>
           </div>
         </div>
       );
     });
+
     return (
-      <div>
+      <div className="job-display">
         {/* Navigation tabs on Job Page:
             (Active, Applied, Completed) */}
         <div>
           <JobTabs />
         </div>
         {/* Selected Job List */}
-        <div className="job-list">{jobList}</div>
+        <List className="job-list">{jobList}</List>
       </div>
     );
   }
