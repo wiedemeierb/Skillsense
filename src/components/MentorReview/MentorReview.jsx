@@ -4,9 +4,7 @@ import {
 	List,
 	ListItem,
 	ListItemText,
-	Grid,
 	Paper,
-	Typography
 } from '@material-ui/core';
 
 class MentorReview extends Component {
@@ -18,7 +16,7 @@ class MentorReview extends Component {
 			this.props.allMentors &&
 			this.props.allMentors.map(mentor => (
 				<ListItem key={mentor.id}>
-					<ListItemText>{mentor.username}</ListItemText>
+					<ListItemText>{mentor.username}<br />{mentor.email}</ListItemText>
 				</ListItem>
 			));
 		return (

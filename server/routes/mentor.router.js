@@ -21,17 +21,19 @@ router.get('/all', (req, res) => {
 router.get('/pending', (req, res) => {
 	//query to get all mentors in system with pending status
 	const queryText = `
-    SELECT * from users
-	JOIN user_type
-    ON user_type.id = users.access_id
-    JOIN mentor_status
-    ON users.approved_mentor = mentor_status.id
-	WHERE user_type.access ILIKE 'Mentor' AND mentor_status.status ILIKE 'Pending Approval';`;
+		SELECT * from "users"
+			JOIN user_type
+			ON user_type.id = users.access_id
+			WHERE
+				(user_type.access ILIKE 'Mentor')
+			AND
+				(users.approved_mentor = 2)
+				;`;
 
 	pool
 		.query(queryText)
 		.then(result => {
-			console.log('successful GET of mentors pending approval');
+			console.log('successful GET of mentors pending approval: ', result);
 			res.send(result.rows);
 		})
 		.catch(error => {
@@ -41,8 +43,8 @@ router.get('/pending', (req, res) => {
 });
 
 router.patch(`/admin/:id`, rejectUnauthenticated, (req, res) => {
-    //patch route to update mentor approval status
-    //expects a req.body with {newStatus: #}
+	//patch route to update mentor approval status
+	//expects a req.body with {newStatus: #}
 	console.log(req.user);
 	const queryText = `UPDATE users SET approved_mentor = $1  WHERE users.id = $2`;
 	const values = [req.params.id, req.body.newStatus];
