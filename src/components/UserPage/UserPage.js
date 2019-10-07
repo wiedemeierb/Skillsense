@@ -24,11 +24,12 @@ class UserPage extends Component {
 
 
   componentDidMount = () => {
-    this.props.dispatch({type: 'FETCH_ALL_SKILLS'})
+    this.props.dispatch({type: 'FETCH_ALL_SKILLS'});
+    this.props.dispatch({type: 'FETCH_USER_SKILLS'});
   }
   render() {
     // console.log('this is stat right now', this.props.user)
-    console.log('this is skills selected right now', this.props.skills)
+    // console.log('this is skills selected right now', this.props.skills)
     return (
 
   <div>
