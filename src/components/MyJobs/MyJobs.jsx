@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 //COMPONENT IMPORTS
 import JobTabs from '../JobsTabs/JobTabs';
 
-
 class MyJobs extends Component {
   state = {
     jobs: [
@@ -46,7 +45,6 @@ class MyJobs extends Component {
     });
 
     return (
-
       <div className="list-display">
         {/* Navigation tabs on Job Page:
             (Active, Applied, Completed) */}
@@ -54,7 +52,6 @@ class MyJobs extends Component {
           <JobTabs />
         </div>
         {/* Selected Job List */}
-
         <div className="list">{jobList}</div>
       </div>
     );

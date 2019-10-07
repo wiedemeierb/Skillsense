@@ -54,6 +54,9 @@ class MentorSearch extends Component {
     this.props.dispatch({
       type: 'FETCH_ALL_MENTORS'
     });
+    this.props.dispatch({
+      type: 'FETCH_ALL_SKILLS'
+    });
   }
 
   handleSearch = (searchBy, event) => {
@@ -78,11 +81,23 @@ class MentorSearch extends Component {
           </div>
           {/* right side info */}
           <div>
-            {mentor.skills.map(skill => {
-              return <h4 className="skill-tag">{skill}</h4>;
+            {mentor.skills.map((skill, i) => {
+              return (
+                <h4 key={i} className="skill-tag">
+                  {skill}
+                </h4>
+              );
             })}
           </div>
         </div>
+      );
+    });
+
+    let skillList = this.props.skills.map((skill, i) => {
+      return (
+        <MenuItem key={i} value={skill.id}>
+          {skill.tag}
+        </MenuItem>
       );
     });
 
@@ -90,7 +105,7 @@ class MentorSearch extends Component {
       <div className="list-display">
         <Paper className="search">
           <FormControl className={classes.formControl}>
-            <FormGroup row="true" className="search">
+            <FormGroup row={true} className="search">
               <TextField
                 className={classes.formControl}
                 onChange={e => this.handleSearch('searchTerm', e)}
@@ -103,34 +118,8 @@ class MentorSearch extends Component {
                 value={this.state.search.skill}
                 onChange={e => this.handleSearch('skill', e)}
               >
-                <MenuItem value={1}>Adobe Photoshop</MenuItem>
-                <MenuItem value={2}>Adobe Illustrtor</MenuItem>
-                <MenuItem value={3}>Adobe XD</MenuItem>
-                <MenuItem value={4}>Sketch</MenuItem>
-                <MenuItem value={5}>Responsive Web Design</MenuItem>
-                <MenuItem value={6}>UI/UX Design</MenuItem>
-                <MenuItem value={7}>Front-End Development</MenuItem>
-                <MenuItem value={8}>Back-End Development</MenuItem>
-                <MenuItem value={9}>Full Stack Development</MenuItem>
-                <MenuItem value={10}>Mobile AppDevelopment</MenuItem>
-                <MenuItem value={11}>No SQL</MenuItem>
-                <MenuItem value={12}>SQL</MenuItem>
-                <MenuItem value={13}>MySQL</MenuItem>
-                <MenuItem value={14}>.NET</MenuItem>
-                <MenuItem value={15}>C#</MenuItem>
-                <MenuItem value={16}>Java</MenuItem>
-                <MenuItem value={17}>JavaScript</MenuItem>
-                <MenuItem value={18}>TypeScript</MenuItem>
-                <MenuItem value={19}>Webpack</MenuItem>
-                <MenuItem value={20}>React</MenuItem>
-                <MenuItem value={21}>Angular</MenuItem>
-                <MenuItem value={22}>HTML5</MenuItem>
-                <MenuItem value={23}>CSS</MenuItem>
-                <MenuItem value={24}>LESS</MenuItem>
-                <MenuItem value={25}>SASS</MenuItem>
-                <MenuItem value={26}>Wordpress</MenuItem>
-                <MenuItem value={27}>PHP</MenuItem>
-                <MenuItem value={28}>QA/Testing</MenuItem>
+                {/* Skill tag list dropdown options */}
+                {skillList}
               </Select>
 
               <IconButton
@@ -153,7 +142,8 @@ class MentorSearch extends Component {
 
 const mapStateToProps = store => {
   return {
-    mentors: store.allMentorsReducer
+    mentors: store.allMentorsReducer,
+    skills: store.allSkillsReducer
   };
 };
 

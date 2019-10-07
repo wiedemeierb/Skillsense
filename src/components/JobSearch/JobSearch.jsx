@@ -52,6 +52,9 @@ class JobSearch extends Component {
     this.props.dispatch({
       type: 'FETCH_ALL_JOBS'
     });
+    this.props.dispatch({
+      type: 'FETCH_ALL_SKILLS'
+    });
   }
 
   handleSearch = (searchBy, event) => {
@@ -62,6 +65,7 @@ class JobSearch extends Component {
       }
     });
   };
+
   render() {
     const { classes } = this.props;
 
@@ -86,6 +90,14 @@ class JobSearch extends Component {
       );
     });
 
+    let skillList = this.props.skills.map((skill, i) => {
+      return (
+        <MenuItem key={i} value={skill.id}>
+          {skill.tag}
+        </MenuItem>
+      );
+    });
+
     return (
       <div className="list-display">
         <Paper className="search">
@@ -104,34 +116,8 @@ class JobSearch extends Component {
                 onChange={e => this.handleSearch('skill', e)}
               >
                 <MenuItem value={0}>Select Skill</MenuItem>
-                <MenuItem value={1}>Adobe Photoshop</MenuItem>
-                <MenuItem value={2}>Adobe Illustrtor</MenuItem>
-                <MenuItem value={3}>Adobe XD</MenuItem>
-                <MenuItem value={4}>Sketch</MenuItem>
-                <MenuItem value={5}>Responsive Web Design</MenuItem>
-                <MenuItem value={6}>UI/UX Design</MenuItem>
-                <MenuItem value={7}>Front-End Development</MenuItem>
-                <MenuItem value={8}>Back-End Development</MenuItem>
-                <MenuItem value={9}>Full Stack Development</MenuItem>
-                <MenuItem value={10}>Mobile AppDevelopment</MenuItem>
-                <MenuItem value={11}>No SQL</MenuItem>
-                <MenuItem value={12}>SQL</MenuItem>
-                <MenuItem value={13}>MySQL</MenuItem>
-                <MenuItem value={14}>.NET</MenuItem>
-                <MenuItem value={15}>C#</MenuItem>
-                <MenuItem value={16}>Java</MenuItem>
-                <MenuItem value={17}>JavaScript</MenuItem>
-                <MenuItem value={18}>TypeScript</MenuItem>
-                <MenuItem value={19}>Webpack</MenuItem>
-                <MenuItem value={20}>React</MenuItem>
-                <MenuItem value={21}>Angular</MenuItem>
-                <MenuItem value={22}>HTML5</MenuItem>
-                <MenuItem value={23}>CSS</MenuItem>
-                <MenuItem value={24}>LESS</MenuItem>
-                <MenuItem value={25}>SASS</MenuItem>
-                <MenuItem value={26}>Wordpress</MenuItem>
-                <MenuItem value={27}>PHP</MenuItem>
-                <MenuItem value={28}>QA/Testing</MenuItem>
+                {/* Skill tag list dropdown options */}
+                {skillList}
               </Select>
 
               <IconButton
@@ -154,7 +140,8 @@ class JobSearch extends Component {
 
 const mapStateToProps = store => {
   return {
-    jobs: store.allJobsReducer
+    jobs: store.allJobsReducer,
+    skills: store.allSkillsReducer
   };
 };
 
