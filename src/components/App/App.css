@@ -52,7 +52,7 @@ input {
   cursor: pointer;
 }
 
-.list-display {
+.job-display {
   display: flexbox;
   flex-flow: column-wrap;
   width: 50%;
@@ -60,13 +60,14 @@ input {
   margin-top: 5%;
 }
 
-.list {
+.job-list {
   display: flexbox;
   flex-direction: column;
 }
 
 .list-item {
   display: inline-flex;
+
   justify-content: space-between;
   width: 100%;
   padding: 10px 20px;

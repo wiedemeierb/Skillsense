@@ -21,9 +21,13 @@ class UserPage extends Component {
     active: true,
     approved_mentor: false,
   }
+
+  componentDidMount = () => {
+    this.props.dispatch({type: 'FETCH_ALL_SKILLS'})
+  }
   render() {
     return (
-  
+
   <div>
     {/* outlined Material-UI textfield input */}
     <TextField
@@ -82,7 +86,7 @@ class UserPage extends Component {
       margin="normal"
       variant="outlined"
     />
-    <TransferList skills={this.props.skills}/>
+        <TransferList allSkills={this.props.skills} user={this.props.user}/>
     <LogOutButton className="log-in" />
   </div>
     )

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+//MATERIAL-UI IMPORTS
+import Divider from '@material-ui/core/Divider';
+
 class JobSearch extends Component {
   state = {
     jobs: [
@@ -14,7 +17,6 @@ class JobSearch extends Component {
       }
     ]
   };
-
   render() {
     let jobList = this.state.jobs.map((job, i) => {
       return (

@@ -103,4 +103,6 @@ INSERT INTO "mentor_status" ("status") VALUES ('Not Submitted'),('Pending�
 
 INSERT INTO "tags" ("tag") VALUES ('Adobe Photoshop'),('Adobe Illustrator'),('Adobe XD'),('Sketch'),('Responsive Web Design'),('UI/UX Design'),('Frontend Development'),('Backend Development'),('Full Stack Development'),('Mobile App Development'),('NoSQL'),('SQL'),('MySQL'),('.NET'),('C#'),('Java'),('JavaScript'),('TypeScript'),('Webpack'),('React'),('Angular'),('HTML5'),('CSS'),('LESS'),('SASS'),('Wordpress'),('PHP'),('QA/Testing');
 
+
 INSERT INTO "user_type" ("access") VALUES ('Student'),('Mentor'),('Client'),('Admin');
+

@@ -16,12 +16,14 @@ const Nav = (props) => (
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
+
         {props.user.id ? 'My Profile' : 'Login / Register'}
       </Link>
       {/* Always show this link since the about page is not protected */}
       {/* <Link className="nav-link" to="/about">
         About
       </Link> */}
+
       {props.user.access_id === 1 || props.user.access_id === 2 && <Link className="nav-link" to="/mentors">
         My Mentorships
       </Link>}
@@ -40,6 +42,7 @@ const Nav = (props) => (
           {/* <Link className="nav-link" to="/info">
             Info Page
           </Link> */}
+
           <LogOutButton className="nav-link" />
         </>
       )}
