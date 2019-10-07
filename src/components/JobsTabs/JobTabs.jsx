@@ -15,7 +15,7 @@ const styles = {
 
 class JobTabs extends React.Component {
   state = {
-    value: 'active'
+    value: 0
   };
 
   handleChange = (event, value) => {

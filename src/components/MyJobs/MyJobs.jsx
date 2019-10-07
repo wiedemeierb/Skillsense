@@ -21,15 +21,23 @@ class MyJobs extends Component {
     ]
   };
 
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'FETCH_ALL_JOBS'
+    });
+  }
+
   render() {
     let jobList = this.state.jobs.map((job, i) => {
       return (
-        <div className="list-item">
+        <div key={i} className="list-item">
+          {/* right side info */}
           <div>
             <h2>{job.project}</h2>
 
             <h3>Client: {job.client}</h3>
           </div>
+          {/* left side info */}
           <div>
             <h3>Mentor: {job.mentor}</h3>
           </div>
@@ -55,7 +63,7 @@ class MyJobs extends Component {
 
 const mapStateToProps = store => {
   return {
-    store
+    jobs: store.allJobsReducer
   };
 };
 
