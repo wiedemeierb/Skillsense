@@ -9,7 +9,7 @@ const Nav = (props) => (
   <div className="nav">
     <Link to="/home">
       {/* <h2 className="nav-title">Prime Solo Project</h2> */}
-      <img alt="skill-sense logo" src={skillSenseLogo}/>
+      <img alt="skill-sense logo" className="logo" src={skillSenseLogo}/>
     </Link>
     <div className="nav-right">
       <Link className="nav-link" to="/home">
@@ -22,13 +22,13 @@ const Nav = (props) => (
       {/* <Link className="nav-link" to="/about">
         About
       </Link> */}
-      {props.user.access_id === (1 || 2) && <Link className="nav-link" to="/mentors">
+      {props.user.access_id === 1 || props.user.access_id === 2 && <Link className="nav-link" to="/mentors">
         My Mentorships
       </Link>}
       {props.user.access_id === 1 && <Link className="nav-link" to="/search/mentors">
         Mentor Search
           </Link>}
-      {props.user.access_id === (1 || 3) && <Link className="nav-link" to="/jobs">
+      {props.user.access_id === 1 || props.user.access_id === 3 && <Link className="nav-link" to="/jobs">
         My Jobs
           </Link>}
       {props.user.access_id === 1 && <Link className="nav-link" to="/search/jobs">
