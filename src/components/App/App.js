@@ -95,6 +95,21 @@ class App extends Component {
                 path="/mentors"
                 component={MyMentorships}
               />
+              <Route
+                exact
+                path="/jobs/detail"
+                component={JobDetail}
+              />
+              <Route
+                exact
+                path="/jobs/detail/apply"
+                component={JobApplication}
+              />
+              <Route
+                exact
+                path="/admin"
+                component={MentorReview}
+              />
               {/* If none of the other routes matched, we will show a 404. */}
               <Route render={() => <h1>404</h1>} />
             </Switch>

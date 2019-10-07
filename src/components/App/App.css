@@ -67,8 +67,11 @@ input {
 
 .list-item {
   display: inline-flex;
-  width: 100%;
+
   justify-content: space-between;
+  width: 100%;
+  padding: 10px 20px;
+  border-bottom: 1px solid gray;
 }
 
 .skill-tag {

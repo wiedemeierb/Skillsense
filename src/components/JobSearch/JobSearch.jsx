@@ -17,7 +17,6 @@ class JobSearch extends Component {
       }
     ]
   };
-
   render() {
     let jobList = this.state.jobs.map((job, i) => {
       return (
@@ -41,9 +40,9 @@ class JobSearch extends Component {
     });
 
     return (
-      <div className="job-display">
+      <div className="list-display">
         {/* Job Search List */}
-        <div className="job-list">{jobList}</div>
+        <div className="list">{jobList}</div>
       </div>
     );
   }
