@@ -15,7 +15,7 @@ const styles = {
 
 class MentorTabs extends React.Component {
   state = {
-    value: 'active'
+    value: 0
   };
 
   handleChange = (event, value) => {

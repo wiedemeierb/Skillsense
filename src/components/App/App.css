@@ -52,6 +52,13 @@ input {
   cursor: pointer;
 }
 
+.search {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
 .list-display {
   display: flexbox;
   flex-flow: column-wrap;

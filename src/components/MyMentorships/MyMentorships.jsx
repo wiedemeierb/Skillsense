@@ -22,10 +22,16 @@ class MyMentorships extends Component {
     ]
   };
 
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'FETCH_ALL_MENTORS'
+    });
+  }
+
   render() {
     let mentorList = this.state.mentors.map((mentor, i) => {
       return (
-        <div className="list-item">
+        <div key={i} className="list-item">
           <div>
             {/* left side info */}
             <h2>{mentor.mentor}</h2>
@@ -43,7 +49,7 @@ class MyMentorships extends Component {
     return (
       <div className="list-display">
         {/* Navigation tabs on Mentorship Page:
-            (Active, Applied, Completed) */}
+            (Active, Invites) */}
         <div>
           <MentorTabs />
         </div>
@@ -56,7 +62,7 @@ class MyMentorships extends Component {
 
 const mapStateToProps = store => {
   return {
-    store
+    mentors: store.allMentorsReducer
   };
 };
 
