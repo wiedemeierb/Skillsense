@@ -40,7 +40,7 @@ router.get('/pending', (req, res) => {
 		});
 });
 
-router.patch(`/admin/${id}`, rejectUnauthenticated, (req, res) => {
+router.patch(`/admin/:id`, rejectUnauthenticated, (req, res) => {
     //patch route to update mentor approval status
     //expects a req.body with {newStatus: #}
 	console.log(req.user);
