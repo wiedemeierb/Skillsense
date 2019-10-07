@@ -23,16 +23,16 @@ const Nav = (props) => (
       {props.user.id && <Link className="nav-link" to="/home">
         My Profile
       </Link>}
-      {props.user.access_id === (3 || 4) && <Link className="nav-link" to="/mentors">
+      {props.user.access_id === (1 || 2) && <Link className="nav-link" to="/mentors">
         My Mentorships
       </Link>}
-      {props.user.access_id === 4 && <Link className="nav-link" to="/search/mentors">
+      {props.user.access_id === 1 && <Link className="nav-link" to="/search/mentors">
         Mentor Search
           </Link>}
-      {props.user.access_id === (2 || 4) && <Link className="nav-link" to="/jobs">
+      {props.user.access_id === (1 || 3) && <Link className="nav-link" to="/jobs">
         My Jobs
           </Link>}
-      {props.user.access_id === 4 && <Link className="nav-link" to="/search/jobs">
+      {props.user.access_id === 1 && <Link className="nav-link" to="/search/jobs">
         Job Search
       </Link>}
       {/* Show the link to the info page and the logout button if the user is logged in */}
