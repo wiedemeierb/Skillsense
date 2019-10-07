@@ -17,6 +17,16 @@ const styles = theme => ({
 	}
 });
 
+//reusable component for two column layout -- use in this fashion:
+{/* <TwoColumnLayout rightHeader='right header text' leftHeader='left header text'>
+	<div>
+		<p>Left side stuff</p>
+	</div>
+	<div>
+		<p>Right side stuff</p>
+	</div>
+</TwoColumnLayout>; */}
+
 class TwoColumnLayout extends Component {
 	render() {
 		const { classes } = this.props;
