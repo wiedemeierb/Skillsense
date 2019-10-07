@@ -62,7 +62,6 @@ class JobSearch extends Component {
       }
     });
   };
-
   render() {
     const { classes } = this.props;
 

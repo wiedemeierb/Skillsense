@@ -3,7 +3,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 
 function* fetchAllMentors() {
     try {
-        let response = yield axios.get('/api/mentors')
+        let response = yield axios.get('/api/mentors/all')
         console.log(response)
         yield put({
             type: 'SET_ALL_MENTORS',

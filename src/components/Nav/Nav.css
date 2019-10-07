@@ -2,19 +2,19 @@
     font-size: 24px;
     font-weight: 700;
     display: inline-block;
-    color: #f2f2f2;
-    padding-left: 10px;
+    color: #505d68;
+    /* padding-left: 10px; */
 }
 
 .nav {
   overflow: hidden;
-  background-color: #00acb0;
+  background-color: #c2d1d9;
 }
 
 .nav-link {
   float: left;
-  color: #f2f2f2;
-  background-color: #00acb0;
+  color: #505d68;
+  background-color: #c2d1d9;
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;
@@ -28,9 +28,14 @@
 }
 
 .nav-link:hover {
-  background-color: #008183;
+  background-color: #04b8f3;
+  color: #c2d1d9;
 }
 
 .nav-right {
   float: right;
+}
+
+.logo {
+  margin: 15px;
 }
