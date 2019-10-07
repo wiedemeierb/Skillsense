@@ -18,14 +18,14 @@ const styles = theme => ({
 });
 
 //reusable component for two column layout -- use in this fashion:
-{/* <TwoColumnLayout rightHeader='right header text' leftHeader='left header text'>
+/* <TwoColumnLayout rightHeader='right header text' leftHeader='left header text'>
 	<div>
 		<p>Left side stuff</p>
 	</div>
 	<div>
 		<p>Right side stuff</p>
 	</div>
-</TwoColumnLayout>; */}
+</TwoColumnLayout>; */
 
 class TwoColumnLayout extends Component {
 	render() {
@@ -52,8 +52,8 @@ class TwoColumnLayout extends Component {
 				</Grid>
 				<Grid container item spacing={4} justify='space-around'>
 					{this.props.children &&
-						this.props.children.map(child => (
-							<Grid className={classes.gridItem} item xs={12} sm={5}>
+						this.props.children.map((child, index) => (
+							<Grid key={index} className={classes.gridItem} item xs={12} sm={5}>
 								{child}
 							</Grid>
 						))}

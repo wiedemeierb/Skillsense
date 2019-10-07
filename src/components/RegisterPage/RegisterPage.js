@@ -61,65 +61,80 @@ class RegisterPage extends Component {
 	render() {
 		const { classes } = this.props;
 		return (
-			<TwoColumnLayout leftHeader='What is SkillSense?' rightHeader='Register'>
-				<div>
-					<Typography paragraph>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-						eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-						ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-						aliquip ex ea commodo consequat. Duis aute irure dolor in
-						reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-						pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-						culpa qui officia deserunt mollit anim id est laborum.
-					</Typography>
-				</div>
-				<div>
-					<FormControl className={classes.formControl} required>
-						<Select
-							className={classes.select}
-							value={this.state.accountType}
-							onChange={e => this.handleInputChangeFor('accountType', e)}>
-							<MenuItem value={1}>Student</MenuItem>
-							<MenuItem value={2}>Mentor</MenuItem>
-							<MenuItem value={3}>Client</MenuItem>
-						</Select>
-					</FormControl>
-					<TextField
-						className={classes.formControl}
-						onChange={e => this.handleInputChangeFor('email', e)}
-						value={this.state.email}
-						required
-						label='E-Mail'
-						placeholder='Your e-mail address...'
-					/>
-					<TextField
-						className={classes.formControl}
-						onChange={e => this.handleInputChangeFor('password', e)}
-						value={this.state.password}
-						required
-						type='password'
-						label='Password'
-						placeholder='***'
-					/>
-					<TextField
-						className={classes.formControl}
-						onChange={e => this.handleInputChangeFor('username', e)}
-						value={this.state.username}
-						required
-						label='Name'
-						placeholder='Your Name...'
-					/>
-					<TextField
-						className={classes.formControl}
-						onChange={e => this.handleInputChangeFor('location', e)}
-						value={this.state.location}
-						required
-						label='Location'
-						placeholder='Your location...'
-					/>
-					<Button onClick={this.registerUser}>Register Account</Button>
-				</div>
-			</TwoColumnLayout>
+			<div>
+				{this.props.errors.registrationMessage && (
+					<h2 className='alert' role='alert'>
+						{this.props.errors.registrationMessage}
+					</h2>
+				)}
+				<TwoColumnLayout
+					leftHeader='What is SkillSense?'
+					rightHeader='Register'>
+					<div>
+						<Typography paragraph>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+							enim ad minim veniam, quis nostrud exercitation ullamco laboris
+							nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+							reprehenderit in voluptate velit esse cillum dolore eu fugiat
+							nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+							sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</Typography>
+					</div>
+					<div>
+						<FormControl className={classes.formControl} required>
+							<Select
+								className={classes.select}
+								value={this.state.accountType}
+								onChange={e => this.handleInputChangeFor('accountType', e)}>
+								<MenuItem value={1}>Student</MenuItem>
+								<MenuItem value={2}>Mentor</MenuItem>
+								<MenuItem value={3}>Client</MenuItem>
+							</Select>
+						</FormControl>
+						<TextField
+							className={classes.formControl}
+							onChange={e => this.handleInputChangeFor('email', e)}
+							value={this.state.email}
+							required
+							label='E-Mail'
+							placeholder='Your e-mail address...'
+						/>
+						<TextField
+							className={classes.formControl}
+							onChange={e => this.handleInputChangeFor('password', e)}
+							value={this.state.password}
+							required
+							type='password'
+							label='Password'
+							placeholder='***'
+						/>
+						<TextField
+							className={classes.formControl}
+							onChange={e => this.handleInputChangeFor('username', e)}
+							value={this.state.username}
+							required
+							label='Name'
+							placeholder='Your Name...'
+						/>
+						<TextField
+							className={classes.formControl}
+							onChange={e => this.handleInputChangeFor('location', e)}
+							value={this.state.location}
+							required
+							label='Location'
+							placeholder='Your location...'
+						/>
+						<Button onClick={this.registerUser}>Register New Account</Button>
+						<Button
+							onClick={() => {
+								this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' });
+							}}>
+							Back to Login Page
+						</Button>
+					</div>
+				</TwoColumnLayout>
+			</div>
 		);
 
 		// return (
