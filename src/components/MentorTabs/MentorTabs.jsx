@@ -13,7 +13,7 @@ const styles = {
   }
 };
 
-class JobTabs extends React.Component {
+class MentorTabs extends React.Component {
   state = {
     value: 'active'
   };
@@ -38,16 +38,15 @@ class JobTabs extends React.Component {
           centered
         >
           <Tab label="Active" />
-          <Tab label="Applied" />
-          <Tab label="Completed" />
+          <Tab label="Invites" />
         </Tabs>
       </Paper>
     );
   }
 }
 
-JobTabs.propTypes = {
+MentorTabs.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(JobTabs);
+export default withStyles(styles)(MentorTabs);
