@@ -21,35 +21,40 @@ router.get('/all', (req, res) => {
 
 /** GET (STUDENT: ACTIVE MENTORS) ROUTE **/
 router.get('/active', (req, res) => {
-	const userId = req.user.id;
-	const queryText = `
-	SELECT "username", "focus_skill", "student_mentor".mentor_id FROM "users" 
-	JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id 
-	WHERE "student_id" = 2 AND "accepted" = true;
+  const userId = req.user.id;
+  const queryText = `
+  	SELECT "username", "focus_skill" FROM "users" 
+	JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
+	WHERE "student_mentor".student_id = $1 AND "accepted" = true;
 	`;
-	pool
-		.query(queryText, [userId])
-		.then(result => {
-			res.send(result.rows);
-		})
-		.catch(error => {
-			console.log(error);
-			res.sendStatus(500);
-		});
+  pool
+    .query(queryText, [userId])
+    .then(result => {
+      res.send(result.rows);
+    })
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    });
 });
 
-/** GET (STUDENT: ACTIVE MENTORS) ROUTE **/
+/** GET (STUDENT: INVITED MENTORS) ROUTE **/
 router.get('/invited', (req, res) => {
-	const queryText = `SELECT * FROM "student_mentor";`;
-	pool
-		.query(queryText)
-		.then(result => {
-			res.send(result.rows);
-		})
-		.catch(error => {
-			console.log(error);
-			res.sendStatus(500);
-		});
+  const userId = req.user.id;
+  const queryText = `
+  	SELECT "username", "focus_skill" FROM "users" 
+	JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
+	WHERE "student_mentor".student_id = $1 AND "accepted" = false;
+	`;
+  pool
+    .query(queryText, [userId])
+    .then(result => {
+      res.send(result.rows);
+    })
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    });
 });
 
 /** GET (SEARCH) ROUTE **/
