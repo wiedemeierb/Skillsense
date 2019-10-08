@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
 	root: {
 		display: 'flex',
-		height: '95vh',
+		height: '80vh',
 		alignContent: 'baseline'
 	},
 	gridHeaders: {
@@ -16,7 +16,7 @@ const styles = theme => ({
 		border: '2px solid grey',
 		margin: theme.spacing(1),
 		padding: theme.spacing(1),
-		height: '80vh',
+		height: '70vh',
 		overflow: 'scroll'
 	},
 	paper: {
