@@ -34,7 +34,7 @@ class MentorSearch extends Component {
   state = {
     search: {
       searchTerm: '',
-      skill: 'Select Skill'
+      skill: 0
     },
     mentors: [
       {
@@ -65,6 +65,13 @@ class MentorSearch extends Component {
         ...this.state.search,
         [searchBy]: event.target.value
       }
+    });
+  };
+
+  submitSearch = event => {
+    this.props.dispatch({
+      type: 'FETCH_MENTOR_SEARCH',
+      payload: this.state.search
     });
   };
 
@@ -118,6 +125,7 @@ class MentorSearch extends Component {
                 value={this.state.search.skill}
                 onChange={e => this.handleSearch('skill', e)}
               >
+                <MenuItem value={0}>Select Skill</MenuItem>
                 {/* Skill tag list dropdown options */}
                 {skillList}
               </Select>
@@ -126,6 +134,7 @@ class MentorSearch extends Component {
                 className={classes.button}
                 aria-label="search"
                 color="primary"
+                onClick={this.submitSearch}
               >
                 <SearchIcon />
               </IconButton>

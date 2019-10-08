@@ -29,9 +29,12 @@ import MyMentorships from '../MyMentorships/MyMentorships';
 import {CssBaseline} from '@material-ui/core'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import './App.css';
-import 'typeface-roboto';
+
 
 const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'Ubuntu'
+  },
   palette: {
     primary: {
       main: '#08b8f4'
