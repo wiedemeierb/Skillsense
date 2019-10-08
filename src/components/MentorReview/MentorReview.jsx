@@ -9,7 +9,7 @@ import {
 
 class MentorReview extends Component {
 	componentDidMount = () => {
-		this.props.dispatch({ type: 'FETCH_ALL_MENTORS' });
+		this.props.dispatch({ type: 'FETCH_PENDING_MENTORS' });
 	};
 	render() {
 		const mentorsList =
