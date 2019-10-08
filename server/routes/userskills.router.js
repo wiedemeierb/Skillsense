@@ -19,18 +19,23 @@ router.get('/', (req, res) => {
         })
 })
 
-router.post('/', (req, res) => {
-    console.log('in POST for userSkills', req.body.user, req.body.userSkills[0].id)
-    const userSkillsId = req.body.userSkills[0].id;
-    const user = req.body.user;
-    const queryText = `INSERT INTO "user_tags" (tag_id, user_id) VALUES ($1, $2)`;
-    pool.query(queryText, [userSkillsId, user])
-    .then(() => res.sendStatus(201))
-    .catch((error) => {
-        console.log(error)
-        res.sendStatus(500)
-    })
-})
+router.post('/', async (req, res) => {
+    console.log('in POST for userSkills', req.user.id, req.body.userSkills[0].id)
+    const connection = await pool.connect()
+    try{
+        await connection.query(`BEGIN`);
+        const sqlText = `INSERT INTO "user_tags" (tag_id, user_id) VALUES ($1, $2)`
+        for (let skills of req.body.userSkills){
+            await connection.query(sqlText, [skills.id, req.user.id])
+        }await connection.query(`COMMIT`);
+        res.sendStatus(200);
+    }catch (error) {
+        await connection.query(`ROLLBACK`);
+        console.log(`Transaction Error - Rolling back transfer`, error);
+        res.sendStatus(500);
+    }finally{
+        connection.release()
+    }});
 
 // router.delete('/:id', rejectUnauthenticated, (req, res) => {
 //     // console.log(req.body);

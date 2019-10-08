@@ -23,15 +23,28 @@ const styles = theme => ({
 
 class TransferList extends Component {
 	state = {
-		userSkills: [],
-		user: this.props.user.id,
+		userSkills: this.props.selectedUserSkills,
+		unusedSkills: [],
+		// user: this.props.user.id,
 	};
+
+	// componentDidMount = () => {
+	// 	this.props.dispatch({ type: 'FETCH_USER_SKILLS' });
+	// }
+
+	componentDidUpdate(prevProps) {
+		//if props userSkills updates then setState
+		if(this.props.selectedUserSkills !== prevProps.selectedUserSkills) {
+			//update state
+			this.setState({
+				userSkills: this.props.selectedUserSkills,
+			})
+		}
+	}
+
 
 	saveSkills = () => {
 		// console.log('handleClick saveSkills operations')
-		// this.setState({
-		// 	addedSkill: [],
-		// })
 		this.props.dispatch({
 			type: 'ADD_SKILL',
 			payload: this.state,
@@ -42,9 +55,9 @@ class TransferList extends Component {
 		console.log(skill);
 		this.setState({
 			userSkills: [...this.state.userSkills, skill],
-			unusedSkills: this.props.allSkills.filter(
-				skill => !this.state.userSkills.includes(skill)
-			)
+			// unusedSkills: this.props.allSkills.filter(
+			// 	skill => !this.state.userSkills.includes(skill)
+			// )
 		});
 	};
 
@@ -54,19 +67,33 @@ class TransferList extends Component {
 			userSkills: this.state.userSkills.filter(
 				skill => skill !== skillToRemove
 			),
-			unusedSkills: this.props.allSkills.filter(
-				skill => !this.state.userSkills.includes(skill)
-			)
+			// unusedSkills: this.props.allSkills.filter(
+			// 	skill => !this.state.userSkills.includes(skill)
+			// )
 		});
 	};
 
 	render() {
-		console.log(this.state)
+		console.log('UserSkills', this.state.userSkills)
 		const { classes } = this.props;
 		const allSkillsHtml =
 			this.props.allSkills &&
 			this.props.allSkills
-				.filter(skill => !this.state.userSkills.includes(skill))
+				.filter(skill =>
+					// !this.state.userSkills.includes(skill))
+					this.state.userSkills.map((userSkill)=> {
+						if (skill.id === userSkill.tag_id){
+							return false
+						}
+						else{
+							return true
+						}
+					}))
+					//loop over userSkills to get each skill the user has
+					//if skill.id is found inside userSkills[x].tag_id return false
+					//else return true
+					// return !this.state.userSkills.includes(skill)
+				
 				.map(skill => (
 					<ListItem
 						key={skill.id}
@@ -75,7 +102,7 @@ class TransferList extends Component {
 						onClick={() => this.addSkill(skill)}>
 						<ListItemText primary={skill.tag} />
 					</ListItem>
-				));
+				))
 		const userSkills =
 			this.state.userSkills &&
 			this.state.userSkills.map(skill => (
@@ -123,5 +150,11 @@ class TransferList extends Component {
 	}
 }
 
-export default connect()(withStyles(styles)(TransferList));
+const mapStateToProps = state => ({
+	// user: state.user,
+	allSkills: state.allSkillsReducer,
+	selectedUserSkills: state.userSkillsReducer,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(TransferList));
 
