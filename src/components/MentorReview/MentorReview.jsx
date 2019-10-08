@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { List, Button } from '@material-ui/core';
+import { List, Button, Typography, Divider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import UserListItem from '../UserListItem/UserListItem';
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
@@ -13,6 +13,14 @@ const styles = theme => ({
 		width: '100%'
 		// margin: 'auto',
 		// marginTop: '5%'
+	},
+	buttonContainer: {
+		display: 'flex',
+		justifyContent: 'space-between'
+	},
+	button: {
+		margin: theme.spacing(1),
+		padding: theme.spacing(1)
 	}
 });
 
@@ -31,9 +39,13 @@ class MentorReview extends Component {
 			<TwoColumnLayout leftHeader='Pending Mentors' rightHeader='Details'>
 				<List>{mentorsList}</List>
 				<div>
-					<PublicProfile/>
-					<Button>Approve</Button>
-					<Button>Decline</Button>
+					<PublicProfile />
+					<Divider />
+					<Typography variant='subtitle1'>Admin Review Actions:</Typography>
+					<div className={classes.buttonContainer}>
+						<Button className={classes.button}>Decline</Button>
+						<Button className={classes.button}>Approve</Button>
+					</div>
 				</div>
 			</TwoColumnLayout>
 		);

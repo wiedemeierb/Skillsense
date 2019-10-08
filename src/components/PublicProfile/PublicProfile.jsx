@@ -23,7 +23,7 @@ function PublicProfile() {
 		github_url: null,
 		id: 7,
 		linkedin_url: null,
-		location: 'St. Paul',
+		location: 'St. Paul, MN',
 		mentor_status: 'Pending Approval',
 		skill_ids: [1, 4, 19, 10],
 		skill_names: [
@@ -42,7 +42,7 @@ function PublicProfile() {
 	return (
 		<Grid container spacing={4} justify='space-around'>
 			<Grid item xs={12}>
-				<Typography variant='h3' align='center'>
+				<Typography variant='h4' align='center'>
 					{selectedUser.username}
 				</Typography>
 			</Grid>
@@ -51,7 +51,7 @@ function PublicProfile() {
 					{selectedUser.focus_skill}
 				</Typography>
 				<Typography variant='h6' align='left'>
-					{selectedUser.location}
+					Location: {selectedUser.location}
 				</Typography>
 			</Grid>
 			<Grid item xs={12}>
