@@ -38,7 +38,7 @@ class MentorReview extends Component {
 		return (
 			<TwoColumnLayout leftHeader='Pending Mentors' rightHeader='Details'>
 				<List>{mentorsList}</List>
-				<div>
+				{this.props.selectedUser.id ? (<div>
 					<PublicProfile />
 					<Divider />
 					<Typography variant='subtitle1'>Admin Review Actions:</Typography>
@@ -46,13 +46,14 @@ class MentorReview extends Component {
 						<Button className={classes.button}>Decline</Button>
 						<Button className={classes.button}>Approve</Button>
 					</div>
-				</div>
+				</div>) : (<div><Typography variant="h6">Select any user for more information.</Typography></div>)}
 			</TwoColumnLayout>
 		);
 	}
 }
 
 const mapStateToProps = reduxStore => ({
-	pendingMentors: reduxStore.pendingMentorsReducer
+	pendingMentors: reduxStore.pendingMentorsReducer,
+	selectedUser: reduxStore.selectedUserReducer
 });
 export default connect(mapStateToProps)(withStyles(styles)(MentorReview));
