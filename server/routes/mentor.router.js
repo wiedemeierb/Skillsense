@@ -23,6 +23,7 @@ router.get('/pending', (req, res) => {
 	//query to get all mentors in system with pending status
 	const queryText = `
 	SELECT
+		users.id,
 		users.username,
 		users.email,
 		users.location,
@@ -40,25 +41,26 @@ router.get('/pending', (req, res) => {
 		array_agg(skill_tags.tag) as skill_names
 	FROM
 		users
-	JOIN
+	LEFT JOIN
 		user_type
 			ON
 		user_type.id = users.access_id
-	JOIN
+	LEFT JOIN
 		mentor_status
 			ON
 		users.approved_mentor = mentor_status.id
-	JOIN
+	LEFT JOIN
 		user_tags
 			ON
 		user_tags.user_id = users.id
-	JOIN
+	LEFT JOIN
 		skill_tags
 			ON
 		skill_tags.id = user_tags.tag_id
 	WHERE
 		user_type.user_type ILIKE 'Mentor' AND mentor_status.id = 2
 	GROUP BY
+		users.id,
 		users.username,
 		users.email,
 		users.location,

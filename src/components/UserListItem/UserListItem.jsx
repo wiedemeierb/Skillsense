@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { Paper, Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import SkillList from '../SkillList/SkillList';
+import SkillListItem from '../SkillListItem/SkillListItem';
 
 const styles = theme => ({
 	root: {
@@ -9,14 +12,14 @@ const styles = theme => ({
 	listItem: {
 		display: 'inline-flex',
 		justifyContent: 'space-between',
-		width: '100%',
+		// width: '',
 		padding: '20px 20px 10px',
 		borderBottom: '1px solid gray'
 	},
 	skillTag: {
 		display: 'inline-block',
-		margin: '5px',
-		padding: ' 5px 10px',
+		margin: '2px',
+		padding: '2px',
 		color: 'white',
 		backgroundColor: 'black'
 	}
@@ -24,25 +27,27 @@ const styles = theme => ({
 
 class UserListItem extends Component {
 	render() {
-		const {classes} = this.props;
+		const { classes } = this.props;
 		return (
-			<div className={classes.listItem}>
-				<div>
-					{/* left side info */}
-					<h2>{this.props.user.username}</h2>
-					<h4>{this.props.user.focus_skill}</h4>
-				</div>
+			<Grid
+				container
+				spacing={2}
+				direction='row'
+				justify='space-between'
+				align='top'
+				className={classes.listItem}>
+				{/* left side info */}
+				<Grid item xs={5}>
+					<Typography variant='h5'>{this.props.user.username}</Typography>
+					<Typography variant='h6'>{this.props.user.focus_skill}</Typography>
+				</Grid>
 				{/* right side info */}
-				<div>
-					{this.props.user.skill_names && this.props.user.skill_names.map((skill, i) => {
-						return (
-							<h4 key={i} className={classes.skillTag}>
-								{skill}
-							</h4>
-						);
-					})}
-				</div>
-			</div>
+				<Grid item xs={7}>
+					{this.props.user.skill_names && (
+						<SkillList skillList={this.props.user.skill_names} />
+					)}
+				</Grid>
+			</Grid>
 		);
 	}
 }
