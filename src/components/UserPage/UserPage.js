@@ -10,22 +10,26 @@ import TransferList from '../TransferList/TransferList';
 
 class UserPage extends Component {
   state = {
-    username: 'Brandon',
-    email: 'brandon@brandon.com',
-    location: 'Minneapolis',
-    focus_skill: 'Full Stack Engineer',
-    github_url: 'https://github.com/wiedemeierb',
-    linkedin_url: 'https://www.linkedin.com/in/brandonwiedemeier/',
-    website_url: 'https://google.com',
+    username: this.props.user.username,
+    email: this.props.user.email,
+    location: this.props.user.location,
+    focus_skill: this.props.user.focus_skill,
+    github_url: this.props.user.github_url,
+    linkedin_url: this.props.user.linkedin_url,
+    website_url: this.props.user.website_url,
     access_id: '1',
     active: true,
     approved_mentor: false,
   }
 
+
   componentDidMount = () => {
-    this.props.dispatch({type: 'FETCH_ALL_SKILLS'})
+    this.props.dispatch({type: 'FETCH_ALL_SKILLS'});
+    this.props.dispatch({type: 'FETCH_USER_SKILLS'});
   }
   render() {
+    // console.log('this is stat right now', this.props.user)
+    // console.log('this is skills selected right now', this.props.skills)
     return (
 
   <div>
