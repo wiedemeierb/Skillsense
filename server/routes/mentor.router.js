@@ -60,12 +60,12 @@ router.patch(`/admin/:id`, rejectUnauthenticated, (req, res) => {
 			console.log('error updating mentor status: ', error);
 			res.sendStatus(500);
 		});
-}
+})
 
 /** GET (SEARCH) ROUTE **/
 router.get('/:searchTerm', (req, res) => {
   const searchTerm = req.params.searchTerm + '%';
-  const queryText = `SELECT * FROM "users" 
+  const queryText = `SELECT * FROM "users"
     WHERE "access_id" = 3 AND "username" LIKE $1;`;
   pool
     .query(queryText, [searchTerm])
@@ -76,6 +76,6 @@ router.get('/:searchTerm', (req, res) => {
       console.log(error);
       res.sendStatus(500);
     });
-});
+})
 
 module.exports = router;
