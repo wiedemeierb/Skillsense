@@ -14,6 +14,20 @@ function* fetchAllJobs() {
   }
 }
 
+function* fetchJobSearch(action) {
+  let searchTerm = action.payload.searchTerm;
+  try {
+    let response = yield axios.get(`/api/jobs/${searchTerm}`);
+    console.log(response);
+    yield put({
+      type: 'SET_ALL_JOBS',
+      payload: response.data
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function* fetchActiveJobs() {
   try {
     let response = yield axios.get('/api/jobs/active');
@@ -55,6 +69,7 @@ function* fetchCompletedJobs() {
 
 function* jobSaga() {
   yield takeEvery('FETCH_ALL_JOBS', fetchAllJobs);
+  yield takeEvery('FETCH_JOB_SEARCH', fetchJobSearch);
   yield takeEvery('FETCH_ACTIVE_JOBS', fetchActiveJobs);
   yield takeEvery('FETCH_APPLIED_JOBS', fetchAppliedJobs);
   yield takeEvery('FETCH_COMPLETED_JOBS', fetchCompletedJobs);
