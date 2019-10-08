@@ -2,10 +2,10 @@
 
 CREATE TABLE "user_type" (
   "id" serial primary key,
-  "access" TEXT NOT NULL UNIQUE
+  "user_type" TEXT NOT NULL UNIQUE
 );
 
-CREATE TABLE "tags" (
+CREATE TABLE "skill_tags" (
   "id" serial PRIMARY KEY,
   "tag" TEXT NOT NULL
 );
@@ -13,13 +13,13 @@ CREATE TABLE "tags" (
 
 CREATE TABLE "mentor_status" (
   "id" serial PRIMARY KEY,
-  "status" VARCHAR(510) NOT NULL
+  "mentor_status" VARCHAR(510) NOT NULL
 );
 
 
 CREATE TABLE "job_status" (
   "id" serial PRIMARY KEY,
-  "status" TEXT NOT NULL UNIQUE
+  "job_status" TEXT NOT NULL UNIQUE
 );
 
 -- USER is a reserved keyword with Postgres
@@ -34,6 +34,7 @@ CREATE TABLE "users" (
   "password" TEXT NOT NULL,
   "location" VARCHAR(510),
   "focus_skill" VARCHAR(510),
+  "bio" TEXT,
   "github_url" VARCHAR(510),
   "linkedin_url" VARCHAR(510),
   "website_url" VARCHAR(510),
@@ -61,7 +62,7 @@ CREATE TABLE "jobs" (
   "project_title" TEXT NOT NULL,
   "position_title" VARCHAR(510) NOT NULL,
   "description" TEXT NOT NULL,
-  "due_date" DATE NOT NULL,
+  "duration" TEXT NOT NULL,
   "budget" integer NOT NULL,
   "mentor_required" BOOLEAN default TRUE,
   "status_id" integer NOT NULL references "job_status",
@@ -102,7 +103,6 @@ INSERT INTO "job_status" ("status") VALUES ('Open'),('Offer Extended'),('I
 INSERT INTO "mentor_status" ("status") VALUES ('Not Submitted'),('Pending Approval'),('Approved'),('N/A');
 
 INSERT INTO "tags" ("tag") VALUES ('Adobe Photoshop'),('Adobe Illustrator'),('Adobe XD'),('Sketch'),('Responsive Web Design'),('UI/UX Design'),('Frontend Development'),('Backend Development'),('Full Stack Development'),('Mobile App Development'),('NoSQL'),('SQL'),('MySQL'),('.NET'),('C#'),('Java'),('JavaScript'),('TypeScript'),('Webpack'),('React'),('Angular'),('HTML5'),('CSS'),('LESS'),('SASS'),('Wordpress'),('PHP'),('QA/Testing');
-
 
 INSERT INTO "user_type" ("access") VALUES ('Student'),('Mentor'),('Client'),('Admin');
 
