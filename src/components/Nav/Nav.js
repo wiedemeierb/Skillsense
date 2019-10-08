@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
-import skillSenseLogo from '../../skillSenseLogo.svg';
+import { ReactComponent as SkillSenseLogo } from '../../skillSenseLogo.svg';
 
 const Nav = (props) => (
   <div className="nav">
     <Link to="/home">
-      {/* <h2 className="nav-title">Prime Solo Project</h2> */}
-      <img alt="skill-sense logo" className="logo" src={skillSenseLogo}/>
+      <SkillSenseLogo alt="skill-sense logo" className="logo"/>
     </Link>
     <div className="nav-right">
       <Link className="nav-link" to="/home">
