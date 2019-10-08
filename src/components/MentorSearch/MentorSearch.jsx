@@ -69,8 +69,16 @@ class MentorSearch extends Component {
 		});
 	};
 
-	render() {
-		const { classes } = this.props;
+
+  submitSearch = event => {
+    this.props.dispatch({
+      type: 'FETCH_MENTOR_SEARCH',
+      payload: this.state.search
+    });
+  };
+
+  render() {
+    const { classes } = this.props;
 
 		let mentorList = this.state.mentors.map((mentor, i) => {
 			return <UserListItem key={i} user={mentor} />;
@@ -96,23 +104,28 @@ class MentorSearch extends Component {
 								label='Search Mentors'
 							/>
 
-							<Select
-								className={classes.select}
-								value={this.state.search.skill}
-								onChange={e => this.handleSearch('skill', e)}>
-								{/* Skill tag list dropdown options */}
-								{skillList}
-							</Select>
 
-							<IconButton
-								className={classes.button}
-								aria-label='search'
-								color='primary'>
-								<SearchIcon />
-							</IconButton>
-						</FormGroup>
-					</FormControl>
-				</Paper>
+              <Select
+                className={classes.select}
+                value={this.state.search.skill}
+                onChange={e => this.handleSearch('skill', e)}
+              >
+                <MenuItem value={0}>Select Skill</MenuItem>
+                {/* Skill tag list dropdown options */}
+                {skillList}
+              </Select>
+
+              <IconButton
+                className={classes.button}
+                aria-label="search"
+                color="primary"
+                onClick={this.submitSearch}
+              >
+                <SearchIcon />
+              </IconButton>
+            </FormGroup>
+          </FormControl>
+        </Paper>
 
 				{/* Mentor Search List */}
 				<div className='list'>{mentorList}</div>

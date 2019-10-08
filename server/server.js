@@ -13,6 +13,7 @@ const jobRouter = require('./routes/job.router');
 const mentorRouter = require('./routes/mentor.router');
 const messageRouter = require('./routes/message.router');
 const skillRouter = require('./routes/skill.router');
+const userSkillsRouter = require('./routes/userskills.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -31,6 +32,7 @@ app.use('/api/jobs', jobRouter);
 app.use('/api/mentors', mentorRouter);
 app.use('/api/messages', messageRouter);
 app.use('/api/skills', skillRouter);
+app.use('/api/userskills', userSkillsRouter)
 
 // Serve static files
 app.use(express.static('build'));

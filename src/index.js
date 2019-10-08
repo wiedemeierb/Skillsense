@@ -10,19 +10,6 @@ import rootSaga from './redux/sagas'; // imports ./redux/sagas/index.js
 
 import App from './components/App/App';
 
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
-
-const theme = createMuiTheme({
-	typography: {
-		fontFamily: ['Ubuntu']
-	},
-	palette: {
-		primary: { main: '#505d68' },
-		secondary: { main: '#04b8f3' }
-	}
-});
-
 const sagaMiddleware = createSagaMiddleware();
 
 // this line creates an array of all of redux middleware you want to use
@@ -47,9 +34,7 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
 	<Provider store={store}>
-		<ThemeProvider theme={theme}>
 			<App />
-		</ThemeProvider>
 	</Provider>,
 	document.getElementById('react-root')
 );
