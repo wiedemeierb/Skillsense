@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 });
 
 /** GET (SEARCH) ROUTE **/
-router.get('/:searchTerm', (req, res) => {
+router.get('/search/:searchTerm', (req, res) => {
   const searchTerm = req.params.searchTerm + '%';
   const queryText = `SELECT * FROM "jobs" WHERE "project_title" LIKE $1;`;
   pool
@@ -34,10 +34,17 @@ router.get('/:searchTerm', (req, res) => {
 /** GET (ACTIVE JOBS) ROUTE **/
 router.get('/active', (req, res) => {
   const userId = req.user.id;
-  const queryText = `SELECT * FROM "jobs" WHERE "status_id" = 3 AND "student_id" = $1;`;
+  const queryText = `
+    SELECT "project_title", "position_title", "users".username AS "client" 
+    FROM "jobs" JOIN "job_applicants" ON "job_applicants".job_id = "jobs".id 
+    JOIN "users" ON "users".id = "jobs".client_id WHERE "status_id" = 3 AND 
+    "job_applicants".student_id = $1;
+  `;
+
   pool
     .query(queryText, [userId])
     .then(result => {
+      '';
       res.send(result.rows);
     })
     .catch(error => {
@@ -49,7 +56,12 @@ router.get('/active', (req, res) => {
 /** GET (APPLIED JOBS) ROUTE **/
 router.get('/applied', (req, res) => {
   const userId = req.user.id;
-  const queryText = `SELECT * FROM "jobs" WHERE "status_id" = 3 AND "student_id" = $1;`;
+  const queryText = `
+    SELECT "project_title", "position_title", "users".username AS "client" 
+    FROM "jobs" JOIN "job_applicants" ON "job_applicants".job_id = "jobs".id 
+    JOIN "users" ON "users".id = "jobs".client_id WHERE "status_id" = 1 AND 
+    "job_applicants".student_id = $1;
+  `;
   pool
     .query(queryText, [userId])
     .then(result => {
@@ -64,7 +76,13 @@ router.get('/applied', (req, res) => {
 /** GET (COMPLETED JOBS) ROUTE **/
 router.get('/completed', (req, res) => {
   const userId = req.user.id;
-  const queryText = `SELECT * FROM "jobs" WHERE "status_id" = 4 AND "student_id" = $1;`;
+  const queryText = `
+    SELECT "project_title", "position_title", "users".username AS "client" 
+    FROM "jobs" JOIN "job_applicants" ON "job_applicants".job_id = "jobs".id 
+    JOIN "users" ON "users".id = "jobs".client_id WHERE "status_id" = 4 AND 
+    "job_applicants".student_id = $1;
+  `;
+
   pool
     .query(queryText, [userId])
     .then(result => {
