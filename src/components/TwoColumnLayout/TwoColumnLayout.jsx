@@ -4,7 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
 	root: {
-		display: 'flex'
+		display: 'flex',
+		height: '95vh',
+		alignContent: 'baseline'
 	},
 	gridHeaders: {
 		padding: theme.spacing(1),
@@ -13,7 +15,9 @@ const styles = theme => ({
 	gridItem: {
 		border: '2px solid grey',
 		margin: theme.spacing(1),
-		padding: theme.spacing(1)
+		padding: theme.spacing(1),
+		height: '80vh',
+		overflow: 'scroll'
 	},
 	paper: {
 		// width: 'fill'
@@ -34,12 +38,17 @@ class TwoColumnLayout extends Component {
 	render() {
 		const { classes } = this.props;
 		return (
-			<Grid container spacing={2} className={classes.root}>
+			<Grid
+				container
+				spacing={2}
+				className={classes.root}
+				justify='space-around'
+				alignContent='baseline'>
 				<Grid
 					container
 					justify='space-around'
-					align='center'
-					spacing={4}
+					align='top'
+					// spacing={4}
 					item
 					className={classes.gridHeaders}>
 					<Grid item xs={5}>

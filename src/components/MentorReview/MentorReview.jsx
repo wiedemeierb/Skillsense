@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { List, ListItem, ListItemText, Paper } from '@material-ui/core';
+import { List, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import UserListItem from '../UserListItem/UserListItem';
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
@@ -27,9 +27,13 @@ class MentorReview extends Component {
 				<UserListItem key={mentor.id} user={mentor} />
 			));
 		return (
-			<TwoColumnLayout leftHeader='Pending Mentors' rightHeader=''>
+			<TwoColumnLayout leftHeader='Pending Mentors' rightHeader='Details'>
 				<List>{mentorsList}</List>
-				<div></div>
+				<div>
+					{/* User Details to go heree */}
+					<Button>Approve</Button>
+					<Button>Decline</Button>
+				</div>
 			</TwoColumnLayout>
 		);
 	}
