@@ -6,7 +6,7 @@ const styles = theme => ({
 	root: {
 		display: 'flex',
 		height: '80vh',
-		alignContent: 'baseline'
+		alignContent: 'flex-start'
 	},
 	gridHeaders: {
 		padding: theme.spacing(1),
@@ -19,9 +19,6 @@ const styles = theme => ({
 		height: '70vh',
 		overflow: 'scroll'
 	},
-	paper: {
-		// width: 'fill'
-	}
 });
 
 //reusable component for two column layout -- use in this fashion:
@@ -42,13 +39,11 @@ class TwoColumnLayout extends Component {
 				container
 				spacing={2}
 				className={classes.root}
-				justify='space-around'
-				alignContent='baseline'>
+				justify='space-around'>
 				<Grid
 					container
 					justify='space-around'
 					align='top'
-					// spacing={4}
 					item
 					className={classes.gridHeaders}>
 					<Grid item xs={5}>
@@ -73,7 +68,6 @@ class TwoColumnLayout extends Component {
 								xs={12}
 								sm={5}>
 								{child}
-								{/* <Paper className={classes.paper}>{child}</Paper> */}
 							</Grid>
 						))}
 				</Grid>
