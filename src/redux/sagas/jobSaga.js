@@ -67,12 +67,24 @@ function* fetchCompletedJobs() {
   }
 }
 
+function* postJob (action){
+  try {
+    yield axios.post('api/jobs/new', action.payload);
+    yield put({
+      type: 'FETCH_ALL_JOBS'
+    })
+  } catch (error){
+    console.log(error);
+  }
+}
+
 function* jobSaga() {
   yield takeEvery('FETCH_ALL_JOBS', fetchAllJobs);
   yield takeEvery('FETCH_JOB_SEARCH', fetchJobSearch);
   yield takeEvery('FETCH_ACTIVE_JOBS', fetchActiveJobs);
   yield takeEvery('FETCH_APPLIED_JOBS', fetchAppliedJobs);
   yield takeEvery('FETCH_COMPLETED_JOBS', fetchCompletedJobs);
+  yield takeEvery('POST_JOB', postJob);
 }
 
 export default jobSaga;

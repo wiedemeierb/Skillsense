@@ -1,6 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="255" height="32" viewBox="0 0 255 32">
   <defs>
     <style>
+    @import url(’https://fonts.googleapis.com/css?family=Ubuntu&display');
+    
       .cls-1 {
         font-size: 35.201px;
         text-anchor: middle;

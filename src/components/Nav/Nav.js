@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
-import skillSenseLogo from '../../skillSenseLogo.svg';
+import { ReactComponent as SkillSenseLogo } from '../../skillSenseLogo.svg';
 
 const Nav = (props) => (
   <div className="nav">
     <Link to="/home">
-      {/* <h2 className="nav-title">Prime Solo Project</h2> */}
-      <img alt="skill-sense logo" className="logo" src={skillSenseLogo}/>
+      <SkillSenseLogo alt="skill-sense logo" className="logo"/>
     </Link>
     <div className="nav-right">
       <Link className="nav-link" to="/home">
@@ -24,15 +23,15 @@ const Nav = (props) => (
         About
       </Link> */}
 
-      {props.user.access_id === 1 || props.user.access_id === 2 && <Link className="nav-link" to="/mentors">
+      {props.user.access_id === 1 || props.user.access_id === 2 ? <Link className="nav-link" to="/mentors">
         My Mentorships
-      </Link>}
+      </Link> : null}
       {props.user.access_id === 1 && <Link className="nav-link" to="/search/mentors">
         Mentor Search
           </Link>}
-      {props.user.access_id === 1 || props.user.access_id === 3 && <Link className="nav-link" to="/jobs">
+      {props.user.access_id === 1 || props.user.access_id === 3 ? <Link className="nav-link" to="/jobs">
         My Jobs
-          </Link>}
+          </Link> : null}
       {props.user.access_id === 1 && <Link className="nav-link" to="/search/jobs">
         Job Search
       </Link>}
