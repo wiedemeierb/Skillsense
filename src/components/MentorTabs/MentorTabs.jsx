@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 //MATERIAL-UI IMPORTS
@@ -19,10 +20,20 @@ class MentorTabs extends React.Component {
   };
 
   handleChange = (event, value) => {
-    this.setState({ value });
-    this.props.dispatch({
-      type: 'SET_ALL_JOBS'
+    this.setState({
+      value
     });
+
+    if (value === 0) {
+      this.props.dispatch({
+        type: 'FETCH_ACTIVE_MENTORS'
+      });
+    }
+    if (value === 1) {
+      this.props.dispatch({
+        type: 'FETCH_INVITED_MENTORS'
+      });
+    }
   };
 
   render() {
@@ -49,4 +60,4 @@ MentorTabs.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(MentorTabs);
+export default connect()(withStyles(styles)(MentorTabs));

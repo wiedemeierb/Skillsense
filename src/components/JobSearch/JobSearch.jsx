@@ -66,6 +66,13 @@ class JobSearch extends Component {
     });
   };
 
+  submitSearch = event => {
+    this.props.dispatch({
+      type: 'FETCH_JOB_SEARCH',
+      payload: this.state.search
+    });
+  };
+
   render() {
     const { classes } = this.props;
 
@@ -124,6 +131,7 @@ class JobSearch extends Component {
                 className={classes.button}
                 aria-label="search"
                 color="primary"
+                onClick={this.submitSearch}
               >
                 <SearchIcon />
               </IconButton>
