@@ -1,12 +1,45 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const {
-	rejectUnauthenticated
+  rejectUnauthenticated
 } = require('../modules/authentication-middleware');
 const router = express.Router();
 
 /** GET (ALL) ROUTE **/
 router.get('/all', (req, res) => {
+  const queryText = `SELECT * FROM "student_mentor";`;
+  pool
+    .query(queryText)
+    .then(result => {
+      res.send(result.rows);
+    })
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+});
+
+/** GET (STUDENT: ACTIVE MENTORS) ROUTE **/
+router.get('/active', (req, res) => {
+	const userId = req.user.id;
+	const queryText = `
+	SELECT "username", "focus_skill", "student_mentor".mentor_id FROM "users" 
+	JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id 
+	WHERE "student_id" = 2 AND "accepted" = true;
+	`;
+	pool
+		.query(queryText, [userId])
+		.then(result => {
+			res.send(result.rows);
+		})
+		.catch(error => {
+			console.log(error);
+			res.sendStatus(500);
+		});
+});
+
+/** GET (STUDENT: ACTIVE MENTORS) ROUTE **/
+router.get('/invited', (req, res) => {
 	const queryText = `SELECT * FROM "student_mentor";`;
 	pool
 		.query(queryText)
@@ -19,9 +52,26 @@ router.get('/all', (req, res) => {
 		});
 });
 
+/** GET (SEARCH) ROUTE **/
+router.get('/search/:searchTerm', (req, res) => {
+  const searchTerm = req.params.searchTerm + '%';
+  const queryText = `SELECT * FROM "users"
+    WHERE "access_id" = 3 AND "username" LIKE $1;`;
+  pool
+    .query(queryText, [searchTerm])
+    .then(result => {
+      res.send(result.rows);
+    })
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+});
+
+/** GET (MENTORS PENDING ADMIN APPROVAL) ROUTE **/
 router.get('/pending', (req, res) => {
-	//query to get all mentors in system with pending status
-	const queryText = `
+  //query to get all mentors in system with pending status
+  const queryText = `
 	SELECT
 		users.id,
 		users.username,
@@ -75,51 +125,35 @@ router.get('/pending', (req, res) => {
 		user_type.user_type,
 		mentor_status.mentor_status;`;
 
-	pool
-		.query(queryText)
-		.then(result => {
-			console.log('successful GET of mentors pending approval: ', result);
-			res.send(result.rows);
-		})
-		.catch(error => {
-			console.log('error on GET of mentors pending approval: ', error);
-			res.sendStatus(500);
-		});
+  pool
+    .query(queryText)
+    .then(result => {
+      console.log('successful GET of mentors pending approval: ', result);
+      res.send(result.rows);
+    })
+    .catch(error => {
+      console.log('error on GET of mentors pending approval: ', error);
+      res.sendStatus(500);
+    });
 });
 
+/** PATCH (ADMIN: UPDATE MENTOR APPROVAL STATUS) ROUTE **/
 router.patch(`/admin/:id`, rejectUnauthenticated, (req, res) => {
-	//patch route to update mentor approval status
-	//expects a req.body with {newStatus: #}
-	console.log(req.user);
-	const queryText = `UPDATE users SET approved_mentor = $1  WHERE users.id = $2`;
-	const values = [req.params.id, req.body.newStatus];
+  //expects a req.body with {newStatus: #}
+  console.log(req.user);
+  const queryText = `UPDATE users SET approved_mentor = $1  WHERE users.id = $2`;
+  const values = [req.params.id, req.body.newStatus];
 
-	pool
-		.query(queryText, values)
-		.then(result => {
-			console.log('successful update of mentor status');
-			res.sendStatus(200);
-		})
-		.catch(error => {
-			console.log('error updating mentor status: ', error);
-			res.sendStatus(500);
-		});
-});
-
-/** GET (SEARCH) ROUTE **/
-router.get('/:searchTerm', (req, res) => {
-	const searchTerm = req.params.searchTerm + '%';
-	const queryText = `SELECT * FROM "users"
-    WHERE "access_id" = 3 AND "username" LIKE $1;`;
-	pool
-		.query(queryText, [searchTerm])
-		.then(result => {
-			res.send(result.rows);
-		})
-		.catch(error => {
-			console.log(error);
-			res.sendStatus(500);
-		});
+  pool
+    .query(queryText, values)
+    .then(result => {
+      console.log('successful update of mentor status');
+      res.sendStatus(200);
+    })
+    .catch(error => {
+      console.log('error updating mentor status: ', error);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;

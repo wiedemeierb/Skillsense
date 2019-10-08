@@ -5,21 +5,6 @@ import { connect } from 'react-redux';
 import JobTabs from '../JobsTabs/JobTabs';
 
 class MyJobs extends Component {
-  state = {
-    jobs: [
-      {
-        project: 'Ecommerce Website',
-        client: 'Wall Street',
-        mentor: 'Mr. Monopoly'
-      },
-      {
-        project: 'Video Game Project',
-        client: 'Mario & Luigi',
-        mentor: 'Yoshi'
-      }
-    ]
-  };
-
   componentDidMount() {
     this.props.dispatch({
       type: 'FETCH_ACTIVE_JOBS'
