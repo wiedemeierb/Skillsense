@@ -41,12 +41,12 @@ class MentorSearch extends Component {
 			{
 				username: 'Mr. Miyagi',
 				focus_skill: 'Full Stack Development',
-				skills: ['JavaScript', 'React', 'CSS', 'HTML']
+				skills: ['JavaScript', 'CSS', 'HTML']
 			},
 			{
 				username: 'Yoda',
 				focus_skill: 'UI/UX Design',
-				skills: ['JavaScript', 'React', 'CSS', 'HTML']
+				skills: ['JavaScript', 'React', 'HTML']
 			}
 		]
 	};
