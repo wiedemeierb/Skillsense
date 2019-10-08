@@ -7,17 +7,17 @@ import {
 	Paper,
 } from '@material-ui/core';
 
+import UserListItem from '../UserListItem/UserListItem'
+
 class MentorReview extends Component {
 	componentDidMount = () => {
-		this.props.dispatch({ type: 'FETCH_ALL_MENTORS' });
+		this.props.dispatch({ type: 'FETCH_PENDING_MENTORS' });
 	};
 	render() {
 		const mentorsList =
-			this.props.allMentors &&
-			this.props.allMentors.map(mentor => (
-				<ListItem key={mentor.id}>
-					<ListItemText>{mentor.username}<br />{mentor.email}</ListItemText>
-				</ListItem>
+			this.props.pendingMentors &&
+			this.props.pendingMentors.map((mentor) => (
+				<UserListItem key={mentor.id} user={mentor} />
 			));
 		return (
 			<Paper>
@@ -28,6 +28,6 @@ class MentorReview extends Component {
 }
 
 const mapStateToProps = reduxStore => ({
-	allMentors: reduxStore.allMentorsReducer
+	pendingMentors: reduxStore.pendingMentorsReducer
 });
 export default connect(mapStateToProps)(MentorReview);

@@ -34,7 +34,7 @@ class UserListItem extends Component {
 				</div>
 				{/* right side info */}
 				<div>
-					{this.props.user.skills.map((skill, i) => {
+					{this.props.user.skill_names && this.props.user.skill_names.map((skill, i) => {
 						return (
 							<h4 key={i} className={classes.skillTag}>
 								{skill}
