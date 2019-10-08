@@ -22,14 +22,56 @@ router.get('/all', (req, res) => {
 router.get('/pending', (req, res) => {
 	//query to get all mentors in system with pending status
 	const queryText = `
-		SELECT * from "users"
-			JOIN user_type
-			ON user_type.id = users.access_id
-			WHERE
-				(user_type.access ILIKE 'Mentor')
-			AND
-				(users.approved_mentor = 2)
-				;`;
+	SELECT
+		users.username,
+		users.email,
+		users.location,
+		users.focus_skill,
+		users.bio,
+		users.github_url,
+		users.linkedin_url,
+		users.website_url,
+		users.access_id,
+		users.active,
+		users.approved_mentor,
+		user_type.user_type,
+		mentor_status.mentor_status,
+		array_agg(skill_tags.id) as skill_ids,
+		array_agg(skill_tags.tag) as skill_names
+	FROM
+		users
+	JOIN
+		user_type
+			ON
+		user_type.id = users.access_id
+	JOIN
+		mentor_status
+			ON
+		users.approved_mentor = mentor_status.id
+	JOIN
+		user_tags
+			ON
+		user_tags.user_id = users.id
+	JOIN
+		skill_tags
+			ON
+		skill_tags.id = user_tags.tag_id
+	WHERE
+		user_type.user_type ILIKE 'Mentor' AND mentor_status.id = 2
+	GROUP BY
+		users.username,
+		users.email,
+		users.location,
+		users.focus_skill,
+		users.bio,
+		users.github_url,
+		users.linkedin_url,
+		users.website_url,
+		users.access_id,
+		users.active,
+		users.approved_mentor,
+		user_type.user_type,
+		mentor_status.mentor_status;`;
 
 	pool
 		.query(queryText)
@@ -60,22 +102,22 @@ router.patch(`/admin/:id`, rejectUnauthenticated, (req, res) => {
 			console.log('error updating mentor status: ', error);
 			res.sendStatus(500);
 		});
-})
+});
 
 /** GET (SEARCH) ROUTE **/
 router.get('/:searchTerm', (req, res) => {
-  const searchTerm = req.params.searchTerm + '%';
-  const queryText = `SELECT * FROM "users"
+	const searchTerm = req.params.searchTerm + '%';
+	const queryText = `SELECT * FROM "users"
     WHERE "access_id" = 3 AND "username" LIKE $1;`;
-  pool
-    .query(queryText, [searchTerm])
-    .then(result => {
-      res.send(result.rows);
-    })
-    .catch(error => {
-      console.log(error);
-      res.sendStatus(500);
-    });
-})
+	pool
+		.query(queryText, [searchTerm])
+		.then(result => {
+			res.send(result.rows);
+		})
+		.catch(error => {
+			console.log(error);
+			res.sendStatus(500);
+		});
+});
 
 module.exports = router;
