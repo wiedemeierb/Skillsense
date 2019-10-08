@@ -16,8 +16,8 @@ function SkillList(props) {
 	const classes = useStyles();
 	return (
 		<>
-			{props.skillList.map(skill => (
-				<Typography variant='body2' className={classes.skillTag}>
+			{props.skillList.map((skill, index) => (
+				<Typography key={index} variant='body2' className={classes.skillTag}>
 					{skill}
 				</Typography>
 			))}
