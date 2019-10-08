@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import SkillList from '../SkillList/SkillList';
+import SkillListItem from '../SkillListItem/SkillListItem';
 
 const styles = theme => ({
 	root: {
@@ -41,17 +43,9 @@ class UserListItem extends Component {
 				</Grid>
 				{/* right side info */}
 				<Grid item xs={7}>
-					{this.props.user.skill_names &&
-						this.props.user.skill_names.map((skill, i) => {
-							return (
-								<Typography
-									variant='body2'
-									key={i}
-									className={classes.skillTag}>
-									{skill}
-								</Typography>
-							);
-						})}
+					{this.props.user.skill_names && (
+						<SkillList skillList={this.props.user.skill_names} />
+					)}
 				</Grid>
 			</Grid>
 		);
