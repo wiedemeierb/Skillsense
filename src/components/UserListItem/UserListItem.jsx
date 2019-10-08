@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import SkillList from '../SkillList/SkillList';
@@ -34,7 +35,13 @@ class UserListItem extends Component {
 				direction='row'
 				justify='space-between'
 				align='top'
-				className={classes.listItem}>
+				className={classes.listItem}
+				onClick={() =>
+					this.props.dispatch({
+						type: 'FETCH_SELECTED_USER',
+						payload: this.props.user.id
+					})
+				}>
 				{/* left side info */}
 				<Grid item xs={5}>
 					<Typography variant='h5'>{this.props.user.username}</Typography>
@@ -51,4 +58,4 @@ class UserListItem extends Component {
 	}
 }
 
-export default withStyles(styles)(UserListItem);
+export default connect()(withStyles(styles)(UserListItem));

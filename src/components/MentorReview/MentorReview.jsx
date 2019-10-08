@@ -33,7 +33,7 @@ class MentorReview extends Component {
 		const mentorsList =
 			this.props.pendingMentors &&
 			this.props.pendingMentors.map(mentor => (
-				<UserListItem key={mentor.id} user={mentor} />
+				<UserListItem key={mentor.id} user={mentor}/>
 			));
 		return (
 			<TwoColumnLayout leftHeader='Pending Mentors' rightHeader='Details'>

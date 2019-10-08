@@ -78,7 +78,7 @@ router.get('/pending', (req, res) => {
 	pool
 		.query(queryText)
 		.then(result => {
-			console.log('successful GET of mentors pending approval: ', result);
+			console.log('successful GET of mentors pending approval');
 			res.send(result.rows);
 		})
 		.catch(error => {

@@ -125,7 +125,7 @@ router.get('/specific/:id', (req, res) => {
 			res.send(result.rows[0])
 		})
 		.catch(error => {
-			console.log('error on retrieving specific user details from database')
+			console.log('error on retrieving specific user details from database: ', error)
 			res.sendStatus(500);
 		})
 })
