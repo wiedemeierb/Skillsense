@@ -16,9 +16,8 @@ const styles = theme => ({
 	},
 	skillTag: {
 		display: 'inline-block',
-		margin: theme.spacing(0.5),
-		padding: theme.spacing(0.5),
-		borderRadius: '5px',
+		margin: '2px',
+		padding: '2px',
 		color: 'white',
 		backgroundColor: 'black'
 	}
@@ -30,7 +29,7 @@ class UserListItem extends Component {
 		return (
 			<Grid
 				container
-				spacing={4}
+				spacing={2}
 				direction='row'
 				justify='space-between'
 				align='top'
@@ -41,7 +40,7 @@ class UserListItem extends Component {
 					<Typography variant='h6'>{this.props.user.focus_skill}</Typography>
 				</Grid>
 				{/* right side info */}
-				<Grid item xs={5}>
+				<Grid item xs={7}>
 					{this.props.user.skill_names &&
 						this.props.user.skill_names.map((skill, i) => {
 							return (
