@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
@@ -23,7 +23,19 @@ const styles = theme => ({
 
 class TransferList extends Component {
 	state = {
-		userSkills: []
+		userSkills: [],
+		user: this.props.user.id,
+	};
+
+	saveSkills = () => {
+		// console.log('handleClick saveSkills operations')
+		// this.setState({
+		// 	addedSkill: [],
+		// })
+		this.props.dispatch({
+			type: 'ADD_SKILL',
+			payload: this.state,
+		})
 	};
 
 	addSkill = skill => {
@@ -49,6 +61,7 @@ class TransferList extends Component {
 	};
 
 	render() {
+		console.log(this.state)
 		const { classes } = this.props;
 		const allSkillsHtml =
 			this.props.allSkills &&
@@ -110,5 +123,5 @@ class TransferList extends Component {
 	}
 }
 
-export default withStyles(styles)(TransferList);
+export default connect()(withStyles(styles)(TransferList));
 

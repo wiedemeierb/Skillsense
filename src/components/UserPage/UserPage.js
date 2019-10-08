@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import TextField from '@material-ui/core/TextField';
 import TransferList from '../TransferList/TransferList';
-
-// this could also be written with destructuring parameters as:
-// const UserPage = ({ user }) => (
-// and then instead of `props.user.username` you could use `user.username`
 
 class UserPage extends Component {
   state = {
@@ -28,10 +23,14 @@ class UserPage extends Component {
     this.props.dispatch({type: 'FETCH_USER_SKILLS'});
   }
   render() {
-    // console.log('this is stat right now', this.props.user)
-    // console.log('this is skills selected right now', this.props.skills)
-    return (
 
+    let studentSkillListId = this.props.selectedUserSkills.map((skillId) => {
+      return (<tr key={skillId.tag_id}>
+              <td>{skillId.tag}</td>
+              </tr>)
+    })
+  
+  return (
   <div>
     {/* outlined Material-UI textfield input */}
     <TextField
@@ -90,8 +89,8 @@ class UserPage extends Component {
       margin="normal"
       variant="outlined"
     />
-        <TransferList allSkills={this.props.skills} user={this.props.user}/>
-    <LogOutButton className="log-in" />
+      <TransferList allSkills={this.props.skills} user={this.props.user}/>
+      {studentSkillListId}
   </div>
     )
   }
@@ -103,6 +102,7 @@ class UserPage extends Component {
 const mapStateToProps = state => ({
   user: state.user,
   skills: state.allSkillsReducer,
+  selectedUserSkills: state.userSkillsReducer,
 });
 
 // this allows us to use <App /> in index.js
