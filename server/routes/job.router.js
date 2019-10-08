@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 });
 
 /** GET (SEARCH) ROUTE **/
-router.get('/:searchTerm', (req, res) => {
+router.get('/search/:searchTerm', (req, res) => {
   const searchTerm = req.params.searchTerm + '%';
   const queryText = `SELECT * FROM "jobs" WHERE "project_title" LIKE $1;`;
   pool
@@ -34,10 +34,17 @@ router.get('/:searchTerm', (req, res) => {
 /** GET (ACTIVE JOBS) ROUTE **/
 router.get('/active', (req, res) => {
   const userId = req.user.id;
-  const queryText = `SELECT * FROM "jobs" WHERE "status_id" = 3 AND "student_id" = $1;`;
+  const queryText = `
+    SELECT "project_title", "position_title", "users".username AS "client" 
+    FROM "jobs" JOIN "job_applicants" ON "job_applicants".job_id = "jobs".id 
+    JOIN "users" ON "users".id = "jobs".client_id WHERE "status_id" = 3 AND 
+    "job_applicants".student_id = $1;
+  `;
+
   pool
     .query(queryText, [userId])
     .then(result => {
+      '';
       res.send(result.rows);
     })
     .catch(error => {
@@ -49,7 +56,12 @@ router.get('/active', (req, res) => {
 /** GET (APPLIED JOBS) ROUTE **/
 router.get('/applied', (req, res) => {
   const userId = req.user.id;
-  const queryText = `SELECT * FROM "jobs" WHERE "status_id" = 3 AND "student_id" = $1;`;
+  const queryText = `
+    SELECT "project_title", "position_title", "users".username AS "client" 
+    FROM "jobs" JOIN "job_applicants" ON "job_applicants".job_id = "jobs".id 
+    JOIN "users" ON "users".id = "jobs".client_id WHERE "status_id" = 1 AND 
+    "job_applicants".student_id = $1;
+  `;
   pool
     .query(queryText, [userId])
     .then(result => {
@@ -64,7 +76,13 @@ router.get('/applied', (req, res) => {
 /** GET (COMPLETED JOBS) ROUTE **/
 router.get('/completed', (req, res) => {
   const userId = req.user.id;
-  const queryText = `SELECT * FROM "jobs" WHERE "status_id" = 4 AND "student_id" = $1;`;
+  const queryText = `
+    SELECT "project_title", "position_title", "users".username AS "client" 
+    FROM "jobs" JOIN "job_applicants" ON "job_applicants".job_id = "jobs".id 
+    JOIN "users" ON "users".id = "jobs".client_id WHERE "status_id" = 4 AND 
+    "job_applicants".student_id = $1;
+  `;
+
   pool
     .query(queryText, [userId])
     .then(result => {
@@ -77,19 +95,34 @@ router.get('/completed', (req, res) => {
 });
 
 /**  POST NEW JOB ROUTE **/
-router.post('/new', (req, res)=>{
-  console.log(req.body)
+router.post('/new', (req, res) => {
+  console.log(req.body);
   const job = req.body;
-  const queryText = `INSERT INTO "jobs" ("project_title","position_title","description","duration","budget","mentor_required","status_id","client_id") VALUES ($1,$2,$3,$4,$5,$6,$7,$8);`
-  pool.query(queryText, [job.project_title, job.position_title, job.description, job.duration, job.budget, job.mentor_required, job.status_id, req.user.id])
-  .then(result =>{
-    res.sendStatus(200)
-  })
-  .catch(error =>{
-    console.log(error)
-    res.sendStatus(500)
-  })
-})
+  const queryText = `
+    INSERT INTO "jobs" ("project_title","position_title","description",
+    "duration","budget","mentor_required","status_id","client_id") 
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8);
+  `;
+
+  pool
+    .query(queryText, [
+      job.project_title,
+      job.position_title,
+      job.description,
+      job.duration,
+      job.budget,
+      job.mentor_required,
+      job.status_id,
+      req.user.id
+    ])
+    .then(result => {
+      res.sendStatus(200);
+    })
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+});
 
 // router.post('/new', async (req, res) => {
 //   const job = req.body;

@@ -89,8 +89,12 @@ class JobSearch extends Component {
           <div>
             <p>Budget: {job.budget}</p>
             <p>Deadline: {job.deadline}</p>
-            {job.skills.map(skill => {
-              return <h4 className="skill-tag">{skill}</h4>;
+            {job.skills.map((skill, i) => {
+              return (
+                <h4 key={i} className="skill-tag">
+                  {skill}
+                </h4>
+              );
             })}
           </div>
         </div>
