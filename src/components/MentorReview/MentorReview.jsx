@@ -28,6 +28,6 @@ class MentorReview extends Component {
 }
 
 const mapStateToProps = reduxStore => ({
-	allMentors: reduxStore.allMentorsReducer
+	pendingMentors: reduxStore.pendingMentorsReducer
 });
 export default connect(mapStateToProps)(MentorReview);
