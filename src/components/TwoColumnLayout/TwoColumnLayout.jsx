@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Paper } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -14,6 +14,9 @@ const styles = theme => ({
 		border: '2px solid grey',
 		margin: theme.spacing(1),
 		padding: theme.spacing(1)
+	},
+	paper: {
+		// width: 'fill'
 	}
 });
 
@@ -53,8 +56,15 @@ class TwoColumnLayout extends Component {
 				<Grid container item spacing={4} justify='space-around'>
 					{this.props.children &&
 						this.props.children.map((child, index) => (
-							<Grid key={index} className={classes.gridItem} item xs={12} sm={5}>
+							<Grid
+								key={index}
+								className={classes.gridItem}
+								item
+								component={Paper}
+								xs={12}
+								sm={5}>
 								{child}
+								{/* <Paper className={classes.paper}>{child}</Paper> */}
 							</Grid>
 						))}
 				</Grid>
