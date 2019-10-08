@@ -4,6 +4,7 @@ import { List, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import UserListItem from '../UserListItem/UserListItem';
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
+import PublicProfile from '../PublicProfile/PublicProfile';
 
 const styles = theme => ({
 	root: {
@@ -30,7 +31,7 @@ class MentorReview extends Component {
 			<TwoColumnLayout leftHeader='Pending Mentors' rightHeader='Details'>
 				<List>{mentorsList}</List>
 				<div>
-					{/* User Details to go heree */}
+					<PublicProfile/>
 					<Button>Approve</Button>
 					<Button>Decline</Button>
 				</div>

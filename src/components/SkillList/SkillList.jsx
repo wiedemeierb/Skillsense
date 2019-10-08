@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-d
+
 const useStyles = makeStyles(theme => ({
 	skillTag: {
 		display: 'inline-block',
@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function SkillList(props) {
-  const classes = useStyles()
+	const classes = useStyles();
 	return (
 		<>
 			{props.skillList.map(skill => (
