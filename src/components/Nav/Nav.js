@@ -24,15 +24,15 @@ const Nav = (props) => (
         About
       </Link> */}
 
-      {props.user.access_id === 1 || props.user.access_id === 2 && <Link className="nav-link" to="/mentors">
+      {props.user.access_id === 1 || props.user.access_id === 2 ? <Link className="nav-link" to="/mentors">
         My Mentorships
-      </Link>}
+      </Link> : null}
       {props.user.access_id === 1 && <Link className="nav-link" to="/search/mentors">
         Mentor Search
           </Link>}
-      {props.user.access_id === 1 || props.user.access_id === 3 && <Link className="nav-link" to="/jobs">
+      {props.user.access_id === 1 || props.user.access_id === 3 ? <Link className="nav-link" to="/jobs">
         My Jobs
-          </Link>}
+          </Link> : null}
       {props.user.access_id === 1 && <Link className="nav-link" to="/search/jobs">
         Job Search
       </Link>}
