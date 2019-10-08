@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Input, Select, OutlinedInput, MenuItem, Button, Typography } from '@material-ui/core';
+import { Input, Select, FormControl, OutlinedInput, MenuItem, Button, Typography } from '@material-ui/core';
+import TransferList from '../TransferList/TransferList';
 
 
 class JobPostForm extends Component {
@@ -15,6 +16,11 @@ class JobPostForm extends Component {
         client_id: 0
     }
 
+    componentDidMount = () => {
+        this.props.dispatch({ type: 'FETCH_ALL_SKILLS' });
+        // this.props.dispatch({ type: 'FETCH_JOB_SKILLS' });
+    }
+
     handleInput = (event, property) => {
         this.setState({
             ...this.state,
@@ -25,7 +31,7 @@ class JobPostForm extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
             this.props.dispatch({
-                type: 'ADD_BUSINESS',
+                type: 'POST_JOB',
                 payload: this.state
             })
             this.setState({
@@ -33,7 +39,7 @@ class JobPostForm extends Component {
                 position_title: '',
                 description: '',
                 duration: '',
-                budget: 0,
+                budget: '',
                 mentor_required: true,
                 status_id: 1,
                 client_id: 0
@@ -51,7 +57,8 @@ class JobPostForm extends Component {
                 <OutlinedInput type="text" title="Project Budget" placeholder="Project Budget" value={this.state.budget} onChange={(event) => { this.handleInput(event, 'budget') }}  required={true}/>
                 {/* <input type="checkbox" label="Mentor required" title="Mentor Required" placeholder="Mentor Required" value={this.state.mentor_required} onChange={(event) => { this.handleInput(event, 'mentor_required') }} /> */}
                 <br/>
-                <Typography>Skill Tags Go Here</Typography>
+                <Typography>Skill Tags</Typography>
+                {/* <TransferList allSkills={this.props.skills} user={this.props.user} /> */}
                 <Button type="submit" variant="contained" color="primary">Submit</Button>
             </form>
         )
