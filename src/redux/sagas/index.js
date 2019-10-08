@@ -6,6 +6,7 @@ import jobSaga from './jobSaga';
 import mentorSaga from './mentorSaga';
 import messageSaga from './messageSaga';
 import skillSaga from './skillSaga';
+import userskillsSaga from './userskillsSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,5 +24,6 @@ export default function* rootSaga() {
     mentorSaga(),
     messageSaga(),
     skillSaga(),
+    userskillsSaga(),
   ]);
 }

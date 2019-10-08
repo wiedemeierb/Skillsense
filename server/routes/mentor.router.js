@@ -5,6 +5,7 @@ const {
 } = require('../modules/authentication-middleware');
 const router = express.Router();
 
+/** GET (ALL) ROUTE **/
 router.get('/all', (req, res) => {
 	const queryText = `SELECT * FROM "student_mentor";`;
 	pool
@@ -59,6 +60,22 @@ router.patch(`/admin/:id`, rejectUnauthenticated, (req, res) => {
 			console.log('error updating mentor status: ', error);
 			res.sendStatus(500);
 		});
-});
+})
+
+/** GET (SEARCH) ROUTE **/
+router.get('/:searchTerm', (req, res) => {
+  const searchTerm = req.params.searchTerm + '%';
+  const queryText = `SELECT * FROM "users"
+    WHERE "access_id" = 3 AND "username" LIKE $1;`;
+  pool
+    .query(queryText, [searchTerm])
+    .then(result => {
+      res.send(result.rows);
+    })
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+})
 
 module.exports = router;
