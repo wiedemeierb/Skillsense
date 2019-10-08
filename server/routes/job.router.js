@@ -80,7 +80,7 @@ router.get('/completed', (req, res) => {
 router.post('/new', (req, res)=>{
   console.log(req.body)
   const job = req.body;
-  const queryText = `INSERT INTO "jobs" ("project_title","position_title","description","due_date","budget","mentor_required","status_id","client_id") VALUES ($1,$2,$3,$4,$5,$6,$7,$8);`
+  const queryText = `INSERT INTO "jobs" ("project_title","position_title","description","duration","budget","mentor_required","status_id","client_id") VALUES ($1,$2,$3,$4,$5,$6,$7,$8);`
   pool.query(queryText, [job.project_title, job.position_title, job.description, job.duration, job.budget, job.mentor_required, job.status_id, req.user.id])
   .then(result =>{
     res.sendStatus(200)
@@ -93,7 +93,7 @@ router.post('/new', (req, res)=>{
 
 // router.post('/new', async (req, res) => {
 //   const job = req.body;
-//   const queryText = `INSERT INTO "jobs" ("project_title","position_title","description","due_date","budget","mentor_required","status_id","client_id") VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING "id";`
+//   const queryText = `INSERT INTO "jobs" ("project_title","position_title","description","duration","budget","mentor_required","status_id","client_id") VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING "id";`
 //   const connection = await pool.connect();
 //   try{
 //     await connection. query(`BEGIN;`)
