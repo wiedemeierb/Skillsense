@@ -10,32 +10,32 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-function PublicProfile() {
-	// let selectedUser = useSelector(state => state.selectedUserReducer);
-	const selectedUser = {
-		access_id: 2,
-		active: true,
-		approved_mentor: 2,
-		bio:
-			'Back end Dev specializing in Java and PHP.  Apartment handyman on the side.  Students I have tutored in the past have gone on to win many awards.',
-		email: 'mentor@mentor.com',
-		focus_skill: 'Front End Developer',
-		github_url: null,
-		id: 7,
-		linkedin_url: null,
-		location: 'St. Paul, MN',
-		mentor_status: 'Pending Approval',
-		skill_ids: [1, 4, 19, 10],
-		skill_names: [
-			'Adobe Photoshop',
-			'Sketch',
-			'Webpack',
-			'Mobile App Development'
-		],
-		user_type: 'Mentor',
-		username: 'mentor',
-		website_url: null
-	};
+function PublicProfile(props) {
+	let selectedUser = useSelector(state => state.selectedUserReducer);
+	// const selectedUser = {
+	// 	access_id: 2,
+	// 	active: true,
+	// 	approved_mentor: 2,
+	// 	bio:
+	// 		'Back end Dev specializing in Java and PHP.  Apartment handyman on the side.  Students I have tutored in the past have gone on to win many awards.',
+	// 	email: 'mentor@mentor.com',
+	// 	focus_skill: 'Front End Developer',
+	// 	github_url: null,
+	// 	id: 7,
+	// 	linkedin_url: null,
+	// 	location: 'St. Paul, MN',
+	// 	mentor_status: 'Pending Approval',
+	// 	skill_ids: [1, 4, 19, 10],
+	// 	skill_names: [
+	// 		'Adobe Photoshop',
+	// 		'Sketch',
+	// 		'Webpack',
+	// 		'Mobile App Development'
+	// 	],
+	// 	user_type: 'Mentor',
+	// 	username: 'mentor',
+	// 	website_url: null
+	// };
 
 	const classes = useStyles();
 
