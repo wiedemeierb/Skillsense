@@ -8,8 +8,12 @@ const router = express.Router();
 /** GET (ALL) ROUTE **/
 router.get('/all', (req, res) => {
   const queryText = `
-	SELECT * FROM "users" WHERE "access_id" = 2 
-	AND "approved_mentor" = 3;
+    SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "tag_id", 
+	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
+    JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
+    LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
+    LEFT JOIN "skill_tags" ON "skill_tags".id = "user_tags".tag_id
+    WHERE "access_id" = 2 AND "approved_mentor" = 3 GROUP BY "users"."id";
 	`;
 
   pool
@@ -27,10 +31,14 @@ router.get('/all', (req, res) => {
 router.get('/active', (req, res) => {
   const userId = req.user.id;
   const queryText = `
-  	SELECT "username", "focus_skill" FROM "users"
-	JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
-	WHERE "student_mentor".student_id = $1 AND "accepted" = true;
-	`;
+    SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "tag_id", 
+	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
+    JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
+    LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
+    LEFT JOIN "skill_tags" ON "skill_tags".id = "user_tags".tag_id
+    WHERE "student_mentor".student_id = $1 AND "accepted" = true GROUP BY "users"."id";
+    `;
+
   pool
     .query(queryText, [userId])
     .then(result => {
@@ -46,10 +54,14 @@ router.get('/active', (req, res) => {
 router.get('/invited', (req, res) => {
   const userId = req.user.id;
   const queryText = `
-  	SELECT "username", "focus_skill" FROM "users"
-	JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
-	WHERE "student_mentor".student_id = $1 AND "accepted" = false;
-	`;
+  	SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "tag_id", 
+	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
+    JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
+    LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
+    JOIN "skill_tags" ON "skill_tags".id = "user_tags".tag_id
+    WHERE "student_mentor".student_id = $1 AND "accepted" = false GROUP BY "users"."id";
+    `;
+
   pool
     .query(queryText, [userId])
     .then(result => {
@@ -63,20 +75,40 @@ router.get('/invited', (req, res) => {
 
 /** GET (SEARCH) ROUTE **/
 router.get('/search/', (req, res) => {
-  const searchTerm = `%${req.query.searchTerm}%`;
-  const searchSkill = req.query.searchSkill;
+  const searchTerm =
+    req.query.searchTerm !== '' ? `%${req.query.searchTerm}%` : `%%`;
+  const searchSkill = req.query.skill != 0 ? Number(req.query.skill) : 0;
 
-  const queryText = `
-	SELECT "username", "location", "focus_skill", 
+  const queryStart = `
+	SELECT "users".id, "username", "location", "focus_skill", array_agg("skill_tags".id) AS "tag_id", 
 	array_agg("skill_tags".tag) AS "skill_names" FROM "users" 
 	LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
-	JOIN "skill_tags" ON "skill_tags".id = "user_tags".tag_id
+  JOIN "skill_tags" ON "skill_tags".id = "user_tags".tag_id
 	WHERE "access_id" = 2 AND "approved_mentor" = 3 
-	AND "username" ILIKE $1 GROUP BY "users".id;
-	`;
+  `;
+
+  const queryInput = ` AND "username" ILIKE $1`;
+  const querySkill = ` AND "tag_id" = $2`;
+  const queryEnd = ` GROUP BY "users"."id";`;
+
+  const queryText = () => {
+    if (searchSkill !== 0) {
+      return queryStart + queryInput + querySkill + queryEnd;
+    } else {
+      return queryStart + queryInput + queryEnd;
+    }
+  };
+
+  const queryParams = () => {
+    if (searchSkill) {
+      return [searchTerm, searchSkill];
+    } else {
+      return [searchTerm];
+    }
+  };
 
   pool
-    .query(queryText, [searchTerm])
+    .query(queryText(), queryParams())
     .then(result => {
       res.send(result.rows);
     })

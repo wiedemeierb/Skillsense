@@ -19,17 +19,15 @@ class MyMentorships extends Component {
     });
 
     return (
-      <TwoColumnLayout rightHeader='Mentor Information' leftHeader='Your Mentors'>
+      <TwoColumnLayout rightHeader="Details" leftHeader="Your Mentors">
         <div>
-        {/* Navigation tabs on Mentorship Page:
+          {/* Navigation tabs on Mentorship Page:
             (Active, Invites) */}
           <MentorTabs />
-        {/* Selected Mentor List */}
-        <div className="list">{mentorList}</div>
+          {/* Selected Mentor List */}
+          <div className="list">{mentorList}</div>
         </div>
-        <div>
-          {/*  */}
-        </div>
+        <div>{/* Mentorship Information displayed here */}</div>
       </TwoColumnLayout>
     );
   }

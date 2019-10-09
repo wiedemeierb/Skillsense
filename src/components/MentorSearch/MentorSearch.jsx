@@ -82,47 +82,48 @@ class MentorSearch extends Component {
     });
 
     return (
-		<TwoColumnLayout rightHeader='Mentor Information' leftHeader='Search for Mentors'>
-			<div>
-				<Paper className="search">
-					<FormControl className={classes.formControl}>
-						<FormGroup row={true} className="search">
-							<TextField
-								className={classes.formControl}
-								onChange={e => this.handleSearch('searchTerm', e)}
-								value={this.state.searchTerm}
-								label="Search Mentors"
-							/>
+      <TwoColumnLayout
+        rightHeader="Details"
+        leftHeader="Search for Mentors"
+      >
+        <div>
+          <Paper className="search">
+            <FormControl className={classes.formControl}>
+              <FormGroup row={true} className="search">
+                <TextField
+                  className={classes.formControl}
+                  onChange={e => this.handleSearch('searchTerm', e)}
+                  value={this.state.searchTerm}
+                  label="Search Mentors"
+                />
 
-							<Select
-								className={classes.select}
-								value={this.state.search.skill}
-								onChange={e => this.handleSearch('skill', e)}
-							>
-								<MenuItem value={0}>Select Skill</MenuItem>
-								{/* Skill tag list dropdown options */}
-								{skillList}
-							</Select>
+                <Select
+                  className={classes.select}
+                  value={this.state.search.skill}
+                  onChange={e => this.handleSearch('skill', e)}
+                >
+                  <MenuItem value={0}>Select Skill</MenuItem>
+                  {/* Skill tag list dropdown options */}
+                  {skillList}
+                </Select>
 
-							<IconButton
-								className={classes.button}
-								aria-label="search"
-								color="primary"
-								onClick={this.submitSearch}
-							>
-								<SearchIcon />
-							</IconButton>
-						</FormGroup>
-					</FormControl>
-				</Paper>
+                <IconButton
+                  className={classes.button}
+                  aria-label="search"
+                  color="primary"
+                  onClick={this.submitSearch}
+                >
+                  <SearchIcon />
+                </IconButton>
+              </FormGroup>
+            </FormControl>
+          </Paper>
 
-				{/* Mentor Search List */}
-				<div className="list">{mentorList}</div>
-			</div>
-			<div>
-				<p>Right side stuff</p>
-			</div>
-		</TwoColumnLayout>
+          {/* Mentor Search List */}
+          <div className="list">{mentorList}</div>
+        </div>
+        <div>{/* Mentor Information displayed here */}</div>
+      </TwoColumnLayout>
     );
   }
 }
