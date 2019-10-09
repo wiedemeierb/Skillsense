@@ -5,40 +5,25 @@ import { connect } from 'react-redux';
 import JobTabs from '../JobsTabs/JobTabs';
 
 class MyJobs extends Component {
-  state = {
-    jobs: [
-      {
-        project: 'Ecommerce Website',
-        client: 'Wall Street',
-        mentor: 'Mr. Monopoly'
-      },
-      {
-        project: 'Video Game Project',
-        client: 'Mario & Luigi',
-        mentor: 'Yoshi'
-      }
-    ]
-  };
-
   componentDidMount() {
     this.props.dispatch({
-      type: 'FETCH_ALL_JOBS'
+      type: 'FETCH_ACTIVE_JOBS'
     });
   }
 
   render() {
-    let jobList = this.state.jobs.map((job, i) => {
+    let jobList = this.props.jobs.map((job, i) => {
       return (
         <div key={i} className="list-item">
           {/* right side info */}
           <div>
-            <h2>{job.project}</h2>
+            <h2>{job.project_title}</h2>
 
-            <h3>Client: {job.client}</h3>
+            <h3>{job.position_title}</h3>
           </div>
           {/* left side info */}
           <div>
-            <h3>Mentor: {job.mentor}</h3>
+            <h3>Client: {job.client}</h3>
           </div>
         </div>
       );
@@ -60,6 +45,7 @@ class MyJobs extends Component {
 
 const mapStateToProps = store => {
   return {
+    user: store.user,
     jobs: store.allJobsReducer
   };
 };

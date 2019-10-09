@@ -4,7 +4,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 function* fetchAllJobs() {
   try {
     let response = yield axios.get('/api/jobs');
-    console.log(response);
+    console.log(response.data);
     yield put({
       type: 'SET_ALL_JOBS',
       payload: response.data
@@ -17,8 +17,8 @@ function* fetchAllJobs() {
 function* fetchJobSearch(action) {
   let searchTerm = action.payload.searchTerm;
   try {
-    let response = yield axios.get(`/api/jobs/${searchTerm}`);
-    console.log(response);
+    let response = yield axios.get(`/api/jobs/search/${searchTerm}`);
+    console.log(response.data);
     yield put({
       type: 'SET_ALL_JOBS',
       payload: response.data
@@ -31,7 +31,7 @@ function* fetchJobSearch(action) {
 function* fetchActiveJobs() {
   try {
     let response = yield axios.get('/api/jobs/active');
-    console.log(response);
+    console.log(response.data);
     yield put({
       type: 'SET_ALL_JOBS',
       payload: response.data
@@ -44,7 +44,7 @@ function* fetchActiveJobs() {
 function* fetchAppliedJobs() {
   try {
     let response = yield axios.get('/api/jobs/applied');
-    console.log(response);
+    console.log(response.data);
     yield put({
       type: 'SET_ALL_JOBS',
       payload: response.data
@@ -57,10 +57,21 @@ function* fetchAppliedJobs() {
 function* fetchCompletedJobs() {
   try {
     let response = yield axios.get('/api/jobs/completed');
-    console.log(response);
+    console.log(response.data);
     yield put({
       type: 'SET_ALL_JOBS',
       payload: response.data
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* postJob(action) {
+  try {
+    yield axios.post('api/jobs/new', action.payload);
+    yield put({
+      type: 'FETCH_ALL_JOBS'
     });
   } catch (error) {
     console.log(error);
@@ -73,6 +84,7 @@ function* jobSaga() {
   yield takeEvery('FETCH_ACTIVE_JOBS', fetchActiveJobs);
   yield takeEvery('FETCH_APPLIED_JOBS', fetchAppliedJobs);
   yield takeEvery('FETCH_COMPLETED_JOBS', fetchCompletedJobs);
+  yield takeEvery('POST_JOB', postJob);
 }
 
 export default jobSaga;
