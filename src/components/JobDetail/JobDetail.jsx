@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 class JobDetail extends Component {
     render() {
         return (
+            <div>
             <h1>Job Detail Page</h1>
+            <p>{this.props.match.params.id}</p>
+            </div>
         )
     }
 }
