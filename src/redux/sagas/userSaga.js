@@ -31,9 +31,23 @@ function* fetchSelectedUser(action) {
 		console.log('Failure on selected user get route: ', error);
 	}
 }
+
+function* editUserInfo(action) {
+	let id = action.payload.id
+	try{
+		let response = yield axios.put(`/api/user/${id}`, action.payload);
+		yield put({
+			type: 'FETCH_USER',
+			payload: response.data.id
+		});
+	} catch (error) {
+		console.log('Error with posting addStudentInfo', error)
+	}}
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('FETCH_SELECTED_USER', fetchSelectedUser)
+  yield takeLatest('EDIT_USER_INFO', editUserInfo)
 }
 
 export default userSaga;
