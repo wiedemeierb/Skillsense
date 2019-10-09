@@ -4,25 +4,37 @@ import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import {
 	Typography,
 	TextField,
+	Grid,
 	Button,
 	FormControl,
 	Select,
-	MenuItem
+	MenuItem,
+	FormHelperText,
+	Paper
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
 	root: {
-		display: 'flex'
+		display: 'flex',
+		margin: 'auto',
+		height: '80vh'
+		// alignContent: 'flex-start'
 	},
+	formGrid: {},
 	formControl: {
 		display: 'block',
 		margin: theme.spacing(1),
-		minWidth: 150
+		padding: theme.spacing(1),
+		width: 200
 	},
 	select: {
 		minWidth: 150,
 		margin: theme.spacing(1)
+	},
+	button: {
+		margin: theme.spacing(1),
+		padding: theme.spacing(1)
 	}
 });
 
@@ -61,136 +73,63 @@ class RegisterPage extends Component {
 	render() {
 		const { classes } = this.props;
 		return (
-			<div>
-				{this.props.errors.registrationMessage && (
-					<h2 className='alert' role='alert'>
-						{this.props.errors.registrationMessage}
-					</h2>
-				)}
-				<TwoColumnLayout
-					leftHeader='What is SkillSense?'
-					rightHeader='Register'>
-					<div>
-						<Typography paragraph>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-							enim ad minim veniam, quis nostrud exercitation ullamco laboris
-							nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-							reprehenderit in voluptate velit esse cillum dolore eu fugiat
-							nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-							sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<Grid className={classes.formGrid} container spacing={3} justify='center'>
+				<Grid item xs={12}>
+					{this.props.errors.registrationMessage && (
+						<Typography className='alert' role='alert' variant='h4'>
+							{this.props.errors.registrationMessage}
 						</Typography>
-					</div>
-					<div>
-						<FormControl className={classes.formControl} required>
-							<Select
-								className={classes.select}
-								value={this.state.accountType}
-								onChange={e => this.handleInputChangeFor('accountType', e)}>
-								<MenuItem value={1}>Student</MenuItem>
-								<MenuItem value={2}>Mentor</MenuItem>
-								<MenuItem value={3}>Client</MenuItem>
-							</Select>
-						</FormControl>
-						<TextField
-							className={classes.formControl}
-							onChange={e => this.handleInputChangeFor('email', e)}
-							value={this.state.email}
-							required
-							label='E-Mail'
-							placeholder='Your e-mail address...'
-						/>
-						<TextField
-							className={classes.formControl}
-							onChange={e => this.handleInputChangeFor('password', e)}
-							value={this.state.password}
-							required
-							type='password'
-							label='Password'
-							placeholder='***'
-						/>
-						<TextField
-							className={classes.formControl}
-							onChange={e => this.handleInputChangeFor('username', e)}
-							value={this.state.username}
-							required
-							label='Name'
-							placeholder='Your Name...'
-						/>
-						<TextField
-							className={classes.formControl}
-							onChange={e => this.handleInputChangeFor('location', e)}
-							value={this.state.location}
-							required
-							label='Location'
-							placeholder='Your location...'
-						/>
-						<Button onClick={this.registerUser}>Register New Account</Button>
-						<Button
-							onClick={() => {
-								this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' });
-							}}>
-							Back to Login Page
-						</Button>
-					</div>
-				</TwoColumnLayout>
-			</div>
+					)}
+				</Grid>
+				<Grid item xs={12}>
+					<Typography variant='h5' align='center'>
+						Register New Account
+					</Typography>
+				</Grid>
+				<Grid item xs={5}>
+					<TextField
+						className={classes.formControl}
+						label='Email'
+						helperText='@domain.com'
+					/>
+					<TextField
+						className={classes.formControl}
+						label='Password'
+						helperText='8+ characters'
+					/>
+					<TextField
+						className={classes.formControl}
+						label='Name'
+						helperText='Your Name'
+					/>
+				</Grid>
+				<Grid item xs={5}>
+					<TextField
+						className={classes.formControl}
+						label='Focus'
+						helperText='e.g. Back End Development'
+					/>
+					<TextField
+						className={classes.formControl}
+						label='Bio'
+						multiline
+						rows='6'
+						rowsMax='6'
+						helperText='A short description of yourself'
+					/>
+				</Grid>
+				<Grid item xs={12}>
+					<Button
+						className={classes.button}
+						onClick={() => {
+							this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' });
+						}}>
+						Back to Log In
+					</Button>
+				</Grid>
+			</Grid>
+			// </div>
 		);
-
-		// return (
-		//   <div>
-		//     {this.props.errors.registrationMessage && (
-		//       <h2
-		//         className="alert"
-		//         role="alert"
-		//       >
-		//         {this.props.errors.registrationMessage}
-		//       </h2>
-		//     )}
-		//     <form onSubmit={this.registerUser}>
-		//       <h1>Register User</h1>
-		//       <div>
-		//         <label htmlFor="username">
-		//           Username:
-		//           <input
-		//             type="text"
-		//             name="username"
-		//             value={this.state.username}
-		//             onChange={this.handleInputChangeFor('username')}
-		//           />
-		//         </label>
-		//       </div>
-		//       <div>
-		//         <label htmlFor="password">
-		//           Password:
-		//           <input
-		//             type="password"
-		//             name="password"
-		//             value={this.state.password}
-		//             onChange={this.handleInputChangeFor('password')}
-		//           />
-		//         </label>
-		//       </div>
-		//       <div>
-		//         <input
-		//           className="register"
-		//           type="submit"
-		//           name="submit"
-		//           value="Register"
-		//         />
-		//       </div>
-		//     </form>
-		//     <center>
-		//       <button
-		//         type="button"
-		//         className="link-button"
-		//         onClick={() => {this.props.dispatch({type: 'SET_TO_LOGIN_MODE'})}}
-		//       >
-		//         Login
-		//       </button>
-		//     </center>
-		//   </div>
-		// );
 	}
 }
 
