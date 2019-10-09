@@ -4,7 +4,10 @@ const router = express.Router();
 
 /** GET ROUTE **/
 router.get('/', (req, res) => {
-  const queryText = `SELECT * FROM "jobs";`;
+  const queryText = `SELECT "jobs"."id","project_title","position_title","description","duration","budget","mentor_required","status_id","client_id",array_agg("job_tags"."tag_id") AS "tag_ids"
+FROM "jobs" 
+LEFT JOIN "job_tags" ON "jobs"."id" = "job_tags"."job_id"
+GROUP BY "jobs"."id";`;
   pool
     .query(queryText)
     .then(result => {
@@ -17,11 +20,31 @@ router.get('/', (req, res) => {
 });
 
 /** GET (SEARCH) ROUTE **/
-router.get('/search/:searchTerm', (req, res) => {
-  const searchTerm = req.params.searchTerm + '%';
-  const queryText = `SELECT * FROM "jobs" WHERE "project_title" LIKE $1;`;
+router.get('/search', (req, res) => {
+  const searchTerm = (req.query.searchTerm !== '' ? `%${req.query.searchTerm}%` : `%%`);
+  const searchSkill = (req.query.skill != 0 ? Number(req.query.skill) : 0);
+  const queryStart = `SELECT "jobs"."id","project_title","position_title","description","duration","budget","mentor_required","status_id","client_id",array_agg("job_tags"."tag_id") AS "tag_ids" FROM "jobs" 
+  LEFT JOIN "job_tags" ON "jobs"."id" = "job_tags"."job_id"`
+  const queryInput = ` WHERE "project_title" ILIKE $1`
+  const querySkill = ` AND "tag_id" = $2`
+  const queryEnd = ` GROUP BY "jobs"."id";`
+  const queryText = ()=>{
+    if (searchSkill !== 0){
+      return queryStart + queryInput + querySkill + queryEnd
+    } else {
+      return queryStart + queryInput + queryEnd
+    }
+  }
+
+  const queryParams = ()=>{
+    if (searchSkill){
+      return [searchTerm, searchSkill]
+    } else {
+      return [searchTerm]
+    }
+  }
   pool
-    .query(queryText, [searchTerm])
+    .query(queryText(), queryParams())
     .then(result => {
       res.send(result.rows);
     })
