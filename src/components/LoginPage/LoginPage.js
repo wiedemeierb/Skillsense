@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
-import {
-	Typography,
-	TextField,
-	Button,
-	FormControl,
-	Select,
-	MenuItem
-} from '@material-ui/core';
+import { Typography, TextField, Button, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -17,12 +10,12 @@ const styles = theme => ({
 	},
 	formControl: {
 		display: 'block',
-		margin: theme.spacing(1),
-		minWidth: 150
+		margin: theme.spacing(2),
+		padding: theme.spacing(2)
 	},
-	select: {
-		minWidth: 150,
-		margin: theme.spacing(1)
+	aboutText: {
+		margin: theme.spacing(2),
+		padding: theme.spacing(2)
 	},
 	button: {
 		margin: theme.spacing(1),
@@ -66,15 +59,27 @@ class LoginPage extends Component {
 					</h2>
 				)}
 				<TwoColumnLayout leftHeader='What is SkillSense?' rightHeader='Log In'>
-					<Typography paragraph>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-						eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-						ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-						aliquip ex ea commodo consequat. Duis aute irure dolor in
-						reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-						pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-						culpa qui officia deserunt mollit anim id est laborum.
-					</Typography>
+					<Grid
+						container
+						spacing={6}
+						direction='column'
+						alignItems='center'
+						justify='space-between'>
+						<Grid className={classes.aboutText} item xs={8}>
+							<Typography paragraph>
+								Freelancing can be especially difficult to break into for new
+								software developers, but it is often the connections that
+								students make with industry professionals which serve as the
+								best avenue for success.
+							</Typography>
+						</Grid>
+						<Grid className={classes.aboutText} item xs={8}>
+							<Typography paragraph>
+								SkillSense helps create that avenue by bringing together
+								students, mentors, and clients alike for freelance projects.
+							</Typography>
+						</Grid>
+					</Grid>
 					<div>
 						<TextField
 							className={classes.formControl}
