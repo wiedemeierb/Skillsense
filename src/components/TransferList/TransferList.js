@@ -52,7 +52,15 @@ class TransferList extends Component {
 		this.setState({
 			//set avail list to not include userskills/selected skills
 			availableSkills: this.props.allSkills.filter(skill => 
-				!this.props.selectedUserSkills.includes(skill))
+				// !this.props.selectedUserSkills.includes(skill))
+						this.props.selectedUserSkills.map((userSkill)=> {
+						if (skill.id === userSkill.tag_id){
+							return true
+						}
+						else{
+							return false
+						}
+					}))
 		})
 	}
 	// 	this.props.allSkills
