@@ -7,7 +7,11 @@ const router = express.Router();
 
 /** GET (ALL) ROUTE **/
 router.get('/all', (req, res) => {
-  const queryText = `SELECT * FROM "student_mentor";`;
+  const queryText = `
+  SELECT * FROM "users" WHERE "access_id" = 2 
+  AND "approved_mentor" = 3;
+  `;
+
   pool
     .query(queryText)
     .then(result => {
@@ -130,16 +134,16 @@ router.get('/pending', (req, res) => {
 		user_type.user_type,
 		mentor_status.mentor_status;`;
 
-	pool
-		.query(queryText)
-		.then(result => {
-			console.log('successful GET of mentors pending approval');
-			res.send(result.rows);
-		})
-		.catch(error => {
-			console.log('error on GET of mentors pending approval: ', error);
-			res.sendStatus(500);
-		});
+  pool
+    .query(queryText)
+    .then(result => {
+      console.log('successful GET of mentors pending approval');
+      res.send(result.rows);
+    })
+    .catch(error => {
+      console.log('error on GET of mentors pending approval: ', error);
+      res.sendStatus(500);
+    });
 });
 
 /** PATCH (ADMIN: UPDATE MENTOR APPROVAL STATUS) ROUTE **/
