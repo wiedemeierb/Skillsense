@@ -15,7 +15,8 @@ import {
   FormGroup,
   Select,
   MenuItem,
-  IconButton
+  IconButton,
+  Typography
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -48,6 +49,9 @@ class MentorSearch extends Component {
     });
     this.props.dispatch({
       type: 'FETCH_ALL_SKILLS'
+    });
+    this.props.dispatch({
+      type: 'CLEAR_SELECTED_USER'
     });
   }
 
@@ -83,10 +87,7 @@ class MentorSearch extends Component {
     });
 
     return (
-      <TwoColumnLayout
-        rightHeader="Details"
-        leftHeader="Search for Mentors"
-      >
+      <TwoColumnLayout rightHeader="Details" leftHeader="Search for Mentors">
         <div>
           <Paper className="search">
             <FormControl className={classes.formControl}>
@@ -124,9 +125,15 @@ class MentorSearch extends Component {
           <div className="list">{mentorList}</div>
         </div>
 
-		<div>
-			<PublicProfile/>
-		</div>
+        <div>
+          {this.props.selectedUser.id ? (
+            <PublicProfile />
+          ) : (
+            <Typography variant="h6" align="center">
+              Select a mentor to see more information.
+            </Typography>
+          )}
+        </div>
       </TwoColumnLayout>
     );
   }
@@ -135,8 +142,8 @@ class MentorSearch extends Component {
 const mapStateToProps = store => {
   return {
     mentors: store.allMentorsReducer,
-	skills: store.allSkillsReducer,
-	selectedUser: store.selectedUserReducer
+    skills: store.allSkillsReducer,
+    selectedUser: store.selectedUserReducer
   };
 };
 

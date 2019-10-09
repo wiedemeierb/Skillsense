@@ -15,6 +15,9 @@ class MyMentorships extends Component {
     this.props.dispatch({
       type: 'FETCH_ACTIVE_MENTORS'
     });
+    this.props.dispatch({
+      type: 'CLEAR_SELECTED_USER'
+    });
   }
 
   render() {
