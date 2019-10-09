@@ -13,9 +13,6 @@ class UserPage extends Component {
     github_url: [],
     linkedin_url: [],
     website_url: [],
-    // access_id: '1',
-    // active: true,
-    // approved_mentor: false,
   }
 
 
