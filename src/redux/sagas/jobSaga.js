@@ -86,7 +86,8 @@ function* fetchJobDetail(action){
   try {
     let response = yield axios.get(`api/jobs/detail/${action.payload.id}`)
     yield put ({
-      type: 'SET_JOB_DETAILS'
+      type: 'SET_JOB_DETAILS',
+      payload: response.data
     });
    } catch(error){
       console.log(error);

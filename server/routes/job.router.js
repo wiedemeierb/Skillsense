@@ -161,7 +161,22 @@ router.post('/new', async (req, res) => {
 })
 
 router.get('/detail/:id', (req, res)=>{
-  console.log(req.params.id)
+  // console.log(req.params.id)
+  const queryText = `SELECT "jobs"."id","project_title","position_title","description","duration","budget","mentor_required","status_id","username","location","client_id",array_agg("job_tags"."tag_id") AS "tag_ids", array_agg("skill_tags"."tag") AS "skill_names"
+    FROM "jobs" 
+    LEFT JOIN "job_tags" ON "jobs"."id" = "job_tags"."job_id"
+    LEFT JOIN "skill_tags" ON "job_tags".tag_id = "skill_tags"."id"
+    LEFT JOIN "users" ON "jobs"."client_id" = "users"."id"
+    WHERE "jobs".id = $1
+    GROUP BY "jobs"."id","users"."id";`
+    pool.query(queryText, [req.params.id])
+    .then(result => {
+      res.send(result.rows[0]);
+    }).catch(error => {
+      console.log('error in getting job details', error)
+      res.sendStatus(500)
+    })
 })
 
 module.exports = router;
+
