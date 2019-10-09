@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 //COMPONENT IMPORTS
+import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import MentorTabs from '../MentorTabs/MentorTabs';
 import UserListItem from '../UserListItem/UserListItem';
 
@@ -18,15 +19,18 @@ class MyMentorships extends Component {
     });
 
     return (
-      <div className="list-display">
+      <TwoColumnLayout rightHeader='Mentor Information' leftHeader='Your Mentors'>
+        <div>
         {/* Navigation tabs on Mentorship Page:
             (Active, Invites) */}
-        <div>
           <MentorTabs />
-        </div>
         {/* Selected Mentor List */}
         <div className="list">{mentorList}</div>
-      </div>
+        </div>
+        <div>
+          {/*  */}
+        </div>
+      </TwoColumnLayout>
     );
   }
 }
