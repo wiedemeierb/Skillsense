@@ -92,7 +92,7 @@ class App extends Component {
               />
               <ProtectedRoute
                 exact
-                path='/jobs/detail/apply'
+                path='/jobs/detail/apply/:id'
                 component={JobApplication}
               />
 							<ProtectedRoute exact path='/admin' component={MentorReview} />
