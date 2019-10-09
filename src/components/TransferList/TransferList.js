@@ -33,15 +33,13 @@ class TransferList extends Component {
 
 	addSkill = skillId => {
 		console.log(skillId);
-		this.props.dispatch({type: 'ADD_SKILL', payload: {id: skillId} })
+		this.props.dispatch({ type: 'ADD_SKILL', payload: { id: skillId } });
 	};
 
-	// removeSkill = skillToRemove => {
-	// 	console.log(skillToRemove);
-	// 	this.setState({
-	// 		userSkills: this.state.userSkills.filter(skill => skill !== skillToRemove)
-	// 	});
-	// };
+	removeSkill = skillId => {
+		console.log(skillToRemove);
+		this.props.dispatch({type: 'REMOVE_SKILL', payload: {id: skillId}});
+	};
 
 	//function to map over all skills and remove any that are matches of user's skills
 	getAvailableSkills = () => {
@@ -62,7 +60,11 @@ class TransferList extends Component {
 	//function get list of user's skills
 	getUserSkills = () => {
 		return this.props.userSkills.map(skill => (
-			<ListItem key={skill.id} role='listitem' button>
+			<ListItem
+				key={skill.id}
+				role='listitem'
+				button
+				onClick={() => this.removeSkill(skill.id)}>
 				<ListItemText primary={skill.tag} />
 			</ListItem>
 		));
