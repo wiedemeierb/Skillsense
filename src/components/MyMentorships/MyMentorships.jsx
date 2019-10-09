@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 //COMPONENT IMPORTS
 import MentorTabs from '../MentorTabs/MentorTabs';
+import UserListItem from '../UserListItem/UserListItem';
 
 class MyMentorships extends Component {
   componentDidMount() {
@@ -13,17 +14,7 @@ class MyMentorships extends Component {
 
   render() {
     let mentorList = this.props.mentors.map((mentor, i) => {
-      return (
-        <div key={i} className="list-item">
-          <div>
-            {/* left side info */}
-            <h2>{mentor.username}</h2>
-            <h4>{mentor.focus_skill}</h4>
-          </div>
-          {/* right side info */}
-          <div>{/* MORE INFORMATION IF NEEDED */}</div>
-        </div>
-      );
+      return <UserListItem key={i} user={mentor} />;
     });
 
     return (

@@ -7,7 +7,11 @@ const router = express.Router();
 
 /** GET (ALL) ROUTE **/
 router.get('/all', (req, res) => {
-  const queryText = `SELECT * FROM "student_mentor";`;
+  const queryText = `
+	SELECT * FROM "users" WHERE "access_id" = 2 
+	AND "approved_mentor" = 3;
+	`;
+
   pool
     .query(queryText)
     .then(result => {
@@ -58,10 +62,19 @@ router.get('/invited', (req, res) => {
 });
 
 /** GET (SEARCH) ROUTE **/
-router.get('/search/:searchTerm', (req, res) => {
-  const searchTerm = req.params.searchTerm + '%';
-  const queryText = `SELECT * FROM "users"
-    WHERE "access_id" = 3 AND "username" LIKE $1;`;
+router.get('/search/', (req, res) => {
+  const searchTerm = `%${req.query.searchTerm}%`;
+  const searchSkill = req.query.searchSkill;
+
+  const queryText = `
+	SELECT "username", "location", "focus_skill", 
+	array_agg("skill_tags".tag) AS "skill_names" FROM "users" 
+	LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
+	JOIN "skill_tags" ON "skill_tags".id = "user_tags".tag_id
+	WHERE "access_id" = 2 AND "approved_mentor" = 3 
+	AND "username" ILIKE $1 GROUP BY "users".id;
+	`;
+
   pool
     .query(queryText, [searchTerm])
     .then(result => {
@@ -130,16 +143,16 @@ router.get('/pending', (req, res) => {
 		user_type.user_type,
 		mentor_status.mentor_status;`;
 
-	pool
-		.query(queryText)
-		.then(result => {
-			console.log('successful GET of mentors pending approval');
-			res.send(result.rows);
-		})
-		.catch(error => {
-			console.log('error on GET of mentors pending approval: ', error);
-			res.sendStatus(500);
-		});
+  pool
+    .query(queryText)
+    .then(result => {
+      console.log('successful GET of mentors pending approval');
+      res.send(result.rows);
+    })
+    .catch(error => {
+      console.log('error on GET of mentors pending approval: ', error);
+      res.sendStatus(500);
+    });
 });
 
 /** PATCH (ADMIN: UPDATE MENTOR APPROVAL STATUS) ROUTE **/
