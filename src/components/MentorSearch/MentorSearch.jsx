@@ -58,7 +58,7 @@ class MentorSearch extends Component {
     });
   };
 
-  submitSearch = event => {
+  submitSearch = () => {
     this.props.dispatch({
       type: 'FETCH_MENTOR_SEARCH',
       payload: this.state.search

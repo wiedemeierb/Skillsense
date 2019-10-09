@@ -68,8 +68,9 @@ router.get('/search/', (req, res) => {
 
   const queryText = `
 	SELECT "username", "location", "focus_skill", 
-	array_agg("user_tags".tag_id) FROM "users" 
+	array_agg("skill_tags".tag) AS "skill_names" FROM "users" 
 	LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
+	JOIN "skill_tags" ON "skill_tags".id = "user_tags".tag_id
 	WHERE "access_id" = 2 AND "approved_mentor" = 3 
 	AND "username" ILIKE $1 GROUP BY "users".id;
 	`;
