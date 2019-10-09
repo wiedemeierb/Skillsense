@@ -99,7 +99,13 @@ class JobPostForm extends Component {
                     <ListItemText primary={skill.tag} />
                 </ListItem>
             ));
+
+        let isAuthorized = ()=>{
+            return (this.props.user.access_id === 3)
+        }
         return (
+            <Paper>
+            { isAuthorized() ?
             <form onSubmit={this.handleSubmit}>
                 <OutlinedInput type="text" title="Project Name" placeholder="Project Name" value={this.state.project_title} onChange={(event) => {this.handleInput(event, 'project_title')}} required={true}/>
                 <OutlinedInput type="text" title="Seeking Position" placeholder="Seeking Position" value={this.state.position_title} onChange={(event) => { this.handleInput(event, 'position_title') }} required={true}/>
@@ -138,13 +144,17 @@ class JobPostForm extends Component {
                 </Grid>
                 <Button type="submit" variant="contained" color="primary">Submit</Button>
             </form>
+            : <Typography variant="h3">You are not authorized to view this page.</Typography>
+            }
+            </Paper>
         )
     }
 }
 
 const mapStateToProps = (store) => {
     return {
-        available: store.allSkillsReducer
+        available: store.allSkillsReducer,
+        user: store.user
     }
 }
 
