@@ -48,7 +48,7 @@ class UserPage extends Component {
     this.setState({
       github_url: event.target.value
     })}
-  
+
   handleLinkedInChange = (event) => {
     this.setState({
       linkedin_url: event.target.value
@@ -70,11 +70,7 @@ class UserPage extends Component {
   };
 
   render() {
-    let studentSkillListId = this.props.selectedUserSkills.map((skillId) => {
-      return (<tr key={skillId.tag_id}>
-              <td>{skillId.tag}</td>
-              </tr>)
-    })
+   
   return (
   <div>
     {/* outlined Material-UI textfield input */}
@@ -143,7 +139,7 @@ class UserPage extends Component {
     />
       <Button onClick={this.editStudentInfo}>Edit</Button>
       <TransferList allSkills={this.props.skills} user={this.props.user}/>
-      {studentSkillListId}
+      {/* {studentSkillListId} */}
   </div>
     )
   }
