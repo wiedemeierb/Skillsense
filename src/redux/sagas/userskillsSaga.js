@@ -22,11 +22,24 @@ function* addSkill(action) {
         });
     } catch (error) {
         console.log('Error with addskill', error);
-    }}
+    }
+}
+
+function* removeSkill(action) {
+    try {
+        yield axios.delete(`/api/userskills/${action.payload.id}`)
+        yield put({
+            type: 'FETCH_USER_SKILLS'
+        })
+    } catch (error) {
+        console.log('Error on deleting user skill')
+    }
+}
 
 function* userskillsSaga() {
     yield takeEvery('FETCH_USER_SKILLS', fetchUserSkills)
     yield takeEvery('ADD_SKILL', addSkill)
+    yield takeEvery('REMOVE_SKILL', removeSkill)
 }
 
 export default userskillsSaga;
