@@ -1,5 +1,8 @@
 const express = require('express');
 const pool = require('../modules/pool');
+const {
+	rejectUnauthenticated
+} = require('../modules/authentication-middleware');
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -19,8 +22,8 @@ router.get('/', (req, res) => {
         })
 })
 
-router.post('/', async (req, res) => {
-    console.log('in POST for adding userSkills', req.user.id, req.body.id)
+// route to POST new skill into users list of skills
+router.post('/', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
     const tagId = req.body.id;
     const sqlText = `INSERT
@@ -38,5 +41,24 @@ router.post('/', async (req, res) => {
             res.sendStatus(500)
         })
 });
+
+//route to DELETE skill from user's list of skills
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    const tagId = req.params.id;
+    const userId = req.user.id;
+    const sqlText = `DELETE *
+        FROM "user_tags"
+        WHERE (tag_id = $1) AND (user_id = $2);`
+
+    pool.query(sqlText, [tagId, userId])
+        .then(result => {
+            console.log('successful delete of user skill from db')
+            res.sendStatus(204)
+        })
+        .catch(error => {
+            console.log('error on deleting user skill from db: ', error);
+            res.sendStatus(500);
+        })
+})
 
 module.exports = router;
