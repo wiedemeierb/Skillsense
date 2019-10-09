@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import {
 	Grid,
+	Divider,
 	List,
 	ListItem,
 	ListItemText,
 	Typography,
-	Button,
 	Paper,
 	Tooltip
 } from '@material-ui/core';
@@ -15,12 +15,16 @@ import {
 const styles = theme => ({
 	root: {
 		margin: 'auto',
-		width: '50%'
+		width: '50vw'
 	},
 	paper: {
-		width: 200,
-		height: 230,
+		width: 250,
+		height: 250,
 		overflow: 'scroll'
+	},
+	listHeader: {},
+	listField: {
+		position: 'relative'
 	}
 });
 
@@ -82,27 +86,34 @@ class TransferList extends Component {
 		return (
 			<Grid
 				container
-				spacing={2}
-				justify='space-evenly'
+				direction='row'
+				spacing={8}
+				justify='center'
 				className={classes.root}>
-				<Grid item xs={5}>
-					<Typography variant='subtitle2' align='center'>
-						Available Skills
-					</Typography>
-				</Grid>
-				<Grid item xs={5}>
-					<Typography variant='subtitle2' align='center'>
-						Your Skills
-					</Typography>
-				</Grid>
-				<Grid item xs={5}>
+				<Grid item container spacing={3} direction='row' xs={5}>
+					<Grid item className={classes.listHeader} xs={12}>
+						<Typography variant='subtitle2' align='center'>
+							Available Skills
+						</Typography>
+					</Grid>
 					<Paper className={classes.paper}>
-						<List>{this.props.userSkills && this.getAvailableSkills()}</List>
+						<Divider />
+						<Grid item className={classes.listField} xs={12}>
+							<List>{this.props.userSkills && this.getAvailableSkills()}</List>
+						</Grid>
 					</Paper>
 				</Grid>
-				<Grid item xs={5}>
+				<Grid item container spacing={3} direction='row' xs={5}>
+					<Grid item className={classes.listHeader} xs={12}>
+						<Typography variant='subtitle2' align='center'>
+							Your Skills
+						</Typography>
+					</Grid>
 					<Paper className={classes.paper}>
-						<List>{this.props.userSkills && this.getUserSkills()}</List>
+						<Divider />
+						<Grid item xs={12}>
+							<List>{this.props.userSkills && this.getUserSkills()}</List>
+						</Grid>
 					</Paper>
 				</Grid>
 			</Grid>
