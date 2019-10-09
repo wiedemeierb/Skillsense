@@ -36,7 +36,7 @@ function* fetchSelectedUser(action) {
 function* editUserInfo(action) {
 	let id = action.payload.id
 	try{
-		let response = yield axios.put(`/api/user/${id}`, action.payload);
+		let response = yield axios.put(`/api/user/edit/${id}`, action.payload);
 		yield put({
 			type: 'FETCH_USER',
 			payload: response.data.id

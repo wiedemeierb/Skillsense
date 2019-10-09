@@ -13,7 +13,6 @@ class UserPage extends Component {
     github_url: [],
     linkedin_url: [],
     website_url: [],
-    
     // access_id: '1',
     // active: true,
     // approved_mentor: false,
@@ -23,6 +22,9 @@ class UserPage extends Component {
   componentDidMount = () => {
     this.props.dispatch({type: 'FETCH_ALL_SKILLS'});
     this.props.dispatch({type: 'FETCH_USER_SKILLS'});
+    this.setState({
+      ...this.props.user
+    })
   }
 
   handleUsernameChange = (event) => {
@@ -63,6 +65,7 @@ class UserPage extends Component {
 
   editStudentInfo = () => {
     console.log('handleClick saveSkills operations')
+    console.log('this is state on didMount', this.state)
     this.props.dispatch({
       type: 'EDIT_USER_INFO',
       payload: this.state,
