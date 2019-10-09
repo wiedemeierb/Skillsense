@@ -7,6 +7,9 @@ import MentorTabs from '../MentorTabs/MentorTabs';
 import UserListItem from '../UserListItem/UserListItem';
 import PublicProfile from '../PublicProfile/PublicProfile';
 
+//MATERIAL-UI IMPORTS
+import { Typography } from '@material-ui/core';
+
 class MyMentorships extends Component {
   componentDidMount() {
     this.props.dispatch({
@@ -28,8 +31,15 @@ class MyMentorships extends Component {
           {/* Selected Mentor List */}
           <div className="list">{mentorList}</div>
         </div>
+
         <div>
-          <PublicProfile/>
+          {this.props.selectedUser.id ? (
+            <PublicProfile />
+          ) : (
+            <Typography variant="h6" align="center">
+              Select a mentor to see more information.
+            </Typography>
+          )}
         </div>
       </TwoColumnLayout>
     );
