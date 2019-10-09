@@ -130,4 +130,27 @@ router.get('/specific/:id', (req, res) => {
 		})
 })
 
+router.put('/edit/:id', (req, res) => {
+	// console.log(req.body)
+	const queryText =
+	`UPDATE "users" SET
+	"email" = $1,
+	"focus_skill" = $2,
+	"github_url" = $3,
+	"linkedin_url" = $4,
+	"location" = $5,
+	"username" = $6,
+	"website_url" = $7,
+	"bio" = $8
+	WHERE "id" = $9;`;
+	pool.query(queryText, [req.body.email, req.body.focus_skill, req.body.github_url, 
+		req.body.linkedin_url, req.body.location, req.body.username, req.body.website_url, req.body.bio, req.body.id])
+	.then((result) => {
+		res.send(result.rows);
+	}).catch((error) => {
+		console.log('error with student edit put', error)
+		res.sendStatus(500);
+	})
+}); 
+
 module.exports = router;
