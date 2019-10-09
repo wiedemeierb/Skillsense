@@ -37,8 +37,8 @@ class TransferList extends Component {
 	};
 
 	removeSkill = skillId => {
-		console.log(skillToRemove);
-		this.props.dispatch({type: 'REMOVE_SKILL', payload: {id: skillId}});
+		console.log(skillId);
+		this.props.dispatch({ type: 'REMOVE_SKILL', payload: { id: skillId } });
 	};
 
 	//function to map over all skills and remove any that are matches of user's skills
