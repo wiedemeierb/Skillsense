@@ -14,8 +14,19 @@ function* fetchUserSkills() {
     }
 }
 
+function* addSkill(action) {
+    try {
+        yield axios.post('/api/userskills', action.payload);
+        yield put({
+            type: 'FETCH_USER_SKILLS',
+        });
+    } catch (error) {
+        console.log('Error with addskill', error);
+    }}
+
 function* userskillsSaga() {
     yield takeEvery('FETCH_USER_SKILLS', fetchUserSkills)
+    yield takeEvery('ADD_SKILL', addSkill)
 }
 
 export default userskillsSaga;

@@ -1,4 +1,4 @@
-const userSkillsReducer = (state = {}, action) => {
+const userSkillsReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_USER_SKILLS':
             return action.payload;
