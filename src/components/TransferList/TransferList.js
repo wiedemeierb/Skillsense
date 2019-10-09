@@ -46,7 +46,7 @@ class TransferList extends Component {
 			this.props.userSkills.some(
 				userSkill => userSkill.id === skill.id
 			) ? null : (
-				<Tooltip key={skill.id} title='Add Skill' placement='right'>
+				<Tooltip key={skill.id} title='Add to Your Skills' placement='right'>
 					<ListItem
 						role='listitem'
 						button
@@ -60,7 +60,7 @@ class TransferList extends Component {
 	//function get list of user's skills
 	getUserSkills = () => {
 		return this.props.userSkills.map(skill => (
-			<Tooltip key={skill.id} title='Remove Skill' placement='left'>
+			<Tooltip key={skill.id} title='Remove From Your Skills' placement='left'>
 				<ListItem
 					key={skill.id}
 					role='listitem'
