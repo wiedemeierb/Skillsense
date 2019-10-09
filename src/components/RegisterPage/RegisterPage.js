@@ -126,6 +126,7 @@ class RegisterPage extends Component {
 						}}>
 						Back to Log In
 					</Button>
+					<Button onClick={this.registerUser}>Register New Account</Button>
 				</Grid>
 			</Grid>
 			// </div>
