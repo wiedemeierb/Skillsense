@@ -31,12 +31,10 @@ class TransferList extends Component {
 	// 	console.log(this.props.allSkills, this.props.userSkills);
 	// }
 
-	// addSkill = skill => {
-	// 	console.log(skill);
-	// 	this.setState({
-	// 		userSkills: [...this.state.userSkills, skill]
-	// 	});
-	// };
+	addSkill = skillId => {
+		console.log(skillId);
+		this.props.dispatch({type: 'ADD_SKILL', payload: {id: skillId} })
+	};
 
 	// removeSkill = skillToRemove => {
 	// 	console.log(skillToRemove);
@@ -45,18 +43,23 @@ class TransferList extends Component {
 	// 	});
 	// };
 
+	//function to map over all skills and remove any that are matches of user's skills
 	getAvailableSkills = () => {
 		return this.props.allSkills.map(skill =>
 			this.props.userSkills.some(
 				userSkill => userSkill.id === skill.id
 			) ? null : (
-				<ListItem key={skill.id} role='listitem' button>
+				<ListItem
+					key={skill.id}
+					role='listitem'
+					button
+					onClick={() => this.addSkill(skill.id)}>
 					<ListItemText primary={skill.tag} />
 				</ListItem>
 			)
 		);
 	};
-
+	//function get list of user's skills
 	getUserSkills = () => {
 		return this.props.userSkills.map(skill => (
 			<ListItem key={skill.id} role='listitem' button>
@@ -67,26 +70,6 @@ class TransferList extends Component {
 
 	render() {
 		const { classes } = this.props;
-
-		// const allSkillsHtml = this.props.allSkills.map(skill =>
-		// 	!this.props.userSkills.includes(skill) ? (
-		// 		<ListItem key={skill.id} role='listitem' button>
-		// 			<ListItemText primary={skill.tag} />
-		// 		</ListItem>
-		// 	) : null
-		// );
-
-		const userSkills =
-			this.state.userSkills &&
-			this.state.userSkills.map(skill => (
-				<ListItem
-					key={skill.id}
-					role='listitem'
-					button
-					onClick={() => this.removeSkill(skill)}>
-					<ListItemText primary={skill.tag} />
-				</ListItem>
-			));
 
 		return (
 			<Grid
