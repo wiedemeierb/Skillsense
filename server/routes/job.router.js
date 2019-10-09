@@ -4,10 +4,12 @@ const router = express.Router();
 
 /** GET ROUTE **/
 router.get('/', (req, res) => {
-  const queryText = `SELECT "jobs"."id","project_title","position_title","description","duration","budget","mentor_required","status_id","client_id",array_agg("job_tags"."tag_id") AS "tag_ids"
+  const queryText = `SELECT "jobs"."id","project_title","position_title","description","duration","budget","mentor_required","status_id","username","location","client_id",array_agg("job_tags"."tag_id") AS "tag_ids", array_agg("skill_tags"."tag") AS "skill_names"
 FROM "jobs" 
 LEFT JOIN "job_tags" ON "jobs"."id" = "job_tags"."job_id"
-GROUP BY "jobs"."id";`;
+LEFT JOIN "skill_tags" ON "job_tags".tag_id = "skill_tags"."id"
+LEFT JOIN "users" ON "jobs"."client_id" = "users"."id"
+GROUP BY "jobs"."id","users"."id";`;
   pool
     .query(queryText)
     .then(result => {
@@ -23,11 +25,14 @@ GROUP BY "jobs"."id";`;
 router.get('/search', (req, res) => {
   const searchTerm = (req.query.searchTerm !== '' ? `%${req.query.searchTerm}%` : `%%`);
   const searchSkill = (req.query.skill != 0 ? Number(req.query.skill) : 0);
-  const queryStart = `SELECT "jobs"."id","project_title","position_title","description","duration","budget","mentor_required","status_id","client_id",array_agg("job_tags"."tag_id") AS "tag_ids" FROM "jobs" 
-  LEFT JOIN "job_tags" ON "jobs"."id" = "job_tags"."job_id"`
+  const queryStart = `SELECT "jobs"."id","project_title","position_title","description","duration","budget","mentor_required","status_id","username","location","client_id",array_agg("job_tags"."tag_id") AS "tag_ids", array_agg("skill_tags"."tag") AS "skill_names"
+FROM "jobs" 
+LEFT JOIN "job_tags" ON "jobs"."id" = "job_tags"."job_id"
+LEFT JOIN "skill_tags" ON "job_tags".tag_id = "skill_tags"."id"
+LEFT JOIN "users" ON "jobs"."client_id" = "users"."id"`
   const queryInput = ` WHERE "project_title" ILIKE $1`
   const querySkill = ` AND "tag_id" = $2`
-  const queryEnd = ` GROUP BY "jobs"."id";`
+  const queryEnd = ` GROUP BY "jobs"."id","users"."id";`
   const queryText = ()=>{
     if (searchSkill !== 0){
       return queryStart + queryInput + querySkill + queryEnd

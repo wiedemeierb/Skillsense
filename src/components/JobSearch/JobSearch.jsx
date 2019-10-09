@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 //MATERIAL-UI IMPORTS
 import { withStyles } from '@material-ui/core/styles';
@@ -33,17 +34,7 @@ const styles = theme => ({
 class JobSearch extends Component {
   state = {
       searchTerm: '',
-      skill: 0,
-    // jobs: [
-    //   {
-    //     project: 'Redesign our website',
-    //     client: `John Doe's Doughnuts`,
-    //     location: 'Minneapolis, MN',
-    //     budget: '$500',
-    //     deadline: '10/25/19',
-    //     skills: ['JavaScript', 'React', 'CSS']
-    //   }
-    // ]
+      skill: 0
   };
 
   componentDidMount() {
@@ -73,34 +64,36 @@ class JobSearch extends Component {
     this.props.dispatch({
       type: 'FETCH_JOB_SEARCH',
       payload: this.state
-      // {searchTerm: this.state.searchTerm,
-      //   skill: this.state.skill}
     });
   };
+
+  viewDetail = (event, id)=>{
+    this.props.history.push(`/jobs/detail/${id}`)
+  }
 
   render() {
     const { classes } = this.props;
 
     let jobList = this.props.jobs.map((job) => {
       return (
-        <div key={job.id} className="list-item">
+        <div key={job.id} className="list-item" onClick={(event)=>{this.viewDetail(event, job.id)}}>
+          {/* left side info */}
           <div>
-            {/* left side info */}
-            <h2>{job.project_title}</h2>
-            {/* <h3>{job.client_id}</h3> */}
-            {/* <h4>{job.location}</h4> */}
+            <Typography variant="h5">{job.project_title}</Typography>
+            <Typography >{job.username}</Typography>
+            <Typography >{job.location}</Typography>
           </div>
           {/* right side info */}
           <div>
-            <p>Budget: {job.budget}</p>
-            <p>Deadline: {job.duration}</p>
-            {/* {job.tag_ids.map((skill, i) => {
+            <Typography>Budget: {job.budget}</Typography>
+            <Typography>Duration: {job.duration}</Typography>
+            {job.skill_names[0] !== null && job.skill_names.map((skill, i) => {
               return (
-                <h4 key={i} className="skill-tag">
+                <Typography key={i} className="skill-tag">
                   {skill}
-                </h4>
+                </Typography>
               );
-            })} */}
+            })}
           </div>
         </div>
       );
@@ -162,4 +155,4 @@ const mapStateToProps = store => {
   };
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(JobSearch));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(JobSearch)));
