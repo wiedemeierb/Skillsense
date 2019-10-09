@@ -5,153 +5,133 @@ import TransferList from '../TransferList/TransferList';
 import Button from '@material-ui/core/Button';
 
 class UserPage extends Component {
-  state = {
-    username: [],
-    email: [],
-    location: [],
-    focus_skill: [],
-    github_url: [],
-    linkedin_url: [],
-    website_url: [],
-  }
+	state = {
+		username: [],
+		email: [],
+		location: [],
+		focus_skill: [],
+		github_url: [],
+		linkedin_url: [],
+    website_url: []
+	};
 
+	componentDidMount = () => {
+		this.setState({
+			...this.props.user
+		});
+	};
+	//handler for all input fields -- go DRY
+	handleInputChangeFor = (event, name) => {
+		this.setState({
+			[name]: event.target.value
+		});
+	};
 
-  componentDidMount = () => {
-    this.props.dispatch({type: 'FETCH_ALL_SKILLS'});
-    this.props.dispatch({type: 'FETCH_USER_SKILLS'});
-    this.setState({
-      ...this.props.user
-    })
-  }
+	editStudentInfo = () => {
+		console.log('handleClick saveSkills operations');
+		console.log('this is state on didMount', this.state);
+		this.props.dispatch({
+			type: 'EDIT_USER_INFO',
+			payload: this.state
+		});
+	};
 
-  handleUsernameChange = (event) => {
-    this.setState({
-      username: event.target.value
-    })}
-
-  handleEmailChange = (event) => {
-    this.setState({
-      email: event.target.value
-    })}
-
-  handleLocationChange = (event) => {
-    this.setState({
-      location: event.target.value
-    })}
-
-  handleFocusSkillChange = (event) => {
-    this.setState({
-      focus_skill: event.target.value
-    })}
-
-  handleGithubChange = (event) => {
-    this.setState({
-      github_url: event.target.value
-    })}
-
-  handleLinkedInChange = (event) => {
-    this.setState({
-      linkedin_url: event.target.value
-    })}
-
-  handleWebsiteChange = (event) => {
-    this.setState({
-      website_url: event.target.value
-    })}
-
-
-  editStudentInfo = () => {
-    console.log('handleClick saveSkills operations')
-    console.log('this is state on didMount', this.state)
-    this.props.dispatch({
-      type: 'EDIT_USER_INFO',
-      payload: this.state,
-    })
-  };
-
-  render() {
-   
-  return (
-  <div>
-    {/* outlined Material-UI textfield input */}
-    <TextField
-      required
-      id="outlined-required"
-      label="Name"
-      defaultValue={this.props.user.username}
-      margin="normal"
-      variant="outlined"
-      onChange={this.handleUsernameChange}
-    />
-      <TextField
-      required
-      id="outlined-required"
-      label="Title"
-      defaultValue={this.props.user.focus_skill}
-      margin="normal"
-      variant="outlined"
-      onChange={this.handleFocusSkillChange}
-    />
-       <TextField
-      required
-      id="outlined-required"
-      label="Location"
-      defaultValue={this.props.user.location}
-      margin="normal"
-      variant="outlined"
-      onChange={this.handleLocationChange}
-    />
-        <TextField
-      required
-      id="outlined-required"
-      label="Email"
-      defaultValue={this.props.user.email}
-      margin="normal"
-      variant="outlined"
-      onChange={this.handleEmailChange}
-    />
-        <TextField
-      required
-      id="outlined-required"
-      label="Website"
-      defaultValue={this.props.user.website_url}
-      margin="normal"
-      variant="outlined"
-      onChange={this.handleWebsiteChange}
-    />
-         <TextField
-      required
-      id="outlined-required"
-      label="LinkedIn"
-      defaultValue={this.props.user.linkedin_url}
-      margin="normal"
-      variant="outlined"
-      onChange={this.handleLinkedInChange}
-    />
-         <TextField
-      required
-      id="outlined-required"
-      label="Github"
-      defaultValue={this.props.user.github_url}
-      margin="normal"
-      variant="outlined"
-      onChange={this.handleGithubChange}
-    />
-      <Button onClick={this.editStudentInfo}>Edit</Button>
-      <TransferList allSkills={this.props.skills} user={this.props.user}/>
-      {/* {studentSkillListId} */}
-  </div>
-    )
-  }
+	render() {
+		return (
+			<div>
+				{/* outlined Material-UI textfield input */}
+				<TextField
+					required
+					id='outlined-required'
+					label='Name'
+					defaultValue={this.props.user.username}
+					margin='normal'
+					variant='outlined'
+					onChange={event => {
+						this.handleInputChangeFor(event, 'username');
+					}}
+				/>
+				<TextField
+					required
+					id='outlined-required'
+					label='Title'
+					defaultValue={this.props.user.focus_skill}
+					margin='normal'
+					variant='outlined'
+					onChange={event => {
+						this.handleInputChangeFor(event, 'focus_skill');
+					}}
+				/>
+				<TextField
+					required
+					id='outlined-required'
+					label='Location'
+					defaultValue={this.props.user.location}
+					margin='normal'
+					variant='outlined'
+					onChange={event => {
+						this.handleInputChangeFor(event, 'location');
+					}}
+				/>
+				<TextField
+					required
+					id='outlined-required'
+					label='Email'
+					defaultValue={this.props.user.email}
+					margin='normal'
+					variant='outlined'
+					onChange={event => {
+						this.handleInputChangeFor(event, 'name');
+					}}
+				/>
+				<TextField
+					required
+					id='outlined-required'
+					label='Website'
+					defaultValue={this.props.user.website_url}
+					margin='normal'
+					variant='outlined'
+					onChange={event => {
+						this.handleInputChangeFor(event, 'website_url');
+					}}
+				/>
+				<TextField
+					required
+					id='outlined-required'
+					label='LinkedIn'
+					defaultValue={this.props.user.linkedin_url}
+					margin='normal'
+					variant='outlined'
+					onChange={event => {
+						this.handleInputChangeFor(event, 'linkedin_url');
+					}}
+				/>
+				<TextField
+					required
+					id='outlined-required'
+					label='Github'
+					defaultValue={this.props.user.github_url}
+					margin='normal'
+					variant='outlined'
+					onChange={event => {
+						this.handleInputChangeFor(event, 'github_url');
+					}}
+				/>
+				<Button onClick={this.editStudentInfo}>Edit</Button>
+				<TransferList allSkills={this.props.skills} user={this.props.user} />
+				{/* {studentSkillListId} */}
+			</div>
+		);
+	}
 }
 
 // Instead of taking everything from state, we just want the user info.
 // if you wanted you could write this code like this:
 // const mapStateToProps = ({user}) => ({ user });
 const mapStateToProps = state => ({
-  user: state.user,
-  skills: state.allSkillsReducer,
-  selectedUserSkills: state.userSkillsReducer,
+	user: state.user,
+	skills: state.allSkillsReducer,
+	selectedUserSkills: state.userSkillsReducer
 });
 
 // this allows us to use <App /> in index.js

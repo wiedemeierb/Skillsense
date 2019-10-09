@@ -71,6 +71,10 @@ class TransferList extends Component {
 			</Tooltip>
 		));
 	};
+	componentDidMount = () => {
+		this.props.dispatch({ type: 'FETCH_ALL_SKILLS' });
+		this.props.dispatch({ type: 'FETCH_USER_SKILLS' });
+	};
 
 	render() {
 		const { classes } = this.props;
