@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
+import {
+	Grid,
+	List,
+	ListItem,
+	ListItemText,
+	Typography,
+	Button,
+	Paper,
+	Tooltip
+} from '@material-ui/core';
 
 const styles = theme => ({
 	root: {
@@ -27,10 +30,6 @@ class TransferList extends Component {
 		selectedSkills: []
 	};
 
-	// componentDidMount() {
-	// 	console.log(this.props.allSkills, this.props.userSkills);
-	// }
-
 	addSkill = skillId => {
 		console.log(skillId);
 		this.props.dispatch({ type: 'ADD_SKILL', payload: { id: skillId } });
@@ -47,26 +46,29 @@ class TransferList extends Component {
 			this.props.userSkills.some(
 				userSkill => userSkill.id === skill.id
 			) ? null : (
-				<ListItem
-					key={skill.id}
-					role='listitem'
-					button
-					onClick={() => this.addSkill(skill.id)}>
-					<ListItemText primary={skill.tag} />
-				</ListItem>
+				<Tooltip key={skill.id} title='Add Skill' placement='right'>
+					<ListItem
+						role='listitem'
+						button
+						onClick={() => this.addSkill(skill.id)}>
+						<ListItemText primary={skill.tag} />
+					</ListItem>
+				</Tooltip>
 			)
 		);
 	};
 	//function get list of user's skills
 	getUserSkills = () => {
 		return this.props.userSkills.map(skill => (
-			<ListItem
-				key={skill.id}
-				role='listitem'
-				button
-				onClick={() => this.removeSkill(skill.id)}>
-				<ListItemText primary={skill.tag} />
-			</ListItem>
+			<Tooltip key={skill.id} title='Remove Skill' placement='left'>
+				<ListItem
+					key={skill.id}
+					role='listitem'
+					button
+					onClick={() => this.removeSkill(skill.id)}>
+					<ListItemText primary={skill.tag} />
+				</ListItem>
+			</Tooltip>
 		));
 	};
 
