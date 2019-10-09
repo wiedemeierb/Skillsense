@@ -23,7 +23,7 @@ router.get('/all', (req, res) => {
 router.get('/active', (req, res) => {
   const userId = req.user.id;
   const queryText = `
-  	SELECT "username", "focus_skill" FROM "users" 
+  	SELECT "username", "focus_skill" FROM "users"
 	JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
 	WHERE "student_mentor".student_id = $1 AND "accepted" = true;
 	`;
@@ -42,7 +42,7 @@ router.get('/active', (req, res) => {
 router.get('/invited', (req, res) => {
   const userId = req.user.id;
   const queryText = `
-  	SELECT "username", "focus_skill" FROM "users" 
+  	SELECT "username", "focus_skill" FROM "users"
 	JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
 	WHERE "student_mentor".student_id = $1 AND "accepted" = false;
 	`;
@@ -113,7 +113,7 @@ router.get('/pending', (req, res) => {
 			ON
 		skill_tags.id = user_tags.tag_id
 	WHERE
-		user_type.user_type ILIKE 'Mentor' AND mentor_status.id = 2
+		user_type.user_type ILIKE 'Mentor' AND users.approved_mentor = 2
 	GROUP BY
 		users.id,
 		users.username,
@@ -147,7 +147,7 @@ router.patch(`/admin/:id`, rejectUnauthenticated, (req, res) => {
   //expects a req.body with {newStatus: #}
   console.log(req.user);
   const queryText = `UPDATE users SET approved_mentor = $1  WHERE users.id = $2`;
-  const values = [req.params.id, req.body.newStatus];
+  const values = [req.body.newStatus, req.params.id];
 
   pool
     .query(queryText, values)
