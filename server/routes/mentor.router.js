@@ -8,9 +8,9 @@ const router = express.Router();
 /** GET (ALL) ROUTE **/
 router.get('/all', (req, res) => {
   const queryText = `
-  SELECT * FROM "users" WHERE "access_id" = 2 
-  AND "approved_mentor" = 3;
-  `;
+	SELECT * FROM "users" WHERE "access_id" = 2 
+	AND "approved_mentor" = 3;
+	`;
 
   pool
     .query(queryText)
@@ -62,10 +62,18 @@ router.get('/invited', (req, res) => {
 });
 
 /** GET (SEARCH) ROUTE **/
-router.get('/search/:searchTerm', (req, res) => {
-  const searchTerm = req.params.searchTerm + '%';
-  const queryText = `SELECT * FROM "users"
-    WHERE "access_id" = 3 AND "username" LIKE $1;`;
+router.get('/search/', (req, res) => {
+  const searchTerm = `%${req.query.searchTerm}%`;
+  const searchSkill = req.query.searchSkill;
+
+  const queryText = `
+	SELECT "username", "location", "focus_skill", 
+	array_agg("user_tags".tag_id) FROM "users" 
+	LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
+	WHERE "access_id" = 2 AND "approved_mentor" = 3 
+	AND "username" ILIKE $1 GROUP BY "users".id;
+	`;
+
   pool
     .query(queryText, [searchTerm])
     .then(result => {

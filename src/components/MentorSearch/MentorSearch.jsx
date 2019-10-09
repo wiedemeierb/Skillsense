@@ -8,7 +8,6 @@ import UserListItem from '../UserListItem/UserListItem';
 import { withStyles } from '@material-ui/core/styles';
 import {
   Paper,
-  Typography,
   TextField,
   FormControl,
   FormGroup,
@@ -37,7 +36,7 @@ class MentorSearch extends Component {
   state = {
     search: {
       searchTerm: '',
-      skill: 'Select Skill'
+      skill: 0
     }
   };
 
@@ -50,11 +49,11 @@ class MentorSearch extends Component {
     });
   }
 
-  handleSearch = (searchBy, event) => {
+  handleSearch = (searchKey, event) => {
     this.setState({
       search: {
         ...this.state.search,
-        [searchBy]: event.target.value
+        [searchKey]: event.target.value
       }
     });
   };
