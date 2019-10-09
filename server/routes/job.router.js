@@ -160,6 +160,18 @@ router.post('/new', async (req, res) => {
     }
 })
 
+router.post('/apply', (req, res)=>{
+  console.log(req.body)
+  let queryText = `INSERT INTO "job_applicants" ("job_id", "student_id","payment_terms","cover_letter","resume","mentor_id") VALUES ($1,$2,$3,$4,$5,$6);`
+  pool.query(queryText, [req.body.job_id, req.user.id, req.body.payment_terms, req.body.cover_letter, req.body.resume, req.body.mentor_id])
+    .then((response) => {
+      res.sendStatus(201)
+    }).catch((error) => {
+      console.log(error)
+      res.sendStatus(500)
+    })
+})
+
 router.get('/detail/:id', (req, res)=>{
   console.log(req.params.id)
 })
