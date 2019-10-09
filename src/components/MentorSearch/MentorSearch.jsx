@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 //COMPONENT IMPORTS
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import UserListItem from '../UserListItem/UserListItem';
+import PublicProfile from '../PublicProfile/PublicProfile';
 
 //MATERIAL-UI IMPORTS
 import { withStyles } from '@material-ui/core/styles';
@@ -122,7 +123,10 @@ class MentorSearch extends Component {
           {/* Mentor Search List */}
           <div className="list">{mentorList}</div>
         </div>
-        <div>{/* Mentor Information displayed here */}</div>
+
+		<div>
+			<PublicProfile/>
+		</div>
       </TwoColumnLayout>
     );
   }
@@ -131,7 +135,8 @@ class MentorSearch extends Component {
 const mapStateToProps = store => {
   return {
     mentors: store.allMentorsReducer,
-    skills: store.allSkillsReducer
+	skills: store.allSkillsReducer,
+	selectedUser: store.selectedUserReducer
   };
 };
 

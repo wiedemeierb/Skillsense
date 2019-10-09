@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import MentorTabs from '../MentorTabs/MentorTabs';
 import UserListItem from '../UserListItem/UserListItem';
+import PublicProfile from '../PublicProfile/PublicProfile';
 
 class MyMentorships extends Component {
   componentDidMount() {
@@ -27,7 +28,9 @@ class MyMentorships extends Component {
           {/* Selected Mentor List */}
           <div className="list">{mentorList}</div>
         </div>
-        <div>{/* Mentorship Information displayed here */}</div>
+        <div>
+          <PublicProfile/>
+        </div>
       </TwoColumnLayout>
     );
   }
@@ -35,7 +38,8 @@ class MyMentorships extends Component {
 
 const mapStateToProps = store => {
   return {
-    mentors: store.allMentorsReducer
+    mentors: store.allMentorsReducer,
+    selectedUser: store.selectedUserReducer
   };
 };
 

@@ -52,7 +52,8 @@ function PublicProfile(props) {
 				</Typography>
 			</Grid>
 			<Grid item xs={12}>
-				<SkillList skillList={selectedUser.skill_names} />
+				{selectedUser.skill_names && <SkillList skillList={selectedUser.skill_names} />
+}
 			</Grid>
 		</Grid>
 	);
