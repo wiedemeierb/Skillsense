@@ -15,9 +15,12 @@ function* fetchAllJobs() {
 }
 
 function* fetchJobSearch(action) {
-  let searchTerm = action.payload.searchTerm;
   try {
-    let response = yield axios.get(`/api/jobs/search/${searchTerm}`);
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      params: action.payload
+    };
+    let response = yield axios.get(`/api/jobs/search`, config);
     console.log(response.data);
     yield put({
       type: 'SET_ALL_JOBS',
