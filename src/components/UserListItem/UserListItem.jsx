@@ -52,8 +52,8 @@ class UserListItem extends Component {
         </Grid>
         {/* right side info */}
         <Grid item xs={7}>
-          {this.props.user.skill_names[0] && (
-            <SkillList skillList={this.props.user.skill_names} />
+          {this.props.user.skill_names[0] !== null && (
+            <SkillList skillList={this.props.user.skills} />
           )}
           <Button
             variant="contained"

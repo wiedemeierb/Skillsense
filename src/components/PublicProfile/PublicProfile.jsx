@@ -16,62 +16,54 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function PublicProfile(props) {
-  const selectedUser = useSelector(state => state.selectedUserReducer);
+	const selectedUser = useSelector(state => state.selectedUserReducer);
+	//sets selectedUser variable to redux state of selected user
+
+	const displayedUser = props.user || selectedUser;
+	//display the user passed as props if there is one, otherwise display selected user
 
   const classes = useStyles();
 
-  return (
-    <Grid className={classes.root} container spacing={4} justify="space-around">
-      <Grid item xs={12}>
-        <Typography variant="h5" align="center">
-          {selectedUser.username}
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Typography variant="h6" align="left">
-          {selectedUser.focus_skill}
-        </Typography>
-        <Typography variant="body1" align="left">
-          {selectedUser.location}
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Typography variant="body2">{selectedUser.bio}</Typography>
-      </Grid>
-      <Grid item xs={6}>
-        <Typography align="left">
-          <Link href={selectedUser.linkedin_url} className={classes.link}>
-            LinkedIn
-          </Link>
-        </Typography>
-        <Typography align="left">
-          <Link href={selectedUser.github_url} className={classes.link}>
-            Github
-          </Link>
-        </Typography>
-      </Grid>
-      <Grid item xs={6}>
-        <Typography align="right">
-          <Link href={selectedUser.website_url} className={classes.link}>
-            Website
-          </Link>
-        </Typography>
-        <Typography align="right">
-          <Link
-            target="_blank"
-            href={`mailto:${selectedUser.email}`}
-            className={classes.link}
-          >
-            E-Mail
-          </Link>
-        </Typography>
-      </Grid>
-      <Grid item xs={12} align="center">
-        {selectedUser.skill_names && (
-          <SkillList skillList={selectedUser.skill_names} />
-        )}
-      </Grid>
-    </Grid>
-  );
+	return (
+		<Grid className={classes.root} container spacing={4} justify='space-around'>
+			<Grid item xs={12}>
+				<Typography variant='h5' align='center'>
+					{displayedUser.username}
+				</Typography>
+			</Grid>
+			<Grid item xs={12}>
+				<Typography variant='h6' align='left'>
+					{displayedUser.focus_skill}
+				</Typography>
+				<Typography variant='body1' align='left'>
+					{displayedUser.location}
+				</Typography>
+			</Grid>
+			<Grid item xs={12}>
+				<Typography variant='body2'>{displayedUser.bio}</Typography>
+			</Grid>
+			<Grid item xs={6}>
+				<Typography align='left'>
+					<Link href={displayedUser.linkedin_url}>LinkedIn</Link>
+				</Typography>
+				<Typography align='left'>
+					<Link href={displayedUser.github_url}>Github</Link>
+				</Typography>
+			</Grid>
+			<Grid item xs={6}>
+				<Typography align='right'>
+					<Link href={displayedUser.website_url}>Website</Link>
+				</Typography>
+				<Typography align='right'>
+					<Link target='_blank' href={`mailto:${displayedUser.email}`}>
+						E-Mail
+					</Link>
+				</Typography>
+			</Grid>
+			<Grid item xs={12}>
+				<SkillList skillList={displayedUser.skills} />
+			</Grid>
+		</Grid>
+	);
 }
 export default PublicProfile;
