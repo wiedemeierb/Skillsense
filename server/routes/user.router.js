@@ -24,11 +24,16 @@ router.post('/register', (req, res, next) => {
 		req.body.email,
 		password,
 		req.body.location,
-		req.body.accountType
+		req.body.userType,
+		req.body.focus_skill,
+		req.body.bio,
+		req.body.linkedin_url,
+		req.body.github_url,
+		req.body.website_url
 	];
 
 	const queryText =
-		'INSERT INTO "users" (username, email, password, location, access_id) VALUES ($1, $2, $3, $4, $5) RETURNING id';
+		'INSERT INTO "users" (username, email, password, location, access_id, focus_skill, bio, linkedin_url, github_url, website_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id';
 	pool
 		.query(queryText, values)
 		.then(result => {
@@ -109,21 +114,24 @@ router.get('/specific/:id', (req, res) => {
 		users.active,
 		user_type.user_type;`;
 
-	pool.query(sqlText, [userId])
+	pool
+		.query(sqlText, [userId])
 		.then(result => {
-			console.log('specific user details retrieved from database')
-			res.send(result.rows[0])
+			console.log('specific user details retrieved from database');
+			res.send(result.rows[0]);
 		})
 		.catch(error => {
-			console.log('error on retrieving specific user details from database: ', error)
+			console.log(
+				'error on retrieving specific user details from database: ',
+				error
+			);
 			res.sendStatus(500);
-		})
-})
+		});
+});
 
 router.put('/edit/:id', (req, res) => {
 	// console.log(req.body)
-	const queryText =
-	`UPDATE "users" SET
+	const queryText = `UPDATE "users" SET
 	"email" = $1,
 	"focus_skill" = $2,
 	"github_url" = $3,
@@ -133,14 +141,25 @@ router.put('/edit/:id', (req, res) => {
 	"website_url" = $7,
 	"bio" = $8
 	WHERE "id" = $9;`;
-	pool.query(queryText, [req.body.email, req.body.focus_skill, req.body.github_url,
-		req.body.linkedin_url, req.body.location, req.body.username, req.body.website_url, req.body.bio, req.body.id])
-	.then((result) => {
-		res.send(result.rows);
-	}).catch((error) => {
-		console.log('error with student edit put', error)
-		res.sendStatus(500);
-	})
+	pool
+		.query(queryText, [
+			req.body.email,
+			req.body.focus_skill,
+			req.body.github_url,
+			req.body.linkedin_url,
+			req.body.location,
+			req.body.username,
+			req.body.website_url,
+			req.body.bio,
+			req.body.id
+		])
+		.then(result => {
+			res.send(result.rows);
+		})
+		.catch(error => {
+			console.log('error with student edit put', error);
+			res.sendStatus(500);
+		});
 });
 
 module.exports = router;

@@ -21,8 +21,8 @@ const styles = theme => ({
 		width: '70vw'
 	},
 	formControl: {
-		margin: theme.spacing(1),
-		padding: theme.spacing(1),
+		margin: theme.spacing(0),
+		padding: theme.spacing(0),
 		minWidth: 200
 	},
 	largeFormControl: {
@@ -46,6 +46,11 @@ class RegisterPage extends Component {
 		email: '',
 		password: '',
 		location: '',
+		github_url: '',
+		linkedin_url: '',
+		website_url: '',
+		bio: '',
+		focus_skill: '',
 		userType: ''
 	};
 
@@ -53,16 +58,17 @@ class RegisterPage extends Component {
 		this.props.dispatch({ type: 'FETCH_USER_TYPES' });
 	};
 	registerUser = event => {
-		if (this.state.username && this.state.password) {
+		if (
+			this.state.username &&
+			this.state.password &&
+			this.state.email &&
+			this.state.location &&
+			this.state.userType &&
+			this.state.focus_skill
+		) {
 			this.props.dispatch({
 				type: 'REGISTER',
-				payload: {
-					email: this.state.email,
-					username: this.state.username,
-					password: this.state.password,
-					accountType: this.state.accountType,
-					location: this.state.location
-				}
+				payload: this.state
 			});
 		} else {
 			this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
@@ -95,8 +101,11 @@ class RegisterPage extends Component {
 					<Grid item xs={12}>
 						<TextField
 							className={classes.formControl}
-							label='Email'
+							label='Your Email'
 							helperText='@domain.com'
+							value={this.state.email}
+							required
+							onChange={e => this.handleInputChangeFor('email', e)}
 						/>
 					</Grid>
 					<Grid item xs={12}>
@@ -105,7 +114,29 @@ class RegisterPage extends Component {
 							label='Password'
 							type='password'
 							helperText='8+ characters'
+							value={this.state.password}
+							required
+							onChange={e => {
+								this.handleInputChangeFor('password', e);
+							}}
 						/>
+					</Grid>
+					<Grid item xs={12}>
+						<FormControl className={classes.formControl}>
+							<InputLabel htmlFor='userTypeHelper'>You are a...</InputLabel>
+							<Select
+								value={this.state.userType}
+								required
+								inputProps={{ name: 'User Type', id: 'userTypeHelper' }}
+								onChange={e => this.setState({ userType: e.target.value })}>
+								{this.props.userTypes.map(type => (
+									<MenuItem key={type.id} value={type.id}>
+										{type.user_type}
+									</MenuItem>
+								))}
+							</Select>
+							<FormHelperText>Choose your account type...</FormHelperText>
+						</FormControl>
 					</Grid>
 				</Grid>
 				<Grid item container justify='center' align='center' xs={12}>
@@ -114,29 +145,29 @@ class RegisterPage extends Component {
 							className={classes.formControl}
 							label='Name'
 							helperText='Your Full Name/Display Name'
+							value={this.state.username}
+							required
+							onChange={e => this.handleInputChangeFor('username', e)}
 						/>
 					</Grid>
 					<Grid item xs={4}>
-						<FormControl className={classes.formControl}>
-							<InputLabel htmlFor="userTypeHelper">You are a...</InputLabel>
-							<Select
-								value={this.state.userType}
-								inputProps={{ name: 'User Type', id: "userTypeHelper" }}
-								onChange={e => this.setState({ userType: e.target.value })}>
-								{this.props.userTypes.map(type => (
-									<MenuItem key={type.id} value={type.id}>
-										{type.user_type}
-									</MenuItem>
-								))}
-							</Select>
-							<FormHelperText>Choose your account Type</FormHelperText>
-						</FormControl>
+						<TextField
+							className={classes.formControl}
+							label='Location'
+							helperText='Your City/State'
+							value={this.state.location}
+							required
+							onChange={e => this.handleInputChangeFor('location', e)}
+						/>
 					</Grid>
 					<Grid item xs={4}>
 						<TextField
 							className={classes.formControl}
 							label='Your Title'
 							helperText='e.g. Back End Developer...'
+							value={this.state.focus_skill}
+							required
+							onChange={e => this.handleInputChangeFor('focus_skill', e)}
 						/>
 					</Grid>
 					<Grid item xs={4}>
@@ -144,6 +175,8 @@ class RegisterPage extends Component {
 							className={classes.formControl}
 							label='LinkedIn'
 							helperText='Link to your LinkedIn Profile'
+							value={this.state.linkedin_url}
+							onChange={e => this.handleInputChangeFor('linkedin_url', e)}
 						/>
 					</Grid>
 					<Grid item xs={4}>
@@ -151,6 +184,8 @@ class RegisterPage extends Component {
 							className={classes.formControl}
 							label='Github'
 							helperText='Link to your Github Profile'
+							value={this.state.github_url}
+							onChange={e => this.handleInputChangeFor('github_url', e)}
 						/>
 					</Grid>
 					<Grid item xs={4}>
@@ -158,6 +193,8 @@ class RegisterPage extends Component {
 							className={classes.formControl}
 							label='Other Website'
 							helperText='Link to your portfolio, etc...'
+							value={this.state.website_url}
+							onChange={e => this.handleInputChangeFor('website_url', e)}
 						/>
 					</Grid>
 					<Grid item xs={12}>
@@ -168,6 +205,8 @@ class RegisterPage extends Component {
 							rows='6'
 							variant='outlined'
 							helperText='Please write a short description of who you are and what you do.'
+							value={this.state.bio}
+							onChange={e => this.handleInputChangeFor('bio', e)}
 						/>
 					</Grid>
 				</Grid>
