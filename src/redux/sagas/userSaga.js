@@ -18,6 +18,7 @@ function* fetchUser() {
 		// now that the session has given us a user object
 		// with an id and username set the client-side user object to let
 		// the client-side code know the user is logged in
+		yield put({ type: 'FETCH_USER_SKILLS' });
 		yield put({ type: 'SET_USER', payload: response.data });
 	} catch (error) {
 		console.log('User get request failed', error);
@@ -27,28 +28,35 @@ function* fetchUser() {
 function* fetchSelectedUser(action) {
 	try {
 		const response = yield axios.get(`/api/user/specific/${action.payload}`);
-		yield put({ type: 'SET_SELECTED_USER', payload: response.data });
+		const skillsResponse = yield axios.get(
+			`api/userskills/?id=${action.payload}`
+		);
+		yield put({
+			type: 'SET_SELECTED_USER',
+			payload: { ...response.data, skills: skillsResponse.data }
+		});
 	} catch (error) {
 		console.log('Failure on selected user get route: ', error);
 	}
 }
 
 function* editUserInfo(action) {
-	let id = action.payload.id
-	try{
+	let id = action.payload.id;
+	try {
 		let response = yield axios.put(`/api/user/edit/${id}`, action.payload);
 		yield put({
 			type: 'FETCH_USER',
 			payload: response.data.id
 		});
 	} catch (error) {
-		console.log('Error with posting addStudentInfo', error)
-	}}
+		console.log('Error with posting addStudentInfo', error);
+	}
+}
 
 function* userSaga() {
-  yield takeLatest('FETCH_USER', fetchUser);
-  yield takeLatest('FETCH_SELECTED_USER', fetchSelectedUser)
-  yield takeLatest('EDIT_USER_INFO', editUserInfo)
+	yield takeLatest('FETCH_USER', fetchUser);
+	yield takeLatest('FETCH_SELECTED_USER', fetchSelectedUser);
+	yield takeLatest('EDIT_USER_INFO', editUserInfo);
 }
 
 export default userSaga;

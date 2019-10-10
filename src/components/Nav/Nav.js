@@ -29,6 +29,9 @@ const Nav = (props) => (
       {props.user.access_id === 1 && <Link className="nav-link" to="/search/mentors">
         Mentor Search
           </Link>}
+      {props.user.access_id === 4 && <Link className="nav-link" to="/mentors">
+        Admin
+      </Link>}
       {props.user.access_id === 1 || props.user.access_id === 3 ? <Link className="nav-link" to="/jobs">
         My Jobs
           </Link> : null}

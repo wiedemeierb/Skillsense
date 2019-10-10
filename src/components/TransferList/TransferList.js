@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import {
 	Grid,
+	Divider,
 	List,
 	ListItem,
 	ListItemText,
 	Typography,
-	Button,
 	Paper,
 	Tooltip
 } from '@material-ui/core';
@@ -15,12 +15,15 @@ import {
 const styles = theme => ({
 	root: {
 		margin: 'auto',
-		width: '50%'
+		width: '50vw'
 	},
 	paper: {
-		width: 200,
-		height: 230,
+		width: 250,
+		height: 250,
 		overflow: 'scroll'
+	},
+	listField: {
+		position: 'relative'
 	}
 });
 
@@ -42,10 +45,11 @@ class TransferList extends Component {
 
 	//function to map over all skills and remove any that are matches of user's skills
 	getAvailableSkills = () => {
-		return this.props.allSkills.map(skill =>
-			this.props.userSkills.some(
-				userSkill => userSkill.id === skill.id
-			) ? null : (
+		return this.props.allSkills.map(
+			skill => (
+				this.props.user.skills.some(
+					userSkill => userSkill.id === skill.id
+				) ? null : (
 				<Tooltip key={skill.id} title='Add to Your Skills' placement='right'>
 					<ListItem
 						role='listitem'
@@ -55,11 +59,12 @@ class TransferList extends Component {
 					</ListItem>
 				</Tooltip>
 			)
+			)
 		);
 	};
 	//function get list of user's skills
 	getUserSkills = () => {
-		return this.props.userSkills.map(skill => (
+		return this.props.user.skills.map(skill => (
 			<Tooltip key={skill.id} title='Remove From Your Skills' placement='left'>
 				<ListItem
 					key={skill.id}
@@ -78,27 +83,34 @@ class TransferList extends Component {
 		return (
 			<Grid
 				container
-				spacing={2}
-				justify='space-evenly'
+				direction='row'
+				spacing={8}
+				justify='center'
 				className={classes.root}>
-				<Grid item xs={5}>
-					<Typography variant='subtitle2' align='center'>
-						Available Skills
-					</Typography>
-				</Grid>
-				<Grid item xs={5}>
-					<Typography variant='subtitle2' align='center'>
-						Your Skills
-					</Typography>
-				</Grid>
-				<Grid item xs={5}>
+				<Grid item container spacing={3} direction='row' xs={5}>
+					<Grid item xs={12}>
+						<Typography variant='subtitle2' align='center'>
+							Available Skills
+						</Typography>
+					</Grid>
 					<Paper className={classes.paper}>
-						<List>{this.props.userSkills && this.getAvailableSkills()}</List>
+						<Divider />
+						<Grid item className={classes.listField} xs={12}>
+							<List>{this.getAvailableSkills()}</List>
+						</Grid>
 					</Paper>
 				</Grid>
-				<Grid item xs={5}>
+				<Grid item container spacing={3} direction='row' xs={5}>
+					<Grid item xs={12}>
+						<Typography variant='subtitle2' align='center'>
+							Your Skills
+						</Typography>
+					</Grid>
 					<Paper className={classes.paper}>
-						<List>{this.props.userSkills && this.getUserSkills()}</List>
+						<Divider />
+						<Grid item xs={12}>
+							<List>{this.props.user.skills && this.getUserSkills()}</List>
+						</Grid>
 					</Paper>
 				</Grid>
 			</Grid>
@@ -107,7 +119,7 @@ class TransferList extends Component {
 }
 
 const mapStateToProps = state => ({
-	user: state.user,
+	// user: state.user,
 	allSkills: state.allSkillsReducer,
 	userSkills: state.userSkillsReducer
 });

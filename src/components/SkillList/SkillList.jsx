@@ -13,17 +13,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function SkillList(props) {
-  const classes = useStyles();
-  return (
-    <>
-      {props.skillList[0] &&
-        props.skillList.map((skill, index) => (
-          <Typography key={index} variant="body2" className={classes.skillTag}>
-            {skill}
-          </Typography>
-        ))}
-    </>
-  );
+	const classes = useStyles();
+	return (
+		<>
+			{props.skillList && props.skillList.map((skill) => (
+				<Typography key={skill.id} variant='body2' className={classes.skillTag}>
+					{skill.tag}
+				</Typography>
+			))}
+		</>
+	);
 }
 
 export default SkillList;
