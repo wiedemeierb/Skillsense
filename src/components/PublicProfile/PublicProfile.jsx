@@ -5,14 +5,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import SkillList from '../SkillList/SkillList';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex'
-  },
-  link: {
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    padding: theme.spacing(1)
-  }
+	root: {
+		display: 'flex'
+	},
+	link: {
+		fontWeight: 'bold',
+		padding: theme.spacing(1)
+	}
 }));
 
 function PublicProfile(props) {
@@ -22,7 +21,7 @@ function PublicProfile(props) {
 	const displayedUser = props.user || selectedUser;
 	//display the user passed as props if there is one, otherwise display selected user
 
-  const classes = useStyles();
+	const classes = useStyles();
 
 	return (
 		<Grid className={classes.root} container spacing={4} justify='space-around'>
@@ -44,18 +43,27 @@ function PublicProfile(props) {
 			</Grid>
 			<Grid item xs={6}>
 				<Typography align='left'>
-					<Link href={displayedUser.linkedin_url}>LinkedIn</Link>
+					<Link className={classes.link} href={displayedUser.linkedin_url}>
+						LinkedIn
+					</Link>
 				</Typography>
 				<Typography align='left'>
-					<Link href={displayedUser.github_url}>Github</Link>
+					<Link className={classes.link} href={displayedUser.github_url}>
+						Github
+					</Link>
 				</Typography>
 			</Grid>
 			<Grid item xs={6}>
 				<Typography align='right'>
-					<Link href={displayedUser.website_url}>Website</Link>
+					<Link className={classes.link} href={displayedUser.website_url}>
+						Website
+					</Link>
 				</Typography>
 				<Typography align='right'>
-					<Link target='_blank' href={`mailto:${displayedUser.email}`}>
+					<Link
+						target='_blank'
+						className={classes.link}
+						href={`mailto:${displayedUser.email}`}>
 						E-Mail
 					</Link>
 				</Typography>
