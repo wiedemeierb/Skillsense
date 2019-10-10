@@ -56,7 +56,7 @@ class JobListItem extends Component {
           <Typography>Budget: ${this.props.job.budget}</Typography>
           <Typography>Duration: {this.props.job.duration}</Typography>
           {this.props.job.skill_names[0] && (
-            <SkillList skillList={this.props.job.skill_names} />
+            <SkillList skillList={this.props.job.skills} />
           )}
         </Grid>
         {/* right side info */}
