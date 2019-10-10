@@ -41,8 +41,8 @@ function* fetchSelectedUser(action) {
 }
 
 function* editUserInfo(action) {
-	let id = action.payload.id;
 	try {
+		let id = action.payload.id;
 		let response = yield axios.put(`/api/user/edit/${id}`, action.payload);
 		yield put({
 			type: 'FETCH_USER',
@@ -53,10 +53,20 @@ function* editUserInfo(action) {
 	}
 }
 
+function* fetchUserTypes() {
+	try {
+		let response = yield axios.get('/api/info/types/user')
+		yield put({type: 'SET_USER_TYPES', payload: response.data})
+	} catch (error) {
+		console.log('error on retrieving user types from database')
+	}
+}
+
 function* userSaga() {
 	yield takeLatest('FETCH_USER', fetchUser);
 	yield takeLatest('FETCH_SELECTED_USER', fetchSelectedUser);
 	yield takeLatest('EDIT_USER_INFO', editUserInfo);
+	yield takeLatest('FETCH_USER_TYPES', fetchUserTypes);
 }
 
 export default userSaga;
