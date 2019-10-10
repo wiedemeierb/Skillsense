@@ -9,7 +9,6 @@ import allSkillsReducer from './allSkillsReducer';
 import selectedJobReducer from './selectedJobReducer';
 import selectedMessageReducer from './selectedMessageReducer';
 import selectedUserReducer from './selectedUserReducer';
-import userSkillsReducer from './userSkillsReducer';
 import pendingMentorsReducer from './pendingMentorsReducer';
 import jobDetailsReducer from './jobDetailsReducer';
 
