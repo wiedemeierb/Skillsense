@@ -51,7 +51,7 @@ class UserListItem extends Component {
           <Typography variant="h5">{this.props.user.username}</Typography>
           <Typography variant="h6">{this.props.user.focus_skill}</Typography>
           {this.props.user.skill_names[0] && (
-            <SkillList skillList={this.props.user.skill_names} />
+            <SkillList skillList={this.props.user.skills} />
           )}
         </Grid>
         {/* right side info */}
