@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
   const queryText = `
   SELECT "jobs"."id","project_title","position_title","description","duration",
-  "budget","mentor_required","status_id","username","location","client_id", 
+  "budget","mentor_required","status_id","username" AS "client","location","client_id", 
   array_agg("job_tags"."tag_id") AS "tag_ids", array_agg("skill_tags"."tag") AS 
   "skill_names" FROM "jobs" LEFT JOIN "job_tags" ON "jobs"."id" = "job_tags"."job_id"
   LEFT JOIN "skill_tags" ON "job_tags".tag_id = "skill_tags"."id"
@@ -32,7 +32,7 @@ router.get('/search', (req, res) => {
   const searchSkill = req.query.skill != 0 ? Number(req.query.skill) : 0;
   const queryStart = `
   SELECT "jobs"."id","project_title","position_title","description","duration","budget",
-  "mentor_required","status_id","username","location","client_id",array_agg("job_tags"."tag_id") 
+  "mentor_required","status_id","username" AS "client","location","client_id",array_agg("job_tags"."tag_id") 
   AS "tag_ids", array_agg("skill_tags"."tag") AS "skill_names" FROM "jobs" 
   LEFT JOIN "job_tags" ON "jobs"."id" = "job_tags"."job_id"
   LEFT JOIN "skill_tags" ON "job_tags".tag_id = "skill_tags"."id"

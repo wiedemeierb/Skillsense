@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+//COMPONENT IMPORTS
+import JobListItem from '../JobListItem/JobListItem';
+
 //MATERIAL-UI IMPORTS
 import { withStyles } from '@material-ui/core/styles';
 import {
@@ -46,19 +49,19 @@ class JobSearch extends Component {
     });
   }
 
-  handleSearch = (event) => {
+  handleSearch = event => {
     this.setState({
       ...this.state,
       searchTerm: event.target.value
     });
   };
 
-  handleDropdown = (event) => {
+  handleDropdown = event => {
     this.setState({
       ...this.state,
       skill: Number(event.target.value)
-    })
-  }
+    });
+  };
 
   submitSearch = () => {
     this.props.dispatch({
@@ -68,18 +71,67 @@ class JobSearch extends Component {
   };
 
   viewDetail = (event, id) => {
-    this.props.history.push(`/jobs/detail/${id}`)
-  }
+    this.props.history.push(`/jobs/detail/${id}`);
+  };
 
-render() {
-  let isAuthorized = () => {
-    return (this.props.user.access_id === 1)
-  }
-  const { classes } = this.props;
+  render() {
+    let isAuthorized = () => {
+      return (this.props.user.access_id === 1)
+    }
+    const { classes } = this.props;
+
+    let jobList = this.props.jobs.map((job, i) => {
+      return <JobListItem key={i} job={job} />;
+    });
+
+    let skillList = this.props.skills.map(skill => {
+      return (
+        <MenuItem key={skill.id} value={skill.id}>
+          {skill.tag}
+        </MenuItem>
+      );
+    });
 
   let jobList = this.props.jobs.map((job) => {
     return (
-      <div key={job.id} className="list-item" onClick={(event) => { this.viewDetail(event, job.id) }}>
+      <div className="list-display">
+        <Paper className="search">
+          <FormControl className={classes.formControl}>
+            <FormGroup row="true" className="search">
+              {/* Search Job input field */}
+              <TextField
+                className={classes.formControl}
+                onChange={this.handleSearch}
+                value={this.state.searchTerm}
+                label="Search Jobs"
+              />
+              {/* Skill select for search */}
+              <Select
+                className={classes.select}
+                value={this.state.skill}
+                onChange={this.handleDropdown}
+              >
+                <MenuItem value={0}>Select Skill</MenuItem>
+                {/* Skill tag list dropdown options */}
+                {skillList}
+              </Select>
+
+              {/* Submit Search Button */}
+              <IconButton
+                className={classes.button}
+                aria-label="search"
+                color="primary"
+                onClick={this.submitSearch}
+              >
+                <SearchIcon />
+              </IconButton>
+            </FormGroup>
+          </FormControl>
+        </Paper>
+
+        {/* Job Search List */}
+        <div className="list">{jobList}</div>
+<!--       <div key={job.id} className="list-item" onClick={(event) => { this.viewDetail(event, job.id) }}>
         {/* left side info */}
         <div>
           <Typography variant="h5">{job.project_title}</Typography>
@@ -89,15 +141,15 @@ render() {
         {/* right side info */}
         <div>
           <Typography>Budget: {job.budget}</Typography>
-          <Typography>Duration: {job.duration}</Typography>
-          {job.skill_names[0] !== null && job.skill_names.map((skill, i) => {
+          <Typography>Duration: {job.duration}</Typography> -->
+<!--           {job.skill_names[0] !== null && job.skill_names.map((skill, i) => {
             return (
-              <Typography key={i} className="skill-tag">
-                {skill}
-              </Typography>
+              <Typography key={i} className="skill-tag"> -->
+<!--                 {skill} -->
+<!--               </Typography>
             );
           })}
-        </div>
+        </div>   -->
       </div>
     );
   });
@@ -160,4 +212,6 @@ const mapStateToProps = store => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(JobSearch)));
+export default withRouter(
+  connect(mapStateToProps)(withStyles(styles)(JobSearch))
+);
