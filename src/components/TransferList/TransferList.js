@@ -45,10 +45,11 @@ class TransferList extends Component {
 
 	//function to map over all skills and remove any that are matches of user's skills
 	getAvailableSkills = () => {
-		return this.props.allSkills.map(skill =>
-			this.props.userSkills.some(
-				userSkill => userSkill.id === skill.id
-			) ? null : (
+		return this.props.allSkills.map(
+			skill => (
+				this.props.user.skills.some(
+					userSkill => userSkill.id === skill.id
+				) ? null : (
 				<Tooltip key={skill.id} title='Add to Your Skills' placement='right'>
 					<ListItem
 						role='listitem'
@@ -58,11 +59,12 @@ class TransferList extends Component {
 					</ListItem>
 				</Tooltip>
 			)
+			)
 		);
 	};
 	//function get list of user's skills
 	getUserSkills = () => {
-		return this.props.userSkills.map(skill => (
+		return this.props.user.skills.map(skill => (
 			<Tooltip key={skill.id} title='Remove From Your Skills' placement='left'>
 				<ListItem
 					key={skill.id}
@@ -73,10 +75,6 @@ class TransferList extends Component {
 				</ListItem>
 			</Tooltip>
 		));
-	};
-	componentDidMount = () => {
-		this.props.dispatch({ type: 'FETCH_ALL_SKILLS' });
-		this.props.dispatch({ type: 'FETCH_USER_SKILLS' });
 	};
 
 	render() {
@@ -98,7 +96,7 @@ class TransferList extends Component {
 					<Paper className={classes.paper}>
 						<Divider />
 						<Grid item className={classes.listField} xs={12}>
-							<List>{this.props.userSkills && this.getAvailableSkills()}</List>
+							<List>{this.getAvailableSkills()}</List>
 						</Grid>
 					</Paper>
 				</Grid>
@@ -111,7 +109,7 @@ class TransferList extends Component {
 					<Paper className={classes.paper}>
 						<Divider />
 						<Grid item xs={12}>
-							<List>{this.props.userSkills && this.getUserSkills()}</List>
+							<List>{this.props.user.skills && this.getUserSkills()}</List>
 						</Grid>
 					</Paper>
 				</Grid>
@@ -121,7 +119,7 @@ class TransferList extends Component {
 }
 
 const mapStateToProps = state => ({
-	user: state.user,
+	// user: state.user,
 	allSkills: state.allSkillsReducer,
 	userSkills: state.userSkillsReducer
 });

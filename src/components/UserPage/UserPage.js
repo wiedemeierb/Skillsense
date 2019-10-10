@@ -19,10 +19,12 @@ class UserPage extends Component {
 		website_url: '',
 		bio: '',
 		skills: [],
-		inEditMode: true
+		inEditMode: false
 	};
 
 	componentDidMount = () => {
+		this.props.dispatch({ type: 'FETCH_USER' });
+		this.props.dispatch({ type: 'FETCH_ALL_SKILLS' });
 		this.setState({
 			...this.props.user
 		});
@@ -48,14 +50,17 @@ class UserPage extends Component {
 
 	render() {
 		return (
-			<TwoColumnLayout
-				leftHeader='Your Profile'
-				rightHeader={<Button onClick={this.toggleEdit}>{this.state.inEditMode ? 'Cancel' : 'Edit'}</Button>}>
-				{this.state.inEditMode ? (
-					<EditProfile user={this.props.user} toggleEdit={this.toggleEdit} />
-				) : (
-					<PublicProfile user={this.props.user} />
-				)}
+			<TwoColumnLayout leftHeader='Your Profile'>
+				<div>
+					{this.state.inEditMode ? (
+						<EditProfile user={this.props.user} toggleEdit={this.toggleEdit} />
+					) : (
+						<PublicProfile user={this.props.user} />
+					)}
+					<Button onClick={this.toggleEdit}>
+						{this.state.inEditMode ? 'Cancel' : 'Edit'}
+					</Button>
+				</div>
 				{this.state.inEditMode && (
 					<TransferList allSkills={this.props.skills} user={this.props.user} />
 				)}
