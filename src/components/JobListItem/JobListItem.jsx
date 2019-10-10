@@ -48,7 +48,7 @@ class JobListItem extends Component {
         {/* left side info */}
         <Grid item xs={5}>
           <Typography variant="h5">{this.props.job.project_title}</Typography>
-          <Typography>{this.props.job.username}</Typography>
+          <Typography>{this.props.job.client}</Typography>
           <Typography>{this.props.job.location}</Typography>
         </Grid>
         {/* right side info */}
