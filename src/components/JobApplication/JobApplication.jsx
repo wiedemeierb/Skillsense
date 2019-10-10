@@ -46,12 +46,12 @@ class JobApplication extends Component {
                     <div>
                         <h1>Job Application Page</h1>
                         {/* Client Info */}
-                        {/* <div>
+                        <div>
                 <Typography>{this.props.job.username}</Typography>
                 <Typography>{this.props.job.location}</Typography>
-            </div> */}
+            </div>
                         {/* Job Info */}
-                        {/* <div>
+                        <div>
                 <Typography>{this.props.job.position_title}</Typography>
                 <Typography>{this.props.job.project_title}</Typography>
                 <Typography>Budget: $<span>{this.props.job.budget}</span></Typography>
@@ -63,7 +63,7 @@ class JobApplication extends Component {
                             </Typography>
                         );
                     })}
-            </div> */}
+            </div>
                         {/* Cover Letter and Resume */}
                         <div>
                             <Typography variant="h6">Cover Letter</Typography>
