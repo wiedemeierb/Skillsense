@@ -14,7 +14,8 @@ class JobApplication extends Component {
 		cover_letter: '',
 		resume: 'N/A',
 		mentor_id: null,
-		payment_terms: 'negotiable'
+		payment_terms: 'negotiable',
+		file: {}
 	};
 	componentDidMount() {
 		this.props.dispatch({
@@ -43,6 +44,21 @@ class JobApplication extends Component {
 			}
 		});
 	};
+	handleUploadInputChange = (e) => {
+		this.setState({file: e.target.files[0]})
+	}
+	handleAwsUpload = () => {
+		let file = this.state.file;
+		// Split the filename to get the name and type
+		let fileParts = file.name.split('.');
+		let fileName = fileParts[0];
+		let fileType = fileParts[1];
+		this.props.dispatch({
+			type: 'UPLOAD_FILE',
+			payload: { file: file, fileName: fileName, filetype: fileType }
+		});
+	};
+
 	render() {
 		const { classes } = this.props;
 		let isAuthorized = () => {
@@ -94,6 +110,12 @@ class JobApplication extends Component {
 							/>
 						</div>
 						{/* Insert Resume attachment functionality here */}
+						<TextField
+							helperText='Attach Project Proposal'
+							type='file'
+							onChange={this.handleUploadInputChange}
+						/>
+						<Button onClick={this.handleAwsUpload}>Upload!</Button>
 						{/* Mentor Info */}
 						<div>
 							<Typography variant='h6'>Invite a Mentor</Typography>

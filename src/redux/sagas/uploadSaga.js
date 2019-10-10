@@ -14,7 +14,7 @@ function* uploadFile(action) {
 
 		yield axios.put(signedRequest, action.payload.file, {
 			headers: {
-				'Content-Type': fileType
+				'Content-Type': action.payload.fileType
 			}
 		});
 	} catch (error) {
