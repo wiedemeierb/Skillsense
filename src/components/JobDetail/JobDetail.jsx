@@ -15,6 +15,7 @@ class JobDetail extends Component {
     //find route to apply for this job.
     // applyNow = (id) => {
     //     this.props.history.push('/apply')
+    // /jobs/detail/apply/{this.props.match.params.id}
     // }
 
     render() {
