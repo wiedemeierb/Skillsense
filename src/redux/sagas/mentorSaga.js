@@ -31,6 +31,19 @@ function* fetchMentorSearch(action) {
   }
 }
 
+//STUDENT: SEND MENTOR REQUEST
+function* sendMentorRequest(action) {
+  try {
+    let mentorId = action.payload.id;
+    yield axios.post('/api/mentors/request', mentorId);
+    yield put({
+      type: 'FETCH_ALL_MENTORS'
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 //STUDENT: FETCH ACTIVE MENTORS
 function* fetchActiveMentors() {
   try {
@@ -76,6 +89,7 @@ function* fetchPendingMentors() {
 function* mentorSaga() {
   yield takeEvery('FETCH_ALL_MENTORS', fetchAllMentors);
   yield takeEvery('FETCH_MENTOR_SEARCH', fetchMentorSearch);
+  yield takeEvery('SEND_MENTOR_REQUEST', sendMentorRequest);
   yield takeEvery('FETCH_ACTIVE_MENTORS', fetchActiveMentors);
   yield takeEvery('FETCH_INVITED_MENTORS', fetchInvitedMentors);
   yield takeEvery('FETCH_PENDING_MENTORS', fetchPendingMentors);
