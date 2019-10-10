@@ -214,5 +214,19 @@ router.patch(`/admin/:id`, rejectUnauthenticated, (req, res) => {
 			res.sendStatus(500);
 		});
 });
+//PATCH route for mentor to request admin approval
+router.patch(`/request`, rejectUnauthenticated, (req, res) => {
+	const queryText = `UPDATE users SET approved_mentor = 2 WHERE users.id = $1`
+	const values = [req.user.id]
+
+	pool.query(queryText, values)
+		.then(result => {
+			console.log('successful update to request admin approval')
+			res.sendStatus(200)
+		})
+		.catch(error => {
+			console.log('error on update to requesting admin approval: ', error)
+		})
+})
 
 module.exports = router;

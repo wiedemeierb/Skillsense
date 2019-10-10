@@ -20,9 +20,19 @@ function* declineMentor(action) {
 		console.log('error on decline mentor saga: ', error);
 	}
 }
+
+function* requestAdminReview(action) {
+	try {
+		yield axios.patch(`/api/mentors/request`)
+		yield put({type: 'FETCH_USER'})
+	} catch (error) {
+		console.log('error on updating mentor status to pending review: ', error)
+	}
+}
 function* adminSaga() {
 	yield takeEvery('ADMIN_APPROVE_MENTOR', approveMentor);
 	yield takeEvery('ADMIN_DECLINE_MENTOR', declineMentor);
+	yield takeEvery('REQUEST_ADMIN_REVIEW', requestAdminReview)
 }
 
 export default adminSaga;
