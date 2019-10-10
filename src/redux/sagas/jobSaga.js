@@ -81,18 +81,18 @@ function* postJob(action) {
   }
 }
 
-function* fetchJobDetail(action){
-  console.log(action.payload)
+function* fetchJobDetail(action) {
+  console.log(action.payload);
   try {
     let response = yield axios.get(`api/jobs/detail/${action.payload.id}`)
     yield put ({
       type: 'SET_JOB_DETAILS',
       payload: response.data
     });
-   } catch(error){
-      console.log(error);
-    }
+  } catch (error) {
+    console.log(error);
   }
+}
 
 function* submitApplication(action){
   console.log(action.payload)
@@ -109,8 +109,8 @@ function* jobSaga() {
   yield takeEvery('FETCH_ACTIVE_JOBS', fetchActiveJobs);
   yield takeEvery('FETCH_APPLIED_JOBS', fetchAppliedJobs);
   yield takeEvery('FETCH_COMPLETED_JOBS', fetchCompletedJobs);
-  yield takeEvery('POST_JOB', postJob);
   yield takeEvery('FETCH_JOB_DETAIL', fetchJobDetail);
+  yield takeEvery('POST_JOB', postJob);
   yield takeEvery('SUBMIT_APPLICATION',submitApplication);
 }
 
