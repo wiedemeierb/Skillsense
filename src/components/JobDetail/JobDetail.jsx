@@ -13,22 +13,41 @@ class JobDetail extends Component {
         })
     }
     //find route to apply for this job.
-    // applyNow = (id) => {
-    //     this.props.history.push('/apply')
-    // /jobs/detail/apply/{this.props.match.params.id}
-    // }
+    applyNow = (id) => {
+        this.props.history.push(`/jobs/detail/apply/${this.props.match.params.id}`)
+    }
 
     render() {
         return (
             <div>
-            <h1>Job Detail Page</h1>
-            <h2>Is this working?</h2>
-            <p>{this.props.match.params.id}</p>
-            {/* render rest of data here */}
-            <p>{this.props.details.budget}</p>
-            <Button onClick={this.applyNow}>Apply</Button>
+                <Typography variant="h2" color="primary">{this.props.details.project_title}</Typography>
+                <Typography variant="h4" color="secondary">Client Name Here</Typography>
+                <br></br>
+                <Typography variant="h5" color="primary">Description:</Typography>
+                <Typography>{this.props.details.description}</Typography>
+                <br></br>
+                <Typography variant="h5" color="primary">Desired Skills:</Typography>
+
+                {/* {this.props.job.skill_names[0] !== null && this.props.job.skill_names.map((skill, i) => {
+                    return (
+                        <Typography key={i} className="skill-tag">
+                            {skill}
+                        </Typography>
+                    )
+                })} */}
+
+                <Typography>{this.props.details.skill_names}</Typography>
+                <br></br>
+                <Typography variant="h5" color="primary">Application</Typography>
+                <Typography>Name: {this.props.user.username}</Typography>
+                <Typography>Focus Skill: {this.props.user.focus_skill}</Typography>
+                <Typography>Location: {this.props.user.location}</Typography>
+                <Button variant="contained" color="primary" onClick={this.applyNow}>Apply</Button>
+
             </div>
-        )}}
+        )
+    }
+}
 
 const mapStateToProps = state => ({
     user: state.user,
