@@ -10,7 +10,7 @@ router.get('/all', (req, res) => {
 	const queryText = `
     SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "tag_id",
 	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
-    JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
+    LEFT JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
     LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
     LEFT JOIN "skill_tags" ON "skill_tags".id = "user_tags".tag_id
     WHERE "access_id" = 2 AND "approved_mentor" = 3 GROUP BY "users"."id";
