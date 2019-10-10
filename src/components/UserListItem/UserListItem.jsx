@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 //COMPONENT IMPORTS
 import SkillList from '../SkillList/SkillList';
+import MentorRequest from '../MentorRequest/MentorRequest';
 
 //MATERIAL-UI IMPORTS
 import { withStyles } from '@material-ui/core/styles';
@@ -55,19 +56,7 @@ class UserListItem extends Component {
         </Grid>
         {/* right side info */}
         <Grid item xs={7}>
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-            onClick={() =>
-              this.props.dispatch({
-                type: 'SEND_MENTOR_REQUEST',
-                payload: this.props.user.id
-              })
-            }
-          >
-            Request Mentor
-          </Button>
+          <MentorRequest mentor={this.props.user} />
 
           <Button
             variant="contained"
