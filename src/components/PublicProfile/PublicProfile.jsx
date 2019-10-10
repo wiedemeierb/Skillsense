@@ -12,6 +12,10 @@ const useStyles = makeStyles(theme => ({
 
 function PublicProfile(props) {
 	const selectedUser = useSelector(state => state.selectedUserReducer);
+	//sets selectedUser variable to redux state of selected user
+
+	const displayedUser = props.user || selectedUser;
+	//display the user passed as props if there is one, otherwise display selected user
 
 	const classes = useStyles();
 
@@ -19,40 +23,40 @@ function PublicProfile(props) {
 		<Grid className={classes.root} container spacing={4} justify='space-around'>
 			<Grid item xs={12}>
 				<Typography variant='h5' align='center'>
-					{selectedUser.username}
+					{displayedUser.username}
 				</Typography>
 			</Grid>
 			<Grid item xs={12}>
 				<Typography variant='h6' align='left'>
-					{selectedUser.focus_skill}
+					{displayedUser.focus_skill}
 				</Typography>
 				<Typography variant='body1' align='left'>
-					{selectedUser.location}
+					{displayedUser.location}
 				</Typography>
 			</Grid>
 			<Grid item xs={12}>
-				<Typography variant='body2'>{selectedUser.bio}</Typography>
+				<Typography variant='body2'>{displayedUser.bio}</Typography>
 			</Grid>
 			<Grid item xs={6}>
 				<Typography align='left'>
-					<Link href={selectedUser.linkedin_url}>LinkedIn</Link>
+					<Link href={displayedUser.linkedin_url}>LinkedIn</Link>
 				</Typography>
 				<Typography align='left'>
-					<Link href={selectedUser.github_url}>Github</Link>
+					<Link href={displayedUser.github_url}>Github</Link>
 				</Typography>
 			</Grid>
 			<Grid item xs={6}>
 				<Typography align='right'>
-					<Link href={selectedUser.website_url}>Website</Link>
+					<Link href={displayedUser.website_url}>Website</Link>
 				</Typography>
 				<Typography align='right'>
-					<Link target='_blank' href={`mailto:${selectedUser.email}`}>
+					<Link target='_blank' href={`mailto:${displayedUser.email}`}>
 						E-Mail
 					</Link>
 				</Typography>
 			</Grid>
 			<Grid item xs={12}>
-				<SkillList skillList={selectedUser.skill_names} />
+				<SkillList skillList={displayedUser.skills} />
 			</Grid>
 		</Grid>
 	);

@@ -22,7 +22,6 @@ const styles = theme => ({
 		height: 250,
 		overflow: 'scroll'
 	},
-	listHeader: {},
 	listField: {
 		position: 'relative'
 	}
@@ -91,7 +90,7 @@ class TransferList extends Component {
 				justify='center'
 				className={classes.root}>
 				<Grid item container spacing={3} direction='row' xs={5}>
-					<Grid item className={classes.listHeader} xs={12}>
+					<Grid item xs={12}>
 						<Typography variant='subtitle2' align='center'>
 							Available Skills
 						</Typography>
@@ -104,7 +103,7 @@ class TransferList extends Component {
 					</Paper>
 				</Grid>
 				<Grid item container spacing={3} direction='row' xs={5}>
-					<Grid item className={classes.listHeader} xs={12}>
+					<Grid item xs={12}>
 						<Typography variant='subtitle2' align='center'>
 							Your Skills
 						</Typography>
