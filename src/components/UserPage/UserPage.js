@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Button, Typography} from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import TransferList from '../TransferList/TransferList';
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
@@ -66,14 +66,18 @@ class UserPage extends Component {
 	render() {
 		const { classes } = this.props;
 		const mentorSectionHtml =
-			this.props.user.access_id === 2 &&
-			this.props.user.approved_mentor === 3 ? (
-				<Typography className={classes.button}>Approved by Admin</Typography>
-			) : (
-				<Button className={classes.button} onClick={this.submitForReview}>
-					Submit For Admin Review
-				</Button>
-			);
+			//only show mentor section if access id is 2 (mentor)
+			this.props.user.access_id === 2 ? (
+				//only show approval note if approved
+				this.props.user.approved_mentor === 3 ? (
+					<Typography className={classes.button}>Approved by Admin</Typography>
+				) : (
+					//show button to submit for review if not approved yet
+					<Button className={classes.button} onClick={this.submitForReview}>
+						Submit For Admin Review
+					</Button>
+				)
+			) : null;
 
 		return (
 			<TwoColumnLayout leftHeader='Your Profile'>
