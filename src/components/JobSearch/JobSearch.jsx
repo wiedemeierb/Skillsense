@@ -33,8 +33,8 @@ const styles = theme => ({
 
 class JobSearch extends Component {
   state = {
-      searchTerm: '',
-      skill: 0
+    searchTerm: '',
+    skill: 0
   };
 
   componentDidMount() {
@@ -48,8 +48,8 @@ class JobSearch extends Component {
 
   handleSearch = (event) => {
     this.setState({
-        ...this.state,
-        searchTerm: event.target.value
+      ...this.state,
+      searchTerm: event.target.value
     });
   };
 
@@ -67,91 +67,96 @@ class JobSearch extends Component {
     });
   };
 
-  viewDetail = (event, id)=>{
+  viewDetail = (event, id) => {
     this.props.history.push(`/jobs/detail/${id}`)
   }
 
-  render() {
-    const { classes } = this.props;
+render() {
+  let isAuthorized = () => {
+    return (this.props.user.access_id === 1)
+  }
+  const { classes } = this.props;
 
-    let jobList = this.props.jobs.map((job) => {
-      return (
-        <div key={job.id} className="list-item" onClick={(event)=>{this.viewDetail(event, job.id)}}>
-          {/* left side info */}
-          <div>
-            <Typography variant="h5">{job.project_title}</Typography>
-            <Typography >{job.username}</Typography>
-            <Typography >{job.location}</Typography>
-          </div>
-          {/* right side info */}
-          <div>
-            <Typography>Budget: {job.budget}</Typography>
-            <Typography>Duration: {job.duration}</Typography>
-            {job.skill_names[0] !== null && job.skill_names.map((skill, i) => {
-              return (
-                <Typography key={i} className="skill-tag">
-                  {skill}
-                </Typography>
-              );
-            })}
-          </div>
-        </div>
-      );
-    });
-
-    let skillList = this.props.skills.map((skill) => {
-      return (
-        <MenuItem key={skill.id} value={skill.id}>
-          {skill.tag}
-        </MenuItem>
-      );
-    });
-
+  let jobList = this.props.jobs.map((job) => {
     return (
-      <div className="list-display">
-        <Paper className="search">
-          <FormControl className={classes.formControl}>
-            <FormGroup row="true" className="search">
-              <TextField
-                className={classes.formControl}
-                onChange={this.handleSearch}
-                value={this.state.searchTerm}
-                label="Search Jobs"
-              />
-
-              <Select
-                className={classes.select}
-                value={this.state.skill}
-                onChange={this.handleDropdown}
-              >
-                <MenuItem value={0}>Select Skill</MenuItem>
-                {/* Skill tag list dropdown options */}
-                {skillList}
-              </Select>
-
-              <IconButton
-                className={classes.button}
-                aria-label="search"
-                color="primary"
-                onClick={this.submitSearch}
-              >
-                <SearchIcon />
-              </IconButton>
-            </FormGroup>
-          </FormControl>
-        </Paper>
-
-        {/* Job Search List */}
-        <div className="list">{jobList}</div>
+      <div key={job.id} className="list-item" onClick={(event) => { this.viewDetail(event, job.id) }}>
+        {/* left side info */}
+        <div>
+          <Typography variant="h5">{job.project_title}</Typography>
+          <Typography >{job.username}</Typography>
+          <Typography >{job.location}</Typography>
+        </div>
+        {/* right side info */}
+        <div>
+          <Typography>Budget: {job.budget}</Typography>
+          <Typography>Duration: {job.duration}</Typography>
+          {job.skill_names[0] !== null && job.skill_names.map((skill, i) => {
+            return (
+              <Typography key={i} className="skill-tag">
+                {skill}
+              </Typography>
+            );
+          })}
+        </div>
       </div>
     );
-  }
+  });
+
+  let skillList = this.props.skills.map((skill) => {
+    return (
+      <MenuItem key={skill.id} value={skill.id}>
+        {skill.tag}
+      </MenuItem>
+    );
+  });
+
+  return (
+    <div className="list-display">
+      {isAuthorized() ?
+      <Paper className="search">
+        <FormControl className={classes.formControl}>
+          <FormGroup row="true" className="search">
+            <TextField
+              className={classes.formControl}
+              onChange={this.handleSearch}
+              value={this.state.searchTerm}
+              label="Search Jobs"
+            />
+
+            <Select
+              className={classes.select}
+              value={this.state.skill}
+              onChange={this.handleDropdown}
+            >
+              <MenuItem value={0}>Select Skill</MenuItem>
+              {/* Skill tag list dropdown options */}
+              {skillList}
+            </Select>
+
+            <IconButton
+              className={classes.button}
+              aria-label="search"
+              color="primary"
+              onClick={this.submitSearch}
+            >
+              <SearchIcon />
+            </IconButton>
+          </FormGroup>
+        </FormControl>
+      </Paper>
+        : <Typography>You are not authorized to view this page.</Typography>}
+      {/* Job Search List */}
+      <div className="list">{jobList}</div>
+    </div>
+  );
+}
 }
 
 const mapStateToProps = store => {
   return {
     jobs: store.allJobsReducer,
-    skills: store.allSkillsReducer
+    skills: store.allSkillsReducer,
+    user: store.user,
   };
 };
 

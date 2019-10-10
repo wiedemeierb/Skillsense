@@ -5,11 +5,18 @@ import { connect } from 'react-redux';
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import MentorTabs from '../MentorTabs/MentorTabs';
 import UserListItem from '../UserListItem/UserListItem';
+import PublicProfile from '../PublicProfile/PublicProfile';
+
+//MATERIAL-UI IMPORTS
+import { Typography } from '@material-ui/core';
 
 class MyMentorships extends Component {
   componentDidMount() {
     this.props.dispatch({
       type: 'FETCH_ACTIVE_MENTORS'
+    });
+    this.props.dispatch({
+      type: 'CLEAR_SELECTED_USER'
     });
   }
 
@@ -27,7 +34,16 @@ class MyMentorships extends Component {
           {/* Selected Mentor List */}
           <div className="list">{mentorList}</div>
         </div>
-        <div>{/* Mentorship Information displayed here */}</div>
+
+        <div>
+          {this.props.selectedUser.id ? (
+            <PublicProfile />
+          ) : (
+            <Typography variant="h6" align="center">
+              Select a mentor to see more information.
+            </Typography>
+          )}
+        </div>
       </TwoColumnLayout>
     );
   }
@@ -35,7 +51,8 @@ class MyMentorships extends Component {
 
 const mapStateToProps = store => {
   return {
-    mentors: store.allMentorsReducer
+    mentors: store.allMentorsReducer,
+    selectedUser: store.selectedUserReducer
   };
 };
 

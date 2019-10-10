@@ -5,9 +5,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import SkillList from '../SkillList/SkillList';
 
 const useStyles = makeStyles(theme => ({
-	root: {
-		display: 'flex'
-	}
+  root: {
+    display: 'flex'
+  },
+  link: {
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    padding: theme.spacing(1)
+  }
 }));
 
 function PublicProfile(props) {
@@ -17,7 +22,7 @@ function PublicProfile(props) {
 	const displayedUser = props.user || selectedUser;
 	//display the user passed as props if there is one, otherwise display selected user
 
-	const classes = useStyles();
+  const classes = useStyles();
 
 	return (
 		<Grid className={classes.root} container spacing={4} justify='space-around'>

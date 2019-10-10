@@ -66,7 +66,7 @@ class UserListItem extends Component {
               })
             }
           >
-            See Details
+            View Details
           </Button>
         </Grid>
       </Grid>
