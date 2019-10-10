@@ -196,6 +196,27 @@ router.get('/pending', (req, res) => {
 		});
 });
 
+/** POST (STUDENT: SEND MENTOR REQUEST) ROUTE **/
+router.post('/request', (req, res) => {
+  const userId = req.user.id;
+  const mentorId = req.body;
+  const queryText = `
+    INSERT INTO "student_mentor" ("student_id", "mentor_id", "message_id") 
+    VALUES ($1, $2, $3);
+    `;
+
+  pool
+    .query(queryText, [userId, mentorId])
+    .then(result => {
+      res.send(result.rows);
+    })
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+});
+
+
 /** PATCH (ADMIN: UPDATE MENTOR APPROVAL STATUS) ROUTE **/
 router.patch(`/admin/:id`, rejectUnauthenticated, (req, res) => {
 	//expects a req.body with {newStatus: #}

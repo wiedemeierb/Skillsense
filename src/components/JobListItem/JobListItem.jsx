@@ -46,18 +46,21 @@ class JobListItem extends Component {
         className={classes.listItem}
       >
         {/* left side info */}
-        <Grid item xs={5}>
+        <Grid item xs={4}>
           <Typography variant="h5">{this.props.job.project_title}</Typography>
           <Typography>{this.props.job.client}</Typography>
           <Typography>{this.props.job.location}</Typography>
         </Grid>
-        {/* right side info */}
-        <Grid item xs={7}>
-          <Typography>Budget: {this.props.job.budget}</Typography>
+        {/* center info */}
+        <Grid item xs={4}>
+          <Typography>Budget: ${this.props.job.budget}</Typography>
           <Typography>Duration: {this.props.job.duration}</Typography>
           {this.props.job.skill_names[0] && (
             <SkillList skillList={this.props.job.skill_names} />
           )}
+        </Grid>
+        {/* right side info */}
+        <Grid item vs={4}>
           <Button
             variant="contained"
             color="primary"

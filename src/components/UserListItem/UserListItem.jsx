@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 //COMPONENT IMPORTS
 import SkillList from '../SkillList/SkillList';
+import MentorRequest from '../MentorRequest/MentorRequest';
 
 //MATERIAL-UI IMPORTS
 import { withStyles } from '@material-ui/core/styles';
@@ -49,12 +50,14 @@ class UserListItem extends Component {
         <Grid item xs={5}>
           <Typography variant="h5">{this.props.user.username}</Typography>
           <Typography variant="h6">{this.props.user.focus_skill}</Typography>
+          {this.props.user.skill_names[0] && (
+            <SkillList skillList={this.props.user.skill_names} />
+          )}
         </Grid>
         {/* right side info */}
         <Grid item xs={7}>
-          {this.props.user.skill_names[0] !== null && (
-            <SkillList skillList={this.props.user.skills} />
-          )}
+          <MentorRequest mentor={this.props.user} />
+
           <Button
             variant="contained"
             color="primary"

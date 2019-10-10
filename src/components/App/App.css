@@ -64,7 +64,8 @@ input {
 .list-display {
   display: flexbox;
   flex-flow: column-wrap;
-  width: 50%;
+  width: 60%;
+  min-width: 500px;
   margin: auto;
   margin-top: 5%;
 }
