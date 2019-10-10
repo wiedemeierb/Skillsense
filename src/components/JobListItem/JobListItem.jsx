@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 //COMPONENT IMPORTS
 import SkillList from '../SkillList/SkillList';
@@ -34,6 +35,11 @@ const styles = theme => ({
 });
 
 class JobListItem extends Component {
+
+  viewDetail = () => {
+    this.props.history.push(`/jobs/detail/${this.props.job.id}`);
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -65,12 +71,7 @@ class JobListItem extends Component {
             variant="contained"
             color="primary"
             className={classes.button}
-            // onClick={() =>
-            //   this.props.dispatch({
-            //     type: 'FETCH_SELECTED_USER',
-            //     payload: this.props.job.id
-            //   })
-            // }
+            onClick={this.viewDetail}
           >
             View Details
           </Button>
@@ -80,4 +81,4 @@ class JobListItem extends Component {
   }
 }
 
-export default connect()(withStyles(styles)(JobListItem));
+export default withRouter(connect()(withStyles(styles)(JobListItem)));
