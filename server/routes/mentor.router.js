@@ -1,13 +1,13 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const {
-	rejectUnauthenticated
+  rejectUnauthenticated
 } = require('../modules/authentication-middleware');
 const router = express.Router();
 
 /** GET (ALL) ROUTE **/
 router.get('/all', (req, res) => {
-	const queryText = `
+  const queryText = `
     SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "tag_id",
 	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
     LEFT JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
@@ -16,21 +16,21 @@ router.get('/all', (req, res) => {
     WHERE "access_id" = 2 AND "approved_mentor" = 3 GROUP BY "users"."id";
 	`;
 
-	pool
-		.query(queryText)
-		.then(result => {
-			res.send(result.rows);
-		})
-		.catch(error => {
-			console.log(error);
-			res.sendStatus(500);
-		});
+  pool
+    .query(queryText)
+    .then(result => {
+      res.send(result.rows);
+    })
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    });
 });
 
 /** GET (STUDENT: ACTIVE MENTORS) ROUTE **/
 router.get('/active', (req, res) => {
-	const userId = req.user.id;
-	const queryText = `
+  const userId = req.user.id;
+  const queryText = `
     SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "tag_id",
 	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
     JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
@@ -39,21 +39,21 @@ router.get('/active', (req, res) => {
     WHERE "student_mentor".student_id = $1 AND "accepted" = true GROUP BY "users"."id";
     `;
 
-	pool
-		.query(queryText, [userId])
-		.then(result => {
-			res.send(result.rows);
-		})
-		.catch(error => {
-			console.log(error);
-			res.sendStatus(500);
-		});
+  pool
+    .query(queryText, [userId])
+    .then(result => {
+      res.send(result.rows);
+    })
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    });
 });
 
 /** GET (STUDENT: INVITED MENTORS) ROUTE **/
 router.get('/invited', (req, res) => {
-	const userId = req.user.id;
-	const queryText = `
+  const userId = req.user.id;
+  const queryText = `
   	SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "tag_id",
 	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
     JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
@@ -62,24 +62,24 @@ router.get('/invited', (req, res) => {
     WHERE "student_mentor".student_id = $1 AND "accepted" = false GROUP BY "users"."id";
     `;
 
-	pool
-		.query(queryText, [userId])
-		.then(result => {
-			res.send(result.rows);
-		})
-		.catch(error => {
-			console.log(error);
-			res.sendStatus(500);
-		});
+  pool
+    .query(queryText, [userId])
+    .then(result => {
+      res.send(result.rows);
+    })
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    });
 });
 
 /** GET (SEARCH) ROUTE **/
 router.get('/search/', (req, res) => {
-	const searchTerm =
-		req.query.searchTerm !== '' ? `%${req.query.searchTerm}%` : `%%`;
-	const searchSkill = req.query.skill != 0 ? Number(req.query.skill) : 0;
+  const searchTerm =
+    req.query.searchTerm !== '' ? `%${req.query.searchTerm}%` : `%%`;
+  const searchSkill = req.query.skill != 0 ? Number(req.query.skill) : 0;
 
-	const queryStart = `
+  const queryStart = `
 	SELECT "users".id, "username", "location", "focus_skill", array_agg("skill_tags".id) AS "tag_id",
 	array_agg("skill_tags".tag) AS "skill_names" FROM "users"
 	LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
@@ -87,41 +87,41 @@ router.get('/search/', (req, res) => {
 	WHERE "access_id" = 2 AND "approved_mentor" = 3
   `;
 
-	const queryInput = ` AND "username" ILIKE $1`;
-	const querySkill = ` AND "tag_id" = $2`;
-	const queryEnd = ` GROUP BY "users"."id";`;
+  const queryInput = ` AND "username" ILIKE $1`;
+  const querySkill = ` AND "tag_id" = $2`;
+  const queryEnd = ` GROUP BY "users"."id";`;
 
-	const queryText = () => {
-		if (searchSkill !== 0) {
-			return queryStart + queryInput + querySkill + queryEnd;
-		} else {
-			return queryStart + queryInput + queryEnd;
-		}
-	};
+  const queryText = () => {
+    if (searchSkill !== 0) {
+      return queryStart + queryInput + querySkill + queryEnd;
+    } else {
+      return queryStart + queryInput + queryEnd;
+    }
+  };
 
-	const queryParams = () => {
-		if (searchSkill) {
-			return [searchTerm, searchSkill];
-		} else {
-			return [searchTerm];
-		}
-	};
+  const queryParams = () => {
+    if (searchSkill) {
+      return [searchTerm, searchSkill];
+    } else {
+      return [searchTerm];
+    }
+  };
 
-	pool
-		.query(queryText(), queryParams())
-		.then(result => {
-			res.send(result.rows);
-		})
-		.catch(error => {
-			console.log(error);
-			res.sendStatus(500);
-		});
+  pool
+    .query(queryText(), queryParams())
+    .then(result => {
+      res.send(result.rows);
+    })
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    });
 });
 
 /** GET (MENTORS PENDING ADMIN APPROVAL) ROUTE **/
 router.get('/pending', (req, res) => {
-	//query to get all mentors in system with pending status
-	const queryText = `
+  //query to get all mentors in system with pending status
+  const queryText = `
 	SELECT
 		users.id,
 		users.username,
@@ -175,25 +175,25 @@ router.get('/pending', (req, res) => {
 		user_type.user_type,
 		mentor_status.mentor_status;`;
 
-	pool
-		.query(queryText)
-		.then(result => {
-			console.log(
-				'successful GET of mentors pending approval with result: ',
-				result.rows
-			);
-			//creates an array in each row that consists of skill objects {id: name}
-			result.rows.forEach(row => {
-				row.skills = row.skill_ids.map((id, index) => {
-					return { id: id, tag: row.skill_names[index] };
-				});
-			});
-			res.send(result.rows);
-		})
-		.catch(error => {
-			console.log('error on GET of mentors pending approval: ', error);
-			res.sendStatus(500);
-		});
+  pool
+    .query(queryText)
+    .then(result => {
+      console.log(
+        'successful GET of mentors pending approval with result: ',
+        result.rows
+      );
+      //creates an array in each row that consists of skill objects {id: name}
+      result.rows.forEach(row => {
+        row.skills = row.skill_ids.map((id, index) => {
+          return { id: id, tag: row.skill_names[index] };
+        });
+      });
+      res.send(result.rows);
+    })
+    .catch(error => {
+      console.log('error on GET of mentors pending approval: ', error);
+      res.sendStatus(500);
+    });
 });
 
 /** POST (STUDENT: SEND MENTOR REQUEST) ROUTE **/
@@ -216,24 +216,23 @@ router.post('/request', (req, res) => {
     });
 });
 
-
 /** PATCH (ADMIN: UPDATE MENTOR APPROVAL STATUS) ROUTE **/
 router.patch(`/admin/:id`, rejectUnauthenticated, (req, res) => {
-	//expects a req.body with {newStatus: #}
-	console.log(req.user);
-	const queryText = `UPDATE users SET approved_mentor = $1  WHERE users.id = $2`;
-	const values = [req.body.newStatus, req.params.id];
+  //expects a req.body with {newStatus: #}
+  console.log(req.user);
+  const queryText = `UPDATE users SET approved_mentor = $1  WHERE users.id = $2`;
+  const values = [req.body.newStatus, req.params.id];
 
-	pool
-		.query(queryText, values)
-		.then(result => {
-			console.log('successful update of mentor status');
-			res.sendStatus(200);
-		})
-		.catch(error => {
-			console.log('error updating mentor status: ', error);
-			res.sendStatus(500);
-		});
+  pool
+    .query(queryText, values)
+    .then(result => {
+      console.log('successful update of mentor status');
+      res.sendStatus(200);
+    })
+    .catch(error => {
+      console.log('error updating mentor status: ', error);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;
