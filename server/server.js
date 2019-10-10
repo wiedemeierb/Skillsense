@@ -15,6 +15,7 @@ const messageRouter = require('./routes/message.router');
 const skillRouter = require('./routes/skill.router');
 const userSkillsRouter = require('./routes/userskills.router');
 const emailRouter = require('./routes/email.router');
+const infoRouter = require('./routes/info.router')
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -35,6 +36,7 @@ app.use('/api/messages', messageRouter);
 app.use('/api/skills', skillRouter);
 app.use('/api/userskills', userSkillsRouter);
 app.use('/api/email', emailRouter);
+app.use('/api/info', infoRouter)
 
 // Serve static files
 app.use(express.static('build'));
