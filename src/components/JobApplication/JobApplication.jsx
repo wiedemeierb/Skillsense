@@ -3,6 +3,12 @@ import { connect } from 'react-redux';
 import { Typography, TextField, Button, Link } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
+const styles = theme => ({
+	link: {
+		fontWeight: 'bold',
+		padding: theme.spacing(1)
+	}
+});
 class JobApplication extends Component {
 	state = {
 		cover_letter: '',
@@ -38,6 +44,7 @@ class JobApplication extends Component {
 		});
 	};
 	render() {
+		const { classes } = this.props;
 		let isAuthorized = () => {
 			return this.props.user.access_id === 1;
 		};
@@ -114,16 +121,16 @@ class JobApplication extends Component {
 							<Typography>{this.props.user.username}</Typography>
 							<Typography>{this.props.user.focus_skill}</Typography>
 							<Typography>{this.props.user.location}</Typography>
-							<Typography>
+							<Typography className={classes.link}>
 								<Link href={this.props.user.github_url}>GitHub Profile</Link>
 							</Typography>
-							<Typography>
+							<Typography className={classes.link}>
 								<Link href={this.props.user.linkedin_url}>
 									LinkedIn Profile
 								</Link>
 							</Typography>
 							{this.props.user.website_url && (
-								<Typography>
+								<Typography className={classes.link}>
 									<Link href={this.props.user.website_url}>
 										Portfolio/Personal Website
 									</Link>
@@ -154,4 +161,4 @@ const mapStateToProps = store => {
 	};
 };
 
-export default connect(mapStateToProps)(JobApplication);
+export default connect(mapStateToProps)(withStyles(styles)(JobApplication));
