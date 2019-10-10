@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import TextField from '@material-ui/core/TextField';
+import {Button, Typography} from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles';
 import TransferList from '../TransferList/TransferList';
-import Button from '@material-ui/core/Button';
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import PublicProfile from '../PublicProfile/PublicProfile';
-import SkillList from '../SkillList/SkillList';
-import EditProfile from '../EditProfile';
+import EditProfile from '../EditProfile/EditProfile';
+
+const styles = theme => ({
+	button: {
+		display: 'block',
+		margin: theme.spacing(1),
+		padding: theme.spacing(1)
+	}
+});
 
 class UserPage extends Component {
 	state = {
@@ -39,7 +46,8 @@ class UserPage extends Component {
 	toggleEdit = () => {
 		this.setState({ inEditMode: !this.state.inEditMode });
 	};
-	editStudentInfo = () => {
+
+	editUserInfo = () => {
 		console.log('handleClick saveSkills operations');
 		console.log('this is state on didMount', this.state);
 		this.props.dispatch({
@@ -48,7 +56,25 @@ class UserPage extends Component {
 		});
 	};
 
+	submitForReview = () => {
+		this.props.dispatch({
+			type: 'REQUEST_ADMIN_REVIEW'
+		});
+	};
+	//determines what addtl info to display if user is a mentor
+
 	render() {
+		const { classes } = this.props;
+		const mentorSectionHtml =
+			this.props.user.access_id === 2 &&
+			this.props.user.approved_mentor === 3 ? (
+				<Typography className={classes.button}>Approved by Admin</Typography>
+			) : (
+				<Button className={classes.button} onClick={this.submitForReview}>
+					Submit For Admin Review
+				</Button>
+			);
+
 		return (
 			<TwoColumnLayout leftHeader='Your Profile'>
 				<div>
@@ -57,9 +83,10 @@ class UserPage extends Component {
 					) : (
 						<PublicProfile user={this.props.user} />
 					)}
-					<Button onClick={this.toggleEdit}>
+					<Button className={classes.button} onClick={this.toggleEdit}>
 						{this.state.inEditMode ? 'Cancel' : 'Edit'}
 					</Button>
+					{mentorSectionHtml}
 				</div>
 				{this.state.inEditMode && (
 					<TransferList allSkills={this.props.skills} user={this.props.user} />
@@ -78,4 +105,4 @@ const mapStateToProps = state => ({
 });
 
 // this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(UserPage);
+export default connect(mapStateToProps)(withStyles(styles)(UserPage));
