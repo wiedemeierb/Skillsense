@@ -230,7 +230,7 @@ router.post('/new', async (req, res) => {
 });
 
 router.post('/apply', (req, res) => {
-	console.log(req.body);
+	// console.log(req.body);
 	let queryText = `INSERT INTO "job_applicants" ("job_id", "student_id","payment_terms","cover_letter","resume","mentor_id") VALUES ($1,$2,$3,$4,$5,$6);`;
 	pool
 		.query(queryText, [

@@ -21,7 +21,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 	// console.log(userId)
 	//uses the current logged in user if no user is passed
 	const userId = req.query.id || req.user.id
-	console.log('user id is: ', userId)
+	// console.log('user id is: ', userId)
 	pool
 		.query(queryText, [userId])
 		.then(result => {
