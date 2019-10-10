@@ -49,12 +49,13 @@ class UserListItem extends Component {
         <Grid item xs={5}>
           <Typography variant="h5">{this.props.user.username}</Typography>
           <Typography variant="h6">{this.props.user.focus_skill}</Typography>
-        </Grid>
-        {/* right side info */}
-        <Grid item xs={7}>
           {this.props.user.skill_names[0] && (
             <SkillList skillList={this.props.user.skill_names} />
           )}
+        </Grid>
+        {/* right side info */}
+        <Grid item xs={7}>
+          
           <Button
             variant="contained"
             color="primary"
