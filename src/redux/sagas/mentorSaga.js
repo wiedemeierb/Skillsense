@@ -34,8 +34,8 @@ function* fetchMentorSearch(action) {
 //STUDENT: SEND MENTOR REQUEST
 function* sendMentorRequest(action) {
   try {
-    let mentorId = action.payload.id;
-    yield axios.post('/api/mentors/request', mentorId);
+    let request = action.payload;
+    yield axios.post('/api/mentors/request', request);
     yield put({
       type: 'FETCH_ALL_MENTORS'
     });

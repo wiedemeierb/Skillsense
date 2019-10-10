@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -10,7 +10,10 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function FormDialog(props) {
+  let dispatch = useDispatch();
+
   const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -19,8 +22,6 @@ export default function FormDialog(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const [message, setMessage] = React.useState('');
 
   return (
     <div>
@@ -44,8 +45,10 @@ export default function FormDialog(props) {
             margin="dense"
             id="name"
             label="Add your comments here..."
+            value={message}
             type="text"
             fullWidth
+            onChange={e => setMessage(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
@@ -54,12 +57,13 @@ export default function FormDialog(props) {
           </Button>
           <Button
             // onClick={handleClose}
-            onClick={() =>
-              this.props.dispatch({
+            onClick={() => {
+              dispatch({
                 type: 'SEND_MENTOR_REQUEST',
-                payload: this.props.user.id
-              })
-            }
+                payload: { mentor: props.mentor.id, message: message }
+              });
+              handleClose();
+            }}
             color="primary"
           >
             Send Request
