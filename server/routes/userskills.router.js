@@ -5,16 +5,25 @@ const {
 } = require('../modules/authentication-middleware');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-	// console.log('req.user:', req.user.id)
-	// console.log('req.params', req.params)
-	const queryText = `SELECT "skill_tags".id, "skill_tags".tag FROM "user_tags"
-                        JOIN "skill_tags" on "user_tags".tag_id = "skill_tags".id
-                        WHERE "user_tags".user_id = $1`;
-	// console.log('in userskills router GET')
+//route to get skills for logged in user or user passed as params
+router.get('/', rejectUnauthenticated, (req, res) => {
+	const queryText = `SELECT
+		"skill_tags".id,
+		"skill_tags".tag
+	FROM
+		"user_tags"
+	JOIN
+		"skill_tags"
+	on
+		"user_tags".tag_id = "skill_tags".id
+	WHERE
+		"user_tags".user_id = $1`;
 	// console.log(userId)
+	//uses the current logged in user if no user is passed
+	const userId = req.query.id || req.user.id
+	console.log('user id is: ', userId)
 	pool
-		.query(queryText, [req.user.id])
+		.query(queryText, [userId])
 		.then(result => {
 			res.send(result.rows);
 		})
@@ -23,6 +32,7 @@ router.get('/', (req, res) => {
 			res.sendStatus(500);
 		});
 });
+
 
 // route to POST new skill into users list of skills
 router.post('/', rejectUnauthenticated, (req, res) => {

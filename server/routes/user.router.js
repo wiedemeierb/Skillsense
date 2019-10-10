@@ -87,23 +87,13 @@ router.get('/specific/:id', (req, res) => {
 		users.website_url,
 		users.access_id,
 		users.active,
-		user_type.user_type,
-		array_agg(skill_tags.id) as skill_ids,
-		array_agg(skill_tags.tag) as skill_names
+		user_type.user_type
 	FROM
 		users
 	LEFT JOIN
 		user_type
 			ON
 		user_type.id = users.access_id
-	LEFT JOIN
-		user_tags
-			ON
-		user_tags.user_id = users.id
-	LEFT JOIN
-		skill_tags
-			ON
-		skill_tags.id = user_tags.tag_id
 	WHERE users.id = $1
 	GROUP BY
 		users.id,
@@ -143,7 +133,7 @@ router.put('/edit/:id', (req, res) => {
 	"website_url" = $7,
 	"bio" = $8
 	WHERE "id" = $9;`;
-	pool.query(queryText, [req.body.email, req.body.focus_skill, req.body.github_url, 
+	pool.query(queryText, [req.body.email, req.body.focus_skill, req.body.github_url,
 		req.body.linkedin_url, req.body.location, req.body.username, req.body.website_url, req.body.bio, req.body.id])
 	.then((result) => {
 		res.send(result.rows);
@@ -151,6 +141,6 @@ router.put('/edit/:id', (req, res) => {
 		console.log('error with student edit put', error)
 		res.sendStatus(500);
 	})
-}); 
+});
 
 module.exports = router;
