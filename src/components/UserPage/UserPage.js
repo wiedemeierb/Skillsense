@@ -5,6 +5,8 @@ import TransferList from '../TransferList/TransferList';
 import Button from '@material-ui/core/Button';
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import PublicProfile from '../PublicProfile/PublicProfile';
+import SkillList from '../SkillList/SkillList';
+import EditProfile from '../EditProfile';
 
 class UserPage extends Component {
 	state = {
@@ -16,6 +18,7 @@ class UserPage extends Component {
 		linkedin_url: '',
 		website_url: '',
 		bio: '',
+		skills: [],
 		inEditMode: true
 	};
 
@@ -31,6 +34,9 @@ class UserPage extends Component {
 		});
 	};
 
+	toggleEdit = () => {
+		this.setState({ inEditMode: !this.state.inEditMode });
+	};
 	editStudentInfo = () => {
 		console.log('handleClick saveSkills operations');
 		console.log('this is state on didMount', this.state);
@@ -42,97 +48,17 @@ class UserPage extends Component {
 
 	render() {
 		return (
-			<TwoColumnLayout leftHeader='Your Profile' rightHeader='Skills'>
+			<TwoColumnLayout
+				leftHeader='Your Profile'
+				rightHeader={<Button onClick={this.toggleEdit}>{this.state.inEditMode ? 'Cancel' : 'Edit'}</Button>}>
 				{this.state.inEditMode ? (
-					<div>
-						{/* outlined Material-UI textfield input */}
-						<TextField
-							required
-							id='outlined-required'
-							label='Name'
-							defaultValue={this.props.user.username}
-							margin='normal'
-							variant='outlined'
-							onChange={event => {
-								this.handleInputChangeFor(event, 'username');
-							}}
-						/>
-						<TextField
-							required
-							id='outlined-required'
-							label='Title'
-							defaultValue={this.props.user.focus_skill}
-							margin='normal'
-							variant='outlined'
-							onChange={event => {
-								this.handleInputChangeFor(event, 'focus_skill');
-							}}
-						/>
-						<TextField
-							required
-							id='outlined-required'
-							label='Location'
-							defaultValue={this.props.user.location}
-							margin='normal'
-							variant='outlined'
-							onChange={event => {
-								this.handleInputChangeFor(event, 'location');
-							}}
-						/>
-						<TextField
-							required
-							id='outlined-required'
-							label='Email'
-							defaultValue={this.props.user.email}
-							margin='normal'
-							variant='outlined'
-							onChange={event => {
-								this.handleInputChangeFor(event, 'name');
-							}}
-						/>
-						<TextField
-							required
-							id='outlined-required'
-							label='Website'
-							defaultValue={this.props.user.website_url}
-							margin='normal'
-							variant='outlined'
-							onChange={event => {
-								this.handleInputChangeFor(event, 'website_url');
-							}}
-						/>
-						<TextField
-							required
-							id='outlined-required'
-							label='LinkedIn'
-							defaultValue={this.props.user.linkedin_url}
-							margin='normal'
-							variant='outlined'
-							onChange={event => {
-								this.handleInputChangeFor(event, 'linkedin_url');
-							}}
-						/>
-						<TextField
-							required
-							id='outlined-required'
-							label='Github'
-							defaultValue={this.props.user.github_url}
-							margin='normal'
-							variant='outlined'
-							onChange={event => {
-								this.handleInputChangeFor(event, 'github_url');
-							}}
-						/>
-						<Button onClick={this.editStudentInfo}>Edit</Button>
-
-						{/* {studentSkillListId} */}
-					</div>
+					<EditProfile user={this.props.user} toggleEdit={this.toggleEdit} />
 				) : (
 					<PublicProfile user={this.props.user} />
 				)}
-				<div>
+				{this.state.inEditMode && (
 					<TransferList allSkills={this.props.skills} user={this.props.user} />
-				</div>
+				)}
 			</TwoColumnLayout>
 		);
 	}
@@ -143,8 +69,7 @@ class UserPage extends Component {
 // const mapStateToProps = ({user}) => ({ user });
 const mapStateToProps = state => ({
 	user: state.user,
-	skills: state.allSkillsReducer,
-	selectedUserSkills: state.userSkillsReducer
+	skills: state.allSkillsReducer
 });
 
 // this allows us to use <App /> in index.js

@@ -9,7 +9,6 @@ import allSkillsReducer from './allSkillsReducer';
 import selectedJobReducer from './selectedJobReducer';
 import selectedMessageReducer from './selectedMessageReducer';
 import selectedUserReducer from './selectedUserReducer';
-import userSkillsReducer from './userSkillsReducer';
 import pendingMentorsReducer from './pendingMentorsReducer'
 
 // rootReducer is the primary reducer for our entire project
@@ -29,7 +28,6 @@ const rootReducer = combineReducers({
   selectedJobReducer,
   selectedMessageReducer,
   selectedUserReducer,
-  userSkillsReducer,
   pendingMentorsReducer,
 });
 
