@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 //COMPONENT IMPORTS
 import JobTabs from '../JobsTabs/JobTabs';
+import JobListItem from '../JobListItem/JobListItem';
 
 class MyJobs extends Component {
   componentDidMount() {
@@ -13,20 +14,7 @@ class MyJobs extends Component {
 
   render() {
     let jobList = this.props.jobs.map((job, i) => {
-      return (
-        <div key={i} className="list-item">
-          {/* right side info */}
-          <div>
-            <h2>{job.project_title}</h2>
-
-            <h3>{job.position_title}</h3>
-          </div>
-          {/* left side info */}
-          <div>
-            <h3>Client: {job.client}</h3>
-          </div>
-        </div>
-      );
+      return <JobListItem key={i} job={job} />;
     });
 
     return (
