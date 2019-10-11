@@ -42,4 +42,4 @@ const rejectIfNotAdmin = (req, res, next) => {
 	}
 };
 
-module.exports = { rejectUnauthenticated, rejectIfNotClient };
+module.exports = { rejectUnauthenticated, rejectIfNotClient, rejectIfNotAdmin, rejectIfNotMentor, rejectIfNotStudent };

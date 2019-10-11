@@ -3,12 +3,14 @@ const pool = require('../modules/pool');
 const {
 	rejectUnauthenticated,
 	rejectIfNotAdmin,
-	rejectIfNotMentor
+  rejectIfNotMentor,
+  rejectIfNotStudent,
+  rejectIfNotClient
 } = require('../modules/authentication-middleware');
 const router = express.Router();
 
 /** GET (ALL) ROUTE FOR APPROVED MENTORS **/
-router.get('/all', (req, res) => {
+router.get('/all', rejectUnauthenticated, (req, res) => {
 	const queryText = `
     SELECT
       "users".id,
@@ -183,7 +185,7 @@ router.get('/invited', rejectUnauthenticated, (req, res) => {
 });
 
 /** GET (SEARCH) ROUTE BY MENTOR NAME AND/OR SKILL TAG **/
-router.get('/search/', (req, res) => {
+router.get('/search/', rejectUnauthenticated, (req, res) => {
 	const searchTerm =
 		req.query.searchTerm !== '' ? `%${req.query.searchTerm}%` : `%%`;
 	const searchSkill = req.query.skill != 0 ? Number(req.query.skill) : 0;
@@ -289,7 +291,7 @@ router.get('/pending', rejectIfNotAdmin, (req, res) => {
 			ON
     skill_tags.id = user_tags.tag_id
 	WHERE
-		user_type.user_type ILIKE 'Mentor' AND mentor_status.mentor_status ILIKE 'Pending Approval'
+		(user_type.user_type ILIKE 'Mentor') AND ("mentor_status".mentor_status ILIKE 'Pending Approval')
 	GROUP BY
 		users.id,
 		users.username,
