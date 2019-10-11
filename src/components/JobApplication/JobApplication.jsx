@@ -9,6 +9,7 @@ class JobApplication extends Component {
         mentor_id: null,
         payment_terms: 'negotiable'
     }
+
     componentDidMount() {
         this.props.dispatch({
             type: 'FETCH_JOB_DETAIL',
@@ -19,6 +20,7 @@ class JobApplication extends Component {
         });
     }
 
+    //Saves the text from input on change
     handleInput = (event, property) => {
         this.setState({
             ...this.state,
@@ -26,6 +28,7 @@ class JobApplication extends Component {
         })
     }
 
+    //Submits the full application details from local state to save in the database
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.dispatch({
@@ -36,10 +39,13 @@ class JobApplication extends Component {
             }
         })
     }
+
     render() {
+        //checks if user type should be able to view this page
         let isAuthorized = () => {
             return (this.props.user.access_id === 1)
         }
+
         return (
             <div>
                 {isAuthorized() ?
@@ -47,23 +53,23 @@ class JobApplication extends Component {
                         <h1>Job Application Page</h1>
                         {/* Client Info */}
                         <div>
-                <Typography>{this.props.job.username}</Typography>
-                <Typography>{this.props.job.location}</Typography>
-            </div>
+                            <Typography>{this.props.job.username}</Typography>
+                            <Typography>{this.props.job.location}</Typography>
+                        </div>
                         {/* Job Info */}
                         <div>
-                <Typography>{this.props.job.position_title}</Typography>
-                <Typography>{this.props.job.project_title}</Typography>
-                <Typography>Budget: $<span>{this.props.job.budget}</span></Typography>
-                    <Typography>Duration: <span>{this.props.job.duration}</span></Typography>
-                    {this.props.job.skill_names[0] !== null && this.props.job.skill_names.map((skill, i) => {
-                        return (
-                            <Typography key={i} className="skill-tag">
-                                {skill}
-                            </Typography>
-                        );
-                    })}
-            </div>
+                            <Typography>{this.props.job.position_title}</Typography>
+                            <Typography>{this.props.job.project_title}</Typography>
+                            <Typography>Budget: $<span>{this.props.job.budget}</span></Typography>
+                            <Typography>Duration: <span>{this.props.job.duration}</span></Typography>
+                            {this.props.job.skill_names[0] !== null && this.props.job.skill_names.map((skill, i) => {
+                                return (
+                                    <Typography key={i} className="skill-tag">
+                                        {skill}
+                                    </Typography>
+                                );
+                            })}
+                        </div>
                         {/* Cover Letter and Resume */}
                         <div>
                             <Typography variant="h6">Cover Letter</Typography>
@@ -108,7 +114,7 @@ class JobApplication extends Component {
                     : <Typography>You are not authorized to view this page.</Typography>}
             </div>
         )
-}
+    }
 }
 
 const mapStateToProps = (store) => {

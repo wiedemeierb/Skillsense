@@ -5,7 +5,7 @@ const {
 } = require('../modules/authentication-middleware');
 const router = express.Router();
 
-/** GET (ALL) ROUTE **/
+/** GET (ALL) ROUTE FOR APPROVED MENTORS **/
 router.get('/all', (req, res) => {
   const queryText = `
     SELECT "users".id, "username", "access_id", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
@@ -32,7 +32,7 @@ router.get('/all', (req, res) => {
     });
 });
 
-/** GET (STUDENT: ACTIVE MENTORS) ROUTE **/
+/** GET (STUDENT: ACTIVE MENTORS) ROUTE BY STUDENT ID AND ACCEPTED STATUS**/
 router.get('/active', (req, res) => {
   const userId = req.user.id;
   const queryText = `
@@ -60,7 +60,7 @@ router.get('/active', (req, res) => {
     });
 });
 
-/** GET (STUDENT: INVITED MENTORS) ROUTE **/
+/** GET (STUDENT: INVITED MENTORS) ROUTE BY STUDENT ID WHERE ACCEPTED IS FALSE **/
 router.get('/invited', (req, res) => {
   const userId = req.user.id;
   const queryText = `
@@ -88,7 +88,7 @@ router.get('/invited', (req, res) => {
     });
 });
 
-/** GET (SEARCH) ROUTE **/
+/** GET (SEARCH) ROUTE BY MENTOR NAME AND/OR SKILL TAG **/
 router.get('/search/', (req, res) => {
   const searchTerm =
     req.query.searchTerm !== '' ? `%${req.query.searchTerm}%` : `%%`;

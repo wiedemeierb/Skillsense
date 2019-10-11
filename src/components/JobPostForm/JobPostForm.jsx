@@ -32,6 +32,7 @@ class JobPostForm extends Component {
         this.props.dispatch({ type: 'FETCH_ALL_SKILLS' });
     }
 
+    //Saves the text from input on change
     handleInput = (event, property) => {
         this.setState({
             ...this.state,
@@ -39,25 +40,27 @@ class JobPostForm extends Component {
         })
     }
 
+    //Submits the full job posting details and associated skill tags to save in the database
     handleSubmit = (event) => {
         event.preventDefault();
-            this.props.dispatch({
-                type: 'POST_JOB',
-                payload: this.state
-            })
-            this.setState({
-                project_title: '',
-                position_title: '',
-                description: '',
-                duration: '',
-                budget: '',
-                mentor_required: true,
-                status_id: 1,
-                client_id: 0,
-                selected: []
-            })
-        }
+        this.props.dispatch({
+            type: 'POST_JOB',
+            payload: this.state
+        })
+        this.setState({
+            project_title: '',
+            position_title: '',
+            description: '',
+            duration: '',
+            budget: '',
+            mentor_required: true,
+            status_id: 1,
+            client_id: 0,
+            selected: []
+        })
+    }
 
+    //adds clicked skill to list of selected tags
     addSkill = skill => {
         console.log(skill);
         this.setState({
@@ -65,6 +68,7 @@ class JobPostForm extends Component {
         });
     };
 
+    //removes clicked skill from list of selected tags
     removeSkill = skillToRemove => {
         console.log(skillToRemove);
         this.setState({
@@ -77,6 +81,8 @@ class JobPostForm extends Component {
     render() {
         console.log(this.state)
         const { classes } = this.props;
+
+        //filters the list of all skills to remove the selected skills
         const renderAvailable =
             this.props.available
                 .filter(skill => !this.state.selected.includes(skill))
@@ -89,6 +95,7 @@ class JobPostForm extends Component {
                         <ListItemText primary={skill.tag} />
                     </ListItem>
                 ));
+
         const renderSelected =
             this.state.selected.map(skill => (
                 <ListItem
@@ -100,52 +107,54 @@ class JobPostForm extends Component {
                 </ListItem>
             ));
 
-        let isAuthorized = ()=>{
+        //checks if user type should be able to view this page
+        let isAuthorized = () => {
             return (this.props.user.access_id === 3)
         }
+
         return (
             <Paper>
-            { isAuthorized() ?
-            <form onSubmit={this.handleSubmit}>
-                <OutlinedInput type="text" title="Project Name" placeholder="Project Name" value={this.state.project_title} onChange={(event) => {this.handleInput(event, 'project_title')}} required={true}/>
-                <OutlinedInput type="text" title="Seeking Position" placeholder="Seeking Position" value={this.state.position_title} onChange={(event) => { this.handleInput(event, 'position_title') }} required={true}/>
-                <OutlinedInput type="text" title="Project Description" placeholder="Project Description" value={this.state.description} onChange={(event) => { this.handleInput(event, 'description') }} required={true}/>
-                <OutlinedInput type="text" title="Project Duration" placeholder="Project Duration" value={this.state.duration} onChange={(event) => { this.handleInput(event, 'duration') }} required={true}/>
-                <OutlinedInput type="text" title="Project Budget" placeholder="Project Budget" value={this.state.budget} onChange={(event) => { this.handleInput(event, 'budget') }}  required={true}/>
-                {/* <input type="checkbox" label="Mentor required" title="Mentor Required" placeholder="Mentor Required" value={this.state.mentor_required} onChange={(event) => { this.handleInput(event, 'mentor_required') }} /> */}
-                <br/>
-                <Typography>Skill Tags</Typography>
-                <Grid
-                    container
-                    spacing={2}
-                    justify='space-evenly'
-                    className={classes.root}
-                    >
-                    <Grid item xs={5}>
-                        <Typography variant='subtitle2' align="center">
-                            Available Skills
+                {isAuthorized() ?
+                    <form onSubmit={this.handleSubmit}>
+                        <OutlinedInput type="text" title="Project Name" placeholder="Project Name" value={this.state.project_title} onChange={(event) => { this.handleInput(event, 'project_title') }} required={true} />
+                        <OutlinedInput type="text" title="Seeking Position" placeholder="Seeking Position" value={this.state.position_title} onChange={(event) => { this.handleInput(event, 'position_title') }} required={true} />
+                        <OutlinedInput type="text" title="Project Description" placeholder="Project Description" value={this.state.description} onChange={(event) => { this.handleInput(event, 'description') }} required={true} />
+                        <OutlinedInput type="text" title="Project Duration" placeholder="Project Duration" value={this.state.duration} onChange={(event) => { this.handleInput(event, 'duration') }} required={true} />
+                        <OutlinedInput type="text" title="Project Budget" placeholder="Project Budget" value={this.state.budget} onChange={(event) => { this.handleInput(event, 'budget') }} required={true} />
+                        {/* <input type="checkbox" label="Mentor required" title="Mentor Required" placeholder="Mentor Required" value={this.state.mentor_required} onChange={(event) => { this.handleInput(event, 'mentor_required') }} /> */}
+                        <br />
+                        <Typography>Skill Tags</Typography>
+                        <Grid
+                            container
+                            spacing={2}
+                            justify='space-evenly'
+                            className={classes.root}
+                        >
+                            <Grid item xs={5}>
+                                <Typography variant='subtitle2' align="center">
+                                    Available Skills
 					</Typography>
-                    </Grid>
-                    <Grid item xs={5}>
-                        <Typography variant='subtitle2' align="center">
-                            Selected Skills
+                            </Grid>
+                            <Grid item xs={5}>
+                                <Typography variant='subtitle2' align="center">
+                                    Selected Skills
 					</Typography>
-                    </Grid>
-                    <Grid item xs={5}>
-                        <Paper className={classes.paper}>
-                            <List>{renderAvailable}</List>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={5}>
-                        <Paper className={classes.paper}>
-                            <List>{renderSelected}</List>
-                        </Paper>
-                    </Grid>
-                </Grid>
-                <Button type="submit" variant="contained" color="primary">Submit</Button>
-            </form>
-            : <Typography variant="h3">You are not authorized to view this page.</Typography>
-            }
+                            </Grid>
+                            <Grid item xs={5}>
+                                <Paper className={classes.paper}>
+                                    <List>{renderAvailable}</List>
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={5}>
+                                <Paper className={classes.paper}>
+                                    <List>{renderSelected}</List>
+                                </Paper>
+                            </Grid>
+                        </Grid>
+                        <Button type="submit" variant="contained" color="primary">Submit</Button>
+                    </form>
+                    : <Typography variant="h3">You are not authorized to view this page.</Typography>
+                }
             </Paper>
         )
     }

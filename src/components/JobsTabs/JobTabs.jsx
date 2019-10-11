@@ -19,6 +19,7 @@ class JobTabs extends React.Component {
     value: 0
   };
 
+  //Captures clicked tab and sets to current value
   handleChange = (event, value) => {
     this.setState({
       value
@@ -79,8 +80,8 @@ class JobTabs extends React.Component {
           {this.props.user.access_id === 1 ? (
             <Tab label="Applied" />
           ) : (
-            <Tab label="Pending Hire" />
-          )}
+              <Tab label="Pending Hire" />
+            )}
 
           <Tab label="Completed" />
         </Tabs>

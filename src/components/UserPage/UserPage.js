@@ -43,10 +43,12 @@ class UserPage extends Component {
 		});
 	};
 
+	//Toggles profile between read mode and edit mode
 	toggleEdit = () => {
 		this.setState({ inEditMode: !this.state.inEditMode });
 	};
 
+	//saves Profile changes to database
 	editUserInfo = () => {
 		console.log('handleClick saveSkills operations');
 		console.log('this is state on didMount', this.state);
@@ -56,6 +58,7 @@ class UserPage extends Component {
 		});
 	};
 
+	//Sends mentorship application to database for admin review
 	submitForReview = () => {
 		this.props.dispatch({
 			type: 'REQUEST_ADMIN_REVIEW'
@@ -72,11 +75,11 @@ class UserPage extends Component {
 				this.props.user.approved_mentor === 3 ? (
 					<Typography className={classes.button}>Approved by Admin</Typography>
 				) : (
-					//show button to submit for review if not approved yet
-					<Button className={classes.button} onClick={this.submitForReview}>
-						Submit For Admin Review
+						//show button to submit for review if not approved yet
+						<Button className={classes.button} onClick={this.submitForReview}>
+							Submit For Admin Review
 					</Button>
-				)
+					)
 			) : null;
 
 		return (
@@ -85,8 +88,8 @@ class UserPage extends Component {
 					{this.state.inEditMode ? (
 						<EditProfile user={this.props.user} toggleEdit={this.toggleEdit} />
 					) : (
-						<PublicProfile user={this.props.user} />
-					)}
+							<PublicProfile user={this.props.user} />
+						)}
 					<Button className={classes.button} onClick={this.toggleEdit}>
 						{this.state.inEditMode ? 'Cancel' : 'Edit'}
 					</Button>

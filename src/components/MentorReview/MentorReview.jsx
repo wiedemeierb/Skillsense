@@ -29,6 +29,7 @@ class MentorReview extends Component {
     this.props.dispatch({ type: 'FETCH_PENDING_MENTORS' });
   };
 
+  //resets the mentor status to Not Submitted
   declineMentor = () => {
     this.props.dispatch({
       type: 'ADMIN_DECLINE_MENTOR',
@@ -36,6 +37,7 @@ class MentorReview extends Component {
     });
   };
 
+  //sets the mentor status to Approved
   approveMentor = () => {
     this.props.dispatch({
       type: 'ADMIN_APPROVE_MENTOR',
@@ -45,11 +47,14 @@ class MentorReview extends Component {
 
   render() {
     const { classes } = this.props;
+
+    //maps over the list of pending mentors
     const mentorsList =
       this.props.pendingMentors &&
       this.props.pendingMentors.map(mentor => (
         <UserListItem key={mentor.id} user={mentor} />
       ));
+
     return (
       <TwoColumnLayout leftHeader="Pending Mentors" rightHeader="Details">
         <List>{mentorsList}</List>
@@ -78,12 +83,12 @@ class MentorReview extends Component {
             </Grid>
           </Grid>
         ) : (
-          <div>
-            <Typography variant="h6" align="center">
-              Select any user for more information.
+            <div>
+              <Typography variant="h6" align="center">
+                Select any user for more information.
             </Typography>
-          </div>
-        )}
+            </div>
+          )}
       </TwoColumnLayout>
     );
   }
@@ -93,4 +98,5 @@ const mapStateToProps = reduxStore => ({
   pendingMentors: reduxStore.pendingMentorsReducer,
   selectedUser: reduxStore.selectedUserReducer
 });
+
 export default connect(mapStateToProps)(withStyles(styles)(MentorReview));
