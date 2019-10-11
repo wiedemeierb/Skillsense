@@ -8,7 +8,7 @@ import UserListItem from '../UserListItem/UserListItem';
 import PublicProfile from '../PublicProfile/PublicProfile';
 
 //MATERIAL-UI IMPORTS
-import { Typography } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 
 class MyMentorships extends Component {
   componentDidMount() {
@@ -41,7 +41,16 @@ class MyMentorships extends Component {
         </div>
         <div>
           {this.props.selectedUser.id ? (
-            <PublicProfile />
+            <div>
+              <PublicProfile />
+              <br />
+              {this.props.user.access_id === 2 &&
+                <div>
+                  <Button variant="contained" color="primary" onClick={this.acceptMentorship}>Accept</Button>
+                  <Button variant="contained" color="secondary" onClick={this.declineMentorship}>Decline</Button>
+                </div>
+              }
+            </div>
           ) : (
               <Typography variant="h6" align="center">
                 Select a mentor to see more information.
