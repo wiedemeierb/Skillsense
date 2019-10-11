@@ -98,7 +98,7 @@ router.get('/search/', (req, res) => {
 	SELECT "users".id, "username", "access_id", "location", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
 	array_agg("skill_tags".tag) AS "skill_names" FROM "users"
 	LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
-  JOIN "skill_tags" ON "skill_tags".id = "user_tags".tag_id
+  LEFT JOIN "skill_tags" ON "skill_tags".id = "user_tags".tag_id
 	WHERE "access_id" = 2 AND "approved_mentor" = 3
   `;
 
