@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
+//gets all open jobs
 function* fetchAllJobs() {
   try {
     let response = yield axios.get('/api/jobs');
@@ -14,6 +15,7 @@ function* fetchAllJobs() {
   }
 }
 
+//gets job search results
 function* fetchJobSearch(action) {
   try {
     const config = {
@@ -31,6 +33,7 @@ function* fetchJobSearch(action) {
   }
 }
 
+//get users current jobs
 function* fetchActiveJobs() {
   try {
     let response = yield axios.get('/api/jobs/active');
@@ -44,6 +47,7 @@ function* fetchActiveJobs() {
   }
 }
 
+//get users jobs pending hire
 function* fetchAppliedJobs() {
   try {
     let response = yield axios.get('/api/jobs/applied');
@@ -57,6 +61,7 @@ function* fetchAppliedJobs() {
   }
 }
 
+//get users job history
 function* fetchCompletedJobs() {
   try {
     let response = yield axios.get('/api/jobs/completed');
@@ -70,6 +75,36 @@ function* fetchCompletedJobs() {
   }
 }
 
+//gets clients current jobs
+function* fetchClientJobs(action) {
+  let jobType = action.payload;
+  try {
+    let response = yield axios.get(`/api/jobs/client/${jobType}`);
+    console.log(response.data);
+    yield put({
+      type: 'SET_ALL_JOBS',
+      payload: response.data
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+//gets selected job details
+function* fetchJobDetail(action) {
+  console.log(action.payload);
+  try {
+    let response = yield axios.get(`api/jobs/detail/${action.payload.id}`);
+    yield put({
+      type: 'SET_JOB_DETAILS',
+      payload: response.data
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+//posts new job details
 function* postJob(action) {
   try {
     yield axios.post('api/jobs/new', action.payload);
@@ -81,26 +116,14 @@ function* postJob(action) {
   }
 }
 
-function* fetchJobDetail(action) {
+//posts job application
+function* submitApplication(action) {
   console.log(action.payload);
   try {
-    let response = yield axios.get(`api/jobs/detail/${action.payload.id}`)
-    yield put ({
-      type: 'SET_JOB_DETAILS',
-      payload: response.data
-    });
+    yield axios.post('api/jobs/apply', action.payload);
   } catch (error) {
     console.log(error);
   }
-}
-
-function* submitApplication(action){
-  console.log(action.payload)
-    try {
-      yield axios.post('api/jobs/apply', action.payload);
-    } catch (error) {
-      console.log(error);
-    }
 }
 
 function* jobSaga() {
@@ -109,9 +132,10 @@ function* jobSaga() {
   yield takeEvery('FETCH_ACTIVE_JOBS', fetchActiveJobs);
   yield takeEvery('FETCH_APPLIED_JOBS', fetchAppliedJobs);
   yield takeEvery('FETCH_COMPLETED_JOBS', fetchCompletedJobs);
+  yield takeEvery('FETCH_CLIENT_JOBS', fetchClientJobs);
   yield takeEvery('FETCH_JOB_DETAIL', fetchJobDetail);
   yield takeEvery('POST_JOB', postJob);
-  yield takeEvery('SUBMIT_APPLICATION',submitApplication);
+  yield takeEvery('SUBMIT_APPLICATION', submitApplication);
 }
 
 export default jobSaga;

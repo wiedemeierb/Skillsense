@@ -36,6 +36,7 @@ const styles = theme => ({
 
 class JobListItem extends Component {
 
+  //When list item is clicked, user is taken to that job detail page
   viewDetail = () => {
     this.props.history.push(`/jobs/detail/${this.props.job.id}`);
   };
@@ -54,8 +55,13 @@ class JobListItem extends Component {
         {/* left side info */}
         <Grid item xs={4}>
           <Typography variant="h5">{this.props.job.project_title}</Typography>
-          <Typography>{this.props.job.client}</Typography>
-          <Typography>{this.props.job.location}</Typography>
+          {/* conditionally rendered so only students see client information */}
+          {this.props.user.access_id === 1 && (
+            <>
+              <Typography>{this.props.job.client}</Typography>
+              <Typography>{this.props.job.location}</Typography>
+            </>
+          )}
         </Grid>
         {/* center info */}
         <Grid item xs={4}>
@@ -81,4 +87,12 @@ class JobListItem extends Component {
   }
 }
 
-export default withRouter(connect()(withStyles(styles)(JobListItem)));
+const mapStateToProps = store => {
+  return {
+    user: store.user
+  };
+};
+
+export default withRouter(
+  connect(mapStateToProps)(withStyles(styles)(JobListItem))
+);

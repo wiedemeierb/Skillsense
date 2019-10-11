@@ -5,10 +5,10 @@ const {
 } = require('../modules/authentication-middleware');
 const router = express.Router();
 
-/** GET (ALL) ROUTE **/
+/** GET (ALL) ROUTE FOR APPROVED MENTORS **/
 router.get('/all', (req, res) => {
   const queryText = `
-    SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
+    SELECT "users".id, "username", "access_id", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
 	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
     LEFT JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
     LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
@@ -18,12 +18,12 @@ router.get('/all', (req, res) => {
 
   pool
     .query(queryText)
-		.then(result => {
-			result.rows.forEach(row => {
-				row.skills = row.skill_ids.map((id, index) => {
-					return { id: id, tag: row.skill_names[index] };
-				});
-			});
+    .then(result => {
+      result.rows.forEach(row => {
+        row.skills = row.skill_ids.map((id, index) => {
+          return { id: id, tag: row.skill_names[index] };
+        });
+      });
       res.send(result.rows);
     })
     .catch(error => {
@@ -32,11 +32,11 @@ router.get('/all', (req, res) => {
     });
 });
 
-/** GET (STUDENT: ACTIVE MENTORS) ROUTE **/
+/** GET (STUDENT: ACTIVE MENTORS) ROUTE BY STUDENT ID AND ACCEPTED STATUS**/
 router.get('/active', (req, res) => {
   const userId = req.user.id;
   const queryText = `
-    SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
+    SELECT "users".id, "username", "access_id", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
 	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
     JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
     LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
@@ -46,12 +46,12 @@ router.get('/active', (req, res) => {
 
   pool
     .query(queryText, [userId])
-		.then(result => {
-			result.rows.forEach(row => {
-				row.skills = row.skill_ids.map((id, index) => {
-					return { id: id, tag: row.skill_names[index] };
-				});
-			});
+    .then(result => {
+      result.rows.forEach(row => {
+        row.skills = row.skill_ids.map((id, index) => {
+          return { id: id, tag: row.skill_names[index] };
+        });
+      });
       res.send(result.rows);
     })
     .catch(error => {
@@ -60,11 +60,11 @@ router.get('/active', (req, res) => {
     });
 });
 
-/** GET (STUDENT: INVITED MENTORS) ROUTE **/
+/** GET (STUDENT: INVITED MENTORS) ROUTE BY STUDENT ID WHERE ACCEPTED IS FALSE **/
 router.get('/invited', (req, res) => {
   const userId = req.user.id;
   const queryText = `
-  	SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
+  	SELECT "users".id, "username", "access_id", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
 	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
     JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
     LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
@@ -74,12 +74,12 @@ router.get('/invited', (req, res) => {
 
   pool
     .query(queryText, [userId])
-		.then(result => {
-			result.rows.forEach(row => {
-				row.skills = row.skill_ids.map((id, index) => {
-					return { id: id, tag: row.skill_names[index] };
-				});
-			});
+    .then(result => {
+      result.rows.forEach(row => {
+        row.skills = row.skill_ids.map((id, index) => {
+          return { id: id, tag: row.skill_names[index] };
+        });
+      });
       res.send(result.rows);
     })
     .catch(error => {
@@ -88,14 +88,14 @@ router.get('/invited', (req, res) => {
     });
 });
 
-/** GET (SEARCH) ROUTE **/
+/** GET (SEARCH) ROUTE BY MENTOR NAME AND/OR SKILL TAG **/
 router.get('/search/', (req, res) => {
   const searchTerm =
     req.query.searchTerm !== '' ? `%${req.query.searchTerm}%` : `%%`;
   const searchSkill = req.query.skill != 0 ? Number(req.query.skill) : 0;
 
   const queryStart = `
-	SELECT "users".id, "username", "location", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
+	SELECT "users".id, "username", "access_id", "location", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
 	array_agg("skill_tags".tag) AS "skill_names" FROM "users"
 	LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
   JOIN "skill_tags" ON "skill_tags".id = "user_tags".tag_id
@@ -124,12 +124,14 @@ router.get('/search/', (req, res) => {
 
   pool
     .query(queryText(), queryParams())
-		.then(result => {
-			result.rows.forEach(row => {
-				row.skills = row.skill_ids && row.skill_ids.map((id, index) => {
-					return { id: id, tag: row.skill_names[index] };
-				});
-			});
+    .then(result => {
+      result.rows.forEach(row => {
+        row.skills =
+          row.skill_ids &&
+          row.skill_ids.map((id, index) => {
+            return { id: id, tag: row.skill_names[index] };
+          });
+      });
       res.send(result.rows);
     })
     .catch(error => {
@@ -217,23 +219,36 @@ router.get('/pending', (req, res) => {
 });
 
 /** POST (STUDENT: SEND MENTOR REQUEST) ROUTE **/
-router.post('/request', (req, res) => {
+router.post('/request', async (req, res) => {
   const userId = req.user.id;
-  const mentorId = req.body;
-  const queryText = `
-    INSERT INTO "student_mentor" ("student_id", "mentor_id", "message_id")
-    VALUES ($1, $2, $3);
-    `;
+  const mentorId = req.body.mentor;
+  const message = req.body.message;
 
-  pool
-    .query(queryText, [userId, mentorId])
-    .then(result => {
-      res.send(result.rows);
-    })
-    .catch(error => {
-      console.log(error);
-      res.sendStatus(500);
-    });
+  const queryText = `
+    INSERT INTO "messages" ("sender_id", "recipient_id", "message", "date_time") 
+    VALUES ($1, $2, $3, NOW()) returning "id";`;
+
+  const connection = await pool.connect();
+  try {
+    await connection.query(`BEGIN;`);
+    let result = await connection.query(queryText, [userId, mentorId, message]);
+    console.log(result.rows);
+
+    let messageId = result.rows[0].id;
+    await connection.query(
+      `INSERT INTO "student_mentor" ("student_id", "mentor_id", "message_id")
+        VALUES ($1, $2, $3);`,
+      [userId, mentorId, messageId]
+    );
+    await connection.query(`COMMIT;`);
+    res.sendStatus(201);
+  } catch (error) {
+    await connection.query(`ROLLBACK;`);
+    console.log(error);
+    res.sendStatus(500);
+  } finally {
+    connection.release();
+  }
 });
 
 /** PATCH (ADMIN: UPDATE MENTOR APPROVAL STATUS) ROUTE **/
@@ -254,19 +269,21 @@ router.patch(`/admin/:id`, rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+
 //PATCH route for mentor to request admin approval
 router.patch(`/request`, rejectUnauthenticated, (req, res) => {
-	const queryText = `UPDATE users SET approved_mentor = 2 WHERE users.id = $1`
-	const values = [req.user.id]
+  const queryText = `UPDATE users SET approved_mentor = 2 WHERE users.id = $1`;
+  const values = [req.user.id];
 
-	pool.query(queryText, values)
-		.then(result => {
-			console.log('successful update to request admin approval')
-			res.sendStatus(200)
-		})
-		.catch(error => {
-			console.log('error on update to requesting admin approval: ', error)
-		})
-})
+  pool
+    .query(queryText, values)
+    .then(result => {
+      console.log('successful update to request admin approval');
+      res.sendStatus(200);
+    })
+    .catch(error => {
+      console.log('error on update to requesting admin approval: ', error);
+    });
+});
 
 module.exports = router;

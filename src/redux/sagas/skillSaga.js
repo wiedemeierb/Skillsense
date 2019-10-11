@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
+//get all skill tags
 function* fetchAllSkills() {
   try {
     let response = yield axios.get('/api/skills');

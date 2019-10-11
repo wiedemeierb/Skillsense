@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
+//get all message for current user
 function* fetchAllMessages() {
     try {
         let response = yield axios.get('/api/messages')
