@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Button } from '@material-ui/core';
+import { Grid, Typography, Button, Chip } from '@material-ui/core';
+import SkillList from '../SkillList/SkillList';
 
 
 class JobDetail extends Component {
@@ -21,22 +22,14 @@ class JobDetail extends Component {
         return (
             <div>
                 <Typography variant="h2" color="primary">{this.props.details.project_title}</Typography>
-                <Typography variant="h4" color="secondary">Client Name Here</Typography>
+                <Typography variant="h4" color="secondary">{this.props.details.username}</Typography>
                 <br></br>
                 <Typography variant="h5" color="primary">Description:</Typography>
                 <Typography>{this.props.details.description}</Typography>
                 <br></br>
                 <Typography variant="h5" color="primary">Desired Skills:</Typography>
-
-                {/* {this.props.job.skill_names[0] !== null && this.props.job.skill_names.map((skill, i) => {
-                    return (
-                        <Typography key={i} className="skill-tag">
-                            {skill}
-                        </Typography>
-                    )
-                })} */}
-
-                <Typography>{this.props.details.skill_names}</Typography>
+                <SkillList skillList={this.props.details.skills} />
+                <br></br>
                 <br></br>
                 <Typography variant="h5" color="primary">Application</Typography>
                 <Typography>Name: {this.props.user.username}</Typography>
