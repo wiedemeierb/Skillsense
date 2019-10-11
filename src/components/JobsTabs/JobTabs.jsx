@@ -24,19 +24,41 @@ class JobTabs extends React.Component {
       value
     });
 
+    let jobType = 0;
     if (value === 0) {
-      this.props.dispatch({
-        type: 'FETCH_ACTIVE_JOBS'
-      });
+      jobType = 3;
+    } else if (value === 1) {
+      //needs to be updated to also include "offer-extended" (2)
+      // `1 OR "status_id" = 2` errors for integer input
+      jobType = 1;
+    } else if (value === 2) {
+      jobType = 4;
     }
-    if (value === 1) {
+
+    //route simplification of client using jobType
+    //can be applied to student jobs as well in future
+    if (this.props.user.access_id === 1) {
+      //dispatch actions for students
+      if (value === 0) {
+        this.props.dispatch({
+          type: 'FETCH_ACTIVE_JOBS'
+        });
+      }
+      if (value === 1) {
+        this.props.dispatch({
+          type: 'FETCH_APPLIED_JOBS'
+        });
+      }
+      if (value === 2) {
+        this.props.dispatch({
+          type: 'FETCH_COMPLETED_JOBS'
+        });
+      }
+      // dispatch actions for client
+    } else if (this.props.user.access_id === 3) {
       this.props.dispatch({
-        type: 'FETCH_APPLIED_JOBS'
-      });
-    }
-    if (value === 2) {
-      this.props.dispatch({
-        type: 'FETCH_COMPLETED_JOBS'
+        type: 'FETCH_CLIENT_JOBS',
+        payload: jobType
       });
     }
   };
@@ -54,7 +76,12 @@ class JobTabs extends React.Component {
           centered
         >
           <Tab label="Active" />
-          <Tab label="Applied" />
+          {this.props.user.access_id === 1 ? (
+            <Tab label="Applied" />
+          ) : (
+            <Tab label="Pending Hire" />
+          )}
+
           <Tab label="Completed" />
         </Tabs>
       </Paper>
@@ -66,4 +93,10 @@ JobTabs.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default connect()(withStyles(styles)(JobTabs));
+const mapStateToProps = store => {
+  return {
+    user: store.user
+  };
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(JobTabs));

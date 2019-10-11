@@ -7,9 +7,19 @@ import JobListItem from '../JobListItem/JobListItem';
 
 class MyJobs extends Component {
   componentDidMount() {
-    this.props.dispatch({
-      type: 'FETCH_ACTIVE_JOBS'
-    });
+    console.log(this.props.user.access_id);
+
+    if (this.props.user.access_id === 1) {
+      this.props.dispatch({
+        type: 'FETCH_ACTIVE_JOBS'
+      });
+    } else if (this.props.user.access_id === 3) {
+      this.props.dispatch({
+        type: 'FETCH_CLIENT_JOBS',
+        //active job status
+        payload: 3
+      });
+    }
   }
 
   render() {
