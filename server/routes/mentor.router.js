@@ -8,7 +8,7 @@ const router = express.Router();
 /** GET (ALL) ROUTE **/
 router.get('/all', (req, res) => {
   const queryText = `
-    SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
+    SELECT "users".id, "username", "access_id", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
 	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
     LEFT JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
     LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
@@ -36,7 +36,7 @@ router.get('/all', (req, res) => {
 router.get('/active', (req, res) => {
   const userId = req.user.id;
   const queryText = `
-    SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
+    SELECT "users".id, "username", "access_id", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
 	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
     JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
     LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
@@ -64,7 +64,7 @@ router.get('/active', (req, res) => {
 router.get('/invited', (req, res) => {
   const userId = req.user.id;
   const queryText = `
-  	SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
+  	SELECT "users".id, "username", "access_id", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
 	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
     JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
     LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
@@ -95,7 +95,7 @@ router.get('/search/', (req, res) => {
   const searchSkill = req.query.skill != 0 ? Number(req.query.skill) : 0;
 
   const queryStart = `
-	SELECT "users".id, "username", "location", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
+	SELECT "users".id, "username", "access_id", "location", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
 	array_agg("skill_tags".tag) AS "skill_names" FROM "users"
 	LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
   JOIN "skill_tags" ON "skill_tags".id = "user_tags".tag_id
