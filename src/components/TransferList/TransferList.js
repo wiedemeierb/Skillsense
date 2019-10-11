@@ -33,11 +33,13 @@ class TransferList extends Component {
 		selectedSkills: []
 	};
 
+	//sends post request for clicked skill ID
 	addSkill = skillId => {
 		console.log(skillId);
 		this.props.dispatch({ type: 'ADD_SKILL', payload: { id: skillId } });
 	};
 
+	//sends delete request for clicked skill ID
 	removeSkill = skillId => {
 		console.log(skillId);
 		this.props.dispatch({ type: 'REMOVE_SKILL', payload: { id: skillId } });
@@ -50,15 +52,15 @@ class TransferList extends Component {
 				this.props.user.skills.some(
 					userSkill => userSkill.id === skill.id
 				) ? null : (
-				<Tooltip key={skill.id} title='Add to Your Skills' placement='right'>
-					<ListItem
-						role='listitem'
-						button
-						onClick={() => this.addSkill(skill.id)}>
-						<ListItemText primary={skill.tag} />
-					</ListItem>
-				</Tooltip>
-			)
+						<Tooltip key={skill.id} title='Add to Your Skills' placement='right'>
+							<ListItem
+								role='listitem'
+								button
+								onClick={() => this.addSkill(skill.id)}>
+								<ListItemText primary={skill.tag} />
+							</ListItem>
+						</Tooltip>
+					)
 			)
 		);
 	};

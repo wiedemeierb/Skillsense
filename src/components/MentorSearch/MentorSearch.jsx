@@ -55,6 +55,7 @@ class MentorSearch extends Component {
     });
   }
 
+  //Saves the text from input on change
   handleSearch = (searchKey, event) => {
     this.setState({
       search: {
@@ -64,6 +65,7 @@ class MentorSearch extends Component {
     });
   };
 
+  //sends the local state to the database to GET results
   submitSearch = () => {
     this.props.dispatch({
       type: 'FETCH_MENTOR_SEARCH',
@@ -74,10 +76,12 @@ class MentorSearch extends Component {
   render() {
     const { classes } = this.props;
 
+    //uses the UserListItem component to render the mentor search results
     let mentorList = this.props.mentors.map((mentor, i) => {
       return <UserListItem key={i} user={mentor} />;
     });
 
+    //renders the list of available skills within the dropdown
     let skillList = this.props.skills.map((skill, i) => {
       return (
         <MenuItem key={i} value={skill.id}>
@@ -129,10 +133,10 @@ class MentorSearch extends Component {
           {this.props.selectedUser.id ? (
             <PublicProfile />
           ) : (
-            <Typography variant="h6" align="center">
-              Select a mentor to see more information.
+              <Typography variant="h6" align="center">
+                Select a mentor to see more information.
             </Typography>
-          )}
+            )}
         </div>
       </TwoColumnLayout>
     );
