@@ -88,7 +88,7 @@ function* fetchPendingMentors() {
   }
 }
 
-function* acceptMentorship() {
+function* acceptMentorship(action) {
   try {
     yield axios.put(`/api/mentors/accept/${action.payload.student_id}`)
     yield put({
@@ -99,7 +99,7 @@ function* acceptMentorship() {
   }
 }
 
-function* declineMentorship() {
+function* declineMentorship(action) {
   try {
     yield axios.put(`/api/mentors/decline/${action.payload.student_id}`)
     yield put({
