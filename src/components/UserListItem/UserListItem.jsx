@@ -50,14 +50,12 @@ class UserListItem extends Component {
         <Grid item xs={5}>
           <Typography variant="h5">{this.props.user.username}</Typography>
           <Typography variant="h6">{this.props.user.focus_skill}</Typography>
-          {this.props.user.skill_names[0] && (
+          {/* {this.props.user.skill_names[0] && (
             <SkillList skillList={this.props.user.skills} />
-          )}
+          )} */}
         </Grid>
         {/* right side info */}
         <Grid item xs={7}>
-          {/* If the user is a mentor, the Request Mentor button will appear in the list row */}
-          {this.props.user.access_id === 2 ? <MentorRequest mentor={this.props.user} /> : null}
           <Button
             variant="contained"
             color="primary"
@@ -71,6 +69,8 @@ class UserListItem extends Component {
           >
             View Details
           </Button>
+          {/* If the user is a mentor, the Request Mentor button will appear in the list row */}
+          {this.props.user.access_id === 2 && this.props.user.accepted === false ? <MentorRequest mentor={this.props.user} /> : null}
         </Grid>
       </Grid>
     );
