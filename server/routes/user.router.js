@@ -50,23 +50,6 @@ router.post('/register', (req, res, next) => {
 // userStrategy.authenticate('local') is middleware that we run on this route
 // this middleware will run our POST if successful
 // this middleware will send a 404 if not successful
-router.get('/username/:email', (req, res) => {
-	const sqlText = `SELECT username from users where email = $1`;
-	pool
-		.query(sqlText, [req.params.email])
-		.then(result => {
-			console.log('successful get of username from db table based on email ');
-			res.send(result.rows[0].username);
-		})
-		.catch(error => {
-			console.log(
-				'error on get of username from db table based on email: ',
-				error
-			);
-			res.sendStatus(500);
-		});
-});
-
 router.post('/login', userStrategy.authenticate('local'), (req, res) => {
 	res.sendStatus(200);
 });
@@ -131,9 +114,9 @@ router.get('/specific/:id', (req, res) => {
 });
 
 //PUT ROUTE FOR EDITING USER PROFILE
-router.put('/edit/:id', (req, res) => {
-	// console.log(req.body)
-	const queryText = `UPDATE "users" SET
+router.put('/edit/:id', rejectUnauthenticated, (req, res) => {
+	if (req.user.id === Number(req.params.id)) {
+		const queryText = `UPDATE "users" SET
 	"email" = $1,
 	"focus_skill" = $2,
 	"github_url" = $3,
@@ -143,25 +126,29 @@ router.put('/edit/:id', (req, res) => {
 	"website_url" = $7,
 	"bio" = $8
 	WHERE "id" = $9;`;
-	pool
-		.query(queryText, [
-			req.body.email,
-			req.body.focus_skill,
-			req.body.github_url,
-			req.body.linkedin_url,
-			req.body.location,
-			req.body.username,
-			req.body.website_url,
-			req.body.bio,
-			req.body.id
-		])
-		.then(result => {
-			res.send(result.rows);
-		})
-		.catch(error => {
-			console.log('error with student edit put', error);
-			res.sendStatus(500);
-		});
+		pool
+			.query(queryText, [
+				req.body.email,
+				req.body.focus_skill,
+				req.body.github_url,
+				req.body.linkedin_url,
+				req.body.location,
+				req.body.username,
+				req.body.website_url,
+				req.body.bio,
+				req.user.id
+			])
+			.then(result => {
+				res.send(result.rows);
+			})
+			.catch(error => {
+				console.log('error with student edit put', error);
+				res.sendStatus(500);
+			});
+	} else {
+		console.log('you are not authorized to edit this user');
+		res.sendStatus(403);
+	}
 });
 
 module.exports = router;

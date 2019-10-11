@@ -10,4 +10,8 @@ const rejectUnauthenticated = (req, res, next) => {
   }
 };
 
+// const rejectIfNotClient = (req, res, next) => {
+//   if (req.isAuthenticated())
+// }
+
 module.exports = { rejectUnauthenticated };
