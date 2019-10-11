@@ -11,6 +11,7 @@ import selectedMessageReducer from './selectedMessageReducer';
 import selectedUserReducer from './selectedUserReducer';
 import pendingMentorsReducer from './pendingMentorsReducer';
 import jobDetailsReducer from './jobDetailsReducer';
+import userTypesReducer from './userTypesReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -19,18 +20,19 @@ import jobDetailsReducer from './jobDetailsReducer';
 // Lets make a bigger object for our store, with the objects from our reducers.
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
-  errors, // contains registrationMessage and loginMessage
-  loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
-  user, // will have an id and username if someone is logged in
-  allJobsReducer,
-  allMentorsReducer,
-  allMessagesReducer,
-  allSkillsReducer,
-  selectedJobReducer,
-  selectedMessageReducer,
-  selectedUserReducer,
-  pendingMentorsReducer,
-  jobDetailsReducer,
+	errors, // contains registrationMessage and loginMessage
+	loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
+	user, // will have an id and username if someone is logged in
+	allJobsReducer,
+	allMentorsReducer,
+	allMessagesReducer,
+	allSkillsReducer,
+	selectedJobReducer,
+	selectedMessageReducer,
+	selectedUserReducer,
+	pendingMentorsReducer,
+	jobDetailsReducer,
+	userTypesReducer
 });
 
 export default rootReducer;
