@@ -4,8 +4,6 @@ const {
 	rejectUnauthenticated,
 	rejectIfNotAdmin,
   rejectIfNotMentor,
-  rejectIfNotStudent,
-  rejectIfNotClient
 } = require('../modules/authentication-middleware');
 const router = express.Router();
 

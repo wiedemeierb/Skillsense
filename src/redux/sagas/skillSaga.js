@@ -4,7 +4,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 //get all skill tags
 function* fetchAllSkills() {
   try {
-    let response = yield axios.get('/api/skills');
+    let response = yield axios.get('/api/info/types/skills');
     yield put({
       type: 'SET_ALL_SKILLS',
       payload: response.data
