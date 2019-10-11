@@ -76,8 +76,7 @@ router.get('/search', (req, res) => {
 	AS "tag_ids", array_agg("skill_tags"."tag") AS "skill_names" FROM "jobs"
 	LEFT JOIN "job_tags" ON "jobs"."id" = "job_tags"."job_id"
 	LEFT JOIN "skill_tags" ON "job_tags".tag_id = "skill_tags"."id"
-	LEFT JOIN "users" ON "jobs"."client_id" = "users"."id";
-	`;
+	LEFT JOIN "users" ON "jobs"."client_id" = "users"."id"`;
 
   const queryInput = ` WHERE "project_title" ILIKE $1`;
   const querySkill = ` AND "tag_id" = $2`;
@@ -251,7 +250,11 @@ router.post('/new', async (req, res) => {
 
 /** POST ROUTE FOR JOB APPLICATION **/
 router.post('/apply', (req, res) => {
-  let queryText = `INSERT INTO "job_applicants" ("job_id", "student_id","payment_terms","cover_letter","resume","mentor_id") VALUES ($1,$2,$3,$4,$5,$6);`;
+  let queryText = `
+  INSERT INTO "job_applicants" ("job_id", "student_id","payment_terms",
+  "cover_letter","resume","mentor_id") VALUES ($1,$2,$3,$4,$5,$6);
+  `;
+
   pool
     .query(queryText, [
       req.body.job_id,
