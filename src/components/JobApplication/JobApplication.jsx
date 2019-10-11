@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Typography, TextField, Button, Link } from '@material-ui/core';
+import { Typography, TextField, Button, Link, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import SkillList from '../SkillList/SkillList';
+import UserListItem from '../UserListItem/UserListItem';
 
 const styles = theme => ({
+	root: {
+		margin: 'auto',
+		width: '90vw'
+	},
 	link: {
 		fontWeight: 'bold',
-		padding: theme.spacing(1)
+		padding: theme.spacing(0)
+	},
+	mentorList: {
+		overFlow: 'scroll',
+		maxWidth: '100vw'
 	}
 });
 class JobApplication extends Component {
@@ -44,9 +54,10 @@ class JobApplication extends Component {
 			}
 		});
 	};
-	handleUploadInputChange = (e) => {
-		this.setState({file: e.target.files[0]})
-	}
+	handleUploadInputChange = e => {
+		this.setState({ file: e.target.files[0] });
+	};
+
 	handleAwsUpload = () => {
 		let file = this.state.file;
 		// Split the filename to get the name and type
@@ -65,80 +76,107 @@ class JobApplication extends Component {
 			return this.props.user.access_id === 1;
 		};
 		return (
-			<div>
+			<Grid
+				container
+				spacing={8}
+				justify='space-around'
+				alignItems='center'
+				className={classes.root}>
 				{isAuthorized() ? (
-					<div>
-						<h1>Job Application Page</h1>
-						{/* Client Info */}
-						<div>
-							<Typography>{this.props.job.username}</Typography>
-							<Typography>{this.props.job.location}</Typography>
-						</div>
+					<Grid item container justify='space-around' spacing={4} xs={12}>
+						<Grid item xs={12}>
+							<Typography color='secondary' variant='h3' align='center'>
+								Job Application
+							</Typography>
+						</Grid>
 						{/* Job Info */}
-						<div>
-							<Typography>{this.props.job.position_title}</Typography>
-							<Typography>{this.props.job.project_title}</Typography>
+						<Grid xs={4}>
+							<Typography color='primary' variant='h4'>
+								{this.props.job.position_title}
+							</Typography>
+							<Typography color='primary' variant='h6'>
+								{this.props.job.project_title}
+							</Typography>
+						</Grid>
+						{/* Client Info */}
+						<Grid xs={4}>
+							<Typography variant='h6'>{this.props.job.username}</Typography>
+							<Typography>{this.props.job.location}</Typography>
+						</Grid>
+						<Grid xs={4}>
+							{this.props.job.skills && (
+								<SkillList skillList={this.props.job.skills} />
+							)}
 							<Typography>
 								Budget: $<span>{this.props.job.budget}</span>
 							</Typography>
 							<Typography>
 								Duration: <span>{this.props.job.duration}</span>
 							</Typography>
-							{this.props.job.skill_names[0] !== null &&
-								this.props.job.skill_names.map((skill, i) => {
-									return (
-										<Typography key={i} className='skill-tag'>
-											{skill}
-										</Typography>
-									);
-								})}
-						</div>
+						</Grid>
+						<Grid xs={12}></Grid>
 						{/* Cover Letter and Resume */}
-						<div>
-							<Typography variant='h6'>Cover Letter</Typography>
-							<TextField
-								id='standard-name'
-								label='Add your cover letter...'
-								value={this.state.cover_letter}
-								onChange={event => {
-									this.handleInput(event, 'cover_letter');
-								}}
-								margin='normal'
-								fullWidth={true}
-								multiline={true}
-								rows={4}
-							/>
-						</div>
-						{/* Insert Resume attachment functionality here */}
-						<TextField
-							helperText='Attach Project Proposal'
-							type='file'
-							onChange={this.handleUploadInputChange}
-						/>
-						<Button onClick={this.handleAwsUpload}>Upload!</Button>
-						{/* Mentor Info */}
-						<div>
-							<Typography variant='h6'>Invite a Mentor</Typography>
-							{this.props.mentors.map(user => {
+						<Grid item container spacing={4} justify='center'>
+							<Grid item xs={12}>
+								<Typography variant='h6' align='left'>
+									Cover Letter
+								</Typography>
+								<TextField
+									id='standard-name'
+									label='Add your cover letter...'
+									value={this.state.cover_letter}
+									onChange={event => {
+										this.handleInput(event, 'cover_letter');
+									}}
+									margin='normal'
+									fullWidth={true}
+									multiline={true}
+									rows={4}
+								/>
+							</Grid>
+							{/* Insert Resume attachment functionality here */}
+							<Grid item xs={12}>
+								<TextField
+									helperText='Attach Project Proposal'
+									type='file'
+									onChange={this.handleUploadInputChange}
+								/>
+								{/* <Button onClick={this.handleAwsUpload}>Upload!</Button> */}
+								{/* Mentor Info */}
+							</Grid>
+						</Grid>
+						<Typography variant='h6'>Invite a Mentor</Typography>
+						<Grid
+							className={classes.mentorList}
+							item
+							container
+							direction='column'
+							xs={12}>
+							{this.props.mentors.map((user, index) => {
 								return (
-									<div
-										value={user.id}
-										onChange={event => {
-											this.handleInput(event, 'mentor_id');
-										}}>
+									<Grid item xs={12}>
+										<Typography>Matching Skills: 3</Typography>
 										<Typography>{user.username}</Typography>
-										<Typography>{user.focus_skill}</Typography>
-										<Typography>
-											<span>{user.skill_names.length}</span> Matching Skill
-											{user.skill_names.length > 1 && 's'}
-										</Typography>
-									</div>
+									</Grid>
+									// <div
+									// 	key={index}
+									// 	value={user.id}
+									// 	onChange={event => {
+									// 		this.handleInput(event, 'mentor_id');
+									// 	}}>
+									// 	<Typography>{user.username}</Typography>
+									// 	<Typography>{user.focus_skill}</Typography>
+									// 	<Typography>
+									// 		<span>{user.skills.length}</span> Matching Skill
+									// 		{user.skills.length > 1 && 's'}
+									// 	</Typography>
+									// </div>
 								);
 							})}
-						</div>
+						</Grid>
 						<br />
 						{/* User Info */}
-						<div>
+						<Grid item xs={12}>
 							<Typography variant='h6'>Your Account Information</Typography>
 							<Typography>{this.props.user.username}</Typography>
 							<Typography>{this.props.user.focus_skill}</Typography>
@@ -158,26 +196,28 @@ class JobApplication extends Component {
 									</Link>
 								</Typography>
 							)}
-						</div>
+						</Grid>
 						{/* <Button variant="contained" color="secondary" onClick={this.props.history.push('/search/jobs')}>Cancel</Button> */}
-						<Button
-							variant='contained'
-							color='primary'
-							onClick={this.handleSubmit}>
-							Submit
-						</Button>
-					</div>
+						<Grid item xs={12}>
+							<Button
+								variant='contained'
+								color='primary'
+								onClick={this.handleSubmit}>
+								Submit
+							</Button>
+						</Grid>
+					</Grid>
 				) : (
 					<Typography>You are not authorized to view this page.</Typography>
 				)}
-			</div>
+			</Grid>
 		);
 	}
 }
 
 const mapStateToProps = store => {
 	return {
-		job: store.allJobsReducer[1],
+		job: store.jobDetailsReducer,
 		user: store.user,
 		mentors: store.allMentorsReducer
 	};
