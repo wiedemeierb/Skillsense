@@ -14,6 +14,7 @@ import {
 	Paper
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import Swal from 'sweetalert2'
 
 const styles = theme => ({
 	root: {
@@ -58,6 +59,13 @@ class RegisterPage extends Component {
 		this.props.dispatch({ type: 'FETCH_USER_TYPES' });
 	};
 	registerUser = event => {
+		Swal.fire({
+			position: 'center',
+			type: 'success',
+			title: 'Welcome to Skillsense',
+			showConfirmButton: false,
+			timer: 1500
+		})
 		if (
 			this.state.username &&
 			this.state.password &&

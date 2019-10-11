@@ -5,6 +5,8 @@
         "reducer",
         "skills",
         "skilltag",
+        "swal",
+        "sweetalert",
         "textfield",
         "url",
         "userskills"

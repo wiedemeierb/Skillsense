@@ -4,6 +4,7 @@ import { Typography, TextField, Button, Link, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import SkillList from '../SkillList/SkillList';
 import UserListItem from '../UserListItem/UserListItem';
+import Swal from 'sweetalert2'
 
 const styles = theme => ({
 	root: {
@@ -46,14 +47,23 @@ class JobApplication extends Component {
 
 	handleSubmit = event => {
 		event.preventDefault();
-		this.props.dispatch({
-			type: 'SUBMIT_APPLICATION',
-			payload: {
-				...this.state,
-				job_id: Number(this.props.match.params.id)
-			}
-		});
-	};
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to redact your application!",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#04b8f3',
+			cancelButtonColor: '#505d68',
+			confirmButtonText: 'Yes, submit it!'
+		}).then((result) => {
+			if (result.value) {
+				this.props.dispatch({
+					type: 'SUBMIT_APPLICATION',
+					payload: {
+						...this.state,
+						job_id: Number(this.props.match.params.id)
+					}
+				});}})};
 	handleUploadInputChange = e => {
 		this.setState({ file: e.target.files[0] });
 	};

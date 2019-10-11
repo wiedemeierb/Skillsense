@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Typography, Link, Button, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Swal from 'sweetalert2'
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -21,6 +22,13 @@ function EditProfile(props) {
 	const editStudentInfo = () => {
 		console.log('handleClick saveSkills operations');
 		console.log('this is state on didMount', user);
+		Swal.fire({
+			position: 'center',
+			type: 'success',
+			title: 'Your profile has been edited',
+			showConfirmButton: false,
+			timer: 1500
+		})
 		dispatch({
 			type: 'EDIT_USER_INFO',
 			payload: user
