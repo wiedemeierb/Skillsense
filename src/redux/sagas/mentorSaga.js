@@ -101,7 +101,7 @@ function* acceptMentorship(action) {
 
 function* declineMentorship(action) {
   try {
-    yield axios.put(`/api/mentors/decline/${action.payload.student_id}`)
+    yield axios.delete(`/api/mentors/decline/${action.payload.student_id}`)
     yield put({
       type: 'FETCH_INVITED_MENTORS'
     });
