@@ -35,8 +35,7 @@ router.get('/', (req, res) => {
 router.get('/client/:jobType', (req, res) => {
   const jobType = req.params.jobType;
   const userId = req.user.id;
-  console.log(jobType);
-  
+  //route currently does not yet accommodate for offer extended job_status
 
   const queryText = `
 	SELECT "jobs"."id","project_title","position_title","description","duration",
