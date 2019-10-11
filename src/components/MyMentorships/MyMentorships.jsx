@@ -61,11 +61,11 @@ class MyMentorships extends Component {
             <div>
               <PublicProfile />
               <br />
-              {this.props.user.access_id === 2 &&
+              {this.props.user.access_id === 2 && this.props.selectedUser.accepted === false ?
                 <div>
                   <Button variant="contained" color="primary" onClick={this.acceptMentorship}>Accept</Button>
                   <Button variant="contained" color="secondary" onClick={this.declineMentorship}>Decline</Button>
-                </div>
+                </div> : null
               }
             </div>
           ) : (
