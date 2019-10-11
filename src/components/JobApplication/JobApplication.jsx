@@ -22,9 +22,9 @@ const styles = theme => ({
 class JobApplication extends Component {
 	state = {
 		cover_letter: '',
-		resume: 'N/A',
 		mentor_id: null,
 		payment_terms: 'negotiable',
+		attachment_url: '',
 		file: {}
 	};
 	componentDidMount() {
@@ -46,6 +46,7 @@ class JobApplication extends Component {
 
 	handleSubmit = event => {
 		event.preventDefault();
+		// this.state.file && this.handleAwsUpload();
 		this.props.dispatch({
 			type: 'SUBMIT_APPLICATION',
 			payload: {
@@ -55,20 +56,21 @@ class JobApplication extends Component {
 		});
 	};
 	handleUploadInputChange = e => {
+		console.log(e.target.files[0])
 		this.setState({ file: e.target.files[0] });
 	};
 
-	handleAwsUpload = () => {
-		let file = this.state.file;
-		// Split the filename to get the name and type
-		let fileParts = file.name.split('.');
-		let fileName = fileParts[0];
-		let fileType = fileParts[1];
-		this.props.dispatch({
-			type: 'UPLOAD_FILE',
-			payload: { file: file, fileName: fileName, filetype: fileType }
-		});
-	};
+	// handleAwsUpload = () => {
+	// 	let file = this.state.file;
+	// 	// Split the filename to get the name and type
+	// 	let fileParts = file.name.split('.');
+	// 	let fileName = fileParts[0];
+	// 	let fileType = fileParts[1];
+	// 	this.props.dispatch({
+	// 		type: 'UPLOAD_FILE',
+	// 		payload: { file: file, fileName: fileName, filetype: fileType }
+	// 	});
+	// };
 
 	render() {
 		const { classes } = this.props;

@@ -378,7 +378,7 @@ router.post('/apply', rejectUnauthenticated, (req, res) => {
 	let queryText = `
   INSERT
     INTO "job_applicants"
-      ("job_id", "student_id","payment_terms","cover_letter","resume","mentor_id")
+      ("job_id", "student_id","payment_terms","cover_letter","attachment_url","mentor_id")
     VALUES
       ($1,$2,$3,$4,$5,$6);`;
 
@@ -388,14 +388,14 @@ router.post('/apply', rejectUnauthenticated, (req, res) => {
 			req.user.id,
 			req.body.payment_terms,
 			req.body.cover_letter,
-			req.body.resume,
+			req.body.attachment_url,
 			req.body.mentor_id
 		])
 		.then(response => {
 			res.sendStatus(201);
 		})
 		.catch(error => {
-			console.log(error);
+			console.log('error on posting new job application: ', error);
 			res.sendStatus(500);
 		});
 });
