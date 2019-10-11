@@ -5,7 +5,7 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { ReactComponent as SkillSenseLogo } from '../../skillSenseLogo.svg';
 
-const isAdmin = (props)=>{
+const isAdmin = (props) => {
   return props.user.access_id === 4
 }
 

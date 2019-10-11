@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { List, Button, Typography, Divider, Grid } from '@material-ui/core';
+import { List, Button, Typography, Divider, Grid, Paper } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import UserListItem from '../UserListItem/UserListItem';
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
@@ -55,42 +55,51 @@ class MentorReview extends Component {
         <UserListItem key={mentor.id} user={mentor} />
       ));
 
+    //checks if user type should be able to view this page
+    let isAuthorized = () => {
+      return (this.props.user.access_id === 3)
+    }
+
     return (
-      <TwoColumnLayout leftHeader="Pending Mentors" rightHeader="Details">
-        <List>{mentorsList}</List>
-        {this.props.selectedUser.id ? (
-          <Grid
-            container
-            spacing={4}
-            direction="column"
-            justify="space-between"
-            alignItems="stretch"
-          >
-            <Grid item xs={12}>
-              <PublicProfile />
-            </Grid>
-            <Divider />
-            <Grid item xs={12}>
-              <Typography variant="subtitle1">Admin Review Actions:</Typography>
-              <div className={classes.buttonContainer}>
-                <Button className={classes.button} onClick={this.declineMentor}>
-                  Decline
+      <Paper>
+        {isAuthorized() ?
+          <TwoColumnLayout leftHeader="Pending Mentors" rightHeader="Details">
+            <List>{mentorsList}</List>
+            {this.props.selectedUser.id ? (
+              <Grid
+                container
+                spacing={4}
+                direction="column"
+                justify="space-between"
+                alignItems="stretch"
+              >
+                <Grid item xs={12}>
+                  <PublicProfile />
+                </Grid>
+                <Divider />
+                <Grid item xs={12}>
+                  <Typography variant="subtitle1">Admin Review Actions:</Typography>
+                  <div className={classes.buttonContainer}>
+                    <Button className={classes.button} onClick={this.declineMentor}>
+                      Decline
                 </Button>
-                <Button className={classes.button} onClick={this.approveMentor}>
-                  Approve
+                    <Button className={classes.button} onClick={this.approveMentor}>
+                      Approve
                 </Button>
-              </div>
-            </Grid>
-          </Grid>
-        ) : (
-            <div>
-              <Typography variant="h6" align="center">
-                Select any user for more information.
+                  </div>
+                </Grid>
+              </Grid>
+            ) : (
+                <div>
+                  <Typography variant="h6" align="center">
+                    Select any user for more information.
             </Typography>
-            </div>
-          )}
-      </TwoColumnLayout>
-    );
+                </div>
+              )}
+          </TwoColumnLayout>
+          : <Typography variant="h3">You are not authorized to view this page.</Typography>
+        }
+      </Paper>)
   }
 }
 
