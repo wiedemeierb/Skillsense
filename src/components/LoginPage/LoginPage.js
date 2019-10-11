@@ -34,7 +34,7 @@ class LoginPage extends Component {
 			this.props.dispatch({
 				type: 'LOGIN',
 				payload: {
-					email: this.state.email,
+					username: this.state.email,
 					password: this.state.password
 				}
 			});

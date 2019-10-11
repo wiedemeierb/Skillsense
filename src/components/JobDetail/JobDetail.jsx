@@ -19,7 +19,18 @@ class JobDetail extends Component {
     }
 
     render() {
-        let {details} = this.props
+        let { details } = this.props
+
+        //checks if user type should be able to view this element
+        let isStudent = () => {
+            return (this.props.user.access_id === 1)
+        }
+
+        //checks if user type should be able to view this element
+        let isClient = () => {
+            return (this.props.user.access_id === 3)
+        }
+
         return (
             <div>
                 <br></br>
@@ -38,7 +49,8 @@ class JobDetail extends Component {
                 <Typography>Name: {this.props.user.username}</Typography>
                 <Typography>Focus Skill: {this.props.user.focus_skill}</Typography>
                 <Typography>Location: {this.props.user.location}</Typography>
-                <Button variant="contained" color="primary" onClick={this.applyNow}>Apply</Button>
+                {isStudent() && <Button variant="contained" color="primary" onClick={this.applyNow}>Apply</Button>}
+                {/* {isClient() && <ApplicantsList/>} */}
             </div>
         )
     }

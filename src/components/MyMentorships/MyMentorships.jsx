@@ -6,9 +6,10 @@ import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import MentorTabs from '../MentorTabs/MentorTabs';
 import UserListItem from '../UserListItem/UserListItem';
 import PublicProfile from '../PublicProfile/PublicProfile';
+import MentorRequest from '../MentorRequest/MentorRequest';
 
 //MATERIAL-UI IMPORTS
-import { Typography } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 
 class MyMentorships extends Component {
   componentDidMount() {
@@ -21,6 +22,22 @@ class MyMentorships extends Component {
     this.props.dispatch({
       type: 'CLEAR_SELECTED_USER'
     });
+  }
+
+  //sends put request to the database to update the relationship to accepted: true
+  acceptMentorship = () => {
+    this.props.dispatch({
+      type: 'ACCEPT_MENTORSHIP',
+      payload: { student_id: this.props.selectedUser.id }
+    })
+  }
+
+  //sends delete request to the database to remove the relationship to decline
+  declineMentorship = () => {
+    this.props.dispatch({
+      type: 'DECLINE_MENTORSHIP',
+      payload: { student_id: this.props.selectedUser.id }
+    })
   }
 
   render() {
@@ -41,7 +58,16 @@ class MyMentorships extends Component {
         </div>
         <div>
           {this.props.selectedUser.id ? (
-            <PublicProfile />
+            <div>
+              <PublicProfile />
+              <br />
+              {this.props.user.access_id === 2 && this.props.selectedUser.accepted === false ?
+                <div>
+                  <Button variant="contained" color="primary" onClick={this.acceptMentorship}>Accept</Button>
+                  <Button variant="contained" color="secondary" onClick={this.declineMentorship}>Decline</Button>
+                </div> : null
+              }
+            </div>
           ) : (
               <Typography variant="h6" align="center">
                 Select a mentor to see more information.

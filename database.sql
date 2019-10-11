@@ -76,7 +76,7 @@ CREATE TABLE "job_applicants" (
   "student_id" integer NOT NULL references "users",
   "payment_terms" TEXT NOT NULL,
   "cover_letter" TEXT NOT NULL,
-  "resume" TEXT NOT NULL,
+  "attachment_url" TEXT,
   "mentor_id" integer references "users",
   "mentor_accepted" BOOLEAN default FALSE,
   "hired" BOOLEAN default false
@@ -106,3 +106,35 @@ INSERT INTO "tags" ("tag") VALUES ('Adobe Photoshop'),('Adobe Illustrator
 
 INSERT INTO "user_type" ("access") VALUES ('Student'),('Mentor'),('Client'),('Admin');
 
+INSERT INTO "users"
+  (username, email, password, location, focus_skill, bio, github_url, linkedin_url, website_url, access_id)
+VALUES
+  ('David Heisel', 'david@david.com', '$2b$10$lMLT25VKV..jh.GjHD6OKuZvJhlEt8tvWr0TQHCaGZTlg5p/J9Mgu', 'Richfield, MN',
+  'Full Stack Engineer', 'I am a Full Stack Engineering student currently enrolled at Prime', 'https://github.com/dmheisel',
+  'https://www.linkedin.com/in/dmheisel/', 'google.com', 1);
+
+INSERT INTO "users"
+  (username, email, password, location, focus_skill, bio, github_url, linkedin_url, website_url, access_id)
+VALUES
+  ('Allyson Holdahl', 'allyson@allyson.com', '$2b$10$zd0zp2JsjXynrtEyEg8hje6LN5D1J66RSGZ29pNxffmXn6wQbXqyC', 'St. Paul, MN', 'Accessibility Developer', 'I have been actively enrolled in the Accessibility culture here in the Twin Cities area.  My focus is making sure everyone, with all abilities, have full access to all the wonderful things the internet has to offer.
+', 'https://github.com/aholdahl', 'https://www.linkedin.com/in/allyson-holdahl/', 'google.com', 2);
+
+INSERT INTO "users"
+  (username, email, password, location, focus_skill, bio, github_url, linkedin_url, website_url, access_id)
+VALUES
+  ('Delaney Sharratt', 'delaney@delaney.com', '$2b$10$sfI2gf0dGMGiy2mnPeVT/eCjYua2rSJvX12r1QDd1UQGN0RHjAWbq', 'Minnetonka, MN', 'Boss', 'I run this app and approve Mentors', 'https://github.com/laneymckee', 'https://www.linkedin.com/in/delaney-mckee-sharratt/', 'google.com', 4);
+
+INSERT INTO "users"
+  (username, email, password, location, focus_skill, bio, github_url, linkedin_url, website_url, access_id)
+VALUES
+  ('Design Web Inc', 'brandon@brandon.com', '$2b$10$5glF4FYaITsOPMcKdJmfSuOZGs4R6UL/lyCOB0YXoavjFJa4j5Mhe', 'Minneapolis, MN', 'CEO', 'Design Web Inc was founded in 2010 with a focus of making it easier to navigate the website creation process.  We partner with many Fortune 500 companies and consistently growing our client and business portfolio.', 'https://github.com/wiedemeierb', 'https://www.linkedin.com/in/brandonwiedemeier/', 'google.com', 3);
+
+INSERT INTO "jobs"
+  (project_title, position_title, description, duration, budget, mentor_required, status_id, client_id)
+VALUES
+  ('Create Skillsense App', 'Full Stack Engineer', 'Creating a website that connects Students with Mentors, where they can partner to complete freelance work.  Clients will be able to post jobs and hire these Student Mentor partnerships', '1 month', '2000', TRUE, 1, 5);
+
+INSERT INTO "jobs"
+  (project_title, position_title, description, duration, budget, mentor_required, status_id, client_id)
+VALUES
+  ('Build Google Framework', 'SEO for the world', 'Create a search engine that scans the web for the exact page you are looking for.  Create one of the most powerful companies in the world', '1 year', '200000', TRUE, 1, 5);

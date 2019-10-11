@@ -13,11 +13,17 @@ router.get('/types/user', (req, res) => {
     })
 });
 
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-
+router.get('/types/skills', (req, res) => {
+	const queryText = `SELECT * FROM "skill_tags";`;
+	pool
+		.query(queryText)
+		.then(result => {
+			res.send(result.rows);
+		})
+		.catch(error => {
+			console.log(error);
+			res.sendStatus(500);
+		});
 });
 
 module.exports = router;

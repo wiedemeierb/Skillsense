@@ -14,6 +14,7 @@ import {
 	Paper
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import Swal from 'sweetalert2'
 
 const styles = theme => ({
 	root: {
@@ -58,6 +59,13 @@ class RegisterPage extends Component {
 		this.props.dispatch({ type: 'FETCH_USER_TYPES' });
 	};
 	registerUser = event => {
+		Swal.fire({
+			position: 'center',
+			type: 'success',
+			title: 'Welcome to Skillsense',
+			showConfirmButton: false,
+			timer: 1500
+		})
 		if (
 			this.state.username &&
 			this.state.password &&
@@ -129,11 +137,14 @@ class RegisterPage extends Component {
 								required
 								inputProps={{ name: 'User Type', id: 'userTypeHelper' }}
 								onChange={e => this.setState({ userType: e.target.value })}>
-								{this.props.userTypes.map(type => (
-									<MenuItem key={type.id} value={type.id}>
-										{type.user_type}
-									</MenuItem>
-								))}
+								{this.props.userTypes.map((type) => {
+									if (type.user_type !== 'Admin') {
+										return <MenuItem key={type.id} value={type.id}>
+											{type.user_type}
+										</MenuItem>
+									}
+								}
+								)}
 							</Select>
 							<FormHelperText>Choose your account type...</FormHelperText>
 						</FormControl>
@@ -212,7 +223,7 @@ class RegisterPage extends Component {
 				</Grid>
 
 				<Grid item xs={12}>
-					
+
 					<Button
 						variant="contained" color="secondary"
 						className={classes.button}

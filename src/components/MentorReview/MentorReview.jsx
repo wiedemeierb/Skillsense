@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import UserListItem from '../UserListItem/UserListItem';
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import PublicProfile from '../PublicProfile/PublicProfile';
+import Swal from 'sweetalert2'
 
 const styles = theme => ({
   root: {
@@ -31,6 +32,11 @@ class MentorReview extends Component {
 
   //resets the mentor status to Not Submitted
   declineMentor = () => {
+    Swal.fire({
+      type: 'error',
+      title: 'Declined',
+      text: 'You have declined this Mentor',
+    })
     this.props.dispatch({
       type: 'ADMIN_DECLINE_MENTOR',
       payload: this.props.selectedUser.id
@@ -39,6 +45,13 @@ class MentorReview extends Component {
 
   //sets the mentor status to Approved
   approveMentor = () => {
+    Swal.fire({
+      position: 'center',
+      type: 'success',
+      title: 'You have approved this Mentor',
+      showConfirmButton: false,
+      timer: 1500
+    })
     this.props.dispatch({
       type: 'ADMIN_APPROVE_MENTOR',
       payload: this.props.selectedUser.id
