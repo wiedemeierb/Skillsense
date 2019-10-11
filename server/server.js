@@ -1,6 +1,6 @@
 const express = require('express');
 require('dotenv').config();
-
+const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
 const sessionMiddleware = require('./modules/session-middleware');
@@ -15,7 +15,9 @@ const messageRouter = require('./routes/message.router');
 const skillRouter = require('./routes/skill.router');
 const userSkillsRouter = require('./routes/userskills.router');
 const emailRouter = require('./routes/email.router');
-const infoRouter = require('./routes/info.router')
+const infoRouter = require('./routes/info.router');
+//upload controller for getting the signed url from aws
+const aws_sign = require('./upload/controller/controller');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -28,6 +30,9 @@ app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
+//use cors for file uploads to AWS cloud
+app.use(cors());
+
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/api/jobs', jobRouter);
@@ -36,7 +41,8 @@ app.use('/api/messages', messageRouter);
 app.use('/api/skills', skillRouter);
 app.use('/api/userskills', userSkillsRouter);
 app.use('/api/email', emailRouter);
-app.use('/api/info', infoRouter)
+app.use('/api/info', infoRouter);
+app.use('/api/upload', aws_sign.sign_s3);
 
 // Serve static files
 app.use(express.static('build'));
@@ -46,5 +52,5 @@ const PORT = process.env.PORT || 5000;
 
 /** Listen * */
 app.listen(PORT, () => {
-  console.log(`Listening on port: ${PORT}`);
+	console.log(`Listening on port: ${PORT}`);
 });

@@ -9,7 +9,6 @@ const useStyles = makeStyles(theme => ({
 		display: 'flex'
 	},
 	link: {
-		textTransform: 'uppercase',
 		fontWeight: 'bold',
 		padding: theme.spacing(1)
 	}
@@ -44,18 +43,27 @@ function PublicProfile(props) {
 			</Grid>
 			<Grid item xs={6}>
 				<Typography align='left'>
-					<Link href={displayedUser.linkedin_url}>LinkedIn</Link>
+					<Link className={classes.link} href={displayedUser.linkedin_url}>
+						LinkedIn
+					</Link>
 				</Typography>
 				<Typography align='left'>
-					<Link href={displayedUser.github_url}>Github</Link>
+					<Link className={classes.link} href={displayedUser.github_url}>
+						Github
+					</Link>
 				</Typography>
 			</Grid>
 			<Grid item xs={6}>
 				<Typography align='right'>
-					<Link href={displayedUser.website_url}>Website</Link>
+					<Link className={classes.link} href={displayedUser.website_url}>
+						Website
+					</Link>
 				</Typography>
 				<Typography align='right'>
-					<Link target='_blank' href={`mailto:${displayedUser.email}`}>
+					<Link
+						target='_blank'
+						className={classes.link}
+						href={`mailto:${displayedUser.email}`}>
 						E-Mail
 					</Link>
 				</Typography>
