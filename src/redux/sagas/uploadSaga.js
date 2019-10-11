@@ -11,7 +11,7 @@ function* uploadFile(action) {
 		const signedRequest = yield returnData.signedRequest;
 		const url = returnData.url;
 		console.log('url from aws: ', url);
-
+		yield put({type: 'SET_FILE_URL'})
 		yield axios.put(signedRequest, action.payload.file, {
 			headers: {
 				'Content-Type': action.payload.fileType
