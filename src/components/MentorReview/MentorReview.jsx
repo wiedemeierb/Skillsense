@@ -57,7 +57,7 @@ class MentorReview extends Component {
 
     //checks if user type should be able to view this page
     let isAuthorized = () => {
-      return (this.props.user.access_id === 3)
+      return (this.props.user.access_id === 4)
     }
 
     return (
@@ -105,7 +105,8 @@ class MentorReview extends Component {
 
 const mapStateToProps = reduxStore => ({
   pendingMentors: reduxStore.pendingMentorsReducer,
-  selectedUser: reduxStore.selectedUserReducer
+  selectedUser: reduxStore.selectedUserReducer,
+  user: reduxStore.user
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(MentorReview));
