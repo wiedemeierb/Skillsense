@@ -155,9 +155,17 @@
 
 # ACCESSIBILITY/UX
 
-Alt text on images
-Hover text on interactive elements (buttons and inputs)
-Visual Feedback on buttons
-Dialog confirmation boxes
-Error message gives steps to resolve
-Conditional render "no items to display" when applicable (prime the user on how to add?)
+- [ ] Alt text on images
+- [ ] Hover text on interactive elements (buttons and inputs)
+- [ ] Visual Feedback on buttons
+- [ ] Dialog confirmation boxes
+- [ ] Error message gives steps to resolve
+- [ ] Conditional render "no items to display" when applicable (prime the user on how to add?)
+
+# SECURITY
+
+- [ ] Cookies & Sessions
+- [ ] Salting & Hashing
+- [ ] All secrets are saved the the .env
+- [ ] All Components/Routes on the front-end are protected based on user type
+- [ ] All router requests are protected on the back-end based on user type

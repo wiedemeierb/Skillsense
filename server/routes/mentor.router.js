@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const {
 	rejectUnauthenticated,
 	rejectIfNotAdmin,
-  rejectIfNotMentor,
+	rejectIfNotMentor,
 } = require('../modules/authentication-middleware');
 const router = express.Router();
 
@@ -181,6 +181,18 @@ router.get('/invited', rejectUnauthenticated, (req, res) => {
 			res.sendStatus(500);
 		});
 });
+
+/** PUT ROUTE FOR MENTOR TO ACCEPT STUDENT CONNECTION **/
+router.put('/accept/:id', rejectUnauthenticated, (req, res) => {
+	const queryText = `UPDATE "student_mentor" SET "accepted" = true WHERE "mentor_id" = $1 AND "student_id" = $2;`
+	pool.query(queryText, [req.user.id, req.params.id])
+})
+
+/** DELETE ROUTE FOR MENTOR TO DECLINE STUDENT CONNECTION **/
+router.delete('/decline/:id', rejectUnauthenticated, (req, res) => {
+	const queryText = `DELETE FROM "student_mentor" WHERE "mentor_id" = $1 AND "student_id" = $2;`
+	pool.query(queryText, [req.user.id, req.params.id])
+})
 
 /** GET (SEARCH) ROUTE BY MENTOR NAME AND/OR SKILL TAG **/
 router.get('/search/', rejectUnauthenticated, (req, res) => {
