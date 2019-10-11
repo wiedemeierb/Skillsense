@@ -59,19 +59,7 @@ class JobApplication extends Component {
 		console.log(e.target.files[0])
 		this.setState({ file: e.target.files[0] });
 	};
-
-	// handleAwsUpload = () => {
-	// 	let file = this.state.file;
-	// 	// Split the filename to get the name and type
-	// 	let fileParts = file.name.split('.');
-	// 	let fileName = fileParts[0];
-	// 	let fileType = fileParts[1];
-	// 	this.props.dispatch({
-	// 		type: 'UPLOAD_FILE',
-	// 		payload: { file: file, fileName: fileName, filetype: fileType }
-	// 	});
-	// };
-
+	
 	render() {
 		const { classes } = this.props;
 		let isAuthorized = () => {
