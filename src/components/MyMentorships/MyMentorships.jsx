@@ -6,6 +6,7 @@ import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import MentorTabs from '../MentorTabs/MentorTabs';
 import UserListItem from '../UserListItem/UserListItem';
 import PublicProfile from '../PublicProfile/PublicProfile';
+import MentorRequest from '../MentorRequest/MentorRequest';
 
 //MATERIAL-UI IMPORTS
 import { Typography, Button } from '@material-ui/core';
@@ -23,6 +24,7 @@ class MyMentorships extends Component {
     });
   }
 
+  //sends put request to the database to update the relationship to accepted: true
   acceptMentorship = () => {
     this.props.dispatch({
       type: 'ACCEPT_MENTORSHIP',
@@ -30,6 +32,7 @@ class MyMentorships extends Component {
     })
   }
 
+  //sends delete request to the database to remove the relationship to decline
   declineMentorship = () => {
     this.props.dispatch({
       type: 'DECLINE_MENTORSHIP',

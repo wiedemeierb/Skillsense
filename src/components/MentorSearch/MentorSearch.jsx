@@ -147,7 +147,8 @@ const mapStateToProps = store => {
   return {
     mentors: store.allMentorsReducer,
     skills: store.allSkillsReducer,
-    selectedUser: store.selectedUserReducer
+    selectedUser: store.selectedUserReducer,
+    user: store.user
   };
 };
 

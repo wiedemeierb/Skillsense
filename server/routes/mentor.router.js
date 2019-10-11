@@ -16,7 +16,8 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
       "access_id",
       "focus_skill",
       array_agg("skill_tags".id) AS "skill_ids",
-      array_agg("skill_tags".tag) AS "skill_names"
+	  array_agg("skill_tags".tag) AS "skill_names",
+	  accepted
     FROM "users"
     LEFT JOIN "student_mentor"
       ON "users".id = "student_mentor".mentor_id
@@ -32,7 +33,7 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
       "user_type".user_type ILIKE 'Mentor'
         AND
       "mentor_status".mentor_status ILIKE 'Approved'
-    GROUP BY "users"."id";
+    GROUP BY "users"."id", "student_mentor"."accepted";
 	`;
 
 	pool
@@ -63,7 +64,8 @@ router.get('/active', rejectUnauthenticated, (req, res) => {
       "access_id",
       "focus_skill",
       array_agg("skill_tags".id) AS "skill_ids",
-      array_agg("skill_tags".tag) AS "skill_names"
+	  array_agg("skill_tags".tag) AS "skill_names",
+	  accepted
     FROM "users"
     JOIN "student_mentor"
       ON "users".id = "student_mentor".mentor_id
@@ -75,7 +77,7 @@ router.get('/active', rejectUnauthenticated, (req, res) => {
       "student_mentor".student_id = $1
         AND
       "accepted" = true
-    GROUP BY "users"."id";`;
+    GROUP BY "users"."id", "student_mentor"."accepted";`;
 		} else if (req.user.user_type === 'Mentor') {
 			return `
     SELECT
@@ -84,7 +86,8 @@ router.get('/active', rejectUnauthenticated, (req, res) => {
       "access_id",
       "focus_skill",
       array_agg("skill_tags".id) AS "skill_ids",
-      array_agg("skill_tags".tag) AS "skill_names"
+	  array_agg("skill_tags".tag) AS "skill_names",
+	  accepted
     FROM "users"
     LEFT JOIN "student_mentor"
       ON "users".id = "student_mentor".student_id
@@ -96,7 +99,7 @@ router.get('/active', rejectUnauthenticated, (req, res) => {
       "student_mentor".mentor_id = $1
         AND
       "accepted" = true
-    GROUP BY "users"."id";
+    GROUP BY "users"."id", "student_mentor"."accepted";
     `;
 		}
 	};
@@ -129,7 +132,8 @@ router.get('/invited', rejectUnauthenticated, (req, res) => {
       "access_id",
       "focus_skill",
       array_agg("skill_tags".id) AS "skill_ids",
-      array_agg("skill_tags".tag) AS "skill_names"
+	  array_agg("skill_tags".tag) AS "skill_names",
+	  accepted
     FROM "users"
     JOIN "student_mentor"
       ON "users".id = "student_mentor".mentor_id
@@ -141,7 +145,7 @@ router.get('/invited', rejectUnauthenticated, (req, res) => {
       "student_mentor".student_id = $1
         AND
       "accepted" = false
-    GROUP BY "users"."id";
+    GROUP BY "users"."id", "student_mentor"."accepted";
     `;
 		} else if (req.user.user_type === 'Mentor') {
 			return `
@@ -151,7 +155,8 @@ router.get('/invited', rejectUnauthenticated, (req, res) => {
       "access_id",
       "focus_skill",
       array_agg("skill_tags".id) AS "skill_ids",
-      array_agg("skill_tags".tag) AS "skill_names"
+	  array_agg("skill_tags".tag) AS "skill_names",
+	  accepted
     FROM "users"
     JOIN "student_mentor"
       ON "users".id = "student_mentor".student_id
@@ -163,7 +168,7 @@ router.get('/invited', rejectUnauthenticated, (req, res) => {
       "student_mentor".mentor_id = $1
         AND
       "accepted" = false
-    GROUP BY "users"."id";`;
+    GROUP BY "users"."id", "student_mentor"."accepted";`;
 		}
 	};
 	pool
@@ -208,14 +213,14 @@ router.get('/search/', rejectUnauthenticated, (req, res) => {
     "location",
     "focus_skill",
     array_agg("skill_tags".id) AS "skill_ids",
-	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
+	array_agg("skill_tags".tag) AS "skill_names" FROM "users"
   LEFT JOIN "user_tags"
     ON "users".id = "user_tags".user_id
   LEFT JOIN "skill_tags"
     ON "skill_tags".id = "user_tags".tag_id
   LEFT JOIN "mentor_status"
-      ON "mentor_status".id = "users".approved_mentor
-    LEFT JOIN "user_type"
+	  ON "mentor_status".id = "users".approved_mentor
+	LEFT JOIN "user_type"
       ON "user_type".id = "users".access_id
   WHERE
     "user_type".user_type ILIKE 'Mentor'
