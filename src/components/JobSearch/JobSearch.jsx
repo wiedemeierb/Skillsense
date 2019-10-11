@@ -49,6 +49,7 @@ class JobSearch extends Component {
     });
   }
 
+  //Saves the text from input on change
   handleSearch = event => {
     this.setState({
       ...this.state,
@@ -56,6 +57,7 @@ class JobSearch extends Component {
     });
   };
 
+  //Saves the selected skill ID on change
   handleDropdown = event => {
     this.setState({
       ...this.state,
@@ -63,6 +65,7 @@ class JobSearch extends Component {
     });
   };
 
+  //sends the local state to the database to GET results
   submitSearch = () => {
     this.props.dispatch({
       type: 'FETCH_JOB_SEARCH',
@@ -70,21 +73,25 @@ class JobSearch extends Component {
     });
   };
 
+  //When search result is clicked, user is taken to the selected job details page
   viewDetail = (event, id) => {
     this.props.history.push(`/jobs/detail/${id}`);
   };
 
   render() {
+    //checks if user type should be able to view this page
     let isAuthorized = () => {
       return this.props.user.access_id === 1;
     };
 
     const { classes } = this.props;
 
+    //uses the JobListItem component to render the job search results
     let jobList = this.props.jobs.map((job, i) => {
       return <JobListItem key={i} job={job} />;
     });
 
+    //renders the list of available skills within the dropdown
     let skillList = this.props.skills.map(skill => {
       return (
         <MenuItem key={skill.id} value={skill.id}>
@@ -135,8 +142,8 @@ class JobSearch extends Component {
             <div className="list">{jobList}</div>
           </div>
         ) : (
-          <Typography>You are not authorized to view this page.</Typography>
-        )}
+            <Typography>You are not authorized to view this page.</Typography>
+          )}
       </div>
     );
   }

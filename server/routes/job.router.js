@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/** GET ROUTE **/
+/** GET ROUTE FOR ALL JOBS WITH SKILL TAGS **/
 router.get('/', (req, res) => {
   const queryText = `
 	SELECT "jobs"."id","project_title","position_title","description","duration",
@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
     });
 });
 
-/** GET ROUTE **/
+/** GET ROUTE FOR JOBS BY STATUS AND CLIENT ID **/
 router.get('/client/:jobType', (req, res) => {
   const jobType = req.params.jobType;
   const userId = req.user.id;
@@ -65,7 +65,7 @@ router.get('/client/:jobType', (req, res) => {
     });
 });
 
-/** GET (SEARCH) ROUTE **/
+/** GET (SEARCH) ROUTE BY JOB TITLE AND/OR SKILL TAG **/
 router.get('/search', (req, res) => {
   const searchTerm =
     req.query.searchTerm !== '' ? `%${req.query.searchTerm}%` : `%%`;
@@ -114,7 +114,7 @@ router.get('/search', (req, res) => {
     });
 });
 
-/** GET (ACTIVE JOBS) ROUTE **/
+/** GET (ACTIVE JOBS) ROUTE BY STATUS AND STUDENT ID **/
 router.get('/active', (req, res) => {
   const userId = req.user.id;
   const queryText = `
@@ -146,7 +146,7 @@ router.get('/active', (req, res) => {
     });
 });
 
-/** GET (APPLIED JOBS) ROUTE **/
+/** GET (APPLIED JOBS) ROUTE BY STATUS AND STUDENT ID **/
 router.get('/applied', (req, res) => {
   const userId = req.user.id;
   const queryText = `
@@ -178,7 +178,7 @@ router.get('/applied', (req, res) => {
     });
 });
 
-/** GET (COMPLETED JOBS) ROUTE **/
+/** GET (COMPLETED JOBS) ROUTE BY STATUS AND STUDENT ID **/
 router.get('/completed', (req, res) => {
   const userId = req.user.id;
   const queryText = `
@@ -210,6 +210,7 @@ router.get('/completed', (req, res) => {
     });
 });
 
+/** POST ROUTE FOR NEW JOB AND ASSOCIATED SKILL TAGS **/
 router.post('/new', async (req, res) => {
   const job = req.body;
   const queryText = `
@@ -248,6 +249,7 @@ router.post('/new', async (req, res) => {
   }
 });
 
+/** POST ROUTE FOR JOB APPLICATION **/
 router.post('/apply', (req, res) => {
   let queryText = `
   INSERT INTO "job_applicants" ("job_id", "student_id","payment_terms",
@@ -272,6 +274,7 @@ router.post('/apply', (req, res) => {
     });
 });
 
+/** GET ROUTE FOR SELECTED JOB DETAILS **/
 router.get('/detail/:id', (req, res) => {
   const queryText = `
 	SELECT "jobs"."id","project_title","position_title",

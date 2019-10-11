@@ -56,8 +56,8 @@ class UserListItem extends Component {
         </Grid>
         {/* right side info */}
         <Grid item xs={7}>
-          <MentorRequest mentor={this.props.user} />
-
+          {/* If the user is a mentor, the Request Mentor button will appear in the list row */}
+          {this.props.user.access_id === 2 ? <MentorRequest mentor={this.props.user} /> : null}
           <Button
             variant="contained"
             color="primary"

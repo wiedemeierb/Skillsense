@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
+//gets list of skills for active user
 function* fetchUserSkills() {
     try {
         let response = yield axios.get('/api/userskills')
@@ -14,6 +15,7 @@ function* fetchUserSkills() {
     }
 }
 
+//posts new user skill
 function* addSkill(action) {
     try {
         yield axios.post('/api/userskills', action.payload);
@@ -25,6 +27,7 @@ function* addSkill(action) {
     }
 }
 
+//removes user's skill
 function* removeSkill(action) {
     try {
         yield axios.delete(`/api/userskills/${action.payload.id}`)

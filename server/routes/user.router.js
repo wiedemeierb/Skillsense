@@ -66,6 +66,7 @@ router.get('/username/:email', (req, res) => {
 			res.sendStatus(500);
 		});
 });
+
 router.post('/login', userStrategy.authenticate('local'), (req, res) => {
 	res.sendStatus(200);
 });
@@ -77,7 +78,7 @@ router.post('/logout', (req, res) => {
 	res.sendStatus(200);
 });
 
-//route to get one specific user's information
+//route to get SELECTED user's information
 router.get('/specific/:id', (req, res) => {
 	const userId = req.params.id;
 	const sqlText = `SELECT
@@ -129,6 +130,7 @@ router.get('/specific/:id', (req, res) => {
 		});
 });
 
+//PUT ROUTE FOR EDITING USER PROFILE
 router.put('/edit/:id', (req, res) => {
 	// console.log(req.body)
 	const queryText = `UPDATE "users" SET

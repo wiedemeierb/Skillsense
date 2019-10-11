@@ -6,6 +6,7 @@ import JobTabs from '../JobsTabs/JobTabs';
 import JobListItem from '../JobListItem/JobListItem';
 
 class MyJobs extends Component {
+
   componentDidMount() {
     if (this.props.user.access_id === 1) {
       this.props.dispatch({
@@ -21,6 +22,8 @@ class MyJobs extends Component {
   }
 
   render() {
+    
+    //uses the JobListItem component to render the job search results
     let jobList = this.props.jobs.map((job, i) => {
       return <JobListItem key={i} job={job} />;
     });

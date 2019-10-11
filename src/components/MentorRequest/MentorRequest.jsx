@@ -15,10 +15,12 @@ export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState('');
 
+  //When the Request Mentor button is clicked, the modal opens
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  //When the action buttons within the modal are clicked, the modal closes
   const handleClose = () => {
     setOpen(false);
   };

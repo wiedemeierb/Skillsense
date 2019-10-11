@@ -2,6 +2,8 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+//GET ROUTE FOR ALL MESSAGES
+//NEEDS DEVELOPMENT: SHOULD PULL WHERE SENDER OR RECEIVER ID IS THE CURRENT USER, GROUP BY OTHER USER
 router.get('/', (req, res) => {
     const queryText = `SELECT * FROM "messages";`
     pool.query(queryText)

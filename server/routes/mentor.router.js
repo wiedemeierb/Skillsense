@@ -5,10 +5,10 @@ const {
 } = require('../modules/authentication-middleware');
 const router = express.Router();
 
-/** GET (ALL) ROUTE **/
+/** GET (ALL) ROUTE FOR APPROVED MENTORS **/
 router.get('/all', (req, res) => {
   const queryText = `
-    SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
+    SELECT "users".id, "username", "access_id", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
 	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
     LEFT JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
     LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
@@ -32,11 +32,11 @@ router.get('/all', (req, res) => {
     });
 });
 
-/** GET (STUDENT: ACTIVE MENTORS) ROUTE **/
+/** GET (STUDENT: ACTIVE MENTORS) ROUTE BY STUDENT ID AND ACCEPTED STATUS**/
 router.get('/active', (req, res) => {
   const userId = req.user.id;
   const queryText = `
-    SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
+    SELECT "users".id, "username", "access_id", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
 	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
     JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
     LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
@@ -60,11 +60,11 @@ router.get('/active', (req, res) => {
     });
 });
 
-/** GET (STUDENT: INVITED MENTORS) ROUTE **/
+/** GET (STUDENT: INVITED MENTORS) ROUTE BY STUDENT ID WHERE ACCEPTED IS FALSE **/
 router.get('/invited', (req, res) => {
   const userId = req.user.id;
   const queryText = `
-  	SELECT "users".id, "username", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
+  	SELECT "users".id, "username", "access_id", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
 	  array_agg("skill_tags".tag) AS "skill_names" FROM "users"
     JOIN "student_mentor" ON "users".id = "student_mentor".mentor_id
     LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
@@ -88,14 +88,14 @@ router.get('/invited', (req, res) => {
     });
 });
 
-/** GET (SEARCH) ROUTE **/
+/** GET (SEARCH) ROUTE BY MENTOR NAME AND/OR SKILL TAG **/
 router.get('/search/', (req, res) => {
   const searchTerm =
     req.query.searchTerm !== '' ? `%${req.query.searchTerm}%` : `%%`;
   const searchSkill = req.query.skill != 0 ? Number(req.query.skill) : 0;
 
   const queryStart = `
-	SELECT "users".id, "username", "location", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
+	SELECT "users".id, "username", "access_id", "location", "focus_skill", array_agg("skill_tags".id) AS "skill_ids",
 	array_agg("skill_tags".tag) AS "skill_names" FROM "users"
 	LEFT JOIN "user_tags" ON "users".id = "user_tags".user_id
   JOIN "skill_tags" ON "skill_tags".id = "user_tags".tag_id

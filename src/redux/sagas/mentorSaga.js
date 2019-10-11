@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
+//get all approved mentors
 function* fetchAllMentors() {
   try {
     let response = yield axios.get('/api/mentors/all');
@@ -14,6 +15,7 @@ function* fetchAllMentors() {
   }
 }
 
+//get mentor search results
 function* fetchMentorSearch(action) {
   try {
     const config = {

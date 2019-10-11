@@ -12,37 +12,41 @@ import { Typography } from '@material-ui/core';
 
 class MyMentorships extends Component {
   componentDidMount() {
+    // gets all accepted mentorship relationships from the server and stores them in the allMentorsReducer
     this.props.dispatch({
       type: 'FETCH_ACTIVE_MENTORS'
     });
+
+    //clears the details section upon page load until user makes a selection
     this.props.dispatch({
       type: 'CLEAR_SELECTED_USER'
     });
   }
 
   render() {
+    //maps over the allMentorsReducer and feeds each user to the UserListItem component for rendering
     let mentorList = this.props.mentors.map((mentor, i) => {
       return <UserListItem key={i} user={mentor} />;
     });
 
     return (
-      <TwoColumnLayout rightHeader="Details" leftHeader="Your Mentors">
+      <TwoColumnLayout rightHeader="Details" leftHeader={this.props.user.access_id === 1 ? "Your Mentors" : "Your Mentorships"}>
         <div>
           {/* Navigation tabs on Mentorship Page:
-            (Active, Invites) */}
+            (Active, Invites) 
+            The MentorTabs component sends a GET request based on which tab is clicked*/}
           <MentorTabs />
           {/* Selected Mentor List */}
           <div className="list">{mentorList}</div>
         </div>
-
         <div>
           {this.props.selectedUser.id ? (
             <PublicProfile />
           ) : (
-            <Typography variant="h6" align="center">
-              Select a mentor to see more information.
+              <Typography variant="h6" align="center">
+                Select a mentor to see more information.
             </Typography>
-          )}
+            )}
         </div>
       </TwoColumnLayout>
     );
@@ -52,7 +56,8 @@ class MyMentorships extends Component {
 const mapStateToProps = store => {
   return {
     mentors: store.allMentorsReducer,
-    selectedUser: store.selectedUserReducer
+    selectedUser: store.selectedUserReducer,
+    user: store.user
   };
 };
 
