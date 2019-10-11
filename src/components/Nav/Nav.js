@@ -32,7 +32,7 @@ const Nav = (props) => (
         Mentor Search
           </Link>}
       {/* Show Admin if user is admin */}
-      {props.user.access_id === 4 && <Link className="nav-link" to="/mentors">
+      {props.user.access_id === 4 && <Link className="nav-link" to="/admin">
         Admin
       </Link>}
       {/* Show My Jobs if user is student or client */}
