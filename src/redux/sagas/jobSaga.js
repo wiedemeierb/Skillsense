@@ -70,6 +70,33 @@ function* fetchCompletedJobs() {
   }
 }
 
+function* fetchClientJobs(action) {
+  let jobType = action.payload;
+  try {
+    let response = yield axios.get(`/api/jobs/client/${jobType}`);
+    console.log(response.data);
+    yield put({
+      type: 'SET_ALL_JOBS',
+      payload: response.data
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* fetchJobDetail(action) {
+  console.log(action.payload);
+  try {
+    let response = yield axios.get(`api/jobs/detail/${action.payload.id}`);
+    yield put({
+      type: 'SET_JOB_DETAILS',
+      payload: response.data
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function* postJob(action) {
   try {
     yield axios.post('api/jobs/new', action.payload);
@@ -81,26 +108,13 @@ function* postJob(action) {
   }
 }
 
-function* fetchJobDetail(action) {
+function* submitApplication(action) {
   console.log(action.payload);
   try {
-    let response = yield axios.get(`api/jobs/detail/${action.payload.id}`)
-    yield put ({
-      type: 'SET_JOB_DETAILS',
-      payload: response.data
-    });
+    yield axios.post('api/jobs/apply', action.payload);
   } catch (error) {
     console.log(error);
   }
-}
-
-function* submitApplication(action){
-  console.log(action.payload)
-    try {
-      yield axios.post('api/jobs/apply', action.payload);
-    } catch (error) {
-      console.log(error);
-    }
 }
 
 function* jobSaga() {
@@ -109,9 +123,10 @@ function* jobSaga() {
   yield takeEvery('FETCH_ACTIVE_JOBS', fetchActiveJobs);
   yield takeEvery('FETCH_APPLIED_JOBS', fetchAppliedJobs);
   yield takeEvery('FETCH_COMPLETED_JOBS', fetchCompletedJobs);
+  yield takeEvery('FETCH_CLIENT_JOBS', fetchClientJobs);
   yield takeEvery('FETCH_JOB_DETAIL', fetchJobDetail);
   yield takeEvery('POST_JOB', postJob);
-  yield takeEvery('SUBMIT_APPLICATION',submitApplication);
+  yield takeEvery('SUBMIT_APPLICATION', submitApplication);
 }
 
 export default jobSaga;
