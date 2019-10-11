@@ -62,7 +62,7 @@ router.post('/logout', (req, res) => {
 });
 
 //route to get SELECTED user's information
-router.get('/specific/:id', (req, res) => {
+router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 	const userId = req.params.id;
 	const sqlText = `SELECT
 		users.id,

@@ -2,7 +2,8 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const {
-	rejectUnauthenticated
+	rejectUnauthenticated,
+	rejectIfNotClient
 } = require('../modules/authentication-middleware');
 
 /** GET ROUTE FOR ALL JOBS WITH SKILL TAGS **/
@@ -50,7 +51,7 @@ router.get('/', (req, res) => {
 });
 
 /** GET ROUTE FOR JOBS BY STATUS AND CLIENT ID **/
-router.get('/client/:jobType', rejectUnauthenticated, (req, res) => {
+router.get('/client/:jobType', rejectIfNotClient, (req, res) => {
 	const jobType = req.params.jobType;
 	const userId = req.user.id;
 	//route currently does not yet accommodate for offer extended job_status
