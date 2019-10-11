@@ -129,11 +129,14 @@ class RegisterPage extends Component {
 								required
 								inputProps={{ name: 'User Type', id: 'userTypeHelper' }}
 								onChange={e => this.setState({ userType: e.target.value })}>
-								{this.props.userTypes.map(type => (
-									<MenuItem key={type.id} value={type.id}>
-										{type.user_type}
-									</MenuItem>
-								))}
+								{this.props.userTypes.map((type) => {
+									if (type.user_type !== 'Admin') {
+										return <MenuItem key={type.id} value={type.id}>
+											{type.user_type}
+										</MenuItem>
+									}
+								}
+								)}
 							</Select>
 							<FormHelperText>Choose your account type...</FormHelperText>
 						</FormControl>
@@ -212,7 +215,7 @@ class RegisterPage extends Component {
 				</Grid>
 
 				<Grid item xs={12}>
-					
+
 					<Button
 						variant="contained" color="secondary"
 						className={classes.button}

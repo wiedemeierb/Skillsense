@@ -88,6 +88,28 @@ function* fetchPendingMentors() {
   }
 }
 
+function* acceptMentorship() {
+  try {
+    yield axios.put(`/api/mentors/accept/${action.payload.student_id}`)
+    yield put({
+      type: 'FETCH_INVITED_MENTORS'
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* declineMentorship() {
+  try {
+    yield axios.put(`/api/mentors/decline/${action.payload.student_id}`)
+    yield put({
+      type: 'FETCH_INVITED_MENTORS'
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function* mentorSaga() {
   yield takeEvery('FETCH_ALL_MENTORS', fetchAllMentors);
   yield takeEvery('FETCH_MENTOR_SEARCH', fetchMentorSearch);
@@ -95,6 +117,8 @@ function* mentorSaga() {
   yield takeEvery('FETCH_ACTIVE_MENTORS', fetchActiveMentors);
   yield takeEvery('FETCH_INVITED_MENTORS', fetchInvitedMentors);
   yield takeEvery('FETCH_PENDING_MENTORS', fetchPendingMentors);
+  yield takeEvery('ACCEPT_MENTORSHIP', acceptMentorship);
+  yield takeEvery('DECLINE_MENTORSHIP', declineMentorship);
 }
 
 export default mentorSaga;
