@@ -76,7 +76,7 @@ CREATE TABLE "job_applicants" (
   "student_id" integer NOT NULL references "users",
   "payment_terms" TEXT NOT NULL,
   "cover_letter" TEXT NOT NULL,
-  "resume" TEXT NOT NULL,
+  "attachment_url" TEXT,
   "mentor_id" integer references "users",
   "mentor_accepted" BOOLEAN default FALSE,
   "hired" BOOLEAN default false
@@ -109,8 +109,8 @@ INSERT INTO "user_type" ("access") VALUES ('Student'),('Mentor'),('Client'),
 INSERT INTO "users"
   (username, email, password, location, focus_skill, bio, github_url, linkedin_url, website_url, access_id)
 VALUES
-  ('David Heisel', 'david@david.com', '$2b$10$lMLT25VKV..jh.GjHD6OKuZvJhlEt8tvWr0TQHCaGZTlg5p/J9Mgu', 'Richfield, MN', 
-  'Full Stack Engineer', 'I am a Full Stack Engineering student currently enrolled at Prime', 'https://github.com/dmheisel', 
+  ('David Heisel', 'david@david.com', '$2b$10$lMLT25VKV..jh.GjHD6OKuZvJhlEt8tvWr0TQHCaGZTlg5p/J9Mgu', 'Richfield, MN',
+  'Full Stack Engineer', 'I am a Full Stack Engineering student currently enrolled at Prime', 'https://github.com/dmheisel',
   'https://www.linkedin.com/in/dmheisel/', 'google.com', 1);
 
 INSERT INTO "users"
@@ -138,4 +138,3 @@ INSERT INTO "jobs"
   (project_title, position_title, description, duration, budget, mentor_required, status_id, client_id)
 VALUES
   ('Build Google Framework', 'SEO for the world', 'Create a search engine that scans the web for the exact page you are looking for.  Create one of the most powerful companies in the world', '1 year', '200000', TRUE, 1, 5);
-
