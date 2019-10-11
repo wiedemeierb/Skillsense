@@ -55,7 +55,7 @@ router.get('/username/:email', (req, res) => {
 	pool
 		.query(sqlText, [req.params.email])
 		.then(result => {
-			console.log('successful get of username from db table based on email ');
+			// console.log('successful get of username from db table based on email ');
 			res.send(result.rows[0].username);
 		})
 		.catch(error => {

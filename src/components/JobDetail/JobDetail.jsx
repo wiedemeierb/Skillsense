@@ -36,7 +36,6 @@ class JobDetail extends Component {
                 <Typography>Focus Skill: {this.props.user.focus_skill}</Typography>
                 <Typography>Location: {this.props.user.location}</Typography>
                 <Button variant="contained" color="primary" onClick={this.applyNow}>Apply</Button>
-
             </div>
         )
     }
