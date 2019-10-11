@@ -28,8 +28,7 @@ class MyJobs extends Component {
     });
 
     return (
-      <div className="list-display">
-        <OneColumnLayout header="Jobs">
+        <OneColumnLayout header="My Jobs">
           {/* Navigation tabs on Job Page:
             (Active, Applied, Completed) */}
           <div>
@@ -38,7 +37,6 @@ class MyJobs extends Component {
           {/* Selected Job List */}
           <div className="list">{jobList}</div>
         </OneColumnLayout>
-      </div>
     );
   }
 }
