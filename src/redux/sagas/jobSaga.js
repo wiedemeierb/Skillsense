@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
+import Swal from 'sweetalert2'
 
 //gets all open jobs
 function* fetchAllJobs() {
@@ -118,7 +119,6 @@ function* postJob(action) {
 
 //posts job application
 function* submitApplication(action) {
-	// console.log(action.payload);
 	try {
 		if (action.payload.file) {
 			let file = action.payload.file;
@@ -141,12 +141,23 @@ function* submitApplication(action) {
 				}
 			});
 			yield axios.post('api/jobs/apply', action.payload);
+      Swal.fire(
+      'Congrats!',
+      'Your application has been submitted!',
+      'success',
+    )
 		} else {
 			yield axios.post('api/jobs/apply', action.payload);
+      Swal.fire(
+      'Congrats!',
+      'Your application has been submitted!',
+      'success',
+    )
 		}
 	} catch (error) {
 		console.log(error);
 	}
+
 }
 
 function* jobSaga() {
