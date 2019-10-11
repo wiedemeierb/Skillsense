@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
 import PublicProfile from '../PublicProfile/PublicProfile';
 import EditProfile from '../EditProfile/EditProfile';
-import TransferList from '../TransferList/TransferList';
 
 //MATERIAL-UI IMPORTS
 import { Button, Typography } from '@material-ui/core';
@@ -13,6 +12,11 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
     button: {
+        display: 'block',
+        margin: theme.spacing(1),
+        padding: theme.spacing(1)
+    },
+    statusBadge: {
         display: 'block',
         margin: theme.spacing(1),
         padding: theme.spacing(1)
@@ -78,7 +82,7 @@ class UserPage extends Component {
             this.props.user.access_id === 2 ? (
                 //only show approval note if approved
                 this.props.user.approved_mentor === 3 ? (
-                    <Typography className={classes.button}>Approved by Admin</Typography>
+                    <Typography className={classes.statusBadge}>Approved by Admin</Typography>
                 ) : (
                     //show button to submit for review if not approved yet
                     <Button className={classes.button} onClick={this.submitForReview}>
@@ -91,7 +95,11 @@ class UserPage extends Component {
             <OneColumnLayout header="Your Profile">
                 <div>
                     {this.state.inEditMode ? (
-                        <EditProfile user={this.props.user} toggleEdit={this.toggleEdit} />
+                        <EditProfile
+                            user={this.props.user}
+                            skills={this.props.skills}
+                            toggleEdit={this.toggleEdit}
+                        />
                     ) : (
                         <PublicProfile user={this.props.user} />
                     )}
@@ -104,9 +112,6 @@ class UserPage extends Component {
                     </Button>
                     {mentorSectionHtml}
                 </div>
-                {this.state.inEditMode && (
-                    <TransferList allSkills={this.props.skills} user={this.props.user} />
-                )}
             </OneColumnLayout>
         );
     }
