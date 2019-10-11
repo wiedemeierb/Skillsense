@@ -54,7 +54,7 @@ export default function FormDialog(props) {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="secondary">
+          <Button variant="contained" color="secondary" onClick={handleClose} color="secondary">
             Cancel
           </Button>
           <Button

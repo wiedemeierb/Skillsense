@@ -217,7 +217,7 @@ class JobApplication extends Component {
 
 const mapStateToProps = store => {
 	return {
-		job: store.jobDetailsReducer,
+		job: store.selectedJobReducer,
 		user: store.user,
 		mentors: store.allMentorsReducer
 	};

@@ -98,10 +98,11 @@ class LoginPage extends Component {
 							label='Password'
 							placeholder='***'
 						/>
-						<Button className={classes.button} onClick={() => this.login()}>
+						<Button variant="contained" color="primary" className={classes.button} onClick={() => this.login()}>
 							Log In
 						</Button>
 						<Button
+							variant="contained" color="primary"
 							className={classes.button}
 							onClick={() => {
 								this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' });

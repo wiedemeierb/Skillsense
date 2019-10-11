@@ -19,24 +19,38 @@ class JobDetail extends Component {
     }
 
     render() {
+        let { details } = this.props
+
+        //checks if user type should be able to view this element
+        let isStudent = () => {
+            return (this.props.user.access_id === 1)
+        }
+
+        //checks if user type should be able to view this element
+        let isClient = () => {
+            return (this.props.user.access_id === 3)
+        }
+
         return (
             <div>
-                <Typography variant="h2" color="primary">{this.props.details.project_title}</Typography>
-                <Typography variant="h4" color="secondary">{this.props.details.username}</Typography>
+                <br></br>
+                <Typography variant="h2" color="primary">{details.project_title}</Typography>
+                <br></br>
+                <Typography variant="h4" color="secondary">{details.username}</Typography>
                 <br></br>
                 <Typography variant="h5" color="primary">Description:</Typography>
-                <Typography>{this.props.details.description}</Typography>
+                <Typography>{details.description}</Typography>
                 <br></br>
                 <Typography variant="h5" color="primary">Desired Skills:</Typography>
-                <SkillList skillList={this.props.details.skills} />
+                <SkillList skillList={details.skills} />
                 <br></br>
                 <br></br>
-                <Typography variant="h5" color="primary">Application</Typography>
+                <Typography variant="h5" color="primary">Application:</Typography>
                 <Typography>Name: {this.props.user.username}</Typography>
                 <Typography>Focus Skill: {this.props.user.focus_skill}</Typography>
                 <Typography>Location: {this.props.user.location}</Typography>
-                <Button variant="contained" color="primary" onClick={this.applyNow}>Apply</Button>
-
+                {isStudent() && <Button variant="contained" color="primary" onClick={this.applyNow}>Apply</Button>}
+                {/* {isClient() && <ApplicantsList/>} */}
             </div>
         )
     }
@@ -46,7 +60,7 @@ const mapStateToProps = state => ({
     user: state.user,
     skills: state.allSkillsReducer,
     selectedUserSkills: state.userSkillsReducer,
-    details: state.jobDetailsReducer,
+    details: state.selectedJobReducer,
 });
 
 export default connect(mapStateToProps)(JobDetail);

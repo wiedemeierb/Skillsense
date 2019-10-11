@@ -64,7 +64,7 @@ class UserPage extends Component {
 			type: 'REQUEST_ADMIN_REVIEW'
 		});
 	};
-	//determines what addtl info to display if user is a mentor
+	//determines what additional info to display if user is a mentor
 
 	render() {
 		const { classes } = this.props;
@@ -90,7 +90,7 @@ class UserPage extends Component {
 					) : (
 							<PublicProfile user={this.props.user} />
 						)}
-					<Button variant="contained" color="primary" className={classes.button} onClick={this.toggleEdit}>
+					<Button variant="contained" color="secondary" className={classes.button} onClick={this.toggleEdit}>
 						{this.state.inEditMode ? 'Cancel' : 'Edit'}
 					</Button>
 					{mentorSectionHtml}
@@ -103,9 +103,6 @@ class UserPage extends Component {
 	}
 }
 
-// Instead of taking everything from state, we just want the user info.
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({user}) => ({ user });
 const mapStateToProps = state => ({
 	user: state.user,
 	skills: state.allSkillsReducer

@@ -5,6 +5,23 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { ReactComponent as SkillSenseLogo } from '../../skillSenseLogo.svg';
 
+const isAdmin = (props) => {
+  return props.user.access_id === 4
+}
+
+const isClient = (props) => {
+  return props.user.access_id === 3
+
+}
+
+const isMentor = (props) => {
+  return props.user.access_id === 2
+}
+
+const isStudent = (props) => {
+  return props.user.access_id === 1
+}
+
 const Nav = (props) => (
   <div className="nav">
     <Link to="/home">
@@ -24,24 +41,27 @@ const Nav = (props) => (
       </Link> */}
 
       {/* Show My Mentorships if user is student or mentor */}
-      {props.user.access_id === 1 || props.user.access_id === 2 ? <Link className="nav-link" to="/mentors">
+      {isStudent(props) || isMentor(props) ? <Link className="nav-link" to="/mentors">
         My Mentorships
       </Link> : null}
       {/* Show Mentor Search if user is student */}
-      {props.user.access_id === 1 && <Link className="nav-link" to="/search/mentors">
+      {isStudent(props) && <Link className="nav-link" to="/search/mentors">
         Mentor Search
           </Link>}
       {/* Show Admin if user is admin */}
-      {props.user.access_id === 4 && <Link className="nav-link" to="/admin">
+      {isAdmin(props) && <Link className="nav-link" to="/admin">
         Admin
       </Link>}
       {/* Show My Jobs if user is student or client */}
-      {props.user.access_id === 1 || props.user.access_id === 3 ? <Link className="nav-link" to="/jobs">
+      {isStudent(props) || isClient(props) ? <Link className="nav-link" to="/jobs">
         My Jobs
           </Link> : null}
       {/* Show Job Search if user is student */}
-      {props.user.access_id === 1 && <Link className="nav-link" to="/search/jobs">
+      {isStudent(props) && <Link className="nav-link" to="/search/jobs">
         Job Search
+      </Link>}
+      {isClient(props) && <Link className="nav-link" to="/jobs/new">
+        Post New Job
       </Link>}
       {/* Show the link to the info page and the logout button if the user is logged in */}
       {props.user.id && (

@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu:400,700&display=swap');
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0px;
 }
 
 .alert {
-  background-color: #ff4545;
-  margin: 50px;
+    background-color: #ff4545;
+    margin: 50px;
 }
 
 /* form {
@@ -20,73 +20,56 @@ body {
 } */
 
 input {
-  margin: 5px;
-  margin-bottom: 10px;
+    margin: 5px;
+    margin-bottom: 10px;
 }
 
 .log-in,
 .log-out,
 .register {
-  background-color: #04b8f3;
-  border-radius: 4px;
-  color: #c2d1d9;
-  min-height: 50px;
-  min-width: 100px;
-  outline: 0;
-  cursor: pointer;
+    background-color: #04b8f3;
+    border-radius: 4px;
+    color: #c2d1d9;
+    min-height: 50px;
+    min-width: 100px;
+    outline: 0;
+    cursor: pointer;
 }
 
 .log-in:hover,
 .log-out:hover,
 .register:hover {
-  background-color: #04b8f3;
+    background-color: #04b8f3;
 }
 
 /* This line makes the "Register" and "Login" buttons look like links */
 .link-button {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  outline: 0;
-  border-bottom: 1px solid #505d68;
-  cursor: pointer;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    outline: 0;
+    border-bottom: 1px solid #505d68;
+    cursor: pointer;
 }
 
 .search {
-  display: inline-flex;
-  justify-content: center;
-  width: 100%;
-  padding-bottom: 10px;
-}
-
-.list-display {
-  display: flexbox;
-  flex-flow: column-wrap;
-  width: 60%;
-  min-width: 500px;
-  margin: auto;
-  margin-top: 5%;
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 10px;
 }
 
 .list {
-  display: flexbox;
-  flex-direction: column;
-}
-
-.list-item {
-  display: inline-flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 20px 20px 10px;
-  border-bottom: 1px solid #505d68;
+    display: flexbox;
+    flex-direction: column;
 }
 
 .skill-tag {
-  display: inline-block;
-  margin: 5px;
-  padding: 5px 10px;
-  color: #c2d1d9;
-  background-color: #505d68;
+    display: inline-block;
+    margin: 5px;
+    padding: 5px 10px;
+    color: #c2d1d9;
+    background-color: #505d68;
 }
