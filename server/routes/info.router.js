@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-//get account types available
+// GET ACCOUNT TYPES AVAILABLE
 router.get('/types/user', (req, res) => {
   const sqlText = `SELECT * FROM user_type`
   pool.query(sqlText)

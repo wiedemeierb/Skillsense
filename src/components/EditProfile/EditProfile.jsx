@@ -109,7 +109,7 @@ function EditProfile(props) {
 				<TextField
 					required
 					id='outlined-required'
-					label='Website'
+					label='Email'
 					defaultValue={user.email}
 					margin='normal'
 					variant='outlined'
@@ -119,7 +119,7 @@ function EditProfile(props) {
 				/>
 			</Grid>
 			<Grid item xs={12}>
-				<Button onClick={editStudentInfo}>Save</Button>
+				<Button variant="contained" color="primary" onClick={editStudentInfo}>Save</Button>
 			</Grid>
 		</Grid>
 	);
