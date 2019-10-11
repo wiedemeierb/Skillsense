@@ -23,6 +23,20 @@ class MyMentorships extends Component {
     });
   }
 
+  acceptMentorship = () => {
+    this.props.dispatch({
+      type: 'ACCEPT_MENTORSHIP',
+      payload: { student_id: this.props.selectedUser.id }
+    })
+  }
+
+  declineMentorship = () => {
+    this.props.dispatch({
+      type: 'DECLINE_MENTORSHIP',
+      payload: { student_id: this.props.selectedUser.id }
+    })
+  }
+
   render() {
     //maps over the allMentorsReducer and feeds each user to the UserListItem component for rendering
     let mentorList = this.props.mentors.map((mentor, i) => {
