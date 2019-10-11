@@ -12,18 +12,10 @@ function* loginUser(action) {
 			withCredentials: true
 		};
 
-		//gets the user's username based on their email:
-		let usernameResponse = yield axios.get(
-			`/api/user/username/${action.payload.email}`
-		);
 		// send the action.payload as the body
 		// the config includes credentials which
 		// allow the server session to recognize the user
-		yield axios.post(
-			'/api/user/login',
-			{ ...action.payload, username: usernameResponse.data },
-			config
-		);
+		yield axios.post('/api/user/login', action.payload, config);
 		yield put({ type: 'FETCH_USER' });
 		// after the user has logged in
 		// get the user information from the server
