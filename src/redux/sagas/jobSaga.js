@@ -5,7 +5,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 function* fetchAllJobs() {
   try {
     let response = yield axios.get('/api/jobs');
-    console.log(response.data);
+    // console.log(response.data);
     yield put({
       type: 'SET_ALL_JOBS',
       payload: response.data
@@ -23,7 +23,7 @@ function* fetchJobSearch(action) {
       params: action.payload
     };
     let response = yield axios.get(`/api/jobs/search`, config);
-    console.log(response.data);
+    // console.log(response.data);
     yield put({
       type: 'SET_ALL_JOBS',
       payload: response.data
@@ -37,7 +37,7 @@ function* fetchJobSearch(action) {
 function* fetchActiveJobs() {
   try {
     let response = yield axios.get('/api/jobs/active');
-    console.log(response.data);
+    // console.log(response.data);
     yield put({
       type: 'SET_ALL_JOBS',
       payload: response.data
@@ -51,7 +51,7 @@ function* fetchActiveJobs() {
 function* fetchAppliedJobs() {
   try {
     let response = yield axios.get('/api/jobs/applied');
-    console.log(response.data);
+    // console.log(response.data);
     yield put({
       type: 'SET_ALL_JOBS',
       payload: response.data
@@ -65,7 +65,7 @@ function* fetchAppliedJobs() {
 function* fetchCompletedJobs() {
   try {
     let response = yield axios.get('/api/jobs/completed');
-    console.log(response.data);
+    // console.log(response.data);
     yield put({
       type: 'SET_ALL_JOBS',
       payload: response.data
@@ -80,7 +80,7 @@ function* fetchClientJobs(action) {
   let jobType = action.payload;
   try {
     let response = yield axios.get(`/api/jobs/client/${jobType}`);
-    console.log(response.data);
+    // console.log(response.data);
     yield put({
       type: 'SET_ALL_JOBS',
       payload: response.data
@@ -92,7 +92,7 @@ function* fetchClientJobs(action) {
 
 //gets selected job details
 function* fetchJobDetail(action) {
-  console.log(action.payload);
+  // console.log(action.payload);
   try {
     let response = yield axios.get(`api/jobs/detail/${action.payload.id}`);
     yield put({
@@ -118,7 +118,7 @@ function* postJob(action) {
 
 //posts job application
 function* submitApplication(action) {
-  console.log(action.payload);
+  // console.log(action.payload);
   try {
     yield axios.post('api/jobs/apply', action.payload);
   } catch (error) {

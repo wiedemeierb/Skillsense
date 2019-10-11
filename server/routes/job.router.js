@@ -278,7 +278,7 @@ router.get('/detail/:id', (req, res) => {
   const queryText = `
 	SELECT "jobs"."id","project_title","position_title",
 	"description","duration","budget","mentor_required","status_id",
-	"username","location","client_id",array_agg("job_tags"."tag_id") 
+	"username","location", "users".username, "client_id",array_agg("job_tags"."tag_id") 
 	AS "tag_ids", array_agg("skill_tags"."tag") AS "skill_names" FROM "jobs"
 	LEFT JOIN "job_tags" ON "jobs"."id" = "job_tags"."job_id"
 	LEFT JOIN "skill_tags" ON "job_tags".tag_id = "skill_tags"."id"

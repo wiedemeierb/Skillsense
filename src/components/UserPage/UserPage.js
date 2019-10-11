@@ -90,7 +90,7 @@ class UserPage extends Component {
 					) : (
 							<PublicProfile user={this.props.user} />
 						)}
-					<Button className={classes.button} onClick={this.toggleEdit}>
+					<Button variant="contained" color="primary" className={classes.button} onClick={this.toggleEdit}>
 						{this.state.inEditMode ? 'Cancel' : 'Edit'}
 					</Button>
 					{mentorSectionHtml}
