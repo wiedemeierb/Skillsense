@@ -26,7 +26,7 @@ class JobApplication extends Component {
 		mentor_id: null,
 		payment_terms: 'negotiable',
 		attachment_url: '',
-		file: {}
+		file: null
 	};
 	componentDidMount() {
 		this.props.dispatch({
@@ -70,7 +70,7 @@ class JobApplication extends Component {
 		console.log(e.target.files[0])
 		this.setState({ file: e.target.files[0] });
 	};
-	
+
 	render() {
 		const { classes } = this.props;
 		let isAuthorized = () => {
@@ -91,7 +91,7 @@ class JobApplication extends Component {
 							</Typography>
 						</Grid>
 						{/* Job Info */}
-						<Grid xs={4}>
+						<Grid item xs={4}>
 							<Typography color='primary' variant='h4'>
 								{this.props.job.position_title}
 							</Typography>
@@ -100,11 +100,11 @@ class JobApplication extends Component {
 							</Typography>
 						</Grid>
 						{/* Client Info */}
-						<Grid xs={4}>
+						<Grid item xs={4}>
 							<Typography variant='h6'>{this.props.job.username}</Typography>
 							<Typography>{this.props.job.location}</Typography>
 						</Grid>
-						<Grid xs={4}>
+						<Grid item xs={4}>
 							{this.props.job.skills && (
 								<SkillList skillList={this.props.job.skills} />
 							)}
@@ -115,9 +115,9 @@ class JobApplication extends Component {
 								Duration: <span>{this.props.job.duration}</span>
 							</Typography>
 						</Grid>
-						<Grid xs={12}></Grid>
+						{/* <Grid item xs={12}></Grid> */}
 						{/* Cover Letter and Resume */}
-						<Grid item container spacing={4} justify='center'>
+						<Grid item container spacing={4} xs={12} justify='center'>
 							<Grid item xs={12}>
 								<Typography variant='h6' align='left'>
 									Cover Letter

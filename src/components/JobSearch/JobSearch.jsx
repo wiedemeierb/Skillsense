@@ -107,7 +107,7 @@ class JobSearch extends Component {
             <div>
               <Paper className="search">
                 <FormControl className={classes.formControl}>
-                  <FormGroup row="true" className="search">
+                  <FormGroup row={true} className="search">
                     {/* Search Job input field */}
                     <TextField
                       className={classes.formControl}
