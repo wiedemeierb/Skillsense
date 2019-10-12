@@ -253,7 +253,7 @@ router.get('/applied', (req, res) => {
     LEFT JOIN "job_status"
       ON "job_status".id = jobs.status_id
     WHERE
-      "job_status".job_status ILIKE 'Offer Extended'
+      "job_status".job_status ILIKE 'Open'
     AND
       "job_applicants".student_id = $1
     GROUP BY "jobs"."id","users"."id";
