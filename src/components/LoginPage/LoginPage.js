@@ -49,6 +49,13 @@ class LoginPage extends Component {
 		});
 	};
 
+	//Allows user to login using the Enter key while focus is within the Input area
+	handleKeyUp = (key) => {
+		if (key.key === 'Enter') {
+			this.login();
+		}
+	}
+
 	render() {
 		const { classes } = this.props;
 		return (
@@ -80,7 +87,7 @@ class LoginPage extends Component {
 							</Typography>
 						</Grid>
 					</Grid>
-					<div>
+					<div onKeyUp={this.handleKeyUp}>
 						<TextField
 							className={classes.formControl}
 							onChange={e => this.handleInputChangeFor('email', e)}
@@ -102,7 +109,7 @@ class LoginPage extends Component {
 							Log In
 						</Button>
 						<Button
-							variant="contained" color="primary"
+							variant="contained" color="secondary"
 							className={classes.button}
 							onClick={() => {
 								this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' });

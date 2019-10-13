@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 //COMPONENT IMPORTS
-import SkillList from '../SkillList/SkillList';
+// import SkillList from '../SkillList/SkillList';
 import MentorRequest from '../MentorRequest/MentorRequest';
 
 //MATERIAL-UI IMPORTS
@@ -26,7 +26,7 @@ const styles = theme => ({
     margin: '2px',
     padding: '2px',
     color: 'white',
-    backgroundColor: 'black'
+    // backgroundColor: 'black'
   },
   button: {
     margin: theme.spacing(1),
@@ -48,8 +48,8 @@ class UserListItem extends Component {
       >
         {/* left side info */}
         <Grid item xs={5}>
-          <Typography variant="h5">{this.props.user.username}</Typography>
-          <Typography variant="h6">{this.props.user.focus_skill}</Typography>
+          <Typography color="primary" variant="h5">{this.props.listUser.username}</Typography>
+          <Typography variant="h6">{this.props.listUser.focus_skill}</Typography>
           {/* {this.props.user.skill_names[0] && (
             <SkillList skillList={this.props.user.skills} />
           )} */}
@@ -63,18 +63,22 @@ class UserListItem extends Component {
             onClick={() =>
               this.props.dispatch({
                 type: 'FETCH_SELECTED_USER',
-                payload: this.props.user.id
+                payload: this.props.listUser.id
               })
             }
           >
             View Details
           </Button>
           {/* If the user is a mentor, the Request Mentor button will appear in the list row */}
-          {this.props.user.access_id === 2 && this.props.user.accepted === null ? <MentorRequest mentor={this.props.user} /> : null}
+          {this.props.user.access_id === 1 && this.props.listUser.access_id === 2 && this.props.listUser.accepted === undefined ? <MentorRequest mentor={this.props.listUser} /> : null}
         </Grid>
       </Grid>
     );
   }
 }
 
-export default connect()(withStyles(styles)(UserListItem));
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(UserListItem));

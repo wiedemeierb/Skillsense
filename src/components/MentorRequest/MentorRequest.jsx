@@ -51,10 +51,11 @@ export default function FormDialog(props) {
             type="text"
             fullWidth
             onChange={e => setMessage(e.target.value)}
+            multiline={true}
           />
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" color="secondary" onClick={handleClose} color="secondary">
+          <Button variant="contained" color="secondary" onClick={handleClose}>
             Cancel
           </Button>
           <Button
@@ -66,6 +67,7 @@ export default function FormDialog(props) {
               });
               handleClose();
             }}
+            variant="contained"
             color="primary"
           >
             Send Request

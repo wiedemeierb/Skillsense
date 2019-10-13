@@ -28,15 +28,15 @@ class MyJobs extends Component {
     });
 
     return (
-        <OneColumnLayout header="My Jobs">
-          {/* Navigation tabs on Job Page:
+      <OneColumnLayout header="My Jobs">
+        {/* Navigation tabs on Job Page:
             (Active, Applied, Completed) */}
-          <div>
-            <JobTabs />
-          </div>
-          {/* Selected Job List */}
-          <div className="list">{jobList}</div>
-        </OneColumnLayout>
+        <div>
+          <JobTabs />
+        </div>
+        {/* Selected Job List */}
+        <div className="list">{jobList}</div>
+      </OneColumnLayout>
     );
   }
 }

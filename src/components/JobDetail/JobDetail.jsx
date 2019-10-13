@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Button, Chip } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 import SkillList from '../SkillList/SkillList';
 
 
@@ -26,30 +25,40 @@ class JobDetail extends Component {
             return (this.props.user.access_id === 1)
         }
 
-        //checks if user type should be able to view this element
-        let isClient = () => {
-            return (this.props.user.access_id === 3)
-        }
+        // //checks if user type should be able to view this element
+        // let isClient = () => {
+        //     return (this.props.user.access_id === 3)
+        // }
 
         return (
             <div>
-                <br></br>
+                <br />
+                <Typography variant='h3' align='center'>Job Details</Typography>
+                <br />
                 <Typography variant="h2" color="primary">{details.project_title}</Typography>
-                <br></br>
+                <br />
                 <Typography variant="h4" color="secondary">{details.username}</Typography>
-                <br></br>
+                <br />
+                <Typography>Seeking: {details.position_title}</Typography>
+                <Typography>Location: {details.location}</Typography>
+                <Typography>Duration: {details.duration}</Typography>
+                <Typography>Budget: {details.budget}</Typography>
+                <br />
                 <Typography variant="h5" color="primary">Description:</Typography>
                 <Typography>{details.description}</Typography>
-                <br></br>
+                <br />
                 <Typography variant="h5" color="primary">Desired Skills:</Typography>
                 <SkillList skillList={details.skills} />
-                <br></br>
-                <br></br>
-                <Typography variant="h5" color="primary">Application:</Typography>
-                <Typography>Name: {this.props.user.username}</Typography>
-                <Typography>Focus Skill: {this.props.user.focus_skill}</Typography>
-                <Typography>Location: {this.props.user.location}</Typography>
-                {isStudent() && <Button variant="contained" color="primary" onClick={this.applyNow}>Apply</Button>}
+                <br />
+                <br />
+                {isStudent() &&
+                    <div>
+                        <Typography variant="h5" color="primary">Application:</Typography>
+                        <Typography>Name: {this.props.user.username}</Typography>
+                        <Typography>Focus Skill: {this.props.user.focus_skill}</Typography>
+                        <Typography>Location: {this.props.user.location}</Typography>
+                        <Button variant="contained" color="primary" onClick={this.applyNow}>Apply</Button>
+                    </div>}
                 {/* {isClient() && <ApplicantsList/>} */}
             </div>
         )

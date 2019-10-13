@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
+// import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import {
 	Typography,
 	TextField,
@@ -11,7 +11,6 @@ import {
 	MenuItem,
 	FormHelperText,
 	InputLabel,
-	Paper
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Swal from 'sweetalert2'
@@ -142,6 +141,8 @@ class RegisterPage extends Component {
 										return <MenuItem key={type.id} value={type.id}>
 											{type.user_type}
 										</MenuItem>
+									} else {
+										return null
 									}
 								}
 								)}

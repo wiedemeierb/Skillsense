@@ -26,7 +26,7 @@ function PublicProfile(props) {
     return (
         <Grid className={classes.root} container spacing={4} justify="space-around">
             <Grid item xs={12}>
-                <Typography variant="h5" align="center">
+                <Typography color="primary" variant="h5" align="center">
                     {displayedUser.username}
                 </Typography>
             </Grid>

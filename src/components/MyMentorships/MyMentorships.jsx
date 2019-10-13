@@ -6,7 +6,6 @@ import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import MentorTabs from '../MentorTabs/MentorTabs';
 import UserListItem from '../UserListItem/UserListItem';
 import PublicProfile from '../PublicProfile/PublicProfile';
-import MentorRequest from '../MentorRequest/MentorRequest';
 
 //MATERIAL-UI IMPORTS
 import { Typography, Button } from '@material-ui/core';
@@ -43,38 +42,52 @@ class MyMentorships extends Component {
   render() {
     //maps over the allMentorsReducer and feeds each user to the UserListItem component for rendering
     let mentorList = this.props.mentors.map((mentor, i) => {
-      return <UserListItem key={i} user={mentor} />;
+      return <UserListItem key={i} listUser={mentor} />;
     });
 
-    return (
-      <TwoColumnLayout rightHeader="Details" leftHeader={this.props.user.access_id === 1 ? "Your Mentors" : "Your Mentorships"}>
-        <div>
-          {/* Navigation tabs on Mentorship Page:
+    //checks if user type should be able to view this page
+    let isStudent = () => {
+      return this.props.user.access_id === 1;
+    };
+
+    let isMentor = () => {
+      return this.props.user.access_id === 2;
+    };
+
+    return (<div>
+        {isStudent() || isMentor() ? (
+        <TwoColumnLayout rightHeader="Details" leftHeader={this.props.user.access_id === 1 ? "Your Mentors" : "Your Mentorships"}>
+          <div>
+              {/* Navigation tabs on Mentorship Page:
             (Active, Invites) 
             The MentorTabs component sends a GET request based on which tab is clicked*/}
-          <MentorTabs />
-          {/* Selected Mentor List */}
-          <div className="list">{mentorList}</div>
-        </div>
-        <div>
-          {this.props.selectedUser.id ? (
-            <div>
-              <PublicProfile />
-              <br />
-              {this.props.user.access_id === 2 &&
-                <div>
-                  <Button variant="contained" color="primary" onClick={this.acceptMentorship}>Accept</Button>
-                  <Button variant="contained" color="secondary" onClick={this.declineMentorship}>Decline</Button>
-                </div>
-              }
+              <MentorTabs />
+              {/* Selected Mentor List */}
+              <div className="list">{mentorList}</div>
             </div>
-          ) : (
-              <Typography variant="h6" align="center">
-                Select a mentor to see more information.
+            <div>
+              {this.props.selectedUser.id ? (
+                <div>
+                  <PublicProfile />
+                  <br />
+                  {isMentor() &&
+                    <div>
+                  <Typography variant="subtitle1">Mentor Actions</Typography>
+                      <Button variant="contained" color="primary" onClick={this.acceptMentorship}>Accept</Button>
+                      <Button variant="contained" color="secondary" onClick={this.declineMentorship}>Decline</Button>
+                    </div>
+                  }
+                </div>
+              ) : (
+                  <Typography variant="h6" align="center">
+                    Select a mentor to see more information.
             </Typography>
-            )}
-        </div>
-      </TwoColumnLayout>
+                )}
+              </div>
+                  </TwoColumnLayout>
+        ) : (
+            <Typography>You are not authorized to view this page.</Typography>
+        )}            </div>
     );
   }
 }
