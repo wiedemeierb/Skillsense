@@ -53,7 +53,7 @@ CREATE TABLE "messages" (
 
 CREATE TABLE "user_tags" (
   "id" serial PRIMARY KEY,
-  "tag_id" integer NOT NULL references "tags" on delete cascade,
+  "tag_id" integer NOT NULL references "skill_tags" on delete cascade,
   "user_id" integer NOT NULL references "users" on delete cascade
 );
 
@@ -95,16 +95,16 @@ CREATE TABLE "student_mentor" (
 CREATE TABLE "job_tags" (
   "id" serial PRIMARY KEY,
   "job_id" integer NOT NULL references "jobs",
-  "tag_id" integer NOT NULL references "tags"
+  "tag_id" integer NOT NULL references "skill_tags"
 );
 
-INSERT INTO "job_status" ("status") VALUES ('Open'),('Offer Extended'),('In Progress'),('Completed');
+INSERT INTO "job_status" ("job_status") VALUES ('Open'),('Offer Extended'),('In Progress'),('Completed');
 
-INSERT INTO "mentor_status" ("status") VALUES ('Not Submitted'),('Pending Approval'),('Approved'),('N/A');
+INSERT INTO "mentor_status" ("mentor_status") VALUES ('Not Submitted'),('Pending Approval'),('Approved'),('N/A');
 
-INSERT INTO "tags" ("tag") VALUES ('Adobe Photoshop'),('Adobe Illustrator'),('Adobe XD'),('Sketch'),('Responsive Web Design'),('UI/UX Design'),('Frontend Development'),('Backend Development'),('Full Stack Development'),('Mobile App Development'),('NoSQL'),('SQL'),('MySQL'),('.NET'),('C#'),('Java'),('JavaScript'),('TypeScript'),('Webpack'),('React'),('Angular'),('HTML5'),('CSS'),('LESS'),('SASS'),('Wordpress'),('PHP'),('QA/Testing');
+INSERT INTO "skill_tags" ("tag") VALUES ('Adobe Photoshop'),('Adobe Illustrator'),('Adobe XD'),('Sketch'),('Responsive Web Design'),('UI/UX Design'),('Frontend Development'),('Backend Development'),('Full Stack Development'),('Mobile App Development'),('NoSQL'),('SQL'),('MySQL'),('.NET'),('C#'),('Java'),('JavaScript'),('TypeScript'),('Webpack'),('React'),('Angular'),('HTML5'),('CSS'),('LESS'),('SASS'),('Wordpress'),('PHP'),('QA/Testing');
 
-INSERT INTO "user_type" ("access") VALUES ('Student'),('Mentor'),('Client'),('Admin');
+INSERT INTO "user_type" ("user_type") VALUES ('Student'),('Mentor'),('Client'),('Admin');
 
 INSERT INTO "users"
   (username, email, password, location, focus_skill, bio, github_url, linkedin_url, website_url, access_id)
