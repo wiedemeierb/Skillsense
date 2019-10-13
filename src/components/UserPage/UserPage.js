@@ -76,20 +76,21 @@ class UserPage extends Component {
     render() {
         const { classes } = this.props;
 
-        //determines what additional info to display if user is a mentor
-        const mentorSectionHtml =
-            //only show mentor section if access id is 2 (mentor)
-            this.props.user.access_id === 2 ? (
-                //only show approval note if approved
-                this.props.user.approved_mentor === 3 ? (
-                    <Typography className={classes.statusBadge}>Approved by Admin</Typography>
-                ) : (
-                    //show button to submit for review if not approved yet
-                    <Button className={classes.button} onClick={this.submitForReview}>
+        const mentorSectionHtml = ()=>{
+            if(this.props.user.access_id === 2){
+                if(this.props.user.approved_mentor === 3){
+                    return <Typography className={classes.statusBadge}>Approved by Admin</Typography>
+                } else if (this.props.user.approved_mentor === 2) {
+                    return <Typography className={classes.statusBadge}>Pending Admin Approval</Typography>
+                } else {
+                    return <Button className={classes.statusBadge} variant="contained" color="secondary" onClick={this.submitForReview}>
                         Submit For Admin Review
                     </Button>
-                )
-            ) : null;
+                }
+            } else {
+                return null
+            }
+        }
 
         return (
             <OneColumnLayout header="Your Profile">
@@ -105,12 +106,12 @@ class UserPage extends Component {
                     )}
                     <Button
                         variant="contained"
-                        color="secondary"
+                        color={this.state.inEditMode ? "secondary" : "primary"}
                         className={classes.button}
                         onClick={this.toggleEdit}>
                         {this.state.inEditMode ? 'Cancel' : 'Edit'}
                     </Button>
-                    {mentorSectionHtml}
+                    {this.state.inEditMode === false && mentorSectionHtml()}
                 </div>
             </OneColumnLayout>
         );

@@ -65,17 +65,17 @@ class MentorReview extends Component {
     const mentorsList =
       this.props.pendingMentors &&
       this.props.pendingMentors.map(mentor => (
-        <UserListItem key={mentor.id} user={mentor} />
+        <UserListItem key={mentor.id} listUser={mentor} />
       ));
 
     //checks if user type should be able to view this page
-    let isAuthorized = () => {
+    let isAdmin = () => {
       return (this.props.user.access_id === 4)
     }
 
     return (
       <Paper>
-        {isAuthorized() ?
+        {isAdmin() ?
           <TwoColumnLayout leftHeader="Pending Mentors" rightHeader="Details">
             <List>{mentorsList}</List>
             {this.props.selectedUser.id ? (
@@ -93,10 +93,10 @@ class MentorReview extends Component {
                 <Grid item xs={12}>
                   <Typography variant="subtitle1">Admin Review Actions:</Typography>
                   <div className={classes.buttonContainer}>
-                    <Button className={classes.button} onClick={this.declineMentor}>
+                    <Button variant="contained" color="secondary" className={classes.button} onClick={this.declineMentor}>
                       Decline
                 </Button>
-                    <Button className={classes.button} onClick={this.approveMentor}>
+                    <Button variant="contained" color="primary" className={classes.button} onClick={this.approveMentor}>
                       Approve
                 </Button>
                   </div>

@@ -32,22 +32,22 @@ function EditProfile(props) {
         setUser(reduxUser);
     }, [reduxUser]);
 
-	const editStudentInfo = () => {
-		console.log('handleClick saveSkills operations');
-		console.log('this is state on didMount', user);
-		Swal.fire({
-			position: 'center',
-			type: 'success',
-			title: 'Your profile has been edited',
-			showConfirmButton: false,
-			timer: 1500
-		})
-		dispatch({
-			type: 'EDIT_USER_INFO',
-			payload: user
-		});
-		props.toggleEdit();
-	};
+    const editStudentInfo = () => {
+        console.log('handleClick saveSkills operations');
+        console.log('this is state on didMount', user);
+        Swal.fire({
+            position: 'center',
+            type: 'success',
+            title: 'Your profile has been edited',
+            showConfirmButton: false,
+            timer: 1500
+        })
+        dispatch({
+            type: 'EDIT_USER_INFO',
+            payload: user
+        });
+        props.toggleEdit();
+    };
 
     return (
         <Grid className={classes.root} container spacing={4} justify="space-around">

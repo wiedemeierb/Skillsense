@@ -81,7 +81,7 @@ class JobSearch extends Component {
 
   render() {
     //checks if user type should be able to view this page
-    let isAuthorized = () => {
+    let isStudent = () => {
       return this.props.user.access_id === 1;
     };
 
@@ -102,50 +102,50 @@ class JobSearch extends Component {
     });
 
     return (
-        <OneColumnLayout header="Search for Jobs">
-          {isAuthorized() ? (
-            <div>
-              <Paper className="search">
-                <FormControl className={classes.formControl}>
-                  <FormGroup row={true} className="search">
-                    {/* Search Job input field */}
-                    <TextField
-                      className={classes.formControl}
-                      onChange={this.handleSearch}
-                      value={this.state.searchTerm}
-                      label="Search Jobs"
-                    />
-                    {/* Skill select for search */}
-                    <Select
-                      className={classes.select}
-                      value={this.state.skill}
-                      onChange={this.handleDropdown}
-                    >
-                      <MenuItem value={0}>Select Skill</MenuItem>
-                      {/* Skill tag list dropdown options */}
-                      {skillList}
-                    </Select>
+      <OneColumnLayout header="Search for Jobs">
+        {isStudent() ? (
+          <div>
+            <Paper className="search">
+              <FormControl className={classes.formControl}>
+                <FormGroup row={true} className="search">
+                  {/* Search Job input field */}
+                  <TextField
+                    className={classes.formControl}
+                    onChange={this.handleSearch}
+                    value={this.state.searchTerm}
+                    label="Search Jobs"
+                  />
+                  {/* Skill select for search */}
+                  <Select
+                    className={classes.select}
+                    value={this.state.skill}
+                    onChange={this.handleDropdown}
+                  >
+                    <MenuItem value={0}>Select Skill</MenuItem>
+                    {/* Skill tag list dropdown options */}
+                    {skillList}
+                  </Select>
 
-                    {/* Submit Search Button */}
-                    <IconButton
-                      className={classes.button}
-                      aria-label="search"
-                      color="primary"
-                      onClick={this.submitSearch}
-                    >
-                      <SearchIcon />
-                    </IconButton>
-                  </FormGroup>
-                </FormControl>
-              </Paper>
+                  {/* Submit Search Button */}
+                  <IconButton
+                    className={classes.button}
+                    aria-label="search"
+                    color="primary"
+                    onClick={this.submitSearch}
+                  >
+                    <SearchIcon />
+                  </IconButton>
+                </FormGroup>
+              </FormControl>
+            </Paper>
 
-              {/* Job Search List */}
-              <div className="list">{jobList}</div>
-            </div>
-          ) : (
+            {/* Job Search List */}
+            <div className="list">{jobList}</div>
+          </div>
+        ) : (
             <Typography>You are not authorized to view this page.</Typography>
           )}
-        </OneColumnLayout>
+      </OneColumnLayout>
     );
   }
 }

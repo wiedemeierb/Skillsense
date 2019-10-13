@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
+import { Chip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -17,9 +17,12 @@ function SkillList(props) {
 	return (
 		<>
 			{props.skillList && props.skillList.map((skill) => (
-				<Typography key={skill.id} variant='body2' className={classes.skillTag}>
-					{skill.tag}
-				</Typography>
+				// <Typography key={skill.id} variant='body2' className={classes.skillTag}>
+				// 	{skill.tag}
+				// </Typography>
+				<Chip key={skill.id}
+					color="secondary" label={skill.tag} className={classes.skillTag}
+				/>
 			))}
 		</>
 	);

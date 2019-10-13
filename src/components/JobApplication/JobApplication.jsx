@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Typography, TextField, Button, Link, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import SkillList from '../SkillList/SkillList';
-import UserListItem from '../UserListItem/UserListItem';
+// import UserListItem from '../UserListItem/UserListItem';
 import Swal from 'sweetalert2'
 
 const styles = theme => ({
@@ -64,7 +64,10 @@ class JobApplication extends Component {
 						...this.state,
 						job_id: Number(this.props.match.params.id)
 					}
-				});}})};
+				});
+			}
+		})
+	};
 
 	handleUploadInputChange = e => {
 		console.log(e.target.files[0])
@@ -73,7 +76,7 @@ class JobApplication extends Component {
 
 	render() {
 		const { classes } = this.props;
-		let isAuthorized = () => {
+		let isStudent = () => {
 			return this.props.user.access_id === 1;
 		};
 		return (
@@ -83,10 +86,10 @@ class JobApplication extends Component {
 				justify='space-around'
 				alignItems='center'
 				className={classes.root}>
-				{isAuthorized() ? (
+				{isStudent() ? (
 					<Grid item container justify='space-around' spacing={4} xs={12}>
 						<Grid item xs={12}>
-							<Typography color='secondary' variant='h3' align='center'>
+							<Typography variant='h3' align='center'>
 								Job Application
 							</Typography>
 						</Grid>
@@ -95,7 +98,7 @@ class JobApplication extends Component {
 							<Typography color='primary' variant='h4'>
 								{this.props.job.position_title}
 							</Typography>
-							<Typography color='primary' variant='h6'>
+							<Typography color='secondary' variant='h6'>
 								{this.props.job.project_title}
 							</Typography>
 						</Grid>
@@ -153,23 +156,23 @@ class JobApplication extends Component {
 							container
 							direction='column'
 							xs={12}>
-							{this.props.mentors.map((user, index) => {
+							{this.props.mentors.map((listUser) => {
 								return (
-									<Grid item xs={12}>
+									<Grid key={listUser.id} item xs={12}>
 										<Typography>Matching Skills: 3</Typography>
-										<Typography>{user.username}</Typography>
+										<Typography>{listUser.username}</Typography>
 									</Grid>
 									// <div
-									// 	key={index}
-									// 	value={user.id}
+									// 	key={listUser.id}
+									// 	value={listUser.id}
 									// 	onChange={event => {
 									// 		this.handleInput(event, 'mentor_id');
 									// 	}}>
-									// 	<Typography>{user.username}</Typography>
-									// 	<Typography>{user.focus_skill}</Typography>
+									// 	<Typography>{listUser.username}</Typography>
+									// 	<Typography>{listUser.focus_skill}</Typography>
 									// 	<Typography>
-									// 		<span>{user.skills.length}</span> Matching Skill
-									// 		{user.skills.length > 1 && 's'}
+									// 		<span>{listUser.skills.length}</span> Matching Skill
+									// 		{listUser.skills.length > 1 && 's'}
 									// 	</Typography>
 									// </div>
 								);
@@ -209,8 +212,8 @@ class JobApplication extends Component {
 						</Grid>
 					</Grid>
 				) : (
-					<Typography>You are not authorized to view this page.</Typography>
-				)}
+						<Typography>You are not authorized to view this page.</Typography>
+					)}
 			</Grid>
 		);
 	}

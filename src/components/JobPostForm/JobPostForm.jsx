@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import { OutlinedInput, Button, Typography, Grid, Paper, List, ListItem, ListItemText } from '@material-ui/core';
+import { TextField, Button, Typography, Grid, Paper, List, ListItem, ListItemText } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
@@ -12,7 +12,12 @@ const styles = theme => ({
         width: 200,
         height: 230,
         overflow: 'scroll',
-    }
+    },
+    formControl: {
+        margin: theme.spacing(0),
+        padding: theme.spacing(0),
+        minWidth: 200
+    },
 });
 
 class JobPostForm extends Component {
@@ -21,7 +26,7 @@ class JobPostForm extends Component {
         position_title: '',
         description: '',
         duration: '',
-        budget: 0,
+        budget: '',
         mentor_required: true,
         status_id: 1,
         client_id: 0,
@@ -108,19 +113,19 @@ class JobPostForm extends Component {
             ));
 
         //checks if user type should be able to view this page
-        let isAuthorized = () => {
+        let isClient = () => {
             return (this.props.user.access_id === 3)
         }
 
         return (
             <Paper>
-                {isAuthorized() ?
+                {isClient() ?
                     <form onSubmit={this.handleSubmit}>
-                        <OutlinedInput type="text" title="Project Name" placeholder="Project Name" value={this.state.project_title} onChange={(event) => { this.handleInput(event, 'project_title') }} required={true} />
-                        <OutlinedInput type="text" title="Seeking Position" placeholder="Seeking Position" value={this.state.position_title} onChange={(event) => { this.handleInput(event, 'position_title') }} required={true} />
-                        <OutlinedInput type="text" title="Project Description" placeholder="Project Description" value={this.state.description} onChange={(event) => { this.handleInput(event, 'description') }} required={true} />
-                        <OutlinedInput type="text" title="Project Duration" placeholder="Project Duration" value={this.state.duration} onChange={(event) => { this.handleInput(event, 'duration') }} required={true} />
-                        <OutlinedInput type="text" title="Project Budget" placeholder="Project Budget" value={this.state.budget} onChange={(event) => { this.handleInput(event, 'budget') }} required={true} />
+                        <TextField className={classes.formControl} label="Project Name" helperText="Project Name" value={this.state.project_title} onChange={(event) => { this.handleInput(event, 'project_title') }} required={true} />
+                        <TextField className={classes.formControl} label="Seeking Position" helperText="Seeking Position" value={this.state.position_title} onChange={(event) => { this.handleInput(event, 'position_title') }} required={true} />
+                        <TextField className={classes.formControl} label="Project Description" helperText="Project Description" value={this.state.description} onChange={(event) => { this.handleInput(event, 'description') }} required={true} />
+                        <TextField className={classes.formControl} label="Project Duration" helperText="Project Duration" value={this.state.duration} onChange={(event) => { this.handleInput(event, 'duration') }} required={true} />
+                        <TextField className={classes.formControl} label="Project Budget" helperText="Project Budget" value={this.state.budget} onChange={(event) => { this.handleInput(event, 'budget') }} required={true} />
                         {/* <input type="checkbox" label="Mentor required" title="Mentor Required" placeholder="Mentor Required" value={this.state.mentor_required} onChange={(event) => { this.handleInput(event, 'mentor_required') }} /> */}
                         <br />
                         <Typography>Skill Tags</Typography>

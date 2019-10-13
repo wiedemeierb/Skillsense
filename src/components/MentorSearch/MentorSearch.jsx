@@ -78,7 +78,7 @@ class MentorSearch extends Component {
 
     //uses the UserListItem component to render the mentor search results
     let mentorList = this.props.mentors.map((mentor, i) => {
-      return <UserListItem key={i} user={mentor} />;
+      return <UserListItem key={i} listUser={mentor} />;
     });
 
     //renders the list of available skills within the dropdown
@@ -90,56 +90,66 @@ class MentorSearch extends Component {
       );
     });
 
-    return (
-      <TwoColumnLayout rightHeader="Details" leftHeader="Search for Mentors">
-        <div>
-          <Paper className="search">
-            <FormControl className={classes.formControl}>
-              <FormGroup row={true} className="search">
-                <TextField
-                  className={classes.formControl}
-                  onChange={e => this.handleSearch('searchTerm', e)}
-                  value={this.state.searchTerm}
-                  label="Search Mentors"
-                />
+    //checks if user type should be able to view this page
+    let isStudent = () => {
+      return this.props.user.access_id === 1;
+    };
 
-                <Select
-                  className={classes.select}
-                  value={this.state.search.skill}
-                  onChange={e => this.handleSearch('skill', e)}
-                >
-                  <MenuItem value={0}>Select Skill</MenuItem>
-                  {/* Skill tag list dropdown options */}
-                  {skillList}
-                </Select>
+    return (<div>
+      {isStudent() ? (
+        <TwoColumnLayout rightHeader="Details" leftHeader="Search for Mentors">
+          <div>
+            <Paper className="search">
+              <FormControl className={classes.formControl}>
+                <FormGroup row={true} className="search">
+                  <TextField
+                    className={classes.formControl}
+                    onChange={e => this.handleSearch('searchTerm', e)}
+                    value={this.state.searchTerm}
+                    label="Search Mentors"
+                  />
 
-                <IconButton
-                  className={classes.button}
-                  aria-label="search"
-                  color="primary"
-                  onClick={this.submitSearch}
-                >
-                  <SearchIcon />
-                </IconButton>
-              </FormGroup>
-            </FormControl>
-          </Paper>
+                  <Select
+                    className={classes.select}
+                    value={this.state.search.skill}
+                    onChange={e => this.handleSearch('skill', e)}
+                  >
+                    <MenuItem value={0}>Select Skill</MenuItem>
+                    {/* Skill tag list dropdown options */}
+                    {skillList}
+                  </Select>
 
-          {/* Mentor Search List */}
-          <div className="list">{mentorList}</div>
-        </div>
+                  <IconButton
+                    className={classes.button}
+                    aria-label="search"
+                    color="primary"
+                    onClick={this.submitSearch}
+                  >
+                    <SearchIcon />
+                  </IconButton>
+                </FormGroup>
+              </FormControl>
+            </Paper>
 
-        <div>
-          {this.props.selectedUser.id ? (
-            <PublicProfile />
-          ) : (
-              <Typography variant="h6" align="center">
-                Select a mentor to see more information.
+            {/* Mentor Search List */}
+            <div className="list">{mentorList}</div>
+          </div>
+
+          <div>
+            {this.props.selectedUser.id ? (
+              <PublicProfile />
+            ) : (
+                <Typography variant="h6" align="center">
+                  Select a mentor to see more information.
             </Typography>
-            )}
-        </div>
-      </TwoColumnLayout>
-    );
+              )}
+          </div>
+        </TwoColumnLayout>
+      ) : (
+          <Typography>You are not authorized to view this page.</Typography>
+        )}        </div>
+
+    )
   }
 }
 
