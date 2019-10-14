@@ -76,7 +76,7 @@ class MyMentorships extends Component {
                       <Button variant="contained" color="primary" onClick={this.acceptMentorship}>Accept</Button>
                       <Button variant="contained" color="secondary" onClick={this.declineMentorship}>Decline</Button>
                     </div>
-                    : null
+                    : <Button variant="contained" color="primary">Send Message</Button>
                   }
                 </div>
               ) : (
