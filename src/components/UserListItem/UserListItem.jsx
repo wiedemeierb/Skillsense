@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 //COMPONENT IMPORTS
 // import SkillList from '../SkillList/SkillList';
-// import MentorRequest from '../MentorRequest/MentorRequest';
 
 //MATERIAL-UI IMPORTS
 import { withStyles } from '@material-ui/core/styles';
@@ -42,7 +41,6 @@ class UserListItem extends Component {
                 type: 'FETCH_APPLICATION',
                 payload: this.props.listUser.id
             });
-            
         } else {
             //dispatch for any other user details
             this.props.dispatch({
@@ -73,7 +71,7 @@ class UserListItem extends Component {
                         {this.props.listUser.username}
                     </Typography>
                     <Typography variant="h6">{this.props.listUser.focus_skill}</Typography>
-                    {/* user skillList if desired on userItem... */}
+                    {/* skillList if needed on userItem... */}
                     {/* {this.props.user.skill_names[0] && (
                         <SkillList skillList={this.props.user.skills} />)} */}
                 </Grid>
@@ -86,12 +84,6 @@ class UserListItem extends Component {
                         onClick={this.viewDetails()}>
                         View Details
                     </Button>
-                    {/* If the user is a mentor, the Request Mentor button will appear in the list row */}
-                    {this.props.user.access_id === 1 &&
-                    this.props.listUser.access_id === 2 &&
-                    this.props.listUser.accepted === undefined ? (
-                        <MentorRequest mentor={this.props.listUser} />
-                    ) : null}
                 </Grid>
             </Grid>
         );
