@@ -33,8 +33,8 @@ function EditProfile(props) {
     }, [reduxUser]);
 
     const editStudentInfo = () => {
-        console.log('handleClick saveSkills operations');
-        console.log('this is state on didMount', user);
+        // console.log('handleClick saveSkills operations');
+        // console.log('this is state on didMount', user);
         Swal.fire({
             position: 'center',
             type: 'success',
@@ -60,7 +60,7 @@ function EditProfile(props) {
                     defaultValue={user.username}
                     fullWidth
                     margin="dense"
-                    variant="outlined"
+                    // variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'username');
                     }}
@@ -74,7 +74,7 @@ function EditProfile(props) {
                     defaultValue={user.focus_skill}
                     fullWidth
                     margin="dense"
-                    variant="outlined"
+                    // variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'focus_skill');
                     }}
@@ -88,7 +88,7 @@ function EditProfile(props) {
                     defaultValue={user.location}
                     fullWidth
                     margin="dense"
-                    variant="outlined"
+                    // variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'location');
                     }}
@@ -102,7 +102,8 @@ function EditProfile(props) {
                     defaultValue={user.bio}
                     fullWidth
                     margin="dense"
-                    variant="outlined"
+                    multiline={true}
+                    // variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'bio');
                     }}
@@ -117,7 +118,7 @@ function EditProfile(props) {
                     defaultValue={user.linkedin_url}
                     fullWidth
                     margin="dense"
-                    variant="outlined"
+                    // variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'linkedin_url');
                     }}
@@ -131,7 +132,7 @@ function EditProfile(props) {
                     defaultValue={user.github_url}
                     fullWidth
                     margin="dense"
-                    variant="outlined"
+                    // variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'github_url');
                     }}
@@ -145,7 +146,7 @@ function EditProfile(props) {
                     defaultValue={user.website_url}
                     fullWidth
                     margin="dense"
-                    variant="outlined"
+                    // variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'website_url');
                     }}
@@ -159,7 +160,7 @@ function EditProfile(props) {
                     defaultValue={user.email}
                     fullWidth
                     margin="dense"
-                    variant="outlined"
+                    // variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'email');
                     }}

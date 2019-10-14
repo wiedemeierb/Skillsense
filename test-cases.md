@@ -132,7 +132,7 @@
  - [ ] All components are using the Ubuntu font
  - [ ] All primary buttons are <Button variant="contained" color="primary">
  - [ ] All secondary (cancel/decline) buttons are <Button variant="contained" color="secondary">
- - [ ] All inputs are <TextField variant="outlined"/> and have a label={} 
+ - [ ] All inputs are <TextField /> and have a label={}
         Other formatting options:
             Required: required attribute, if applicable
             Dropdowns: select attribute
@@ -152,6 +152,8 @@
         This applies to any additional details
  - [ ] Hyperlink text should be  <Typography variant="p" color="primary">
         This applies to any additional details
+ - [ ] All console logs are removed
+ - [ ] Code is appropriately commented
 
 # ACCESSIBILITY/UX
 

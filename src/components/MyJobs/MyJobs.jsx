@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
 import JobTabs from '../JobsTabs/JobTabs';
 import JobListItem from '../JobListItem/JobListItem';
+import {Typography} from '@material-ui/core';
 
 class MyJobs extends Component {
   componentDidMount() {
@@ -27,16 +28,31 @@ class MyJobs extends Component {
       return <JobListItem key={i} job={job} />;
     });
 
+    //checks if user type should be able to view this page
+    let isStudent = () => {
+      return this.props.user.access_id === 1;
+    };
+
+    //checks if user type should be able to view this page
+    let isClient = () => {
+      return this.props.user.access_id === 3;
+    };
+
     return (
-      <OneColumnLayout header="My Jobs">
-        {/* Navigation tabs on Job Page:
+      <div>
+        {isStudent() || isClient() ?
+          <OneColumnLayout header="My Jobs">
+            {/* Navigation tabs on Job Page:
             (Active, Applied, Completed) */}
-        <div>
-          <JobTabs />
-        </div>
-        {/* Selected Job List */}
-        <div className="list">{jobList}</div>
-      </OneColumnLayout>
+            <div>
+              <JobTabs />
+            </div>
+            {/* Selected Job List */}
+            <div className="list">{jobList}</div>
+          </OneColumnLayout >
+
+          : <Typography>You are not authorized to viewthis page</Typography>}
+      </div>
     );
   }
 }

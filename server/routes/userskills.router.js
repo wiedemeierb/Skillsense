@@ -17,7 +17,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 	on
 		"user_tags".tag_id = "skill_tags".id
 	WHERE
-		"user_tags".user_id = $1`;
+		"user_tags".user_id = $1
+	ORDER BY id DESC;`;
 	// console.log(userId)
 	//uses the current logged in user if no user is passed
 	const userId = req.query.id || req.user.id
@@ -46,7 +47,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 	pool
 		.query(sqlText, [tagId, userId])
 		.then(result => {
-			console.log('successful add of user skill into db');
+			// console.log('successful add of user skill into db');
 			res.sendStatus(200);
 		})
 		.catch(error => {
@@ -66,7 +67,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 	pool
 		.query(sqlText, [tagId, userId])
 		.then(result => {
-			console.log('successful delete of user skill from db');
+			// console.log('successful delete of user skill from db');
 			res.sendStatus(204);
 		})
 		.catch(error => {

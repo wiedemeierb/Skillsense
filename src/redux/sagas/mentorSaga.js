@@ -5,7 +5,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 function* fetchAllMentors() {
   try {
     let response = yield axios.get('/api/mentors/all');
-    console.log(response.data);
+    // console.log(response.data);
     yield put({
       type: 'SET_ALL_MENTORS',
       payload: response.data
@@ -23,7 +23,7 @@ function* fetchMentorSearch(action) {
       params: action.payload
     };
     let response = yield axios.get(`/api/mentors/search`, config);
-    console.log(response.data);
+    // console.log(response.data);
     yield put({
       type: 'SET_ALL_MENTORS',
       payload: response.data
@@ -50,7 +50,7 @@ function* sendMentorRequest(action) {
 function* fetchActiveMentors() {
   try {
     let response = yield axios.get('/api/mentors/active');
-    console.log(response.data);
+    // console.log(response.data);
     yield put({
       type: 'SET_ALL_MENTORS',
       payload: response.data
@@ -64,7 +64,7 @@ function* fetchActiveMentors() {
 function* fetchInvitedMentors() {
   try {
     let response = yield axios.get('/api/mentors/invited');
-    console.log(response.data);
+    // console.log(response.data);
     yield put({
       type: 'SET_ALL_MENTORS',
       payload: response.data
@@ -78,7 +78,7 @@ function* fetchInvitedMentors() {
 function* fetchPendingMentors() {
   try {
     let response = yield axios.get('/api/mentors/pending');
-    console.log(response.data);
+    // console.log(response.data);
     yield put({
       type: 'SET_PENDING_MENTORS',
       payload: response.data
