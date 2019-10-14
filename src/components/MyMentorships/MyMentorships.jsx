@@ -70,12 +70,13 @@ class MyMentorships extends Component {
                 <div>
                   <PublicProfile />
                   <br />
-                  {isMentor() &&
+                  {isMentor() && this.props.selectedUser.accepted === false ?
                     <div>
                   <Typography variant="subtitle1">Mentor Actions</Typography>
                       <Button variant="contained" color="primary" onClick={this.acceptMentorship}>Accept</Button>
                       <Button variant="contained" color="secondary" onClick={this.declineMentorship}>Decline</Button>
                     </div>
+                    : null
                   }
                 </div>
               ) : (
