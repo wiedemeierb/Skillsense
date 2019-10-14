@@ -66,7 +66,6 @@ class JobDetail extends Component {
                 <br />
 
                 {isStudent() && this.props.details.hired === null ?
-                {isStudent() && (
 
                     <div>
                         <Typography variant="h5" color="primary">
