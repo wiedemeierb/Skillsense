@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Typography, Paper } from '@material-ui/core';
+import { Grid, Typography} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -15,7 +15,6 @@ const styles = theme => ({
         padding: theme.spacing(1)
     },
     gridItem: {
-        border: '2px solid grey',
         margin: theme.spacing(1),
         padding: theme.spacing(1),
         height: '70vh',
@@ -57,7 +56,6 @@ class OneColumnLayout extends Component {
                     <Grid
                         className={classes.gridItem}
                         item
-                        component={Paper}
                         xs={12}>
                         {/* CONTENT ENCLOSED IN COMPONENT FROM PAGE */}
                         {this.props.children}
