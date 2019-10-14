@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-
+import Swal from 'sweetalert2'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -22,6 +22,12 @@ export default function FormDialog(props) {
 
   //When the action buttons within the modal are clicked, the modal closes
   const handleClose = () => {
+    Swal.fire({
+      position: 'center',
+      type: 'success',
+      title: 'Your Mentorship request has been sent!',
+      timer: 1500
+    })
     setOpen(false);
   };
 

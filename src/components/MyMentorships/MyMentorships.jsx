@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2'
 
 //COMPONENT IMPORTS
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
@@ -25,6 +26,13 @@ class MyMentorships extends Component {
 
   //sends put request to the database to update the relationship to accepted: true
   acceptMentorship = () => {
+    Swal.fire({
+      position: 'center',
+      type: 'success',
+      title: 'You have accepted this Mentee',
+      showConfirmButton: false,
+      timer: 1500
+    })
     this.props.dispatch({
       type: 'ACCEPT_MENTORSHIP',
       payload: { student_id: this.props.selectedUser.id }
@@ -33,6 +41,11 @@ class MyMentorships extends Component {
 
   //sends delete request to the database to remove the relationship to decline
   declineMentorship = () => {
+    Swal.fire({
+      type: 'error',
+      title: 'You have declined this Mentorship!',
+      timer: 1500
+    })
     this.props.dispatch({
       type: 'DECLINE_MENTORSHIP',
       payload: { student_id: this.props.selectedUser.id }

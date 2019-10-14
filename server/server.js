@@ -15,6 +15,7 @@ const messageRouter = require('./routes/message.router');
 const userSkillsRouter = require('./routes/userskills.router');
 const emailRouter = require('./routes/email.router');
 const infoRouter = require('./routes/info.router');
+const applicantRouter = require('./routes/applicant.router');
 //upload controller for getting the signed url from aws
 const aws_sign = require('./upload/controller/controller');
 
@@ -41,6 +42,7 @@ app.use('/api/userskills', userSkillsRouter);
 app.use('/api/email', emailRouter);
 app.use('/api/info', infoRouter);
 app.use('/api/upload', aws_sign.sign_s3);
+app.use('/api/applicants', applicantRouter);
 
 // Serve static files
 app.use(express.static('build'));
@@ -50,5 +52,5 @@ const PORT = process.env.PORT || 5000;
 
 /** Listen * */
 app.listen(PORT, () => {
-	console.log(`Listening on port: ${PORT}`);
+    console.log(`Listening on port: ${PORT}`);
 });

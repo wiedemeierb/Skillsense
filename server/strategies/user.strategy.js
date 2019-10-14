@@ -45,7 +45,7 @@ passport.use(
 			.query(`SELECT * FROM users JOIN (SELECT id as access_id, user_type FROM user_type) AS user_types ON user_types.access_id = users.access_id WHERE users.email = $1;`, [email])
 			.then(result => {
 				const user = result && result.rows && result.rows[0];
-				console.log('created user: ', user)
+				// console.log('created user: ', user)
 				if (user && encryptLib.comparePassword(password, user.password)) {
 					// All good! Passwords match!
 					// done takes an error (null in this case) and a user
