@@ -9,6 +9,7 @@ import skillSaga from './skillSaga';
 import userskillsSaga from './userskillsSaga';
 import adminSaga from './adminSaga';
 import uploadSaga from './uploadSaga';
+import applicantSaga from './applicantSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -18,16 +19,17 @@ import uploadSaga from './uploadSaga';
 // the registration triggers a login
 // and login triggers setting the user
 export default function* rootSaga() {
-	yield all([
-		loginSaga(),
-		registrationSaga(),
-		userSaga(),
-		jobSaga(),
-		mentorSaga(),
-		messageSaga(),
-		skillSaga(),
-		userskillsSaga(),
-		adminSaga(),
-		uploadSaga()
-	]);
+    yield all([
+        loginSaga(),
+        registrationSaga(),
+        userSaga(),
+        jobSaga(),
+        mentorSaga(),
+        messageSaga(),
+        skillSaga(),
+        userskillsSaga(),
+        adminSaga(),
+        uploadSaga(),
+        applicantSaga()
+    ]);
 }

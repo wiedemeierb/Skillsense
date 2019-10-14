@@ -1,67 +1,90 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Typography, Button } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
+//COMPONENT IMPORTS
 import SkillList from '../SkillList/SkillList';
-
+//MATERIAL-UI IMPORTS
+import { Typography, Button } from '@material-ui/core';
 
 class JobDetail extends Component {
-
     componentDidMount() {
         this.props.dispatch({
             type: 'FETCH_JOB_DETAIL',
             payload: { id: Number(this.props.match.params.id) }
-        })
+        });
     }
     //find route to apply for this job.
-    applyNow = (id) => {
-        this.props.history.push(`/jobs/detail/apply/${this.props.match.params.id}`)
-    }
+    applyNow = () => {
+        this.props.history.push(`/jobs/detail/apply/${this.props.match.params.id}`);
+    };
+
+    viewApplicants = () => {
+        this.props.history.push(`/jobs/detail/applications/${this.props.match.params.id}`);
+    };
 
     render() {
-        let { details } = this.props
+        let { details } = this.props;
 
         //checks if user type should be able to view this element
         let isStudent = () => {
-            return (this.props.user.access_id === 1)
-        }
-
-        // //checks if user type should be able to view this element
-        // let isClient = () => {
-        //     return (this.props.user.access_id === 3)
-        // }
+            return this.props.user.access_id === 1;
+        };
+        let isClient = () => {
+            return this.props.user.access_id === 3;
+        };
 
         return (
             <div>
                 <br />
-                <Typography variant='h3' align='center'>Job Details</Typography>
+                <Typography variant="h3" align="center">
+                    Job Details
+                </Typography>
                 <br />
-                <Typography variant="h2" color="primary">{details.project_title}</Typography>
+                <Typography variant="h2" color="primary">
+                    {details.project_title}
+                </Typography>
                 <br />
-                <Typography variant="h4" color="secondary">{details.username}</Typography>
+                <Typography variant="h4" color="secondary">
+                    {details.username}
+                </Typography>
                 <br />
                 <Typography>Seeking: {details.position_title}</Typography>
                 <Typography>Location: {details.location}</Typography>
                 <Typography>Duration: {details.duration}</Typography>
                 <Typography>Budget: {details.budget}</Typography>
                 <br />
-                <Typography variant="h5" color="primary">Description:</Typography>
+                <Typography variant="h5" color="primary">
+                    Description:
+                </Typography>
                 <Typography>{details.description}</Typography>
                 <br />
-                <Typography variant="h5" color="primary">Desired Skills:</Typography>
+                <Typography variant="h5" color="primary">
+                    Desired Skills:
+                </Typography>
                 <SkillList skillList={details.skills} />
                 <br />
                 <br />
-                {isStudent() &&
+                {isStudent() && (
                     <div>
-                        <Typography variant="h5" color="primary">Application:</Typography>
+                        <Typography variant="h5" color="primary">
+                            Application:
+                        </Typography>
                         <Typography>Name: {this.props.user.username}</Typography>
                         <Typography>Focus Skill: {this.props.user.focus_skill}</Typography>
                         <Typography>Location: {this.props.user.location}</Typography>
-                        <Button variant="contained" color="primary" onClick={this.applyNow}>Apply</Button>
-                    </div>}
+                        <Button variant="contained" color="primary" onClick={this.applyNow}>
+                            Apply
+                        </Button>
+                    </div>
+                )}
+                {isClient() && (
+                    <Button variant="contained" color="primary" onClick={this.viewApplicants}>
+                        View Applicants
+                    </Button>
+                )}
                 {/* {isClient() && <ApplicantsList/>} */}
             </div>
-        )
+        );
     }
 }
 
@@ -69,7 +92,7 @@ const mapStateToProps = state => ({
     user: state.user,
     skills: state.allSkillsReducer,
     selectedUserSkills: state.userSkillsReducer,
-    details: state.selectedJobReducer,
+    details: state.selectedJobReducer
 });
 
-export default connect(mapStateToProps)(JobDetail);
+export default withRouter(connect(mapStateToProps)(JobDetail));
