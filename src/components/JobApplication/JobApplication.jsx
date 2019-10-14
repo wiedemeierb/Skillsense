@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Typography, TextField, Button, Link, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import SkillList from '../SkillList/SkillList';
-// import UserListItem from '../UserListItem/UserListItem';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 const styles = theme => ({
 	root: {
@@ -16,8 +15,20 @@ const styles = theme => ({
 		padding: theme.spacing(0)
 	},
 	mentorList: {
-		overFlow: 'scroll',
-		maxWidth: '100vw'
+		// position: 'relative',
+		overflow: 'scroll'
+		// maxWidth: '80%'
+	},
+	mentorListItem: {
+		display: 'inline',
+		minWidth: '15vw',
+		padding: theme.spacing(1),
+		margin: theme.spacing(1)
+	},
+	matchingSkills: {
+		display: 'inline',
+		padding: theme.spacing(1)
+
 	}
 });
 class JobApplication extends Component {
@@ -56,7 +67,7 @@ class JobApplication extends Component {
 			confirmButtonColor: '#04b8f3',
 			cancelButtonColor: '#505d68',
 			confirmButtonText: 'Yes, submit it!'
-		}).then((result) => {
+		}).then(result => {
 			if (result.value) {
 				this.props.dispatch({
 					type: 'SUBMIT_APPLICATION',
@@ -66,7 +77,7 @@ class JobApplication extends Component {
 					}
 				});
 			}
-		})
+		});
 	};
 
 	handleUploadInputChange = e => {
@@ -74,11 +85,21 @@ class JobApplication extends Component {
 		this.setState({ file: e.target.files[0] });
 	};
 
+	sortMentors = (mentors, jobSkills) => {
+		mentors.forEach(mentor => {
+			mentor.matchingSkillCount = mentor.skills.filter(tag =>
+				jobSkills.map(skill => skill.id).includes(tag.id)
+			).length;
+		});
+		return mentors.sort((a, b) => b.matchingSkillCount - a.matchingSkillCount);
+	};
+
 	render() {
 		const { classes } = this.props;
 		let isStudent = () => {
 			return this.props.user.access_id === 1;
 		};
+
 		return (
 			<Grid
 				container
@@ -148,34 +169,41 @@ class JobApplication extends Component {
 								{/* Mentor Info */}
 							</Grid>
 						</Grid>
-						<Typography variant='h6'>Invite a Mentor</Typography>
+						<Typography variant='h6'>Invite one of Your Mentors</Typography>
 						<Grid
 							className={classes.mentorList}
 							item
 							container
 							direction='column'
 							xs={12}>
-							{this.props.mentors.map((listUser) => {
-								return (
-									<Grid key={listUser.id} item xs={12}>
-										<Typography>Matching Skills: 3</Typography>
-										<Typography>{listUser.username}</Typography>
-									</Grid>
-									// <div
-									// 	key={listUser.id}
-									// 	value={listUser.id}
-									// 	onChange={event => {
-									// 		this.handleInput(event, 'mentor_id');
-									// 	}}>
-									// 	<Typography>{listUser.username}</Typography>
-									// 	<Typography>{listUser.focus_skill}</Typography>
-									// 	<Typography>
-									// 		<span>{listUser.skills.length}</span> Matching Skill
-									// 		{listUser.skills.length > 1 && 's'}
-									// 	</Typography>
-									// </div>
-								);
-							})}
+							{this.props.mentors &&
+								this.props.job &&
+								this.sortMentors(this.props.mentors, this.props.job.skills).map(
+									listUser => {
+										return (
+											<Grid className={classes.mentorListItem} item xs={12}>
+												<Typography color='primary' variant='h5'>
+													{listUser.username}
+												</Typography>
+												<Typography variant='h6'>
+													{listUser.focus_skill}
+												</Typography>
+												<Typography
+													style={{'display': 'inline'}}
+													variant='subtitle2'>
+													Matching Skills:
+												</Typography>
+												<Typography
+													className={classes.matchingSkills}
+													variant='h6'
+													color='primary'
+													>
+													{listUser.matchingSkillCount}
+												</Typography>
+											</Grid>
+										);
+									}
+								)}
 						</Grid>
 						<br />
 						{/* User Info */}
@@ -188,9 +216,7 @@ class JobApplication extends Component {
 								<Link href={this.props.user.github_url}>GitHub Profile</Link>
 							</Typography>
 							<Typography className={classes.link}>
-								<Link href={this.props.user.linkedin_url}>
-									LinkedIn Profile
-								</Link>
+								<Link href={this.props.user.linkedin_url}>LinkedIn Profile</Link>
 							</Typography>
 							{this.props.user.website_url && (
 								<Typography className={classes.link}>
@@ -202,17 +228,14 @@ class JobApplication extends Component {
 						</Grid>
 						{/* <Button variant="contained" color="secondary" onClick={this.props.history.push('/search/jobs')}>Cancel</Button> */}
 						<Grid item xs={12}>
-							<Button
-								variant='contained'
-								color='primary'
-								onClick={this.handleSubmit}>
+							<Button variant='contained' color='primary' onClick={this.handleSubmit}>
 								Submit
 							</Button>
 						</Grid>
 					</Grid>
 				) : (
-						<Typography>You are not authorized to view this page.</Typography>
-					)}
+					<Typography>You are not authorized to view this page.</Typography>
+				)}
 			</Grid>
 		);
 	}
