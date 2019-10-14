@@ -10,32 +10,34 @@ const router = express.Router();
 /** GET (ALL) ROUTE FOR APPROVED MENTORS **/
 router.get('/all', rejectUnauthenticated, (req, res) => {
 	const queryText = `
-    SELECT
+SELECT
       "users".id,
       "username",
       "access_id",
       "focus_skill",
       array_agg("skill_tags".id) AS "skill_ids",
-	  array_agg("skill_tags".tag) AS "skill_names"
+        array_agg("skill_tags".tag) AS "skill_names",
+        requested.accepted
     FROM "users"
     LEFT JOIN "user_tags"
-	  ON "users".id = "user_tags".user_id
+      ON "users".id = "user_tags".user_id
     LEFT JOIN "skill_tags"
       ON "skill_tags".id = "user_tags".tag_id
     LEFT JOIN "mentor_status"
       ON "mentor_status".id = "users".approved_mentor
     LEFT JOIN "user_type"
-      ON "user_type".id = "users".access_id
+            ON "user_type".id = "users".access_id
+        LEFT JOIN (SELECT * FROM student_mentor WHERE student_id = $1) AS "requested"
+            ON requested.mentor_id = users.id
     WHERE
       "user_type".user_type ILIKE 'Mentor'
         AND
-	  "mentor_status".mentor_status ILIKE 'Approved'
-	GROUP BY "users"."id"
-	ORDER BY "id" DESC;
+        "mentor_status".mentor_status ILIKE 'Approved'
+    GROUP BY "users"."id", requested.accepted
+    ORDER BY "id" DESC;
 	`;
-
 	pool
-		.query(queryText)
+		.query(queryText, [req.user.id])
 		.then(result => {
 			result.rows.forEach(row => {
 				row.skills = row.skill_ids.map((id, index) => {
@@ -144,7 +146,8 @@ router.get('/invited', rejectUnauthenticated, (req, res) => {
       "student_mentor".student_id = $1
         AND
       "accepted" = false
-    GROUP BY "users"."id", "student_mentor"."accepted";
+	GROUP BY "users"."id", "student_mentor"."accepted"
+	ORDER BY "users"."id" DESC;
     `;
 		} else if (req.user.user_type === 'Mentor') {
 			return `
@@ -206,31 +209,35 @@ router.get('/search/', rejectUnauthenticated, (req, res) => {
 	const searchSkill = req.query.skill != 0 ? Number(req.query.skill) : 0;
 
 	const queryStart = `
-  SELECT
-    "users".id,
-    "username",
-    "access_id",
-    "location",
-    "focus_skill",
-    array_agg("skill_tags".id) AS "skill_ids",
-	array_agg("skill_tags".tag) AS "skill_names" FROM "users"
-  LEFT JOIN "user_tags"
-    ON "users".id = "user_tags".user_id
-  LEFT JOIN "skill_tags"
-    ON "skill_tags".id = "user_tags".tag_id
-  LEFT JOIN "mentor_status"
-	  ON "mentor_status".id = "users".approved_mentor
-	LEFT JOIN "user_type"
-      ON "user_type".id = "users".access_id
-  WHERE
-    "user_type".user_type ILIKE 'Mentor'
-      AND
-    "mentor_status".mentor_status ILIKE 'Approved'
+SELECT
+      "users".id,
+      "username",
+      "access_id",
+      "focus_skill",
+      array_agg("skill_tags".id) AS "skill_ids",
+        array_agg("skill_tags".tag) AS "skill_names",
+        requested.accepted
+    FROM "users"
+    LEFT JOIN "user_tags"
+      ON "users".id = "user_tags".user_id
+    LEFT JOIN "skill_tags"
+      ON "skill_tags".id = "user_tags".tag_id
+    LEFT JOIN "mentor_status"
+      ON "mentor_status".id = "users".approved_mentor
+    LEFT JOIN "user_type"
+            ON "user_type".id = "users".access_id
+        LEFT JOIN (SELECT * FROM student_mentor WHERE student_id = $1) AS "requested"
+            ON requested.mentor_id = users.id
+    WHERE
+      "user_type".user_type ILIKE 'Mentor'
+        AND
+        "mentor_status".mentor_status ILIKE 'Approved'
   `;
 
-	const queryInput = ` AND "username" ILIKE $1`;
-	const querySkill = ` AND "tag_id" = $2`;
-	const queryEnd = ` GROUP BY "users"."id" ORDER BY "id" DESC;`;
+	const queryInput = ` AND "username" ILIKE $2`;
+	const querySkill = ` AND "tag_id" = $3`;
+	const queryEnd = ` GROUP BY "users"."id", requested.accepted
+    ORDER BY "id" DESC;`;
 
 	const queryText = () => {
 		if (searchSkill !== 0) {
@@ -242,9 +249,9 @@ router.get('/search/', rejectUnauthenticated, (req, res) => {
 
 	const queryParams = () => {
 		if (searchSkill) {
-			return [searchTerm, searchSkill];
+			return [req.user.id, searchTerm, searchSkill];
 		} else {
-			return [searchTerm];
+			return [req.user.id, searchTerm];
 		}
 	};
 
