@@ -64,10 +64,14 @@ class JobApplication extends Component {
 						...this.state,
 						job_id: Number(this.props.match.params.id)
 					}
-				});
+				});this.props.history.push(`/jobs/detail/${this.props.match.params.id}`)
 			}
 		})
 	};
+
+	// viewDetail = (event, id) => {
+	// 	this.props.history.push(`/jobs/detail/${id}`);
+	// };
 
 	handleUploadInputChange = e => {
 		// console.log(e.target.files[0])

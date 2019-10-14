@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+
 //COMPONENT IMPORTS
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import UserListItem from '../UserListItem/UserListItem';
