@@ -100,6 +100,8 @@ function EditProfile(props) {
                     id="outlined-required"
                     label="Bio"
                     defaultValue={user.bio}
+                    multiline
+                    rows="6"
                     fullWidth
                     margin="dense"
                     variant="outlined"

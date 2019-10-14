@@ -7,14 +7,14 @@ import PublicProfile from '../PublicProfile/PublicProfile';
 import EditProfile from '../EditProfile/EditProfile';
 
 //MATERIAL-UI IMPORTS
-import { Button, Typography } from '@material-ui/core';
+import { Grid, Button, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
     button: {
         display: 'block',
-        margin: theme.spacing(1),
-        padding: theme.spacing(1)
+        padding: theme.spacing(1),
+        color: 'white'
     },
     statusBadge: {
         display: 'block',
@@ -76,43 +76,60 @@ class UserPage extends Component {
     render() {
         const { classes } = this.props;
 
-        const mentorSectionHtml = ()=>{
-            if(this.props.user.access_id === 2){
-                if(this.props.user.approved_mentor === 3){
-                    return <Typography className={classes.statusBadge}>Approved by Admin</Typography>
+        const mentorSectionHtml = () => {
+            if (this.props.user.access_id === 2) {
+                if (this.props.user.approved_mentor === 3) {
+                    return (
+                        <Typography className={classes.statusBadge}>Approved by Admin</Typography>
+                    );
                 } else if (this.props.user.approved_mentor === 2) {
-                    return <Typography className={classes.statusBadge}>Pending Admin Approval</Typography>
+                    return (
+                        <Typography className={classes.statusBadge}>
+                            Pending Admin Approval
+                        </Typography>
+                    );
                 } else {
-                    return <Button className={classes.statusBadge} variant="contained" color="secondary" onClick={this.submitForReview}>
-                        Submit For Admin Review
-                    </Button>
+                    return (
+                        <Button
+                            className={classes.statusBadge}
+                            variant="contained"
+                            color="secondary"
+                            onClick={this.submitForReview}>
+                            Submit For Admin Review
+                        </Button>
+                    );
                 }
             } else {
-                return null
+                return null;
             }
-        }
+        };
 
         return (
             <OneColumnLayout header="Your Profile">
-                <div>
-                    {this.state.inEditMode ? (
-                        <EditProfile
-                            user={this.props.user}
-                            skills={this.props.skills}
-                            toggleEdit={this.toggleEdit}
-                        />
-                    ) : (
-                        <PublicProfile user={this.props.user} />
-                    )}
-                    <Button
-                        variant="contained"
-                        color={this.state.inEditMode ? "secondary" : "primary"}
-                        className={classes.button}
-                        onClick={this.toggleEdit}>
-                        {this.state.inEditMode ? 'Cancel' : 'Edit'}
-                    </Button>
-                    {this.state.inEditMode === false && mentorSectionHtml()}
-                </div>
+                <Grid container justify="space-around">
+                    <Grid item xs={12}>
+                        {this.state.inEditMode ? (
+                            <EditProfile
+                                user={this.props.user}
+                                skills={this.props.skills}
+                                toggleEdit={this.toggleEdit}
+                            />
+                        ) : (
+                            <PublicProfile user={this.props.user} />
+                        )}
+                    </Grid>
+                    <Grid item xs={3} align="center">
+                        <Button
+                            variant="contained"
+                            fullWidth={true}
+                            color={this.state.inEditMode ? 'secondary' : 'primary'}
+                            className={classes.button}
+                            onClick={this.toggleEdit}>
+                            {this.state.inEditMode ? 'Cancel' : 'Edit'}
+                        </Button>
+                        {this.state.inEditMode === false && mentorSectionHtml()}
+                    </Grid>
+                </Grid>
             </OneColumnLayout>
         );
     }
