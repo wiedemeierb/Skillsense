@@ -421,20 +421,22 @@ router.get('/detail/:id', rejectUnauthenticated, (req, res) => {
     "users".username,
     "client_id",
     array_agg("job_tags"."tag_id") AS "tag_ids",
-    array_agg("skill_tags"."tag") AS "skill_names"
-  FROM "jobs"
+	array_agg("skill_tags"."tag") AS "skill_names",
+	hired
+  FROM jobs
   LEFT JOIN "job_tags"
-    ON "jobs"."id" = "job_tags"."job_id"
+    ON jobs."id" = "job_tags".job_id
   LEFT JOIN "skill_tags"
     ON "job_tags".tag_id = "skill_tags"."id"
   LEFT JOIN "users"
-    ON "jobs"."client_id" = "users"."id"
-  WHERE "jobs".id = $1
-  GROUP BY "jobs"."id","users"."id"
+	ON jobs."client_id" = "users"."id"
+LEFT JOIN (SELECT * FROM "job_applicants" WHERE "student_id" = $1) AS "applied" ON jobs.id = applied.job_id
+  WHERE jobs.id = $2
+  GROUP BY "jobs"."id","users"."id", "applied"."hired"
   ORDER BY "id" DESC;`;
 
 	pool
-		.query(queryText, [req.params.id])
+		.query(queryText, [req.user.id, req.params.id])
 		.then(result => {
 			//attach a "skills" property that is combined id and name
 			result.rows.forEach(row => {

@@ -64,19 +64,19 @@ class JobDetail extends Component {
                 <SkillList skillList={details.skills} />
                 <br />
                 <br />
+
+                {isStudent() && this.props.details.hired === null ?
                 {isStudent() && (
+
                     <div>
                         <Typography variant="h5" color="primary">
                             Application:
                         </Typography>
                         <Typography>Name: {this.props.user.username}</Typography>
                         <Typography>Focus Skill: {this.props.user.focus_skill}</Typography>
-                        <Typography>Location: {this.props.user.location}</Typography>
-                        <Button variant="contained" color="primary" onClick={this.applyNow}>
-                            Apply
-                        </Button>
-                    </div>
-                )}
+                        <Typography>Location: {this.props.user.location}</Typography> 
+                    <Button variant="contained" color="primary" onClick={this.applyNow}>Apply</Button>
+                    </div> : null}
                 {isClient() && (
                     <Button variant="contained" color="primary" onClick={this.viewApplicants}>
                         View Applicants
