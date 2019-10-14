@@ -70,7 +70,7 @@ class UserListItem extends Component {
             View Details
           </Button>
           {/* If the user is a mentor, the Request Mentor button will appear in the list row */}
-          {this.props.user.access_id === 1 && this.props.listUser.access_id === 2 && this.props.listUser.accepted === undefined ? <MentorRequest mentor={this.props.listUser} /> : null}
+          {this.props.user.access_id === 1 && this.props.listUser.access_id === 2 && this.props.listUser.accepted === null ? <MentorRequest mentor={this.props.listUser} /> : null}
         </Grid>
       </Grid>
     );
