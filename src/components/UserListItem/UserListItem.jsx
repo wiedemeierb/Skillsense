@@ -42,8 +42,9 @@ class UserListItem extends Component {
                 type: 'FETCH_APPLICATION',
                 payload: this.props.listUser.id
             });
-        //any other user details
+            
         } else {
+            //dispatch for any other user details
             this.props.dispatch({
                 type: 'FETCH_SELECTED_USER',
                 payload: this.props.listUser.id
@@ -72,6 +73,7 @@ class UserListItem extends Component {
                         {this.props.listUser.username}
                     </Typography>
                     <Typography variant="h6">{this.props.listUser.focus_skill}</Typography>
+                    {/* user skillList if desired on userItem... */}
                     {/* {this.props.user.skill_names[0] && (
                         <SkillList skillList={this.props.user.skills} />)} */}
                 </Grid>

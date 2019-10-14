@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Typography, Button } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
+//COMPONENT IMPORTS
 import SkillList from '../SkillList/SkillList';
+//MATERIAL-UI IMPORTS
+import { Typography, Button } from '@material-ui/core';
 
 class JobDetail extends Component {
     componentDidMount() {
@@ -29,11 +32,6 @@ class JobDetail extends Component {
         let isClient = () => {
             return this.props.user.access_id === 3;
         };
-
-        // //checks if user type should be able to view this element
-        // let isClient = () => {
-        //     return (this.props.user.access_id === 3)
-        // }
 
         return (
             <div>
@@ -97,4 +95,4 @@ const mapStateToProps = state => ({
     details: state.selectedJobReducer
 });
 
-export default connect(mapStateToProps)(JobDetail);
+export default withRouter(connect(mapStateToProps)(JobDetail));

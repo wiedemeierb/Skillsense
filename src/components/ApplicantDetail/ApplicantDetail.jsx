@@ -34,8 +34,8 @@ class ApplicantDetail extends Component {
         event.preventDefault();
 
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to redact your application!",
+            title: 'Are you sure you want to hire this applicant?',
+            text: "You won't be able to reverse this decision!",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#04b8f3',
@@ -44,7 +44,7 @@ class ApplicantDetail extends Component {
         }).then(result => {
             if (result.value) {
                 this.props.dispatch({
-                    type: 'SUBMIT_APPLICATION',
+                    type: 'HIRE_APPLICANT',
                     payload: {
                         ...this.state,
                         job_id: Number(this.props.match.params.id)
@@ -54,16 +54,11 @@ class ApplicantDetail extends Component {
         });
     };
 
-    handleUploadInputChange = e => {
-        // console.log(e.target.files[0])
-        this.setState({ file: e.target.files[0] });
-    };
-
     render() {
         const { classes } = this.props;
-        
-        let isStudent = () => {
-            return this.props.user.access_id === 1;
+
+        let isClient = () => {
+            return this.props.user.access_id === 3;
         };
 
         return (
@@ -73,7 +68,7 @@ class ApplicantDetail extends Component {
                 justify="space-around"
                 alignItems="center"
                 className={classes.root}>
-                {isStudent() ? (
+                {isClient() ? (
                     <Grid item container justify="space-around" spacing={4} xs={12}>
                         <Grid item xs={12}>
                             <Typography variant="h3" align="center">
@@ -185,7 +180,7 @@ class ApplicantDetail extends Component {
                                 </Typography>
                             )}
                         </Grid>
-                        {/* <Button variant="contained" color="secondary" onClick={this.props.history.push('/search/jobs')}>Cancel</Button> */}
+                        {/* <Button variant="contained" color="secondary" onClick={this.props.history.push('/search/jobs')}>Back</Button> */}
                         <Grid item xs={12}>
                             <Button variant="contained" color="primary" onClick={this.handleSubmit}>
                                 Submit
@@ -203,6 +198,7 @@ class ApplicantDetail extends Component {
 const mapStateToProps = store => {
     return {
         job: store.selectedJobReducer,
+        applicants: store.applicantReducer,
         user: store.user
     };
 };

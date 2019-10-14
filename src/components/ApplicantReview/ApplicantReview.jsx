@@ -8,29 +8,11 @@ import UserListItem from '../UserListItem/UserListItem';
 
 //MATERIAL-UI IMPORTS
 import { withStyles } from '@material-ui/core/styles';
-import {
-    Paper,
-    Typography,
-    TextField,
-    FormControl,
-    FormGroup,
-    Select,
-    MenuItem,
-    IconButton
-} from '@material-ui/core';
+import { Grid, Typography, Button } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
         display: 'flex'
-    },
-    formControl: {
-        display: 'block',
-        margin: theme.spacing(1),
-        minWidth: 150
-    },
-    select: {
-        minWidth: 150,
-        margin: theme.spacing(1)
     }
 });
 
@@ -46,15 +28,20 @@ class ApplicantReview extends Component {
         });
     }
 
+    onBack = () => {
+        this.props.history.push(`/jobs/detail/${this.props.match.params.id}`);
+    };
+
     render() {
         //checks if user type should be able to view this page
         let isClient = () => {
             return this.props.user.access_id === 3;
         };
 
-        const { classes } = this.props;
+        //* for withStyles classes use in future as needed *//
+        // const { classes } = this.props;
 
-        //uses the JobListItem component to render the job search results
+        //uses the UserListItem component to render applicant results
         let applicantList = this.props.applicants.map((applicant, i) => {
             return <UserListItem key={i} listUser={applicant} />;
         });
@@ -62,10 +49,24 @@ class ApplicantReview extends Component {
         return (
             <OneColumnLayout header="Applicant Review">
                 {isClient() ? (
-                    <div>
-                        {/* Job Search List */}
-                        <div className="list">{applicantList}</div>
-                    </div>
+                    <Grid container>
+                        <Grid item xs={12} align="center">
+                            <Typography variant="h4" color="primary" align="center" gutterBottom>
+                                "{this.props.details.project_title}"
+                            </Typography>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                align="space-around"
+                                onClick={this.onBack}>
+                                Back
+                            </Button>
+                        </Grid>
+                        <Grid xs={12}>
+                            {/* Job Search List */}
+                            <div className="list">{applicantList}</div>
+                        </Grid>
+                    </Grid>
                 ) : (
                     <Typography>You are not authorized to view this page.</Typography>
                 )}
@@ -77,7 +78,7 @@ class ApplicantReview extends Component {
 const mapStateToProps = store => {
     return {
         applicants: store.applicantReducer,
-        skills: store.allSkillsReducer,
+        details: store.selectedJobReducer,
         user: store.user
     };
 };
