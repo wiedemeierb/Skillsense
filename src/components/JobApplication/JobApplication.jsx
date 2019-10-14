@@ -17,7 +17,8 @@ const styles = theme => ({
 	},
 	mentorList: {
 		// position: 'relative',
-		overflow: 'scroll',
+		overflowX: 'scroll',
+		overflowY: 'hidden',
 		maxHeight: '20vh'
 		// maxWidth: '80%'
 	},
