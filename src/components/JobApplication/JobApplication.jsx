@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Typography, TextField, Button, Link, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import SkillList from '../SkillList/SkillList';
+import JobApplicationMentorListItem from '../JobApplicationMentorListItem/JobApplicationMentorListItem';
 import Swal from 'sweetalert2';
 
 const styles = theme => ({
@@ -16,20 +17,10 @@ const styles = theme => ({
 	},
 	mentorList: {
 		// position: 'relative',
-		overflow: 'scroll'
+		overflow: 'scroll',
+		maxHeight: '20vh'
 		// maxWidth: '80%'
 	},
-	mentorListItem: {
-		display: 'inline',
-		minWidth: '15vw',
-		padding: theme.spacing(1),
-		margin: theme.spacing(1)
-	},
-	matchingSkills: {
-		display: 'inline',
-		padding: theme.spacing(1)
-
-	}
 });
 class JobApplication extends Component {
 	state = {
@@ -83,6 +74,12 @@ class JobApplication extends Component {
 	handleUploadInputChange = e => {
 		// console.log(e.target.files[0])
 		this.setState({ file: e.target.files[0] });
+	};
+
+	handleSelect = id => {
+		this.state.mentor_id === id
+			? this.setState({ mentor_id: null })
+			: this.setState({ mentor_id: id });
 	};
 
 	sortMentors = (mentors, jobSkills) => {
@@ -169,38 +166,26 @@ class JobApplication extends Component {
 								{/* Mentor Info */}
 							</Grid>
 						</Grid>
-						<Typography variant='h6'>Invite one of Your Mentors</Typography>
+						<Typography variant='h6'>Select One of Your Mentors</Typography>
 						<Grid
 							className={classes.mentorList}
 							item
 							container
 							direction='column'
-							xs={12}>
+							alignContent='flex-start'
+							justify='flex-start'>
 							{this.props.mentors &&
 								this.props.job &&
+								this.props.job.skills &&
 								this.sortMentors(this.props.mentors, this.props.job.skills).map(
 									listUser => {
 										return (
-											<Grid className={classes.mentorListItem} item xs={12}>
-												<Typography color='primary' variant='h5'>
-													{listUser.username}
-												</Typography>
-												<Typography variant='h6'>
-													{listUser.focus_skill}
-												</Typography>
-												<Typography
-													style={{'display': 'inline'}}
-													variant='subtitle2'>
-													Matching Skills:
-												</Typography>
-												<Typography
-													className={classes.matchingSkills}
-													variant='h6'
-													color='primary'
-													>
-													{listUser.matchingSkillCount}
-												</Typography>
-											</Grid>
+											<JobApplicationMentorListItem
+												key={listUser.id}
+												selected={listUser.id === this.state.mentor_id}
+												listUser={listUser}
+												selectMentor={this.handleSelect}
+											/>
 										);
 									}
 								)}
