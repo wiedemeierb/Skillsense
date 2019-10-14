@@ -37,7 +37,7 @@ router.post('/register', (req, res, next) => {
 	pool
 		.query(queryText, values)
 		.then(result => {
-			console.log('successful insert into users db table, new user registered');
+			// console.log('successful insert into users db table, new user registered');
 			res.sendStatus(201);
 		})
 		.catch(error => {
@@ -101,7 +101,7 @@ router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 	pool
 		.query(sqlText, [userId])
 		.then(result => {
-			console.log('specific user details retrieved from database');
+			// console.log('specific user details retrieved from database');
 			res.send(result.rows[0]);
 		})
 		.catch(error => {

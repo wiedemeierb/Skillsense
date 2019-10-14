@@ -37,13 +37,13 @@ class TransferList extends Component {
 
     //sends post request for clicked skill ID
     addSkill = skillId => {
-        console.log(skillId);
+        // console.log(skillId);
         this.props.dispatch({ type: 'ADD_SKILL', payload: { id: skillId } });
     };
 
     //sends delete request for clicked skill ID
     removeSkill = skillId => {
-        console.log(skillId);
+        // console.log(skillId);
         this.props.dispatch({ type: 'REMOVE_SKILL', payload: { id: skillId } });
     };
 

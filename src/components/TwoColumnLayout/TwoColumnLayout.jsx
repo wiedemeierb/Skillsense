@@ -35,7 +35,7 @@ const styles = theme => ({
 
 class TwoColumnLayout extends Component {
     render() {
-        console.log(this.props.children)
+        // console.log(this.props.children)
         const { classes } = this.props;
         return (
             <Grid

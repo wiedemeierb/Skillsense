@@ -20,6 +20,7 @@ import JobPostForm from '../JobPostForm/JobPostForm';
 import JobSearch from '../JobSearch/JobSearch';
 import MentorReview from '../MentorReview/MentorReview';
 import MentorSearch from '../MentorSearch/MentorSearch';
+import Messages from '../Messages/Messages';
 import MyJobs from '../MyJobs/MyJobs';
 import MyMentorships from '../MyMentorships/MyMentorships';
 
@@ -91,6 +92,7 @@ class App extends Component {
                 component={JobApplication}
               />
               <ProtectedRoute exact path='/admin' component={MentorReview} />
+              <ProtectedRoute exact path='/messages' component={Messages} />
               {/* If none of the other routes matched, we will show a 404. */}
               <Route render={() => <h1>404</h1>} />
             </Switch>

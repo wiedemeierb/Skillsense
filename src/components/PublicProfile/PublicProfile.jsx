@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Grid, Typography, Link } from '@material-ui/core';
+import { Grid, Typography, Link, Chip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SkillList from '../SkillList/SkillList';
 
@@ -37,6 +37,7 @@ function PublicProfile(props) {
                 <Typography variant="body1" align="left">
                     {displayedUser.location}
                 </Typography>
+                <Chip color="primary" label={displayedUser.user_type} />
             </Grid>
             <Grid item xs={12}>
                 <Typography variant="body2">{displayedUser.bio}</Typography>

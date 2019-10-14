@@ -73,6 +73,13 @@ class MentorSearch extends Component {
     });
   };
 
+  //Allows user to login using the Enter key while focus is within the Input area
+  handleKeyUp = (key) => {
+    if (key.key === 'Enter') {
+      this.submitSearch();
+    }
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -107,12 +114,14 @@ class MentorSearch extends Component {
                     onChange={e => this.handleSearch('searchTerm', e)}
                     value={this.state.searchTerm}
                     label="Search Mentors"
+                    onKeyUp={this.handleKeyUp}
                   />
 
                   <Select
                     className={classes.select}
                     value={this.state.search.skill}
                     onChange={e => this.handleSearch('skill', e)}
+                    // onKeyUp={this.handleKeyUp}
                   >
                     <MenuItem value={0}>Select Skill</MenuItem>
                     {/* Skill tag list dropdown options */}
