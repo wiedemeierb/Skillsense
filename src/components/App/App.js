@@ -13,6 +13,7 @@ import UserPage from '../UserPage/UserPage';
 import JobApplication from '../JobApplication/JobApplication';
 import JobDetail from '../JobDetail/JobDetail';
 import ApplicantReview from '../ApplicantReview/ApplicantReview';
+import ApplicantDetail from '../ApplicantDetail/ApplicantDetail';
 import JobPostForm from '../JobPostForm/JobPostForm';
 import JobSearch from '../JobSearch/JobSearch';
 import MentorReview from '../MentorReview/MentorReview';
@@ -73,7 +74,6 @@ class App extends Component {
                             <ProtectedRoute exact path="/search/mentors" component={MentorSearch} />
                             <ProtectedRoute exact path="/jobs" component={MyJobs} />
                             <ProtectedRoute exact path="/mentors" component={MyMentorships} />
-                            <ProtectedRoute exact path="/jobs/detail" component={JobDetail} />
                             <ProtectedRoute exact path="/jobs/new" component={JobPostForm} />
                             <ProtectedRoute exact path="/jobs/detail/:id" component={JobDetail} />
                             <ProtectedRoute
@@ -83,8 +83,13 @@ class App extends Component {
                             />
                             <ProtectedRoute
                                 exact
-                                path="/jobs/detail/applicants/:id"
+                                path="/jobs/detail/applications/:id"
                                 component={ApplicantReview}
+                            />
+                            <ProtectedRoute
+                                exact
+                                path="/jobs/detail/applicant/:id"
+                                component={ApplicantDetail}
                             />
                             <ProtectedRoute exact path="/admin" component={MentorReview} />
                             <ProtectedRoute exact path="/messages" component={Messages} />

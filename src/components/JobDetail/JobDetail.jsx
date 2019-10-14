@@ -11,12 +11,12 @@ class JobDetail extends Component {
         });
     }
     //find route to apply for this job.
-    applyNow = id => {
+    applyNow = () => {
         this.props.history.push(`/jobs/detail/apply/${this.props.match.params.id}`);
     };
 
-    viewApplicants = id => {
-        this.props.history.push(`/jobs/detail/applicants/${this.props.match.params.id}`);
+    viewApplicants = () => {
+        this.props.history.push(`/jobs/detail/applications/${this.props.match.params.id}`);
     };
 
     render() {

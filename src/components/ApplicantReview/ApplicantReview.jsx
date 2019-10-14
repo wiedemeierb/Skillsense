@@ -18,7 +18,6 @@ import {
     MenuItem,
     IconButton
 } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
 
 const styles = theme => ({
     root: {
@@ -57,7 +56,7 @@ class ApplicantReview extends Component {
 
         //uses the JobListItem component to render the job search results
         let applicantList = this.props.applicants.map((applicant, i) => {
-            return <UserListItem key={i} applicant={applicant} />;
+            return <UserListItem key={i} listUser={applicant} />;
         });
 
         return (
@@ -77,7 +76,7 @@ class ApplicantReview extends Component {
 
 const mapStateToProps = store => {
     return {
-        jobs: store.allJobsReducer,
+        applicants: store.applicantReducer,
         skills: store.allSkillsReducer,
         user: store.user
     };

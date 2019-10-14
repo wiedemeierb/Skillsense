@@ -1,4 +1,4 @@
-const applicantReducer = (state = {}, action) => {
+const applicantReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_APPLICANTS':
             return action.payload;

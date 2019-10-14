@@ -4,7 +4,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 //gets list of applicants for specified job
 function* fetchApplicants(action) {
     try {
-        let id = action.payload;
+        let id = action.payload.id;
         let response = yield axios.get(`/api/applicants/${id}`);
         // console.log(response)
         yield put({
