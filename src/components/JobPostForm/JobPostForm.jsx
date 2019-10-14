@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { TextField, Button, Typography, Grid, Paper, List, ListItem, ListItemText } from '@material-ui/core';
+import Swal from 'sweetalert2'
 
 const styles = theme => ({
     root: {
@@ -63,7 +64,19 @@ class JobPostForm extends Component {
             client_id: 0,
             selected: []
         })
+        Swal.fire({
+            position: 'center',
+            type: 'success',
+            title: 'Job has been successfully posted!',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        this.props.history.push(`/jobs`);
     }
+
+    // postedJob = (id) => {
+    //     this.props.history.push(`/jobs`)
+    // }
 
     //adds clicked skill to list of selected tags
     addSkill = skill => {
@@ -160,6 +173,7 @@ class JobPostForm extends Component {
                             </Grid>
                         </Grid>
                         <Button type="submit" variant="contained" color="primary">Submit</Button>
+                        {/* <Button type="submit" variant="contained" color="primary" onClick={this.postedJob}>Submit</Button> */}
                     </form>
                     : <Typography variant="h3">You are not authorized to view this page.</Typography>
                 }
