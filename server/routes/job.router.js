@@ -6,7 +6,7 @@ const {
 	rejectIfNotClient
 } = require('../modules/authentication-middleware');
 
-/** GET ROUTE FOR ALL JOBS WITH SKILL TAGS **/
+/** GET ROUTE FOR ALL OPEN JOBS WITH SKILL TAGS **/
 router.get('/', (req, res) => {
 	const queryText = `
   SELECT
@@ -29,8 +29,10 @@ router.get('/', (req, res) => {
   LEFT JOIN "skill_tags"
     ON "job_tags".tag_id = "skill_tags"."id"
   LEFT JOIN "users"
-    ON "jobs"."client_id" = "users"."id"
-	GROUP BY "jobs"."id","users"."id";
+	ON "jobs"."client_id" = "users"."id"
+  WHERE "status_id" = 1
+	GROUP BY "jobs"."id","users"."id"
+	ORDER BY "id" DESC;
 	`;
 
 	pool
@@ -52,7 +54,7 @@ router.get('/', (req, res) => {
 
 /** GET ROUTE FOR JOBS BY STATUS AND CLIENT ID **/
 router.get('/client/:jobType', rejectIfNotClient, (req, res) => {
-	const jobType = req.params.jobType;
+	const jobType = Number(req.params.jobType);
 	const userId = req.user.id;
 	//route currently does not yet accommodate for offer extended job_status
 
@@ -83,7 +85,8 @@ router.get('/client/:jobType', rejectIfNotClient, (req, res) => {
     "status_id" = $1
       AND
     "jobs".client_id = $2
-	GROUP BY "jobs"."id","users"."id";
+	GROUP BY "jobs"."id","users"."id"
+	ORDER BY "id" DESC;
 	`;
 
 	pool
@@ -129,12 +132,13 @@ router.get('/search', (req, res) => {
   LEFT JOIN "skill_tags"
     ON "job_tags".tag_id = "skill_tags"."id"
   LEFT JOIN "users"
-    ON "jobs"."client_id" = "users"."id"`;
+	ON "jobs"."client_id" = "users"."id"
+	WHERE "status_id" = 1`;
 
 	//additional sql Query text to use based on search input and skills sent on request
-	const queryInput = ` WHERE "project_title" ILIKE $1`;
+	const queryInput = ` AND "project_title" ILIKE $1`;
 	const querySkill = ` AND "tag_id" = $2`;
-	const queryEnd = ` GROUP BY "jobs"."id","users"."id";`;
+	const queryEnd = ` GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;`;
 
 	//function to add search query text to sql query text
 	const queryText = () => {
@@ -201,10 +205,11 @@ router.get('/active', rejectUnauthenticated, (req, res) => {
     LEFT JOIN "job_status"
       ON "job_status".id = jobs.status_id
     WHERE
-      "job_status".job_status ILIKE 'In Progress'
+	  status_id = 3
     AND
-      "job_applicants".student_id = $1
-    GROUP BY "jobs"."id","users"."id";
+	  "job_applicants".student_id = $1
+	AND "job_applicants".hired = true
+    GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;
     `;
 
 	pool
@@ -253,10 +258,10 @@ router.get('/applied', (req, res) => {
     LEFT JOIN "job_status"
       ON "job_status".id = jobs.status_id
     WHERE
-      "job_status".job_status ILIKE 'Open'
+      status_id = 1
     AND
       "job_applicants".student_id = $1
-    GROUP BY "jobs"."id","users"."id";
+    GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;
     `;
 
 	pool
@@ -309,7 +314,7 @@ router.get('/completed', (req, res) => {
       "job_status".job_status ILIKE 'Completed'
         AND
       "job_applicants".student_id = $1
-    GROUP BY "jobs"."id","users"."id";
+    GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;
     `;
 
 	pool
@@ -425,7 +430,8 @@ router.get('/detail/:id', rejectUnauthenticated, (req, res) => {
   LEFT JOIN "users"
     ON "jobs"."client_id" = "users"."id"
   WHERE "jobs".id = $1
-  GROUP BY "jobs"."id","users"."id";`;
+  GROUP BY "jobs"."id","users"."id"
+  ORDER BY "id" DESC;`;
 
 	pool
 		.query(queryText, [req.params.id])

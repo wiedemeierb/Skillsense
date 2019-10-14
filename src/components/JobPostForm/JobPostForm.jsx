@@ -67,7 +67,7 @@ class JobPostForm extends Component {
 
     //adds clicked skill to list of selected tags
     addSkill = skill => {
-        console.log(skill);
+        // console.log(skill);
         this.setState({
             selected: [...this.state.selected, skill]
         });
@@ -75,7 +75,7 @@ class JobPostForm extends Component {
 
     //removes clicked skill from list of selected tags
     removeSkill = skillToRemove => {
-        console.log(skillToRemove);
+        // console.log(skillToRemove);
         this.setState({
             selected: this.state.selected.filter(
                 skill => skill !== skillToRemove
@@ -84,7 +84,7 @@ class JobPostForm extends Component {
     };
 
     render() {
-        console.log(this.state)
+        // console.log(this.state)
         const { classes } = this.props;
 
         //filters the list of all skills to remove the selected skills
@@ -121,14 +121,17 @@ class JobPostForm extends Component {
             <Paper>
                 {isClient() ?
                     <form onSubmit={this.handleSubmit}>
-                        <TextField className={classes.formControl} label="Project Name" helperText="Project Name" value={this.state.project_title} onChange={(event) => { this.handleInput(event, 'project_title') }} required={true} />
-                        <TextField className={classes.formControl} label="Seeking Position" helperText="Seeking Position" value={this.state.position_title} onChange={(event) => { this.handleInput(event, 'position_title') }} required={true} />
-                        <TextField className={classes.formControl} label="Project Description" helperText="Project Description" value={this.state.description} onChange={(event) => { this.handleInput(event, 'description') }} required={true} />
-                        <TextField className={classes.formControl} label="Project Duration" helperText="Project Duration" value={this.state.duration} onChange={(event) => { this.handleInput(event, 'duration') }} required={true} />
-                        <TextField className={classes.formControl} label="Project Budget" helperText="Project Budget" value={this.state.budget} onChange={(event) => { this.handleInput(event, 'budget') }} required={true} />
+                        <br/>
+                        <Typography variant="h5"align="center">Post New Job</Typography>
+                        <TextField className={classes.formControl} label="Project Name" value={this.state.project_title} onChange={(event) => { this.handleInput(event, 'project_title') }} required={true} />
+                        <TextField className={classes.formControl} label="Seeking Position" value={this.state.position_title} onChange={(event) => { this.handleInput(event, 'position_title') }} required={true} />
+                        <TextField className={classes.formControl} label="Project Description" value={this.state.description} onChange={(event) => { this.handleInput(event, 'description') }} required={true} />
+                        <TextField className={classes.formControl} label="Project Duration" value={this.state.duration} onChange={(event) => { this.handleInput(event, 'duration') }} required={true} />
+                        <TextField className={classes.formControl} label="Project Budget" value={this.state.budget} onChange={(event) => { this.handleInput(event, 'budget') }} required={true} />
                         {/* <input type="checkbox" label="Mentor required" title="Mentor Required" placeholder="Mentor Required" value={this.state.mentor_required} onChange={(event) => { this.handleInput(event, 'mentor_required') }} /> */}
                         <br />
-                        <Typography>Skill Tags</Typography>
+                        <br/>
+                        <Typography variant="h5" align="center">Skill Tags</Typography>
                         <Grid
                             container
                             spacing={2}

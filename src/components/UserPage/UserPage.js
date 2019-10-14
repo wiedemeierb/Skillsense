@@ -58,8 +58,8 @@ class UserPage extends Component {
 
     //saves profile changes to database
     editUserInfo = () => {
-        console.log('handleClick saveSkills operations');
-        console.log('this is state on didMount', this.state);
+        // console.log('handleClick saveSkills operations');
+        // console.log('this is state on didMount', this.state);
         this.props.dispatch({
             type: 'EDIT_USER_INFO',
             payload: this.state

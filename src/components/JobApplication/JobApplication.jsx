@@ -70,7 +70,7 @@ class JobApplication extends Component {
 	};
 
 	handleUploadInputChange = e => {
-		console.log(e.target.files[0])
+		// console.log(e.target.files[0])
 		this.setState({ file: e.target.files[0] });
 	};
 
@@ -135,7 +135,6 @@ class JobApplication extends Component {
 									margin='normal'
 									fullWidth={true}
 									multiline={true}
-									rows={4}
 								/>
 							</Grid>
 							{/* Insert Resume attachment functionality here */}

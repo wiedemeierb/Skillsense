@@ -132,9 +132,9 @@ function* submitApplication(action) {
 			const returnData = awsSignedResponse.data.data.returnData;
 			const signedRequest = returnData.signedRequest;
 			const url = returnData.url;
-			console.log('url from aws: ', url);
+			// console.log('url from aws: ', url);
 			action.payload.attachment_url = url;
-			console.log('new payload: ', action.payload);
+			// console.log('new payload: ', action.payload);
 			yield axios.put(signedRequest, action.payload.file, {
 				headers: {
 					'Content-Type': action.payload.fileType

@@ -79,6 +79,13 @@ class JobSearch extends Component {
     this.props.history.push(`/jobs/detail/${id}`);
   };
 
+  //Allows user to login using the Enter key while focus is within the Input area
+  handleKeyUp = (key) => {
+    if (key.key === 'Enter') {
+      this.submitSearch();
+    }
+  }
+
   render() {
     //checks if user type should be able to view this page
     let isStudent = () => {
@@ -114,12 +121,14 @@ class JobSearch extends Component {
                     onChange={this.handleSearch}
                     value={this.state.searchTerm}
                     label="Search Jobs"
+                    onKeyUp={this.handleKeyUp}
                   />
                   {/* Skill select for search */}
                   <Select
                     className={classes.select}
                     value={this.state.skill}
                     onChange={this.handleDropdown}
+                    // onKeyUp={this.handleKeyUp}
                   >
                     <MenuItem value={0}>Select Skill</MenuItem>
                     {/* Skill tag list dropdown options */}
