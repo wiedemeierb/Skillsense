@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+
 //COMPONENT IMPORTS
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import UserListItem from '../UserListItem/UserListItem';
 import PublicProfile from '../PublicProfile/PublicProfile';
+import MentorRequest from '../MentorRequest/MentorRequest';
 
 //MATERIAL-UI IMPORTS
 import { withStyles } from '@material-ui/core/styles';
@@ -146,7 +148,11 @@ class MentorSearch extends Component {
 
           <div>
             {this.props.selectedUser.id ? (
+              <div>
               <PublicProfile />
+                       {/* If the user is a mentor, the Request Mentor button will appear in the list row */}
+                {this.props.user.access_id === 1 && this.props.selectedUser.access_id === 2 && this.props.selectedUser.accepted === null ? <MentorRequest mentor={this.props.selectedUser} /> : null}
+            </div>
             ) : (
                 <Typography variant="h6" align="center">
                   Select a mentor to see more information.

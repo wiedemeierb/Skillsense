@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 //COMPONENT IMPORTS
 // import SkillList from '../SkillList/SkillList';
-import MentorRequest from '../MentorRequest/MentorRequest';
+// import MentorRequest from '../MentorRequest/MentorRequest';
 
 //MATERIAL-UI IMPORTS
 import { withStyles } from '@material-ui/core/styles';

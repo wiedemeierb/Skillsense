@@ -63,8 +63,9 @@ router.post('/logout', (req, res) => {
 
 //route to get SELECTED user's information
 router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
-	const userId = req.params.id;
-	const sqlText = `SELECT
+	const sqlText = () => {
+		if (req.user.access_id === 2) {
+			return `SELECT
 		users.id,
 		users.username,
 		users.email,
@@ -76,14 +77,16 @@ router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 		users.website_url,
 		users.access_id,
 		users.active,
-		user_type.user_type
+		user_type.user_type,
+		requested.accepted
 	FROM
 		users
 	LEFT JOIN
 		user_type
 			ON
 		user_type.id = users.access_id
-	WHERE users.id = $1
+		LEFT JOIN (SELECT * FROM "student_mentor" WHERE "mentor_id" = $1) AS "requested" ON "requested"."student_id" = "users".id
+	WHERE users.id = $2
 	GROUP BY
 		users.id,
 		users.username,
@@ -96,10 +99,49 @@ router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 		users.website_url,
 		users.access_id,
 		users.active,
-		user_type.user_type;`;
+		user_type.user_type,
+		requested.accepted;`} else if (req.user.access_id === 1) {
+			return `SELECT
+		users.id,
+		users.username,
+		users.email,
+		users.location,
+		users.focus_skill,
+		users.bio,
+		users.github_url,
+		users.linkedin_url,
+		users.website_url,
+		users.access_id,
+		users.active,
+		user_type.user_type,
+		requested.accepted
+	FROM
+		users
+	LEFT JOIN
+		user_type
+			ON
+		user_type.id = users.access_id
+		LEFT JOIN (SELECT * FROM "student_mentor" WHERE "student_id" = $1) AS "requested" ON "requested"."mentor_id" = "users".id
+	WHERE users.id = $2
+	GROUP BY
+		users.id,
+		users.username,
+		users.email,
+		users.location,
+		users.focus_skill,
+		users.bio,
+		users.github_url,
+		users.linkedin_url,
+		users.website_url,
+		users.access_id,
+		users.active,
+		user_type.user_type,
+		requested.accepted;`
+		}
+	};
 
 	pool
-		.query(sqlText, [userId])
+		.query(sqlText(), [req.user.id, req.params.id])
 		.then(result => {
 			// console.log('specific user details retrieved from database');
 			res.send(result.rows[0]);
