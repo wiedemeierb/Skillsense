@@ -81,7 +81,7 @@ class UserListItem extends Component {
                         variant="contained"
                         color="primary"
                         className={classes.button}
-                        onClick={this.viewDetails()}>
+                        onClick={() => this.viewDetails()}>
                         View Details
                     </Button>
                 </Grid>
