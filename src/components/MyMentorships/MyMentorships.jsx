@@ -83,9 +83,11 @@ class MyMentorships extends Component {
                 <div>
                   <PublicProfile />
                   <br />
+                  
                   {isMentor() && this.props.selectedUser.accepted === false ?
                     <div>
-                  <Typography variant="subtitle1">Mentor Actions</Typography>
+                    {/* <h2>{this.props.messages}</h2> */}
+                  <Typography variant="subtitle1">Mentor Actions:</Typography>
                       <Button variant="contained" color="primary" onClick={this.acceptMentorship}>Accept</Button>
                       <Button variant="contained" color="secondary" onClick={this.declineMentorship}>Decline</Button>
                     </div>
@@ -110,7 +112,8 @@ const mapStateToProps = store => {
   return {
     mentors: store.allMentorsReducer,
     selectedUser: store.selectedUserReducer,
-    user: store.user
+    user: store.user,
+    messages: store.allMessagesReducer
   };
 };
 

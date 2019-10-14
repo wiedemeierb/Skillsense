@@ -74,10 +74,6 @@ class JobPostForm extends Component {
         this.props.history.push(`/jobs`);
     }
 
-    // postedJob = (id) => {
-    //     this.props.history.push(`/jobs`)
-    // }
-
     //adds clicked skill to list of selected tags
     addSkill = skill => {
         // console.log(skill);
