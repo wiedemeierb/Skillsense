@@ -104,7 +104,6 @@ function EditProfile(props) {
                     rows="6"
                     fullWidth
                     margin="dense"
-                    multiline={true}
                     // variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'bio');
