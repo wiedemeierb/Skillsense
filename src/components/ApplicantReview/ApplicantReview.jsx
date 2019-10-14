@@ -56,8 +56,8 @@ class ApplicantReview extends Component {
         const { classes } = this.props;
 
         //uses the JobListItem component to render the job search results
-        let applicantList = this.props.jobs.map((job, i) => {
-            return <UserListItem key={i} applicant={user} />;
+        let applicantList = this.props.applicants.map((applicant, i) => {
+            return <UserListItem key={i} applicant={applicant} />;
         });
 
         return (
