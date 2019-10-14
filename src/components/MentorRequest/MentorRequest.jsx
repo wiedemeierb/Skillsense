@@ -22,6 +22,10 @@ export default function FormDialog(props) {
 
   //When the action buttons within the modal are clicked, the modal closes
   const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSend =() => {
     Swal.fire({
       position: 'center',
       type: 'success',
@@ -29,7 +33,7 @@ export default function FormDialog(props) {
       timer: 1500
     })
     setOpen(false);
-  };
+  }
 
   return (
     <div>
@@ -71,7 +75,7 @@ export default function FormDialog(props) {
                 type: 'SEND_MENTOR_REQUEST',
                 payload: { mentor: props.mentor.id, message: message }
               });
-              handleClose();
+              handleSend();
             }}
             variant="contained"
             color="primary"

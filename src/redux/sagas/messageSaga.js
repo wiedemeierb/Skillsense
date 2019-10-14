@@ -5,7 +5,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 function* fetchAllMessages() {
     try {
         let response = yield axios.get('/api/messages')
-        // console.log(response)
+        console.log(response)
         yield put({
             type: 'SET_ALL_MESSAGES',
             payload: response.data
