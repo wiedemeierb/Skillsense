@@ -1,7 +1,5 @@
 const express = require('express');
-const {
-	rejectUnauthenticated
-} = require('../modules/authentication-middleware');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
@@ -34,8 +32,7 @@ router.post('/register', (req, res, next) => {
 
 	const queryText =
 		'INSERT INTO "users" (username, email, password, location, access_id, focus_skill, bio, linkedin_url, github_url, website_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id';
-	pool
-		.query(queryText, values)
+	pool.query(queryText, values)
 		.then(result => {
 			// console.log('successful insert into users db table, new user registered');
 			res.sendStatus(201);
@@ -63,6 +60,7 @@ router.post('/logout', (req, res) => {
 
 //route to get SELECTED user's information
 router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
+	console.log(req.user)
 	const sqlText = () => {
 		if (req.user.access_id === 2) {
 			return `SELECT
@@ -85,8 +83,8 @@ router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 		user_type
 			ON
 		user_type.id = users.access_id
-		LEFT JOIN (SELECT * FROM "student_mentor" WHERE "mentor_id" = $1) AS "requested" ON "requested"."student_id" = "users".id
-	WHERE users.id = $2
+		LEFT JOIN (SELECT * FROM "student_mentor" WHERE "mentor_id" = $2) AS "requested" ON "requested"."student_id" = "users".id
+	WHERE users.id = $1
 	GROUP BY
 		users.id,
 		users.username,
@@ -100,7 +98,8 @@ router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 		users.access_id,
 		users.active,
 		user_type.user_type,
-		requested.accepted;`} else if (req.user.access_id === 1) {
+		requested.accepted;`;
+		} else if (req.user.access_id === 1) {
 			return `SELECT
 		users.id,
 		users.username,
@@ -121,8 +120,8 @@ router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 		user_type
 			ON
 		user_type.id = users.access_id
-		LEFT JOIN (SELECT * FROM "student_mentor" WHERE "student_id" = $1) AS "requested" ON "requested"."mentor_id" = "users".id
-	WHERE users.id = $2
+		LEFT JOIN (SELECT * FROM "student_mentor" WHERE "student_id" = $2) AS "requested" ON "requested"."mentor_id" = "users".id
+	WHERE users.id = $1
 	GROUP BY
 		users.id,
 		users.username,
@@ -136,21 +135,54 @@ router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 		users.access_id,
 		users.active,
 		user_type.user_type,
-		requested.accepted;`
+		requested.accepted;`;
+		} else {
+			return `SELECT
+		users.id,
+		users.username,
+		users.email,
+		users.location,
+		users.focus_skill,
+		users.bio,
+		users.github_url,
+		users.linkedin_url,
+		users.website_url,
+		users.access_id,
+		users.active,
+		user_type.user_type
+	FROM
+		users
+	LEFT JOIN
+		user_type
+			ON
+		user_type.id = users.access_id
+	WHERE users.id = $1
+	GROUP BY
+		users.id,
+		users.username,
+		users.email,
+		users.location,
+		users.focus_skill,
+		users.bio,
+		users.github_url,
+		users.linkedin_url,
+		users.website_url,
+		users.access_id,
+		users.active,
+		user_type.user_type;`;
 		}
 	};
-
-	pool
-		.query(sqlText(), [req.user.id, req.params.id])
+	const values = [req.params.id];
+	if (req.user.user_type === 'Student' || req.user.user_type === 'Mentor') {
+		values.push(req.user.id);
+	}
+	pool.query(sqlText(), values)
 		.then(result => {
 			// console.log('specific user details retrieved from database');
 			res.send(result.rows[0]);
 		})
 		.catch(error => {
-			console.log(
-				'error on retrieving specific user details from database: ',
-				error
-			);
+			console.log('error on retrieving specific user details from database: ', error);
 			res.sendStatus(500);
 		});
 });
@@ -168,18 +200,17 @@ router.put('/edit/:id', rejectUnauthenticated, (req, res) => {
 	"website_url" = $7,
 	"bio" = $8
 	WHERE "id" = $9;`;
-		pool
-			.query(queryText, [
-				req.body.email,
-				req.body.focus_skill,
-				req.body.github_url,
-				req.body.linkedin_url,
-				req.body.location,
-				req.body.username,
-				req.body.website_url,
-				req.body.bio,
-				req.user.id
-			])
+		pool.query(queryText, [
+			req.body.email,
+			req.body.focus_skill,
+			req.body.github_url,
+			req.body.linkedin_url,
+			req.body.location,
+			req.body.username,
+			req.body.website_url,
+			req.body.bio,
+			req.user.id
+		])
 			.then(result => {
 				res.send(result.rows);
 			})
