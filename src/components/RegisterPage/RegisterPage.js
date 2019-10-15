@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+//COMPONENT IMPORTS
+import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
+
+// MATERIAL-UI IMPORTS
 import {
 	Typography,
 	TextField,
@@ -12,6 +17,8 @@ import {
 	InputLabel,
 	Divider
 } from '@material-ui/core';
+
+//STYLING IMPORTS
 import { withStyles } from '@material-ui/core/styles';
 import Swal from 'sweetalert2'
 
@@ -91,7 +98,8 @@ class RegisterPage extends Component {
 	render() {
 		const { classes } = this.props;
 		return (
-			<Grid container className={classes.root} spacing={4} justify='center'>
+			<OneColumnLayout header="Register New Account">
+			<Grid container className={classes.root} spacing={4} align='center'>
 				<Grid item xs={12}>
 					{this.props.errors.registrationMessage && (
 						<Typography className='alert' role='alert' variant='h4'>
@@ -99,15 +107,10 @@ class RegisterPage extends Component {
 						</Typography>
 					)}
 				</Grid>
-				<Grid item xs={12}>
-					<Typography variant='h4' align='center'>
-						Register New Account
-					</Typography>
-				</Grid>
 
 				{/* REGISTRATION ACCOUNT INFO */}
-				<Grid item container justify='center' align='center' xs={12}>
-					<Grid item xs={4}>
+				<Grid item container xs={12} spacing={4} justify='center' align='center'>
+						<Grid item xs={12} sm={6} md={4}>
 						<TextField
 							className={classes.formControl}
 							label='Your Email'
@@ -117,7 +120,7 @@ class RegisterPage extends Component {
 							onChange={e => this.handleInputChangeFor('email', e)}
 						/>
 					</Grid>
-					<Grid item xs={4}>
+						<Grid item xs={12} sm={6} md={4}>
 						<TextField
 							className={classes.formControl}
 							label='Password'
@@ -130,7 +133,7 @@ class RegisterPage extends Component {
 							}}
 						/>
 					</Grid>
-					<Grid item xs={4}>
+						<Grid item xs={12} sm={6} md={4}>
 						<FormControl className={classes.formControl}>
 							<InputLabel htmlFor='userTypeHelper'>I am signing up as...</InputLabel>
 							<Select
@@ -151,12 +154,8 @@ class RegisterPage extends Component {
 							<FormHelperText>Choose your account type...</FormHelperText>
 						</FormControl>
 					</Grid>
-				</Grid>
-
-				<Grid item xs={12}><Divider /></Grid>
 
 				{/* USER DETAILS */}
-				<Grid item container justify='center' align='center' xs={12} spacing={3}>
 					<Grid item xs={12} sm={6} md={4}>
 						<TextField
 							className={classes.formControl}
@@ -247,6 +246,7 @@ class RegisterPage extends Component {
 					<Button variant="contained" color="primary" onClick={this.registerUser} className={classes.button}>Register New Account</Button>
 				</Grid>
 			</Grid>
+			</OneColumnLayout>
 		);
 	}
 }
