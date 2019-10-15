@@ -37,6 +37,7 @@ where messages.sender_id = $1 OR messages.recipient_id = $1;`;
 				user.messages = result.rows.filter(
 					message => message.rname === user.username || message.sname === user.username
 				);
+				user.messages.sort((a, b) => b.date_time - a.date_time);
 			}
 			res.send(userList);
 		})
