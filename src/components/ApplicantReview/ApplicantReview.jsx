@@ -35,7 +35,7 @@ class ApplicantReview extends Component {
     render() {
         //checks if user type should be able to view this page
         let isClient = () => {
-            return this.props.user.access_id === 3;
+            return this.props.user.user_type === 'Client';
         };
 
         //* for withStyles classes use in future as needed *//

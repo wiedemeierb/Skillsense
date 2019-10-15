@@ -30,7 +30,7 @@ function EditProfile(props) {
 
     useEffect(() => {
         setUser(reduxUser);
-    }, [reduxUser]);
+        }, [reduxUser]);
 
     const editStudentInfo = () => {
         dispatch({

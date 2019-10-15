@@ -62,7 +62,7 @@ router.post('/logout', (req, res) => {
 router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 	console.log(req.user)
 	const sqlText = () => {
-		if (req.user.access_id === 2) {
+		if (req.user.user_type === 'Mentor') {
 			return `SELECT
 		users.id,
 		users.username,
@@ -99,7 +99,7 @@ router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 		users.active,
 		user_type.user_type,
 		requested.accepted;`;
-		} else if (req.user.access_id === 1) {
+		} else if (req.user.uesr_type === 'Student') {
 			return `SELECT
 		users.id,
 		users.username,

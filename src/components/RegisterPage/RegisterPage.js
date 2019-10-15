@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 //COMPONENT IMPORTS
 import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
@@ -84,6 +85,7 @@ class RegisterPage extends Component {
 				showConfirmButton: false,
 				timer: 1500
 			})
+			this.props.history.push('/home');
 		} else {
 			this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
 		}
@@ -259,4 +261,4 @@ const mapStateToProps = state => ({
 	userTypes: state.userTypesReducer
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(RegisterPage));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(RegisterPage)));

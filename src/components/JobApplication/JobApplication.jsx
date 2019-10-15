@@ -99,7 +99,7 @@ class JobApplication extends Component {
 	render() {
 		const { classes } = this.props;
 		let isStudent = () => {
-			return this.props.user.access_id === 1;
+			return this.props.user.user_type === 'Student';
 		};
 
 		return (

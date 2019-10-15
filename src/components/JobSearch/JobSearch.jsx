@@ -89,7 +89,7 @@ class JobSearch extends Component {
   render() {
     //checks if user type should be able to view this page
     let isStudent = () => {
-      return this.props.user.access_id === 1;
+      return this.props.user.user_type === 'Student';
     };
 
     const { classes } = this.props;
