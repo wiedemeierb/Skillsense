@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import {
     Grid,
-    Divider,
     List,
     ListItem,
     ListItemText,
@@ -16,7 +15,7 @@ import {
 
 const styles = theme => ({
     root: {
-        // align: 'center'
+        align: 'center'
     },
     paper: {
         width: 250,
@@ -78,31 +77,29 @@ class TransferList extends Component {
 
         return (
             <Grid container direction="row" spacing={3} justify="center" className={classes.root}>
-                <Grid item container spacing={3} direction="row" xs={12} sm={6} justify="center">
-                    <Grid item xs={12} justify="center">
-                        <Typography variant="subtitle2" color="primary" align="center">
+                <Grid item container spacing={3} direction="row" xs={12} sm={6} align="center">
+                    <Grid item xs={12} align="center">
+                        <Typography variant="subtitle2" color="primary" justify="center">
                             AVAILABLE SKILLS
                         </Typography>
                     </Grid>
 
-                    <Grid item className={classes.listField} xs={6} justify="center">
+                    <Grid item className={classes.listField} xs={6} align="center">
                         <Paper className={classes.paper} align="center">
-                            <Divider />
                             <List>{this.getAvailableSkills()}</List>
                         </Paper>
                     </Grid>
                 </Grid>
 
-                <Grid item container spacing={3} direction="row" xs={12} sm={6} justify="center">
-                    <Grid item xs={12} justify="center">
+                <Grid item container spacing={3} direction="row" xs={12} sm={6} align="center">
+                    <Grid item xs={12} align="center">
                         <Typography variant="subtitle2" align="center">
                             YOUR SKILLS
                         </Typography>
                     </Grid>
 
-                    <Grid item className={classes.listField} xs={6} justify="center">
+                    <Grid item className={classes.listField} xs={6} align="center">
                         <Paper className={classes.paper} align="center">
-                            <Divider />
                             <List>{this.props.user.skills && this.getUserSkills()}</List>
                         </Paper>
                     </Grid>

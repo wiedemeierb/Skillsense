@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
-import { Typography, TextField, Button, Grid } from '@material-ui/core';
+import { Typography, TextField, Button, Grid, FormControl } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -39,7 +39,17 @@ class LoginPage extends Component {
 					password: this.state.password
 				}
 			});
-			this.props.history.push('/home')
+			// if(this.props.user.user_type === 'Student'){
+			// 	this.props.history.push('/search/jobs')
+			// } else if (this.props.user.user_type === 'Mentor'){
+			// 	this.props.history.push('/mentors')
+			// } else if (this.props.user.user_type === 'Client'){
+			// 	this.props.history.push('/jobs')
+			// } else if (this.props.user.user_type === 'Admin'){
+			// 	this.props.history.push('/admin')
+			// }else {
+			// 	this.props.history.push('/')
+			// }
 		} else {
 			this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
 		}
@@ -64,9 +74,9 @@ class LoginPage extends Component {
 		return (
 			<Grid container>
 				{this.props.errors.loginMessage && (
-					<h2 className='alert' role='alert'>
+					<Typography variant="h2" className='alert' role='alert'>
 						{this.props.errors.loginMessage}
-					</h2>
+					</Typography>
 				)}
 				<TwoColumnLayout leftHeader='What is SkillSense?' rightHeader='Log In'>
 					<Grid
@@ -91,34 +101,36 @@ class LoginPage extends Component {
 						</Grid>
 					</Grid>
 					<Grid item xs={12} onKeyUp={this.handleKeyUp}>
-						<TextField
-							className={classes.formControl}
-							onChange={e => this.handleInputChangeFor('email', e)}
-							value={this.state.email}
-							required
-							label='E-Mail'
-							placeholder='Your e-mail address...'
-						/>
-						<TextField
-							className={classes.formControl}
-							onChange={event => this.handleInputChangeFor('password', event)}
-							value={this.state.password}
-							required
-							type='password'
-							label='Password'
-							placeholder='***'
-						/>
-						<Button variant="contained" color="primary" className={classes.button} onClick={() => this.login()}>
-							Log In
-						</Button>
-						<Button
-							variant="contained" color="secondary"
-							className={classes.button}
-							onClick={() => {
-								this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' });
-							}}>
-							Create New Account
-						</Button>
+						<FormControl onSubmit={this.login}>
+							<TextField
+								className={classes.formControl}
+								onChange={e => this.handleInputChangeFor('email', e)}
+								value={this.state.email}
+								required
+								label='E-Mail'
+								placeholder='Your e-mail address...'
+							/>
+							<TextField
+								className={classes.formControl}
+								onChange={event => this.handleInputChangeFor('password', event)}
+								value={this.state.password}
+								required
+								type='password'
+								label='Password'
+								placeholder='***'
+							/>
+							<Button variant="contained" color="primary" className={classes.button} type="submit">
+								Log In
+							</Button>
+							<Button
+								variant="contained" color="secondary"
+								className={classes.button}
+								onClick={() => {
+									this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' });
+								}}>
+								Create New Account
+							</Button>
+						</FormControl>
 					</Grid>
 				</TwoColumnLayout>
 			</Grid>

@@ -25,7 +25,7 @@ const styles = theme => ({
 class UserListItem extends Component {
     viewDetails = () => {
         //this dispatch for clients viewing student applications
-        if (this.props.user.access_id === 3) {
+        if (this.props.user.user_type === 'Client') {
             this.props.history.push(`/jobs/detail/applicant/${this.props.listUser.id}`);
             this.props.dispatch({
                 type: 'FETCH_APPLICATION',

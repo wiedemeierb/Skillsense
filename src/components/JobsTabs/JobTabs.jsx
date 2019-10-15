@@ -38,7 +38,7 @@ class JobTabs extends React.Component {
 
     //route simplification of client using jobType
     //can be applied to student jobs as well in future
-    if (this.props.user.access_id === 1) {
+    if (this.props.user.user_type === 'Student') {
       //dispatch actions for students
       if (value === 0) {
         this.props.dispatch({
@@ -56,7 +56,7 @@ class JobTabs extends React.Component {
         });
       }
       // dispatch actions for client
-    } else if (this.props.user.access_id === 3) {
+    } else if (this.props.user.user_type === 'Client') {
       this.props.dispatch({
         type: 'FETCH_CLIENT_JOBS',
         payload: jobType
@@ -77,7 +77,7 @@ class JobTabs extends React.Component {
           centered
         >
           <Tab label="Active" />
-          {this.props.user.access_id === 1 ? (
+          {this.props.user.user_type === 'Student' ? (
             <Tab label="Applied" />
           ) : (
               <Tab label="Pending Hire" />

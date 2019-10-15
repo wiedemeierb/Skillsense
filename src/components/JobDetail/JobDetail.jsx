@@ -43,10 +43,10 @@ class JobDetail extends Component {
 
         //checks if user type should be able to view this element
         let isStudent = () => {
-            return this.props.user.access_id === 1;
+            return this.props.user.user_type === 'Student';
         };
         let isClient = () => {
-            return this.props.user.access_id === 3;
+            return this.props.user.user_type === 'Client';
         };
 
         return (

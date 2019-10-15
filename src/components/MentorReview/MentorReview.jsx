@@ -70,7 +70,7 @@ class MentorReview extends Component {
 
     //checks if user type should be able to view this page
     let isAdmin = () => {
-      return (this.props.user.access_id === 4)
+      return (this.props.user.user_type === 'Admin')
     }
 
     return (

@@ -101,7 +101,7 @@ class MentorSearch extends Component {
 
     //checks if user type should be able to view this page
     let isStudent = () => {
-      return this.props.user.access_id === 1;
+      return this.props.user.user_type === 'Student';
     };
 
     return (<div>
@@ -151,7 +151,7 @@ class MentorSearch extends Component {
               <div>
               <PublicProfile />
                        {/* If the user is a mentor, the Request Mentor button will appear in the list row */}
-                {this.props.user.access_id === 1 && this.props.selectedUser.access_id === 2 && this.props.selectedUser.accepted === null ? <MentorRequest mentor={this.props.selectedUser} /> : null}
+                {this.props.user.user_type === 'Student' && this.props.selectedUser.user_type === 'Mentor' && this.props.selectedUser.accepted === null ? <MentorRequest mentor={this.props.selectedUser} /> : null}
             </div>
             ) : (
                 <Typography variant="h6" align="center">

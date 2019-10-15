@@ -45,6 +45,7 @@ class UserPage extends Component {
             ...this.props.user
         });
     };
+
     //handler for all input fields -- go DRY
     handleInputChangeFor = (event, name) => {
         this.setState({
@@ -76,7 +77,7 @@ class UserPage extends Component {
         const { classes } = this.props;
 
         const mentorSectionHtml = () => {
-            if (this.props.user.access_id === 2) {
+            if (this.props.user.user_type === 'Mentor') {
                 if (this.props.user.approved_mentor === 3) {
                     return (
                         <Typography className={classes.statusBadge}>Approved by Admin</Typography>

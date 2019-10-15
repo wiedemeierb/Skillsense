@@ -13,8 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        margin: 'auto',
-        width: '90vh'
+        margin: 'auto'
     },
     username: {
         fontWeight: 'bold'

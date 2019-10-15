@@ -9,11 +9,11 @@ import {Typography} from '@material-ui/core';
 
 class MyJobs extends Component {
   componentDidMount() {
-    if (this.props.user.access_id === 1) {
+    if (this.props.user.user_type === 'Student') {
       this.props.dispatch({
         type: 'FETCH_ACTIVE_JOBS'
       });
-    } else if (this.props.user.access_id === 3) {
+    } else if (this.props.user.user_type === 'Client') {
       this.props.dispatch({
         type: 'FETCH_CLIENT_JOBS',
         //active job status by default
@@ -30,12 +30,12 @@ class MyJobs extends Component {
 
     //checks if user type should be able to view this page
     let isStudent = () => {
-      return this.props.user.access_id === 1;
+      return this.props.user.user_type === 'Student';
     };
 
     //checks if user type should be able to view this page
     let isClient = () => {
-      return this.props.user.access_id === 3;
+      return this.props.user.user_type === 'Client';
     };
 
     return (

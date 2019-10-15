@@ -6,7 +6,7 @@ import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
 // import SkillList from '../SkillList/SkillList';
 
 //MATERIAL-UI IMPORTS
-import { Typography, Icon, Button, Link, Grid } from '@material-ui/core';
+import { Typography, Button, Link, Grid } from '@material-ui/core';
 import DescriptionIcon from '@material-ui/icons/Description';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -78,7 +78,7 @@ class ApplicantDetail extends Component {
         const { classes } = this.props;
 
         let isClient = () => {
-            return this.props.user.access_id === 3;
+            return this.props.user.user_type === 'Client';
         };
 
         return (
