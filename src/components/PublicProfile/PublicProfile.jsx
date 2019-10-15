@@ -25,6 +25,24 @@ const useStyles = makeStyles(theme => ({
         fontSize: 'large',
         padding: theme.spacing(1),
         verticalAlign: 'middle'
+    },
+    studentAccountBadge: {
+        color: 'white',
+        fontWeight: 'bold',
+        background: '#3f51b5',
+        padding: theme.spacing(0, 2)
+    },
+    mentorAccountBadge: {
+        color: 'white',
+        fontWeight: 'bold',
+        background: '#43a047',
+        padding: theme.spacing(0, 2)
+    },
+    clientAccountBadge: {
+        color: 'white',
+        fontWeight: 'bold',
+        background: '#ef6c00',
+        padding: theme.spacing(0, 2)
     }
 }));
 
@@ -35,31 +53,60 @@ function PublicProfile(props) {
     const displayedUser = props.user || selectedUser;
     //display the user passed as props if there is one, otherwise display selected user
 
+    //determines account type
+    let isStudent = () => {
+        return displayedUser.user_type === 'Student';
+    };
+    let isMentor = () => {
+        return displayedUser.user_type === 'Mentor';
+    };
+    let isClient = () => {
+        return displayedUser.user_type === 'Client';
+    };
+
     const classes = useStyles();
 
     return (
         <Grid className={classes.root} container spacing={4} justify="space-around">
-            <Grid item xs={12}>
-                <Typography
-                    color="primary"
-                    variant="h4"
-                    align="center"
-                    className={classes.username}>
+            {/* USER DETAILS: NAME, FOCUS, LOCATION, TYPE */}
+            <Grid item xs={12} align="center">
+                <Typography color="primary" variant="h4" className={classes.username}>
                     {displayedUser.username}
                 </Typography>
+                <Typography variant="h6">{displayedUser.focus_skill}</Typography>
+                <Typography variant="body1">{displayedUser.location}</Typography>
             </Grid>
-            <Grid item xs={12}>
-                <Typography variant="h6" align="center">
-                    {displayedUser.focus_skill}
+
+            {/* USER ACCOUNT TYPE BADGE */}
+            <Grid item xs={12} align="center">
+                <Typography variant="button">
+                    {isStudent() && (
+                        <Chip
+                            label={displayedUser.user_type}
+                            className={classes.studentAccountBadge}
+                        />
+                    )}
+                    {isMentor() && (
+                        <Chip
+                            label={displayedUser.user_type}
+                            className={classes.mentorAccountBadge}
+                        />
+                    )}
+                    {isClient() && (
+                        <Chip
+                            label={displayedUser.user_type}
+                            className={classes.clientAccountBadge}
+                        />
+                    )}
                 </Typography>
-                <Typography variant="body1" align="center">
-                    {displayedUser.location}
-                </Typography>
-                <Chip color="primary" label={displayedUser.user_type} />
             </Grid>
+
+            {/* USER BIO */}
             <Grid item xs={12} align="center">
                 <Typography variant="body2">{displayedUser.bio}</Typography>
             </Grid>
+
+            {/* NETWORKING LINKS */}
             <Grid container align="center">
                 <Grid item xs={6}>
                     <Grid item xs={12}>
@@ -99,7 +146,8 @@ function PublicProfile(props) {
                 </Grid>
             </Grid>
 
-            <Grid item xs={12}>
+            {/* SKILL LIST */}
+            <Grid item xs={12} align="center">
                 <SkillList skillList={displayedUser.skills} />
             </Grid>
         </Grid>

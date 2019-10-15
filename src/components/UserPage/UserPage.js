@@ -122,7 +122,7 @@ class UserPage extends Component {
                         <Button
                             variant="contained"
                             fullWidth={true}
-                            color={this.state.inEditMode ? 'secondary' : 'primary'}
+                            color="secondary"
                             className={classes.button}
                             onClick={this.toggleEdit}>
                             {this.state.inEditMode ? 'Cancel' : 'Edit'}
