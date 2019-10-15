@@ -63,7 +63,6 @@ class UserListItem extends Component {
         return (
             <Grid
                 container
-                spacing={2}
                 direction="row"
                 justify="space-between"
                 align="top"

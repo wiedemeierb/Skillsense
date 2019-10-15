@@ -5,20 +5,16 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
     root: {
         display: 'flex',
-        height: '80vh',
-        width: '98%',
-        alignContent: 'flex-start',
-        margin: 'auto'
+        width: '90%',
+        margin: '2% 5%'
     },
     gridHeaders: {
-        padding: theme.spacing(1),
-        margin: theme.spacing(1)
+        padding: theme.spacing(1,0),
+        margin: theme.spacing(1,0)
     },
     gridItem: {
         margin: theme.spacing(1),
-        padding: theme.spacing(1),
-        height: '70vh',
-        overflow: 'scroll'
+        padding: theme.spacing(1)
     }
 });
 
@@ -37,7 +33,7 @@ class TwoColumnLayout extends Component {
         const { classes } = this.props;
 
         return (
-            <Grid container spacing={2} className={classes.root} justify="space-around">
+            <Grid container className={classes.root} justify="space-around">
                 <Grid
                     container
                     justify="space-around"
@@ -55,7 +51,7 @@ class TwoColumnLayout extends Component {
                         </Typography>
                     </Grid>
                 </Grid>
-                <Grid container item spacing={2} justify="space-evenly">
+                <Grid container justify="space-evenly">
                     {this.props.children &&
                         this.props.children.map((child, index) => (
                             <Grid key={index} className={classes.gridItem} item xs={12} sm={5}>

@@ -5,7 +5,7 @@ import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 //COMPONENT IMPORTS
 ////constants
 import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
+// import Footer from '../Footer/Footer';
 ////routes
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 ////views
@@ -55,7 +55,6 @@ class App extends Component {
                 <CssBaseline />
                 <Router>
                     <Nav />
-                    <div className="main">
                         <Switch>
                             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
                             <Redirect exact from="/" to="/home" />
@@ -99,8 +98,7 @@ class App extends Component {
                             {/* If none of the other routes matched, we will show a 404. */}
                             <Route render={() => <h1>404</h1>} />
                         </Switch>
-                    </div>
-                    <Footer />
+                    {/* <Footer /> */}
                 </Router>
             </MuiThemeProvider>
         );
