@@ -22,6 +22,14 @@ class JobDetail extends Component {
         this.props.history.push(`/jobs/detail/applications/${this.props.match.params.id}`);
     };
 
+    routeBack = () => {
+        this.props.history.push(`/search/jobs`);
+    };
+
+    routeBackClient = () => {
+        this.props.history.push(`/jobs`);
+    };
+
     render() {
         let { details } = this.props;
 
@@ -75,13 +83,22 @@ class JobDetail extends Component {
                         <Typography>Focus Skill: {this.props.user.focus_skill}</Typography>
                         <Typography>Location: {this.props.user.location}</Typography> 
                     <Button variant="contained" color="primary" onClick={this.applyNow}>Apply</Button>
+                        <Button
+                            variant="contained" color="secondary" align="space-around" onClick={() => this.routeBack()}>
+                            Back
+                        </Button>
                     </div> : null}
                 {isClient() && (
+                    <div>
                     <Button variant="contained" color="primary" onClick={this.viewApplicants}>
                         View Applicants
                     </Button>
+                    <Button
+                        variant="contained" color="secondary" align="space-around" onClick={() => this.routeBackClient()}>
+                        Back
+                    </Button>
+                    </div>
                 )}
-                {/* {isClient() && <ApplicantsList/>} */}
             </div>
         );
     }

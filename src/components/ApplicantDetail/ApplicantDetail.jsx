@@ -66,7 +66,7 @@ class ApplicantDetail extends Component {
                         jobId: this.props.applicant.job_id
                     }
                 });
-            }
+            }this.props.history.push(`/jobs`);
         });
     };
 

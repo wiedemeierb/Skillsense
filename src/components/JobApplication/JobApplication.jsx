@@ -72,9 +72,9 @@ class JobApplication extends Component {
 		});
 	};
 
-	// viewDetail = (event, id) => {
-	// 	this.props.history.push(`/jobs/detail/${id}`);
-	// };
+	routeBack = () => {
+		this.props.history.push(`/search/jobs`);
+	};
 
 	handleUploadInputChange = e => {
 		// console.log(e.target.files[0])
@@ -141,7 +141,6 @@ class JobApplication extends Component {
 								Duration: <span>{this.props.job.duration}</span>
 							</Typography>
 						</Grid>
-						{/* <Grid item xs={12}></Grid> */}
 						{/* Cover Letter and Resume */}
 						<Grid item container spacing={4} xs={12} justify='center'>
 							<Grid item xs={12}>
@@ -167,7 +166,6 @@ class JobApplication extends Component {
 									type='file'
 									onChange={this.handleUploadInputChange}
 								/>
-								{/* <Button onClick={this.handleAwsUpload}>Upload!</Button> */}
 								{/* Mentor Info */}
 							</Grid>
 						</Grid>
@@ -218,9 +216,15 @@ class JobApplication extends Component {
 						</Grid>
 						{/* <Button variant="contained" color="secondary" onClick={this.props.history.push('/search/jobs')}>Cancel</Button> */}
 						<Grid item xs={12}>
+							<div>
 							<Button variant='contained' color='primary' onClick={this.handleSubmit}>
 								Submit
 							</Button>
+								<Button
+									variant="contained" color="secondary" align="space-around" onClick={() => this.routeBack()}>
+									Back
+                    		</Button>
+							</div>
 						</Grid>
 					</Grid>
 				) : (
