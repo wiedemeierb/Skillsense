@@ -7,35 +7,102 @@
 }
 
 .nav {
-  overflow: hidden;
-  background-color: #c2d1d9;
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    justify-content: space-between;
+    background-color: #c2d1d9;
+    padding: 10px 20px;
 }
 
 .nav-link {
-  float: left;
-  color: #505d68;
-  background-color: #c2d1d9;
-  text-align: center;
-  padding: 24px 10px;
-  text-decoration: none;
-  font-size: 15px;
+    float: left;
+    color: #505d68;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 15px;
+    background-color: transparent;
 
-  /* these last two make the logout button in
+    /* these last two make the logout button in
   the nav bar look like another link */
-  border:none;
-  cursor: pointer;
-  outline:0;
+    border: none;
+    cursor: pointer;
+    outline: 0;
 }
 
-.nav-link:hover {
-  background-color: #04b8f3;
-  color: #c2d1d9;
-}
+/* .nav-link:hover {
+    background-color: #08b8f4;
+    color: white;
+    border-radius: 50px;
+} */
 
 .nav-right {
-  float: right;
+    float: right;
+    height: 100%;
+    vertical-align: middle;
 }
 
 .logo {
-  margin: 15px;
+    margin: 15px;
+}
+
+/* NAVIGATION HOVER EFFECTS */
+.nav-hover * {
+    box-sizing: border-box;
+}
+
+.nav-hover li {
+    display: inline-block;
+    list-style: outside none none;
+    margin: 0 1em;
+    padding: 0;
+}
+
+.nav-hover a {
+    padding: 0.5em 0;
+    color: ;
+    position: relative;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+.nav-hover a:before,
+.nav-hover a:after {
+    position: absolute;
+    -webkit-transition: all 0.35s ease;
+    transition: all 0.35s ease;
+}
+
+.nav-hover a:before {
+    bottom: 0;
+    display: block;
+    height: 3px;
+    width: 0%;
+    content: '';
+    background-color: #04b8f3;
+}
+
+.nav-hover a:after {
+    left: 0;
+    top: 0;
+    padding: 0.5em 0;
+    position: absolute;
+    content: attr(data-hover);
+    white-space: nowrap;
+    max-width: 0%;
+    overflow: hidden;
+}
+
+.nav-hover a:hover:before,
+.nav-hover .current a:before {
+    opacity: 1;
+    width: 100%;
+}
+.nav-hover a:hover:after,
+.nav-hover .current a:after {
+    max-width: 100%;
 }

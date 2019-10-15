@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 //COMPONENT IMPORTS
 // import SkillList from '../SkillList/SkillList';
@@ -37,8 +38,10 @@ class UserListItem extends Component {
     viewDetails = () => {
         //this dispatch for clients viewing student applications
         if (this.props.user.access_id === 3) {
+            this.props.history.push(`/jobs/detail/applicant/${this.props.listUser.id}`);
             this.props.dispatch({
                 type: 'FETCH_APPLICATION',
+                //payload is job_applicant id
                 payload: this.props.listUser.id
             });
         } else {
@@ -60,7 +63,6 @@ class UserListItem extends Component {
         return (
             <Grid
                 container
-                spacing={2}
                 direction="row"
                 justify="space-between"
                 align="top"
@@ -94,4 +96,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(UserListItem));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(UserListItem)));

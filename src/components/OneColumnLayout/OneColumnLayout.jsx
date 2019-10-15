@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { Grid, Typography} from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
     root: {
         display: 'flex',
-        height: '80vh',
-        width: '58%',
-        alignContent: 'flex-start',
-        margin: 'auto'
+        width: '90%',
+        margin: '2% 5%'
     },
     gridHeaders: {
         margin: theme.spacing(1),
@@ -16,9 +14,7 @@ const styles = theme => ({
     },
     gridItem: {
         margin: theme.spacing(1),
-        padding: theme.spacing(1),
-        height: '70vh',
-        overflow: 'scroll'
+        padding: theme.spacing(1)
     }
 });
 
@@ -33,11 +29,7 @@ class OneColumnLayout extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Grid
-                container
-                spacing={2}
-                className={classes.root}
-                justify="space-around">
+            <Grid container className={classes.root} justify="space-around">
                 <Grid
                     container
                     justify="space-around"
@@ -52,11 +44,8 @@ class OneColumnLayout extends Component {
                     </Grid>
                 </Grid>
                 {/* PAGE BODY CONTENT HERE */}
-                <Grid container item spacing={2} justify="space-around">
-                    <Grid
-                        className={classes.gridItem}
-                        item
-                        xs={12}>
+                <Grid container justify="space-around">
+                    <Grid className={classes.gridItem} item xs={12}>
                         {/* CONTENT ENCLOSED IN COMPONENT FROM PAGE */}
                         {this.props.children}
                     </Grid>

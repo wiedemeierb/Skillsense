@@ -5,7 +5,7 @@ import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 //COMPONENT IMPORTS
 ////constants
 import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
+// import Footer from '../Footer/Footer';
 ////routes
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 ////views
@@ -36,6 +36,9 @@ const theme = createMuiTheme({
             main: '#08b8f4'
         },
         secondary: {
+            main: '#505d68'
+        },
+        error: {
             main: '#bdbdbd'
         }
     }
@@ -51,8 +54,7 @@ class App extends Component {
             <MuiThemeProvider theme={theme}>
                 <CssBaseline />
                 <Router>
-                    <div>
-                        <Nav />
+                    <Nav />
                         <Switch>
                             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
                             <Redirect exact from="/" to="/home" />
@@ -96,8 +98,7 @@ class App extends Component {
                             {/* If none of the other routes matched, we will show a 404. */}
                             <Route render={() => <h1>404</h1>} />
                         </Switch>
-                        <Footer />
-                    </div>
+                    {/* <Footer /> */}
                 </Router>
             </MuiThemeProvider>
         );

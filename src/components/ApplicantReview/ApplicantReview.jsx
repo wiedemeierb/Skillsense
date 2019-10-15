@@ -28,7 +28,7 @@ class ApplicantReview extends Component {
         });
     }
 
-    onBack = () => {
+    routeBack = () => {
         this.props.history.push(`/jobs/detail/${this.props.match.params.id}`);
     };
 
@@ -43,7 +43,7 @@ class ApplicantReview extends Component {
 
         //uses the UserListItem component to render applicant results
         let applicantList = this.props.applicants.map((applicant, i) => {
-            return <UserListItem key={i} listUser={applicant} />;
+            return <UserListItem key={applicant.student_id} listUser={applicant} />;
         });
 
         return (
@@ -58,11 +58,11 @@ class ApplicantReview extends Component {
                                 variant="contained"
                                 color="secondary"
                                 align="space-around"
-                                onClick={this.onBack}>
+                                onClick={() => this.routeBack()}>
                                 Back
                             </Button>
                         </Grid>
-                        <Grid xs={12}>
+                        <Grid item xs={12}>
                             {/* Job Search List */}
                             <div className="list">{applicantList}</div>
                         </Grid>
