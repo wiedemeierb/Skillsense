@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Swal from 'sweetalert2'
+import { withRouter } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 //COMPONENT IMPORTS
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
@@ -9,7 +10,7 @@ import UserListItem from '../UserListItem/UserListItem';
 import PublicProfile from '../PublicProfile/PublicProfile';
 
 //MATERIAL-UI IMPORTS
-import { Typography, Button, Grid } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 
 class MyMentorships extends Component {
   componentDidMount() {
@@ -52,6 +53,10 @@ class MyMentorships extends Component {
     })
   }
 
+  sendMessage = () => {
+    // this.props.history.push(`/messages/${this.props.selectedUser.id}`)
+  }
+
   render() {
     //maps over the allMentorsReducer and feeds each user to the UserListItem component for rendering
     let mentorList = this.props.mentors.map((mentor, i) => {
@@ -68,43 +73,42 @@ class MyMentorships extends Component {
       return this.props.user.user_type === 'Mentor';
     };
 
-    return (<div>
-      {isStudent() || isMentor() ? (
-        <TwoColumnLayout rightHeader="Details" leftHeader={this.props.user.user_type === 'Student' ? "Your Mentors" : "Your Mentorships"}>
-          <div>
-            {/* Navigation tabs on Mentorship Page:
-            (Active, Invites) 
-            The MentorTabs component sends a GET request based on which tab is clicked*/}
-            <MentorTabs />
-            {/* Selected Mentor List */}
-            <div className="list">{mentorList}</div>
-          </div>
-          <div>
-            {this.props.selectedUser.id ? (
-              <div>
-                <PublicProfile />
-                <br />
-
-                {isMentor() && this.props.selectedUser.accepted === false ?
-                  <div>
-                    {/* <h2>{this.props.messages}</h2> */}
-                  <Typography variant="subtitle1">Mentor Actions:</Typography>
+    return (
+      <>
+        {isStudent() || isMentor() ? (
+          <TwoColumnLayout rightHeader="Details" leftHeader={this.props.user.user_type === 'Student' ? "Your Mentors" : "Your Mentorships"}>
+            <>
+              {/* Navigation tabs on Mentorship Page:
+              (Active, Invites) 
+              The MentorTabs component sends a GET request based on which tab is clicked*/}
+              <MentorTabs />
+              {/* Applicable Mentor List by Status */}
+              <div className="list">{mentorList}</div>
+            </>
+            <>
+              {this.props.selectedUser.id ? (
+                <>
+                  <PublicProfile />
+                  {isMentor() && this.props.selectedUser.accepted === false ?
+                    <>
+                      <Typography variant="subtitle1">Mentor Actions:</Typography>
                       <Button variant="contained" color="primary" onClick={this.acceptMentorship}>Accept</Button>
                       <Button variant="contained" color="secondary" onClick={this.declineMentorship}>Decline</Button>
-                    </div>
-                  : <Grid align="center"><Button variant="contained" color="primary">Send Message</Button></Grid>
+                    </>
+                    : <Button variant="contained" color="primary" onClick={()=>this.sendMessage()}>Send Message</Button>
                   }
-              </div>
-            ) : (
-                <Typography variant="h6" align="center">
-                  Select a mentor to see more information.
-            </Typography>
-              )}
-          </div>
-        </TwoColumnLayout>
-      ) : (
-          <Typography>You are not authorized to view this page.</Typography>
-        )}            </div>
+                </>
+              ) : (
+                  <Typography variant="h6" align="center">
+                    Select a user to see more information.
+                </Typography>
+                )}
+            </>
+          </TwoColumnLayout>
+        ) : (
+            <Typography>You are not authorized to view this page.</Typography>
+          )}
+      </>
     );
   }
 }
@@ -118,4 +122,4 @@ const mapStateToProps = store => {
   };
 };
 
-export default connect(mapStateToProps)(MyMentorships);
+export default withRouter(connect(mapStateToProps)(MyMentorships));

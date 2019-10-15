@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-
 //COMPONENT IMPORTS
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import UserListItem from '../UserListItem/UserListItem';
@@ -104,65 +103,61 @@ class MentorSearch extends Component {
       return this.props.user.user_type === 'Student';
     };
 
-    return (<div>
-      {isStudent() ? (
-        <TwoColumnLayout rightHeader="Details" leftHeader="Search for Mentors">
-          <div>
-            <Paper className="search">
-              <FormControl className={classes.formControl}>
-                <FormGroup row={true} className="search">
-                  <TextField
-                    className={classes.formControl}
-                    onChange={e => this.handleSearch('searchTerm', e)}
-                    value={this.state.searchTerm}
-                    label="Search Mentors"
-                    onKeyUp={this.handleKeyUp}
-                  />
-
-                  <Select
-                    className={classes.select}
-                    value={this.state.search.skill}
-                    onChange={e => this.handleSearch('skill', e)}
-                    // onKeyUp={this.handleKeyUp}
-                  >
-                    <MenuItem value={0}>Select Skill</MenuItem>
-                    {/* Skill tag list dropdown options */}
-                    {skillList}
-                  </Select>
-
-                  <IconButton
-                    className={classes.button}
-                    aria-label="search"
-                    color="primary"
-                    onClick={this.submitSearch}
-                  >
-                    <SearchIcon />
-                  </IconButton>
-                </FormGroup>
-              </FormControl>
-            </Paper>
-
-            {/* Mentor Search List */}
-            <div className="list">{mentorList}</div>
-          </div>
-
-          <div>
-            {this.props.selectedUser.id ? (
-              <div>
-              <PublicProfile />
-                       {/* If the user is a mentor, the Request Mentor button will appear in the list row */}
-                {this.props.user.user_type === 'Student' && this.props.selectedUser.user_type === 'Mentor' && this.props.selectedUser.accepted === null ? <MentorRequest mentor={this.props.selectedUser} /> : null}
-            </div>
-            ) : (
-                <Typography variant="h6" align="center">
-                  Select a mentor to see more information.
-            </Typography>
-              )}
-          </div>
-        </TwoColumnLayout>
-      ) : (
-          <Typography>You are not authorized to view this page.</Typography>
-        )}        </div>
+    return (
+      <>
+        {isStudent() ? (
+          <TwoColumnLayout rightHeader="Details" leftHeader="Search for Mentors">
+            <>
+              <Paper className="search">
+                <FormControl className={classes.formControl}>
+                  <FormGroup row={true} className="search">
+                    <TextField
+                      className={classes.formControl}
+                      onChange={event => this.handleSearch('searchTerm', event)}
+                      value={this.state.searchTerm}
+                      label="Search Mentors"
+                      onKeyUp={this.handleKeyUp}
+                    />
+                    <Select
+                      className={classes.select}
+                      value={this.state.search.skill}
+                      onChange={event => this.handleSearch('skill', event)}
+                    >
+                      <MenuItem value={0}>Select Skill</MenuItem>
+                      {/* Skill tag list dropdown options */}
+                      {skillList}
+                    </Select>
+                    <IconButton
+                      aria-label="search"
+                      color="primary"
+                      onClick={this.submitSearch}
+                    >
+                      <SearchIcon />
+                    </IconButton>
+                  </FormGroup>
+                </FormControl>
+              </Paper>
+              {/* Mentor Search List */}
+              <div className="list">{mentorList}</div>
+            </>
+            <>
+              {this.props.selectedUser.id ? (
+                <>
+                  <PublicProfile />
+                  {/* If the user is a mentor, the Request Mentor button will appear in the list row */}
+                  {this.props.user.user_type === 'Student' && this.props.selectedUser.user_type === 'Mentor' && this.props.selectedUser.accepted === null ? <MentorRequest mentor={this.props.selectedUser} /> : null}
+                </>
+              ) : (
+                  <Typography variant="h6" align="center">
+                    Select a mentor to see more information.
+                </Typography>
+                )}
+            </>
+          </TwoColumnLayout>
+        ) : (
+            <Typography>You are not authorized to view this page.</Typography>
+          )}
+      </>
 
     )
   }
