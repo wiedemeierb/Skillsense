@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//SWEETALERTS
-import Swal from 'sweetalert2';
+
 //COMPONENT IMPORTS
 import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
-import SkillList from '../SkillList/SkillList';
+// import SkillList from '../SkillList/SkillList';
+
 //MATERIAL-UI IMPORTS
 import { Typography, Icon, Button, Link, Grid } from '@material-ui/core';
 import DescriptionIcon from '@material-ui/icons/Description';
@@ -12,7 +12,10 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LanguageIcon from '@material-ui/icons/Language';
 import EmailIcon from '@material-ui/icons/Email';
+
+//STYLING IMPORTS
 import { withStyles } from '@material-ui/core/styles';
+import Swal from 'sweetalert2';
 
 const styles = theme => ({
     root: {
@@ -135,7 +138,7 @@ class ApplicantDetail extends Component {
                         </Grid>
 
                         {/* User Info */}
-                        <Grid item container align="center" className={classes.section}>
+                        <Grid container align="center" className={classes.section}>
                             {this.props.applicant.linkedin_url !== null && (
                                 <Grid item xs={3}>
                                     <Link href={this.props.applicant.linkedin_url}>

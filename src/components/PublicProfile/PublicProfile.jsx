@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-
 //COMPONENT IMPORTS
 import SkillList from '../SkillList/SkillList';
 //MATERIAL-UI IMPORTS
@@ -14,16 +13,17 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        display: 'flex'
+        margin: 'auto',
+        width: '90vh'
     },
     username: {
         fontWeight: 'bold'
     },
+    section: {
+        padding: theme.spacing(2, 0)
+    },
     link: {
-        display: 'inline-block',
         fontWeight: 'bold',
-        fontSize: 'large',
-        padding: theme.spacing(1),
         verticalAlign: 'middle'
     },
     studentAccountBadge: {
@@ -107,42 +107,38 @@ function PublicProfile(props) {
             </Grid>
 
             {/* NETWORKING LINKS */}
-            <Grid container align="center">
-                <Grid item xs={6}>
-                    <Grid item xs={12}>
-                        <Link href={displayedUser.linkedin_url}>
-                            <Typography className={classes.link}>
-                                <LinkedInIcon fontSize="large" />
-                            </Typography>
-                            <Typography className={classes.link}>LinkedIn</Typography>
-                        </Link>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Link href={displayedUser.website_url}>
-                            <Typography className={classes.link}>
-                                <LanguageIcon fontSize="large" />
-                            </Typography>
-                            <Typography className={classes.link}>Website</Typography>
-                        </Link>
-                    </Grid>
+            <Grid container align="center" className={classes.section}>
+                <Grid item xs={3}>
+                    <Link href={displayedUser.linkedin_url}>
+                        <Typography className={classes.link}>
+                            <LinkedInIcon fontSize="large" />
+                        </Typography>
+                        <Typography className={classes.link}>LinkedIn</Typography>
+                    </Link>
                 </Grid>
-                <Grid item xs={6}>
-                    <Grid item xs={12}>
-                        <Link href={displayedUser.github_url}>
-                            <Typography className={classes.link}>
-                                <GitHubIcon fontSize="large" />
-                            </Typography>
-                            <Typography className={classes.link}>GitHub</Typography>
-                        </Link>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Link target="_blank" href={`mailto:${displayedUser.email}`}>
-                            <Typography className={classes.link}>
-                                <EmailIcon fontSize="large" />
-                            </Typography>
-                            <Typography className={classes.link}>E-Mail</Typography>
-                        </Link>
-                    </Grid>
+                <Grid item xs={3}>
+                    <Link href={displayedUser.website_url}>
+                        <Typography className={classes.link}>
+                            <LanguageIcon fontSize="large" />
+                        </Typography>
+                        <Typography className={classes.link}>Website</Typography>
+                    </Link>
+                </Grid>
+                <Grid item xs={3}>
+                    <Link href={displayedUser.github_url}>
+                        <Typography className={classes.link}>
+                            <GitHubIcon fontSize="large" />
+                        </Typography>
+                        <Typography className={classes.link}>GitHub</Typography>
+                    </Link>
+                </Grid>
+                <Grid item xs={3}>
+                    <Link target="_blank" href={`mailto:${displayedUser.email}`}>
+                        <Typography className={classes.link}>
+                            <EmailIcon fontSize="large" />
+                        </Typography>
+                        <Typography className={classes.link}>E-Mail</Typography>
+                    </Link>
                 </Grid>
             </Grid>
 

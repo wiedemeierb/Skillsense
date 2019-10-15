@@ -13,6 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
     button: {
         display: 'block',
+        margin: theme.spacing(3, 0),
         padding: theme.spacing(1),
         color: 'white'
     },
@@ -106,7 +107,7 @@ class UserPage extends Component {
 
         return (
             <OneColumnLayout header="Your Profile">
-                <Grid container justify="space-around">
+                <Grid container justify="space-around" className={classes.root}>
                     <Grid item xs={12}>
                         {this.state.inEditMode ? (
                             <EditProfile
