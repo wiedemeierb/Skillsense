@@ -12,6 +12,7 @@ import selectedUserReducer from './selectedUserReducer';
 import pendingMentorsReducer from './pendingMentorsReducer';
 import userTypesReducer from './userTypesReducer';
 import applicantReducer from './applicantReducer';
+import selectedApplicantReducer from './selectedApplicantReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -32,7 +33,8 @@ const rootReducer = combineReducers({
     selectedUserReducer,
     pendingMentorsReducer,
     userTypesReducer,
-    applicantReducer
+    applicantReducer,
+    selectedApplicantReducer
 });
 
 export default rootReducer;

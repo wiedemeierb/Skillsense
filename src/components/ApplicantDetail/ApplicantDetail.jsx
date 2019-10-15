@@ -72,109 +72,44 @@ class ApplicantDetail extends Component {
                     <Grid item container justify="space-around" spacing={4} xs={12}>
                         <Grid item xs={12}>
                             <Typography variant="h3" align="center">
-                                Job Application
+                                Application Details
                             </Typography>
                         </Grid>
-                        {/* Job Info */}
-                        <Grid item xs={4}>
-                            <Typography color="primary" variant="h4">
-                                {this.props.job.position_title}
-                            </Typography>
-                            <Typography color="secondary" variant="h6">
-                                {this.props.job.project_title}
-                            </Typography>
+                        {/* Applicant Info */}
+                        <Grid item xs={12} align="center">
+                            <Typography variant="h4" color="primary">{this.props.applicant.username}</Typography>
+                            <Typography variant="h5">{this.props.applicant.focus_skill}</Typography>
+                            <Typography variant="h6">{this.props.applicant.location}</Typography>
                         </Grid>
-                        {/* Client Info */}
-                        <Grid item xs={4}>
-                            <Typography variant="h6">{this.props.job.username}</Typography>
-                            <Typography>{this.props.job.location}</Typography>
-                        </Grid>
-                        <Grid item xs={4}>
-                            {this.props.job.skills && (
-                                <SkillList skillList={this.props.job.skills} />
-                            )}
-                            <Typography>
-                                Budget: $<span>{this.props.job.budget}</span>
-                            </Typography>
-                            <Typography>
-                                Duration: <span>{this.props.job.duration}</span>
-                            </Typography>
-                        </Grid>
-                        {/* <Grid item xs={12}></Grid> */}
                         {/* Cover Letter and Resume */}
                         <Grid item container spacing={4} xs={12} justify="center">
                             <Grid item xs={12}>
                                 <Typography variant="h6" align="left">
-                                    Cover Letter
+                                    Cover Letter:
                                 </Typography>
-                                <TextField
-                                    id="standard-name"
-                                    label="Add your cover letter..."
-                                    value={this.state.cover_letter}
-                                    onChange={event => {
-                                        this.handleInput(event, 'cover_letter');
-                                    }}
-                                    margin="normal"
-                                    fullWidth={true}
-                                    multiline={true}
-                                />
+                                <Typography variant="body2">
+                                    {this.props.applicant.cover_letter}
+                                </Typography>
                             </Grid>
-                            {/* Insert Resume attachment functionality here */}
+                            {/* Resume Attachment*/}
                             <Grid item xs={12}>
-                                <TextField
-                                    helperText="Attach Project Proposal"
-                                    type="file"
-                                    onChange={this.handleUploadInputChange}
-                                />
-                                {/* <Button onClick={this.handleAwsUpload}>Upload!</Button> */}
-                                {/* Mentor Info */}
+                                <Link href={this.props.applicant.attachment_url}>Resume</Link>
                             </Grid>
                         </Grid>
-                        <Typography variant="h6">Invite a Mentor</Typography>
-                        <Grid
-                            className={classes.mentorList}
-                            item
-                            container
-                            direction="column"
-                            xs={12}>
-                            {this.props.mentors.map(listUser => {
-                                return (
-                                    <Grid key={listUser.id} item xs={12}>
-                                        <Typography>Matching Skills: 3</Typography>
-                                        <Typography>{listUser.username}</Typography>
-                                    </Grid>
-                                    // <div
-                                    // 	key={listUser.id}
-                                    // 	value={listUser.id}
-                                    // 	onChange={event => {
-                                    // 		this.handleInput(event, 'mentor_id');
-                                    // 	}}>
-                                    // 	<Typography>{listUser.username}</Typography>
-                                    // 	<Typography>{listUser.focus_skill}</Typography>
-                                    // 	<Typography>
-                                    // 		<span>{listUser.skills.length}</span> Matching Skill
-                                    // 		{listUser.skills.length > 1 && 's'}
-                                    // 	</Typography>
-                                    // </div>
-                                );
-                            })}
-                        </Grid>
-                        <br />
                         {/* User Info */}
                         <Grid item xs={12}>
-                            <Typography variant="h6">Your Account Information</Typography>
-                            <Typography>{this.props.user.username}</Typography>
-                            <Typography>{this.props.user.focus_skill}</Typography>
-                            <Typography>{this.props.user.location}</Typography>
+                            <Typography variant="h6">Student Information</Typography>
                             <Typography className={classes.link}>
-                                <Link href={this.props.user.github_url}>GitHub Profile</Link>
+                                <Link href={this.props.applicant.github_url}>GitHub Profile</Link>
                             </Typography>
                             <Typography className={classes.link}>
-                                <Link href={this.props.user.linkedin_url}>LinkedIn Profile</Link>
+                                <Link href={this.props.applicant.linkedin_url}>
+                                    LinkedIn Profile
+                                </Link>
                             </Typography>
-                            {this.props.user.website_url && (
+                            {this.props.applicant.website_url && (
                                 <Typography className={classes.link}>
-                                    <Link href={this.props.user.website_url}>
+                                    <Link href={this.props.applicant.website_url}>
                                         Portfolio/Personal Website
                                     </Link>
                                 </Typography>
@@ -198,7 +133,7 @@ class ApplicantDetail extends Component {
 const mapStateToProps = store => {
     return {
         job: store.selectedJobReducer,
-        applicants: store.applicantReducer,
+        applicant: store.selectedApplicantReducer,
         user: store.user
     };
 };
