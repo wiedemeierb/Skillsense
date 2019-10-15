@@ -13,8 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        margin: 'auto',
-        width: '90vh'
+        margin: 'auto'
     },
     username: {
         fontWeight: 'bold'
@@ -102,12 +101,12 @@ function PublicProfile(props) {
             </Grid>
 
             {/* USER BIO */}
-            <Grid item xs={12} align="center">
+            <Grid item xs={12} sm={8} align="center">
                 <Typography variant="body2">{displayedUser.bio}</Typography>
             </Grid>
 
             {/* NETWORKING LINKS */}
-            <Grid container align="center" className={classes.section}>
+            <Grid item container xs={12} sm={6} align="center" className={classes.section}>
                 <Grid item xs={3}>
                     <Link href={displayedUser.linkedin_url}>
                         <Typography className={classes.link}>
@@ -143,7 +142,7 @@ function PublicProfile(props) {
             </Grid>
 
             {/* SKILL LIST */}
-            <Grid item xs={12} align="center">
+            <Grid item xs={12} sm={8} align="center">
                 <SkillList skillList={displayedUser.skills} />
             </Grid>
         </Grid>

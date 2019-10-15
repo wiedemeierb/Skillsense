@@ -14,7 +14,6 @@ const styles = theme => ({
     listItem: {
         display: 'inline-flex',
         justifyContent: 'space-between',
-        // width: '',
         padding: '20px 20px 10px',
         borderBottom: '1px solid gray'
     },
@@ -45,13 +44,14 @@ class JobListItem extends Component {
                 direction="row"
                 justify="space-between"
                 align="top"
+                spacing={3}
                 className={classes.listItem}>
                     
                 {/* left side info */}
                 <Grid item xs={4}>
                     <Typography variant="h5">{this.props.job.project_title}</Typography>
                     {/* conditionally rendered so only students see client information */}
-                    {this.props.user.access_id === 1 && (
+                    {this.props.user.user_type === 'Student' && (
                         <>
                             <Typography>{this.props.job.client}</Typography>
                             <Typography>{this.props.job.location}</Typography>

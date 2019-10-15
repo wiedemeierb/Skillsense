@@ -6,11 +6,12 @@ const styles = theme => ({
     root: {
         display: 'flex',
         width: '90%',
-        margin: '2% 5%'
+        margin: 'auto',
+        padding: '2% 0'
     },
     gridHeaders: {
-        margin: theme.spacing(1),
-        padding: theme.spacing(1)
+        margin: theme.spacing(1, 0),
+        padding: theme.spacing(1, 0)
     },
     gridItem: {
         margin: theme.spacing(1),
@@ -29,7 +30,7 @@ class OneColumnLayout extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Grid container className={classes.root} justify="space-around">
+            <Grid container className={classes.root}>
                 <Grid
                     container
                     justify="space-around"

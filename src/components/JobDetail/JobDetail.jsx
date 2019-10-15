@@ -4,7 +4,18 @@ import { withRouter } from 'react-router-dom';
 //COMPONENT IMPORTS
 import SkillList from '../SkillList/SkillList';
 //MATERIAL-UI IMPORTS
-import { Typography, Button } from '@material-ui/core';
+import { Typography, Button, Grid } from '@material-ui/core';
+import OneColumnLayout from '../OneColumnLayout/OneColumnLayout'
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+    button: {
+        display: 'block',
+        margin: theme.spacing(3, 0),
+        padding: theme.spacing(1),
+        color: 'white'
+    },
+});
 
 class JobDetail extends Component {
     componentDidMount() {
@@ -22,67 +33,92 @@ class JobDetail extends Component {
         this.props.history.push(`/jobs/detail/applications/${this.props.match.params.id}`);
     };
 
+    routeBack = () => {
+        this.props.history.push(`/search/jobs`);
+    };
+
+    routeBackClient = () => {
+        this.props.history.push(`/jobs`);
+    };
+
+    markedCompleted = () => {
+        console.log('mark completed working')
+        this.props.dispatch({
+            type: 'MARK_JOB_COMPLETED',
+            payload: {id: this.props.match.params.id}
+        })
+    }
+
     render() {
         let { details } = this.props;
 
         //checks if user type should be able to view this element
         let isStudent = () => {
-            return this.props.user.access_id === 1;
+            return this.props.user.user_type === 'Student';
         };
         let isClient = () => {
-            return this.props.user.access_id === 3;
+            return this.props.user.user_type === 'Client';
         };
 
         return (
             <div>
-                <br />
-                <Typography variant="h3" align="center">
-                    Job Details
-                </Typography>
-                <br />
-                <Typography variant="h2" color="primary">
+                <OneColumnLayout header="Job Details">
+                <Grid spacing={3} container justify="center">
+                <Grid item xs={12} align="center">
+                    <Typography variant="h3" color="primary">
                     {details.project_title}
-                </Typography>
-                <br />
-                <Typography variant="h4" color="secondary">
-                    {details.username}
-                </Typography>
-                <br />
-                <Typography>Seeking: {details.position_title}</Typography>
-                <Typography>Location: {details.location}</Typography>
-                <Typography>Duration: {details.duration}</Typography>
-                <Typography>Budget: {details.budget}</Typography>
-                <br />
-                <Typography variant="h5" color="primary">
+                    </Typography> 
+                </Grid>
+                 <Grid item xs={12} align="center">  
+                    <Typography variant="h4" color="secondary">
+                    Client: {details.username}
+                    </Typography>
+                    <Typography>Seeking: {details.position_title}</Typography>
+                    <Typography>Location: {details.location}</Typography>
+                    <Typography>Duration: {details.duration}</Typography>
+                    <Typography>Budget: {details.budget}</Typography>
+                </Grid>
+                <Grid item xs={12} align="center">
+                    <Typography variant="h5" color="primary">
                     Description:
-                </Typography>
-                <Typography>{details.description}</Typography>
-                <br />
+                    </Typography>
+                    <Typography>{details.description}</Typography>
+                </Grid>
+                <Grid item xs={12} align="center">
                 <Typography variant="h5" color="primary">
                     Desired Skills:
                 </Typography>
                 <SkillList skillList={details.skills} />
-                <br />
-                <br />
+                </Grid>
 
                 {isStudent() && this.props.details.hired === null ?
-
-                    <div>
-                        <Typography variant="h5" color="primary">
-                            Application:
-                        </Typography>
-                        <Typography>Name: {this.props.user.username}</Typography>
-                        <Typography>Focus Skill: {this.props.user.focus_skill}</Typography>
-                        <Typography>Location: {this.props.user.location}</Typography> 
+                <Grid item xs={12} align="center">
                     <Button variant="contained" color="primary" onClick={this.applyNow}>Apply</Button>
-                    </div> : null}
+                        <Button
+                            variant="contained" color="secondary" align="space-around" onClick={() => this.routeBack()}>
+                            Back
+                        </Button>
+                </Grid> : null}
+
                 {isClient() && (
+                <Grid item xs={12} align="center">
                     <Button variant="contained" color="primary" onClick={this.viewApplicants}>
                         View Applicants
                     </Button>
+                    {this.props.details.status_id === 3 &&
+                    <Button variant="outlined" color="primary" onClick={this.markedCompleted}>
+                        Completed Project
+                    </Button>}
+                    <Button
+                        variant="contained" color="secondary" align="space-around" onClick={() => this.routeBackClient()}>
+                        Back
+                    </Button>
+                </Grid>
                 )}
-                {/* {isClient() && <ApplicantsList/>} */}
+                </Grid>
+                </OneColumnLayout>
             </div>
+            
         );
     }
 }
@@ -94,4 +130,4 @@ const mapStateToProps = state => ({
     details: state.selectedJobReducer
 });
 
-export default withRouter(connect(mapStateToProps)(JobDetail));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(JobDetail)));

@@ -104,6 +104,18 @@ function* fetchJobDetail(action) {
 		console.log(error);
 	}
 }
+// patch for completed jobs
+function* markJobCompleted(action) {
+	try {
+		console.log('this is the put', action.payload)
+		yield axios.put(`api/jobs/detail/${action.payload.id}`);
+		// yield put ({
+		// 	type: 'FETCH_CLIENT_JOBS'
+		// })
+	} catch (error) {
+		console.log(error);
+	}
+}
 
 //posts new job details
 function* postJob(action) {
@@ -161,6 +173,7 @@ function* jobSaga() {
 	yield takeEvery('FETCH_JOB_DETAIL', fetchJobDetail);
 	yield takeEvery('POST_JOB', postJob);
 	yield takeEvery('SUBMIT_APPLICATION', submitApplication);
+	yield takeEvery('MARK_JOB_COMPLETED', markJobCompleted);
 }
 
 export default jobSaga;

@@ -10,16 +10,17 @@ const styles = theme => ({
 	},
 	formControl: {
 		display: 'block',
-		margin: theme.spacing(2),
-		padding: theme.spacing(2)
+		margin: theme.spacing(2, 0)
 	},
 	aboutText: {
+		textIndent: '2em',
+		letterSpacing: '1px',
 		margin: theme.spacing(2),
 		padding: theme.spacing(2)
 	},
 	button: {
 		color: 'white',
-		margin: theme.spacing(1),
+		margin: theme.spacing(3, 1),
 		padding: theme.spacing(1)
 	}
 });
@@ -39,7 +40,17 @@ class LoginPage extends Component {
 					password: this.state.password
 				}
 			});
-			this.props.history.push('/home')
+			// if(this.props.user.user_type === 'Student'){
+			// 	this.props.history.push('/search/jobs')
+			// } else if (this.props.user.user_type === 'Mentor'){
+			// 	this.props.history.push('/mentors')
+			// } else if (this.props.user.user_type === 'Client'){
+			// 	this.props.history.push('/jobs')
+			// } else if (this.props.user.user_type === 'Admin'){
+			// 	this.props.history.push('/admin')
+			// }else {
+			this.props.history.push('/')
+			// }
 		} else {
 			this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
 		}
@@ -53,72 +64,88 @@ class LoginPage extends Component {
 	};
 
 	//Allows user to login using the Enter key while focus is within the Input area
-	handleKeyUp = (key) => {
+	handleKeyUp = key => {
 		if (key.key === 'Enter') {
 			this.login();
 		}
-	}
+	};
 
 	render() {
 		const { classes } = this.props;
 		return (
 			<Grid container>
 				{this.props.errors.loginMessage && (
-					<h2 className='alert' role='alert'>
+					<Typography variant="h2" className="alert" role="alert">
 						{this.props.errors.loginMessage}
-					</h2>
+					</Typography>
 				)}
-				<TwoColumnLayout leftHeader='What is SkillSense?' rightHeader='Log In'>
-					<Grid
-						container
-						spacing={6}
-						direction='column'
-						alignItems='center'
-						justify='space-between'>
+				<TwoColumnLayout leftHeader="What is SkillSense?" rightHeader="Log In">
+					<Grid container spacing={4} alignItems="center" justify="space-between">
 						<Grid className={classes.aboutText} item xs={12}>
-							<Typography paragraph>
+							<Typography paragraph variant="subtitle1">
 								Freelancing can be especially difficult to break into for new
-								software developers, but it is often the connections that
-								students make with industry professionals which serve as the
-								best avenue for success.
-							</Typography>
-						</Grid>
-						<Grid className={classes.aboutText} item xs={12}>
-							<Typography paragraph>
-								SkillSense helps create that avenue by bringing together
-								students, mentors, and clients alike for freelance projects.
-							</Typography>
+								software developers, but it is often the connections that students
+								make with industry professionals which serve as the best avenue for
+								success.
+	                            </Typography>
+							<Typography paragraph variant="subtitle1">
+								SkillSense helps create that avenue by bringing together students,
+								mentors, and clients alike for freelance projects.
+	                            </Typography>
 						</Grid>
 					</Grid>
-					<Grid item xs={12} onKeyUp={this.handleKeyUp}>
-						<TextField
-							className={classes.formControl}
-							onChange={e => this.handleInputChangeFor('email', e)}
-							value={this.state.email}
-							required
-							label='E-Mail'
-							placeholder='Your e-mail address...'
-						/>
-						<TextField
-							className={classes.formControl}
-							onChange={event => this.handleInputChangeFor('password', event)}
-							value={this.state.password}
-							required
-							type='password'
-							label='Password'
-							placeholder='***'
-						/>
-						<Button variant="contained" color="primary" className={classes.button} onClick={() => this.login()}>
-							Log In
-						</Button>
-						<Button
-							variant="contained" color="secondary"
-							className={classes.button}
-							onClick={() => {
-								this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' });
-							}}>
-							Create New Account
-						</Button>
+
+					{/* LOGIN INPUT FIELDS */}
+					<Grid container item xs={12} justify="space-around" onKeyUp={this.handleKeyUp}>
+						<Grid item xs={12}>
+							<TextField
+								className={classes.formControl}
+								onChange={e => this.handleInputChangeFor('email', e)}
+								value={this.state.email}
+								fullWidth
+								required
+								label="E-Mail"
+								placeholder="user@example.com"
+								variant="outlined"
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								className={classes.formControl}
+								onChange={event => this.handleInputChangeFor('password', event)}
+								value={this.state.password}
+								required
+								fullWidth
+								type="password"
+								label="Password"
+								placeholder="********"
+								variant="outlined"
+							/>
+						</Grid>
+
+						{/* LOGIN & REGISTER BUTTONS */}
+						<Grid item xs={4} align="center">
+							<Button
+								variant="contained"
+								color="primary"
+								fullWidth
+								className={classes.button}
+								onClick={() => this.login()}>
+								Log In
+	                            </Button>
+						</Grid>
+						<Grid item xs={4} align="center">
+							<Button
+								variant="contained"
+								color="secondary"
+								fullWidth
+								className={classes.button}
+								onClick={() => {
+									this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' });
+								}}>
+								Create New Account
+	                            </Button>
+						</Grid>
 					</Grid>
 				</TwoColumnLayout>
 			</Grid>

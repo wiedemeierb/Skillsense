@@ -9,7 +9,7 @@ import UserListItem from '../UserListItem/UserListItem';
 import PublicProfile from '../PublicProfile/PublicProfile';
 
 //MATERIAL-UI IMPORTS
-import { Typography, Button } from '@material-ui/core';
+import { Typography, Button, Grid } from '@material-ui/core';
 
 class MyMentorships extends Component {
   componentDidMount() {
@@ -26,29 +26,29 @@ class MyMentorships extends Component {
 
   //sends put request to the database to update the relationship to accepted: true
   acceptMentorship = () => {
-    Swal.fire({
-      position: 'center',
-      type: 'success',
-      title: 'You have accepted this Mentee',
-      showConfirmButton: false,
-      timer: 1500
-    })
     this.props.dispatch({
       type: 'ACCEPT_MENTORSHIP',
       payload: { student_id: this.props.selectedUser.id }
+    })
+    Swal.fire({
+      position: 'center',
+      type: 'success',
+      title: 'You have accepted this Mentorship!',
+      showConfirmButton: false,
+      timer: 1500
     })
   }
 
   //sends delete request to the database to remove the relationship to decline
   declineMentorship = () => {
+    this.props.dispatch({
+      type: 'DECLINE_MENTORSHIP',
+      payload: { student_id: this.props.selectedUser.id }
+    })
     Swal.fire({
       type: 'error',
       title: 'You have declined this Mentorship!',
       timer: 1500
-    })
-    this.props.dispatch({
-      type: 'DECLINE_MENTORSHIP',
-      payload: { student_id: this.props.selectedUser.id }
     })
   }
 
@@ -60,49 +60,50 @@ class MyMentorships extends Component {
 
     //checks if user type should be able to view this page
     let isStudent = () => {
-      return this.props.user.access_id === 1;
+      return this.props.user.user_type === 'Student';
     };
 
+    //checks if user type should be able to view this page
     let isMentor = () => {
-      return this.props.user.access_id === 2;
+      return this.props.user.user_type === 'Mentor';
     };
 
     return (<div>
-        {isStudent() || isMentor() ? (
-        <TwoColumnLayout rightHeader="Details" leftHeader={this.props.user.access_id === 1 ? "Your Mentors" : "Your Mentorships"}>
+      {isStudent() || isMentor() ? (
+        <TwoColumnLayout rightHeader="Details" leftHeader={this.props.user.user_type === 'Student' ? "Your Mentors" : "Your Mentorships"}>
           <div>
-              {/* Navigation tabs on Mentorship Page:
+            {/* Navigation tabs on Mentorship Page:
             (Active, Invites) 
             The MentorTabs component sends a GET request based on which tab is clicked*/}
-              <MentorTabs />
-              {/* Selected Mentor List */}
-              <div className="list">{mentorList}</div>
-            </div>
-            <div>
-              {this.props.selectedUser.id ? (
-                <div>
-                  <PublicProfile />
-                  <br />
-                  
-                  {isMentor() && this.props.selectedUser.accepted === false ?
-                    <div>
+            <MentorTabs />
+            {/* Selected Mentor List */}
+            <div className="list">{mentorList}</div>
+          </div>
+          <div>
+            {this.props.selectedUser.id ? (
+              <div>
+                <PublicProfile />
+                <br />
+
+                {isMentor() && this.props.selectedUser.accepted === false ?
+                  <div>
                     {/* <h2>{this.props.messages}</h2> */}
                   <Typography variant="subtitle1">Mentor Actions:</Typography>
                       <Button variant="contained" color="primary" onClick={this.acceptMentorship}>Accept</Button>
                       <Button variant="contained" color="secondary" onClick={this.declineMentorship}>Decline</Button>
                     </div>
-                    : <Button variant="contained" color="primary">Send Message</Button>
+                  : <Grid align="center"><Button variant="contained" color="primary">Send Message</Button></Grid>
                   }
-                </div>
-              ) : (
-                  <Typography variant="h6" align="center">
-                    Select a mentor to see more information.
-            </Typography>
-                )}
               </div>
-                  </TwoColumnLayout>
-        ) : (
-            <Typography>You are not authorized to view this page.</Typography>
+            ) : (
+                <Typography variant="h6" align="center">
+                  Select a mentor to see more information.
+            </Typography>
+              )}
+          </div>
+        </TwoColumnLayout>
+      ) : (
+          <Typography>You are not authorized to view this page.</Typography>
         )}            </div>
     );
   }

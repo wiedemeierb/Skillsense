@@ -6,11 +6,12 @@ const styles = theme => ({
     root: {
         display: 'flex',
         width: '90%',
-        margin: '2% 5%'
+        margin: 'auto',
+        padding: '2% 0'
     },
     gridHeaders: {
-        padding: theme.spacing(1,0),
-        margin: theme.spacing(1,0)
+        padding: theme.spacing(1, 0),
+        margin: theme.spacing(1, 0)
     },
     gridItem: {
         margin: theme.spacing(1),
@@ -33,28 +34,29 @@ class TwoColumnLayout extends Component {
         const { classes } = this.props;
 
         return (
-            <Grid container className={classes.root} justify="space-around">
+            <Grid container className={classes.root}>
                 <Grid
+                    item
                     container
                     justify="space-around"
                     align="top"
-                    item
+                    spacing={3}
                     className={classes.gridHeaders}>
-                    <Grid item xs={6}>
-                        <Typography variant="h4" align="left">
+                    <Grid item xs={12} sm={6}>
+                        <Typography variant="h4" align="center">
                             {this.props.leftHeader}
                         </Typography>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} sm={6}>
                         <Typography variant="h4" align="right">
                             {this.props.rightHeader}
                         </Typography>
                     </Grid>
                 </Grid>
-                <Grid container justify="space-evenly">
+                <Grid container justify="space-around" spacing={8}>
                     {this.props.children &&
                         this.props.children.map((child, index) => (
-                            <Grid key={index} className={classes.gridItem} item xs={4}>
+                            <Grid key={index} item xs={12} sm={6}>
                                 {child}
                             </Grid>
                         ))}
