@@ -99,7 +99,7 @@ router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 		users.active,
 		user_type.user_type,
 		requested.accepted;`;
-		} else if (req.user.uesr_type === 'Student') {
+		} else if (req.user.user_type === 'Student') {
 			return `SELECT
 		users.id,
 		users.username,

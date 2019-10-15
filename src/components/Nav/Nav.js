@@ -90,9 +90,9 @@ const Nav = props => (
                         </Link>
                     </li>
                     <li>
-                        <a className="nav-link" href="/home" onClick={() => props.dispatch({ type: 'LOGOUT' })}>
+                        <Link className="nav-link" onClick={() => props.dispatch({ type: 'LOGOUT' })}>
                             Log Out
-                        </a>
+                        </Link>
                     </li>
                 </>
             )}
