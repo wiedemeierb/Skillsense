@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
+// COMPONENT IMPORTS
+import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
+// MATERIAL-UI IMPORTS
 import {
     TextField,
     Button,
@@ -12,6 +14,8 @@ import {
     ListItemText,
     InputAdornment
 } from '@material-ui/core';
+// STYLING IMPORTS
+import { withStyles } from '@material-ui/core/styles';
 import Swal from 'sweetalert2';
 
 const styles = theme => ({
@@ -125,17 +129,13 @@ class JobPostForm extends Component {
 
         //checks if user type should be able to view this page
         let isClient = () => {
-            return (this.props.user.user_type === 'Client')
-        }
+            return this.props.user.user_type === 'Client';
+        };
 
         return (
-            <Paper>
+            <OneColumnLayout header="Post New Job">
                 {isClient() ? (
                     <form onSubmit={this.handleSubmit}>
-                        <br />
-                        <Typography variant="h5" align="center">
-                            Post New Job
-                        </Typography>
                         <TextField
                             className={classes.formControl}
                             label="Project Name"
@@ -231,7 +231,7 @@ class JobPostForm extends Component {
                 ) : (
                     <Typography variant="h3">You are not authorized to view this page.</Typography>
                 )}
-            </Paper>
+            </OneColumnLayout>
         );
     }
 }
