@@ -8,16 +8,16 @@ import './Nav.css';
 
 //for conditional rendering based on user type
 const isAdmin = props => {
-    return props.user.access_id === 4;
+    return props.user.user_type === 'Admin';
 };
 const isClient = props => {
-    return props.user.access_id === 3;
+    return props.user.user_type === 'Client';
 };
 const isMentor = props => {
-    return props.user.access_id === 2;
+    return props.user.user_type === 'Mentor';
 };
 const isStudent = props => {
-    return props.user.access_id === 1;
+    return props.user.user_type === 'Student';
 };
 
 const Nav = props => (
@@ -90,7 +90,7 @@ const Nav = props => (
                         </Link>
                     </li>
                     <li>
-                        <a className="nav-link" onClick={() => props.dispatch({ type: 'LOGOUT' })}>
+                        <a className="nav-link" href="/home" onClick={() => props.dispatch({ type: 'LOGOUT' })}>
                             Log Out
                         </a>
                     </li>

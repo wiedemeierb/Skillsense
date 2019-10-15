@@ -6,8 +6,10 @@ import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 ////constants
 import Nav from '../Nav/Nav';
 // import Footer from '../Footer/Footer';
+
 ////routes
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+
 ////views
 import UserPage from '../UserPage/UserPage';
 import JobApplication from '../JobApplication/JobApplication';
@@ -23,7 +25,7 @@ import MyJobs from '../MyJobs/MyJobs';
 import MyMentorships from '../MyMentorships/MyMentorships';
 
 //STYLING/MATERIAL-UI IMPORTS
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, Typography } from '@material-ui/core';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import './App.css';
 
@@ -58,8 +60,6 @@ class App extends Component {
                         <Switch>
                             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
                             <Redirect exact from="/" to="/home" />
-                            {/* Visiting localhost:3000/about will show the about page.
-                            This is a route anyone can see, no login necessary */}
                             {/* For protected routes, the view could show one of several things on the same route.
                               Visiting localhost:3000/home will show the UserPage if the user is logged in.
                               If the user is not logged in, the ProtectedRoute will show 'Login' or 'Register' page.
@@ -71,32 +71,20 @@ class App extends Component {
                                 component={UserPage}
                             />
                             {/* This works the same as the other protected route, 
-                            except that if the user is logged in, they will see the info page instead. */}
+                            except that if the user is logged in, they will see the login/register page instead. */}
                             <ProtectedRoute exact path="/search/jobs" component={JobSearch} />
                             <ProtectedRoute exact path="/search/mentors" component={MentorSearch} />
                             <ProtectedRoute exact path="/jobs" component={MyJobs} />
                             <ProtectedRoute exact path="/mentors" component={MyMentorships} />
                             <ProtectedRoute exact path="/jobs/new" component={JobPostForm} />
                             <ProtectedRoute exact path="/jobs/detail/:id" component={JobDetail} />
-                            <ProtectedRoute
-                                exact
-                                path="/jobs/detail/apply/:id"
-                                component={JobApplication}
-                            />
-                            <ProtectedRoute
-                                exact
-                                path="/jobs/detail/applications/:id"
-                                component={ApplicantReview}
-                            />
-                            <ProtectedRoute
-                                exact
-                                path="/jobs/detail/applicant/:id"
-                                component={ApplicantDetail}
-                            />
+                            <ProtectedRoute exact path="/jobs/detail/apply/:id" component={JobApplication} />
+                            <ProtectedRoute exact path="/jobs/detail/applications/:id" component={ApplicantReview} />
+                            <ProtectedRoute exact path="/jobs/detail/applicant/:id" component={ApplicantDetail}/>
                             <ProtectedRoute exact path="/admin" component={MentorReview} />
                             <ProtectedRoute exact path="/messages" component={Messages} />
                             {/* If none of the other routes matched, we will show a 404. */}
-                            <Route render={() => <h1>404</h1>} />
+                            <Route render={() => <Typography variant="h1">404: Page Not Found</Typography>} />
                         </Switch>
                     {/* <Footer /> */}
                 </Router>

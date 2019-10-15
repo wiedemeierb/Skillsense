@@ -51,7 +51,7 @@ class JobListItem extends Component {
                 <Grid item xs={4}>
                     <Typography variant="h5">{this.props.job.project_title}</Typography>
                     {/* conditionally rendered so only students see client information */}
-                    {this.props.user.access_id === 1 && (
+                    {this.props.user.user_type === 'Student' && (
                         <>
                             <Typography>{this.props.job.client}</Typography>
                             <Typography>{this.props.job.location}</Typography>
