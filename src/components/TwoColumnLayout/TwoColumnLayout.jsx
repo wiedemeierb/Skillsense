@@ -43,7 +43,7 @@ class TwoColumnLayout extends Component {
                     spacing={3}
                     className={classes.gridHeaders}>
                     <Grid item xs={12} sm={6}>
-                        <Typography variant="h4" align="left">
+                        <Typography variant="h4" align="center">
                             {this.props.leftHeader}
                         </Typography>
                     </Grid>
@@ -53,7 +53,7 @@ class TwoColumnLayout extends Component {
                         </Typography>
                     </Grid>
                 </Grid>
-                <Grid container justify="space-around" spacing={3}>
+                <Grid container justify="space-around" spacing={8}>
                     {this.props.children &&
                         this.props.children.map((child, index) => (
                             <Grid key={index} item xs={12} sm={6}>

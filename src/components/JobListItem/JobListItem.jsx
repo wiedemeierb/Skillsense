@@ -14,7 +14,6 @@ const styles = theme => ({
     listItem: {
         display: 'inline-flex',
         justifyContent: 'space-between',
-        // width: '',
         padding: '20px 20px 10px',
         borderBottom: '1px solid gray'
     },
@@ -45,6 +44,7 @@ class JobListItem extends Component {
                 direction="row"
                 justify="space-between"
                 align="top"
+                spacing={3}
                 className={classes.listItem}>
                     
                 {/* left side info */}
