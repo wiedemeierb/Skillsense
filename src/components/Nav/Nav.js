@@ -26,8 +26,6 @@ const Nav = props => (
             <SkillSenseLogo alt="skill-sense logo" className="logo" />
         </Link>
         <div className="nav-right nav-hover">
-            {/* Always show this link since the about page is not protected */}
-
             {/* Show My Mentorships if user is Student or Mentor */}
             {isStudent(props) || isMentor(props) ? (
                 <li>
@@ -41,14 +39,6 @@ const Nav = props => (
                 <li>
                     <Link className="nav-link" to="/search/mentors">
                         Mentor Search
-                    </Link>
-                </li>
-            )}
-            {/* Show Admin if user is Admin */}
-            {isAdmin(props) && (
-                <li>
-                    <Link className="nav-link" to="/admin">
-                        Admin
                     </Link>
                 </li>
             )}
@@ -76,10 +66,14 @@ const Nav = props => (
                     </Link>
                 </li>
             )}
-
-            {/* Show this link if they are logged in or not,
-              but call this link 'Home' if they are logged in,
-              and call this link 'Login / Register' if they are not */}
+            {/* Show Admin if user is Admin */}
+            {isAdmin(props) && (
+                <li>
+                    <Link className="nav-link" to="/admin">
+                        Admin
+                    </Link>
+                </li>
+            )}
             <li>
                 <Link className="nav-link" to="/home">
                     {/* Show My Profile if user is logged in, otherwise show Login/Register */}
@@ -87,7 +81,7 @@ const Nav = props => (
                 </Link>
             </li>
 
-            {/* Show the link to the info page and the logout button if the user is logged in */}
+            {/* Show the link to the logout button if the user is logged in */}
             {props.user.id && (
                 <>
                     <li>
@@ -106,11 +100,6 @@ const Nav = props => (
     </nav>
 );
 
-// Instead of taking everything from state, we just want the user
-// object to determine if they are logged in
-// if they are logged in, we show them a few more links
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({ user }) => ({ user });
 const mapStateToProps = state => ({
     user: state.user
 });

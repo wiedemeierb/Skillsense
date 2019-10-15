@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import {
 	Typography,
 	TextField,
@@ -26,7 +25,6 @@ const styles = theme => ({
 		minWidth: 200
 	},
 	largeFormControl: {
-		// display: 'block',
 		margin: theme.spacing(1),
 		padding: theme.spacing(1)
 	},
@@ -58,13 +56,6 @@ class RegisterPage extends Component {
 		this.props.dispatch({ type: 'FETCH_USER_TYPES' });
 	};
 	registerUser = event => {
-		Swal.fire({
-			position: 'center',
-			type: 'success',
-			title: 'Welcome to Skillsense',
-			showConfirmButton: false,
-			timer: 1500
-		})
 		if (
 			this.state.username &&
 			this.state.password &&
@@ -77,6 +68,13 @@ class RegisterPage extends Component {
 				type: 'REGISTER',
 				payload: this.state
 			});
+			Swal.fire({
+				position: 'center',
+				type: 'success',
+				title: 'Welcome to Skillsense',
+				showConfirmButton: false,
+				timer: 1500
+			})
 		} else {
 			this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
 		}
@@ -135,7 +133,7 @@ class RegisterPage extends Component {
 								value={this.state.userType}
 								required
 								inputProps={{ name: 'User Type', id: 'userTypeHelper' }}
-								onChange={e => this.setState({ userType: e.target.value })}>
+								onChange={event => this.setState({ userType: event.target.value })}>
 								{this.props.userTypes.map((type) => {
 									if (type.user_type !== 'Admin') {
 										return <MenuItem key={type.id} value={type.id}>
@@ -144,15 +142,14 @@ class RegisterPage extends Component {
 									} else {
 										return null
 									}
-								}
-								)}
+								})}
 							</Select>
 							<FormHelperText>Choose your account type...</FormHelperText>
 						</FormControl>
 					</Grid>
 				</Grid>
 				<Grid item container justify='center' align='center' xs={12}>
-					<Grid item xs={4}>
+					<Grid item xs={12} sm={6} md={4}>
 						<TextField
 							className={classes.formControl}
 							label='Name'
@@ -162,7 +159,7 @@ class RegisterPage extends Component {
 							onChange={e => this.handleInputChangeFor('username', e)}
 						/>
 					</Grid>
-					<Grid item xs={4}>
+					<Grid item xs={12} sm={6} md={4}>
 						<TextField
 							className={classes.formControl}
 							label='Location'
@@ -172,7 +169,7 @@ class RegisterPage extends Component {
 							onChange={e => this.handleInputChangeFor('location', e)}
 						/>
 					</Grid>
-					<Grid item xs={4}>
+					<Grid item xs={12} sm={6} md={4}>
 						<TextField
 							className={classes.formControl}
 							label='Your Title'
@@ -182,7 +179,7 @@ class RegisterPage extends Component {
 							onChange={e => this.handleInputChangeFor('focus_skill', e)}
 						/>
 					</Grid>
-					<Grid item xs={4}>
+					<Grid item xs={12} sm={6} md={4}>
 						<TextField
 							className={classes.formControl}
 							label='LinkedIn'
@@ -191,7 +188,7 @@ class RegisterPage extends Component {
 							onChange={e => this.handleInputChangeFor('linkedin_url', e)}
 						/>
 					</Grid>
-					<Grid item xs={4}>
+					<Grid item xs={12} sm={6} md={4}>
 						<TextField
 							className={classes.formControl}
 							label='Github'
@@ -200,7 +197,7 @@ class RegisterPage extends Component {
 							onChange={e => this.handleInputChangeFor('github_url', e)}
 						/>
 					</Grid>
-					<Grid item xs={4}>
+					<Grid item xs={12} sm={6} md={4}>
 						<TextField
 							className={classes.formControl}
 							label='Other Website'
@@ -222,9 +219,7 @@ class RegisterPage extends Component {
 						/>
 					</Grid>
 				</Grid>
-
 				<Grid item xs={12}>
-
 					<Button
 						variant="contained" color="secondary"
 						className={classes.button}
@@ -236,7 +231,6 @@ class RegisterPage extends Component {
 					<Button variant="contained" color="primary" onClick={this.registerUser}>Register New Account</Button>
 				</Grid>
 			</Grid>
-			// </div>
 		);
 	}
 }

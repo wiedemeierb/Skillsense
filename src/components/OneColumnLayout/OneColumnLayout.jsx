@@ -34,7 +34,7 @@ class OneColumnLayout extends Component {
                     container
                     justify="space-around"
                     align="top"
-                    item
+                    item xs={12}
                     className={classes.gridHeaders}>
                     {/* PAGE HEADER TEXT HERE */}
                     <Grid item xs={12}>

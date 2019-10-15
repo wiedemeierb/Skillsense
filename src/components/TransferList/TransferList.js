@@ -16,12 +16,12 @@ import {
 
 const styles = theme => ({
     root: {
-        margin: 'auto',
-        width: '50vw'
+        // align: 'center'
     },
     paper: {
         width: 250,
         height: 250,
+        align: 'center',
         overflow: 'scroll'
     },
     listField: {
@@ -37,13 +37,11 @@ class TransferList extends Component {
 
     //sends post request for clicked skill ID
     addSkill = skillId => {
-        // console.log(skillId);
         this.props.dispatch({ type: 'ADD_SKILL', payload: { id: skillId } });
     };
 
     //sends delete request for clicked skill ID
     removeSkill = skillId => {
-        // console.log(skillId);
         this.props.dispatch({ type: 'REMOVE_SKILL', payload: { id: skillId } });
     };
 
@@ -79,32 +77,36 @@ class TransferList extends Component {
         const { classes } = this.props;
 
         return (
-            <Grid container direction="row" spacing={8} justify="center" className={classes.root}>
-                <Grid item container spacing={3} direction="row" xs={5}>
-                    <Grid item xs={12}>
+            <Grid container direction="row" spacing={3} justify="center" className={classes.root}>
+                <Grid item container spacing={3} direction="row" xs={12} sm={6} justify="center">
+                    <Grid item xs={12} justify="center">
                         <Typography variant="subtitle2" color="primary" align="center">
                             AVAILABLE SKILLS
                         </Typography>
                     </Grid>
-                    <Paper className={classes.paper}>
-                        <Divider />
-                        <Grid item className={classes.listField} xs={12}>
+
+                    <Grid item className={classes.listField} xs={6} justify="center">
+                        <Paper className={classes.paper} align="center">
+                            <Divider />
                             <List>{this.getAvailableSkills()}</List>
-                        </Grid>
-                    </Paper>
+                        </Paper>
+                    </Grid>
                 </Grid>
-                <Grid item container spacing={3} direction="row" xs={5}>
-                    <Grid item xs={12}>
+
+                <Grid item container spacing={3} direction="row" xs={12} sm={6} justify="center">
+                    <Grid item xs={12} justify="center">
                         <Typography variant="subtitle2" align="center">
                             YOUR SKILLS
                         </Typography>
                     </Grid>
-                    <Paper className={classes.paper}>
-                        <Divider />
-                        <Grid item xs={12}>
+
+                    <Grid item className={classes.listField} xs={6} justify="center">
+                        <Paper className={classes.paper} align="center">
+                            <Divider />
                             <List>{this.props.user.skills && this.getUserSkills()}</List>
-                        </Grid>
-                    </Paper>
+                        </Paper>
+                    </Grid>
+
                 </Grid>
             </Grid>
         );
