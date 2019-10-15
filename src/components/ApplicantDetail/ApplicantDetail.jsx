@@ -65,8 +65,8 @@ class ApplicantDetail extends Component {
                         applicantId: Number(this.props.match.params.id),
                         jobId: this.props.applicant.job_id
                     }
-                });
-            }this.props.history.push(`/jobs`);
+                });this.props.history.push(`/jobs`);
+            }
         });
     };
 
@@ -200,6 +200,8 @@ class ApplicantDetail extends Component {
                                     Back
                                 </Button>
                             </Grid>
+
+                            {this.props.applicant.status_id === 1 &&
                             <Grid item xs={4}>
                                 <Button
                                     variant="contained"
@@ -209,7 +211,7 @@ class ApplicantDetail extends Component {
                                     onClick={this.handleSubmit}>
                                     Hire
                                 </Button>
-                            </Grid>
+                            </Grid>}
                         </Grid>
                     </Grid>
                 ) : (

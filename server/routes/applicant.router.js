@@ -29,7 +29,7 @@ router.get('/detail/:id', (req, res) => {
         SELECT "job_applicants".id, "users".username, "users".focus_skill, "users".location, "users".bio,
         "users".github_url, "users".linkedin_url, "users".website_url, "users".email, 
         "jobs".project_title, "job_id", "student_id", "payment_terms", "cover_letter", 
-        "attachment_url", "mentor_id", "mentor_accepted", "hired" FROM "job_applicants" 
+        "attachment_url", "mentor_id", "mentor_accepted", "hired", "status_id" FROM "job_applicants" 
         JOIN "users" ON "job_applicants".student_id = "users".id 
         JOIN "jobs" ON "jobs".id = "job_applicants".job_id WHERE "job_applicants".id = $1;
         `;

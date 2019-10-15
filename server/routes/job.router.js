@@ -452,4 +452,16 @@ LEFT JOIN (SELECT * FROM "job_applicants" WHERE "student_id" = $1) AS "applied" 
 		});
 });
 
+router.put('/detail/:id', (req, res) => {
+	let queryText = `UPDATE "jobs" SET "status_id" = 4 WHERE "id" = $1;`;
+	pool.query(queryText, [req.params.id])
+	// console.log('put completed job', req.params)
+	.then(result => {
+		res.sendStatus(200);
+	}).catch(error => {
+		console.log('error with the patch completed jobs', error);
+		res.sendStatus(500);
+	})
+});
+
 module.exports = router;
