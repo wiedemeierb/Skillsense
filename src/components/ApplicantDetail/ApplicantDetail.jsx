@@ -53,14 +53,14 @@ class ApplicantDetail extends Component {
             showCancelButton: true,
             confirmButtonColor: '#04b8f3',
             cancelButtonColor: '#505d68',
-            confirmButtonText: 'Yes, submit it!'
+            confirmButtonText: 'Yes!'
         }).then(result => {
             if (result.value) {
                 this.props.dispatch({
                     type: 'HIRE_APPLICANT',
                     payload: {
-                        ...this.state,
-                        job_id: Number(this.props.match.params.id)
+                        applicantId: Number(this.props.match.params.id),
+                        jobId: this.props.applicant.job_id
                     }
                 });
             }

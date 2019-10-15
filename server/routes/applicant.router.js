@@ -2,8 +2,9 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+/** GET LIST OF ALL APPLICANTS FOR A SELECTED JOB **/
 router.get('/list/:id', (req, res) => {
-    let jobId = req.params.id;
+    const jobId = req.params.id;
     const queryText = `
         SELECT "job_applicants".id, "users".username, "users".focus_skill, 
         "jobs".project_title, "job_id", "student_id" FROM "job_applicants" 
@@ -21,8 +22,9 @@ router.get('/list/:id', (req, res) => {
         });
 });
 
+/** GET APPLICANT DETAILS **/
 router.get('/detail/:id', (req, res) => {
-    let applicantId = req.params.id;
+    const applicantId = req.params.id;
     const queryText = `
         SELECT "job_applicants".id, "users".username, "users".focus_skill, "users".location, "users".bio,
         "users".github_url, "users".linkedin_url, "users".website_url, "users".email, 
@@ -40,6 +42,33 @@ router.get('/detail/:id', (req, res) => {
             console.log(error);
             res.sendStatus(500);
         });
+});
+
+/** UPDATE APPLICATION + JOB UPON HIRING **/
+router.patch('/hire', async (req, res) => {
+    console.log(req.body);
+
+    const applicantId = req.body.applicantId;
+    const jobId = req.body.jobId;
+
+    const queryText = `
+        UPDATE "job_applicants" SET "hired" = true WHERE "id" = $1;
+        `;
+
+    const connection = await pool.connect();
+    try {
+        await connection.query(`BEGIN;`);
+        await connection.query(queryText, [applicantId]);
+        await connection.query(`UPDATE "jobs" SET "status_id" = 3 WHERE "id" = $1`, [jobId]);
+        await connection.query(`COMMIT;`);
+        res.sendStatus(201);
+    } catch (error) {
+        await connection.query(`ROLLBACK;`);
+        console.log(error);
+        res.sendStatus(500);
+    } finally {
+        connection.release();
+    }
 });
 
 module.exports = router;
