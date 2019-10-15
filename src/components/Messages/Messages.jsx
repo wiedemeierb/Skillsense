@@ -9,6 +9,7 @@ import {
 	List,
 	ListItem,
 	ListItemText,
+	Divider,
 	IconButton
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -25,6 +26,10 @@ const styles = theme => ({
 });
 
 class Messages extends Component {
+	state = {
+		messages: this.props.messages
+	}
+
 	componentDidMount() {
 		// gets all accepted mentorship relationships from the server and stores them in the allMentorsReducer
 		this.props.dispatch({
@@ -36,9 +41,21 @@ class Messages extends Component {
 		return (
 			<TwoColumnLayout leftHeader='Inbox' rightHeader='details'>
 				<Grid container justify='center' alignItems='center' spacing={2}>
-					<Grid item xs={12}></Grid>
+					<Grid item xs={12}>
+						<List>
+						{this.props.messages && this.props.messages.map((message, index) => {
+							return (
+								<ListItem button key={index} onClick={() => {this.setState({selected: message})}}>
+									<ListItemText>{message.username}</ListItemText>
+								</ListItem>
+							)
+						})}
+							</List>
+					</Grid>
 				</Grid>
-				<Grid container justify='center' alignItem='center' spacing={2}></Grid>
+				<Grid container justify='center' alignItems='center' spacing={2}>
+
+				</Grid>
 			</TwoColumnLayout>
 		);
 	}
@@ -48,7 +65,7 @@ const mapStateToProps = store => {
 	return {
 		// mentors: store.allMentorsReducer,
 		// selectedUser: store.selectedUserReducer,
-		// user: store.user,
+		user: store.user,
 		messages: store.allMessagesReducer
 	};
 };

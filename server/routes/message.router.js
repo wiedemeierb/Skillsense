@@ -15,7 +15,31 @@ join (select users.id as rId, users.username as rName from users) as recipient
 where messages.sender_id = $1 OR messages.recipient_id = $1;`;
 	pool.query(queryText, [req.user.id])
 		.then(result => {
-			res.send(result.rows);
+			console.log(result.rows);
+			let userList = [];
+			let counter = 0;
+			for (let message of result.rows) {
+				if (
+					!userList.map(user => user.username).includes(message.rname) &&
+					message.rname !== req.user.username
+				) {
+					userList.push({ id: counter, username: message.rname });
+					counter ++
+				}
+				if (
+					!userList.map(user => user.username).includes(message.sname) &&
+					message.sname !== req.user.username
+				) {
+					userList.push({id: counter, username: message.sname });
+					counter ++
+				}
+			}
+			console.log(userList);
+			for (let user of userList) {
+				user.messages = result.rows.filter(message => message.rname === user.username || message.sname === user.username)
+			}
+			console.log(userList);
+			res.send(userList);
 		})
 		.catch(error => {
 			console.log(error);
