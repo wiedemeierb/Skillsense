@@ -42,18 +42,18 @@ class TwoColumnLayout extends Component {
                     align="top"
                     spacing={3}
                     className={classes.gridHeaders}>
-                    <Grid item xs={12} sm={6}>
-                        <Typography variant="h4" align="left">
+                    <Grid item xs={12}>
+                        <Typography variant="h4" align="center">
                             {this.props.leftHeader}
                         </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    {/* <Grid item xs={12} sm={6}>
                         <Typography variant="h4" align="right">
                             {this.props.rightHeader}
                         </Typography>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
-                <Grid container justify="space-around" spacing={3}>
+                <Grid container justify="space-around" spacing={8}>
                     {this.props.children &&
                         this.props.children.map((child, index) => (
                             <Grid key={index} item xs={12} sm={6}>
