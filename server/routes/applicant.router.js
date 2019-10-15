@@ -24,7 +24,7 @@ router.get('/list/:id', (req, res) => {
 router.get('/detail/:id', (req, res) => {
     let applicantId = req.params.id;
     const queryText = `
-        SELECT "job_applicants".id, "users".username, "users".focus_skill, "users".location, 
+        SELECT "job_applicants".id, "users".username, "users".focus_skill, "users".location, "users".bio,
         "users".github_url, "users".linkedin_url, "users".website_url, "users".email, 
         "jobs".project_title, "job_id", "student_id", "payment_terms", "cover_letter", 
         "attachment_url", "mentor_id", "mentor_accepted", "hired" FROM "job_applicants" 
