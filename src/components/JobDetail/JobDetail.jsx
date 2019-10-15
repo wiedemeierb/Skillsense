@@ -30,6 +30,14 @@ class JobDetail extends Component {
         this.props.history.push(`/jobs`);
     };
 
+    markedCompleted = () => {
+        console.log('mark completed working')
+        this.props.dispatch({
+            type: 'MARK_JOB_COMPLETED',
+            payload: {id: this.props.match.params.id}
+        })
+    }
+
     render() {
         let { details } = this.props;
 
@@ -74,7 +82,6 @@ class JobDetail extends Component {
                 <br />
 
                 {isStudent() && this.props.details.hired === null ?
-
                     <div>
                         <Typography variant="h5" color="primary">
                             Application:
@@ -93,6 +100,10 @@ class JobDetail extends Component {
                     <Button variant="contained" color="primary" onClick={this.viewApplicants}>
                         View Applicants
                     </Button>
+                    {this.props.details.status_id === 3 &&
+                    <Button variant="outlined" color="primary" onClick={this.markedCompleted}>
+                        Completed Project
+                    </Button>}
                     <Button
                         variant="contained" color="secondary" align="space-around" onClick={() => this.routeBackClient()}>
                         Back
