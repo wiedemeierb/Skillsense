@@ -40,12 +40,12 @@ class TwoColumnLayout extends Component {
                     align="top"
                     item
                     className={classes.gridHeaders}>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <Typography variant="h4" align="left">
                             {this.props.leftHeader}
                         </Typography>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <Typography variant="h4" align="right">
                             {this.props.rightHeader}
                         </Typography>
@@ -54,7 +54,7 @@ class TwoColumnLayout extends Component {
                 <Grid container justify="space-evenly">
                     {this.props.children &&
                         this.props.children.map((child, index) => (
-                            <Grid key={index} className={classes.gridItem} item xs={12} sm={5}>
+                            <Grid key={index} className={classes.gridItem} item xs={4}>
                                 {child}
                             </Grid>
                         ))}

@@ -45,6 +45,7 @@ class LoginPage extends Component {
 		}
 	}; // end login
 
+	//saves input in local state on change
 	handleInputChangeFor = (propertyName, event) => {
 		this.setState({
 			[propertyName]: event.target.value
@@ -61,7 +62,7 @@ class LoginPage extends Component {
 	render() {
 		const { classes } = this.props;
 		return (
-			<div>
+			<Grid container>
 				{this.props.errors.loginMessage && (
 					<h2 className='alert' role='alert'>
 						{this.props.errors.loginMessage}
@@ -74,7 +75,7 @@ class LoginPage extends Component {
 						direction='column'
 						alignItems='center'
 						justify='space-between'>
-						<Grid className={classes.aboutText} item xs={8}>
+						<Grid className={classes.aboutText} item xs={12}>
 							<Typography paragraph>
 								Freelancing can be especially difficult to break into for new
 								software developers, but it is often the connections that
@@ -82,14 +83,14 @@ class LoginPage extends Component {
 								best avenue for success.
 							</Typography>
 						</Grid>
-						<Grid className={classes.aboutText} item xs={8}>
+						<Grid className={classes.aboutText} item xs={12}>
 							<Typography paragraph>
 								SkillSense helps create that avenue by bringing together
 								students, mentors, and clients alike for freelance projects.
 							</Typography>
 						</Grid>
 					</Grid>
-					<div onKeyUp={this.handleKeyUp}>
+					<Grid item xs={12} onKeyUp={this.handleKeyUp}>
 						<TextField
 							className={classes.formControl}
 							onChange={e => this.handleInputChangeFor('email', e)}
@@ -100,7 +101,7 @@ class LoginPage extends Component {
 						/>
 						<TextField
 							className={classes.formControl}
-							onChange={e => this.handleInputChangeFor('password', e)}
+							onChange={event => this.handleInputChangeFor('password', event)}
 							value={this.state.password}
 							required
 							type='password'
@@ -118,70 +119,13 @@ class LoginPage extends Component {
 							}}>
 							Create New Account
 						</Button>
-					</div>
+					</Grid>
 				</TwoColumnLayout>
-			</div>
+			</Grid>
 		);
-		// return (
-		//   <div>
-		//     {this.props.errors.loginMessage && (
-		//       <h2
-		//         className="alert"
-		//         role="alert"
-		//       >
-		//         {this.props.errors.loginMessage}
-		//       </h2>
-		//     )}
-		//     <form onSubmit={this.login}>
-		//       <h1>Login</h1>
-		//       <div>
-		//         <label htmlFor="username">
-		//           Username:
-		//           <input
-		//             type="text"
-		//             name="username"
-		//             value={this.state.username}
-		//             onChange={this.handleInputChangeFor('username')}
-		//           />
-		//         </label>
-		//       </div>
-		//       <div>
-		//         <label htmlFor="password">
-		//           Password:
-		//           <input
-		//             type="password"
-		//             name="password"
-		//             value={this.state.password}
-		//             onChange={this.handleInputChangeFor('password')}
-		//           />
-		//         </label>
-		//       </div>
-		//       <div>
-		//         <input
-		//           className="log-in"
-		//           type="submit"
-		//           name="submit"
-		//           value="Log In"
-		//         />
-		//       </div>
-		//     </form>
-		//     <center>
-		//       <button
-		//         type="button"
-		//         className="link-button"
-		//         onClick={() => {this.props.dispatch({type: 'SET_TO_REGISTER_MODE'})}}
-		//       >
-		//         Register
-		//       </button>
-		//     </center>
-		//   </div>
-		// );
 	}
 }
 
-// Instead of taking everything from state, we just want the error messages.
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({
 	errors: state.errors
 });

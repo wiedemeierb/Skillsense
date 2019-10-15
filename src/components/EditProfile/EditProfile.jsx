@@ -33,8 +33,10 @@ function EditProfile(props) {
     }, [reduxUser]);
 
     const editStudentInfo = () => {
-        // console.log('handleClick saveSkills operations');
-        // console.log('this is state on didMount', user);
+        dispatch({
+            type: 'EDIT_USER_INFO',
+            payload: user
+        });
         Swal.fire({
             position: 'center',
             type: 'success',
@@ -42,17 +44,13 @@ function EditProfile(props) {
             showConfirmButton: false,
             timer: 1500
         })
-        dispatch({
-            type: 'EDIT_USER_INFO',
-            payload: user
-        });
         props.toggleEdit();
     };
 
     return (
         <Grid className={classes.root} container spacing={4} justify="space-around">
             {/* ROW ONE: NAME, TITLE, LOCATION */}
-            <Grid item xs={4}>
+            <Grid item xs={12} sm={4}>
                 <TextField
                     required
                     id="outlined-required"
@@ -66,7 +64,7 @@ function EditProfile(props) {
                     }}
                 />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} sm={4}>
                 <TextField
                     required
                     id="outlined-required"
@@ -80,7 +78,7 @@ function EditProfile(props) {
                     }}
                 />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} sm={4}>
                 <TextField
                     required
                     id="outlined-required"
@@ -110,7 +108,7 @@ function EditProfile(props) {
                 />
             </Grid>
             {/* ROW THREE: LINKEDIN, GITHUB, WEBSITE */}
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
                 <TextField
                     required
                     id="outlined-required"
@@ -124,7 +122,7 @@ function EditProfile(props) {
                     }}
                 />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
                 <TextField
                     required
                     id="outlined-required"
@@ -138,7 +136,7 @@ function EditProfile(props) {
                     }}
                 />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
                 <TextField
                     required
                     id="outlined-required"
@@ -152,7 +150,7 @@ function EditProfile(props) {
                     }}
                 />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
                 <TextField
                     required
                     id="outlined-required"
@@ -166,7 +164,7 @@ function EditProfile(props) {
                     }}
                 />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} align="center">
                 <TransferList allSkills={skills} user={reduxUser} />
             </Grid>
             {/* ROW FIVE: SAVE */}

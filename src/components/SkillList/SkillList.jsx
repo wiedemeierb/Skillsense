@@ -17,9 +17,6 @@ function SkillList(props) {
 	return (
 		<>
 			{props.skillList && props.skillList.map((skill) => (
-				// <Typography key={skill.id} variant='body2' className={classes.skillTag}>
-				// 	{skill.tag}
-				// </Typography>
 				<Chip key={skill.id}
 					color="secondary" label={skill.tag} className={classes.skillTag}
 				/>

@@ -59,8 +59,6 @@ class UserPage extends Component {
 
     //saves profile changes to database
     editUserInfo = () => {
-        // console.log('handleClick saveSkills operations');
-        // console.log('this is state on didMount', this.state);
         this.props.dispatch({
             type: 'EDIT_USER_INFO',
             payload: this.state
@@ -85,9 +83,7 @@ class UserPage extends Component {
                     );
                 } else if (this.props.user.approved_mentor === 2) {
                     return (
-                        <Typography className={classes.statusBadge}>
-                            Pending Admin Approval
-                        </Typography>
+                        <Typography className={classes.statusBadge}>Pending Admin Approval</Typography>
                     );
                 } else {
                     return (
@@ -123,7 +119,7 @@ class UserPage extends Component {
                         <Button
                             variant="contained"
                             fullWidth={true}
-                            color="secondary"
+                            color={this.state.inEditMode ? 'secondary' : 'primary'}
                             className={classes.button}
                             onClick={this.toggleEdit}>
                             {this.state.inEditMode ? 'Cancel' : 'Edit'}
