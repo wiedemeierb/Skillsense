@@ -5,6 +5,11 @@ body {
     margin: 0px;
 }
 
+.main {   
+    display: inline-block;
+    overflow: scroll;
+}
+
 .alert {
     background-color: #ff4545;
     margin: 50px;
