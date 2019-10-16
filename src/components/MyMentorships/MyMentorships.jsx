@@ -8,6 +8,7 @@ import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import MentorTabs from '../MentorTabs/MentorTabs';
 import UserListItem from '../UserListItem/UserListItem';
 import PublicProfile from '../PublicProfile/PublicProfile';
+import JobListItem from '../JobListItem/JobListItem';
 
 //MATERIAL-UI IMPORTS
 import { Typography, Button, Grid } from '@material-ui/core';
@@ -78,6 +79,14 @@ class MyMentorships extends Component {
       return this.props.user.user_type === 'Mentor';
     };
 
+    //uses the JobListItem component to render the job search results
+    let jobList =
+      this.props.selectedUser.job_list &&
+      this.props.selectedUser.job_list.map((job, i) => {
+        return (<JobListItem key={i} job={job} />)
+      });
+
+    console.log(this.props.selectedUser.job_list)
     return (
       <>
         {isStudent() || isMentor() ? (
@@ -102,8 +111,11 @@ class MyMentorships extends Component {
                       <Button align="center" variant="contained" color="secondary" onClick={this.declineMentorship}>Decline</Button>
                       </Grid>
                     </>
-                    : <Grid align="center"><Button variant="contained" color="primary" onClick={()=>this.sendMessage()}>Send Message</Button>
-                    </Grid>
+                    : <>
+                        <Grid align="center"><Button variant="contained" color="primary" onClick={()=>this.sendMessage()}>Send Message</Button>
+                        </Grid>
+                        {isMentor() && this.props.selectedUser.job_list[0] !== null ? <><br/><Typography variant="h5" align="center">Student's Jobs</Typography><div className="list">{jobList}</div></> : null}
+                     </>
                   }
                 </>
               ) : (
