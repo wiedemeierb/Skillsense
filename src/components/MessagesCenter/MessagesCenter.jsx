@@ -17,18 +17,25 @@ import { withStyles } from '@material-ui/core/styles';
 //component import
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
 import ConversationListItem from '../ConversationListItem/ConversationListItem';
+import MessageDialog from '../MessageDialog/MessageDialog';
 
 const styles = theme => ({
 	root: {
 		display: 'flex'
 	},
 	messageList: {},
-	messageListItem: {}
+	messageListItem: {},
+	button: {
+		display: 'flex',
+		padding: theme.spacing(1),
+		margin: 'auto'
+	}
 });
 
 class MessagesCenter extends Component {
 	state = {
-		selected: null
+		selected: null,
+		dialogOpen: false
 	};
 
 	componentDidMount() {
@@ -38,21 +45,26 @@ class MessagesCenter extends Component {
 		});
 	}
 
+	toggleDialog = () => {
+		this.setState({dialogOpen: !this.state.dialogOpen})
+	}
+
 	render() {
+		const { classes } = this.props;
 		return (
 			<TwoColumnLayout leftHeader='Inbox' rightHeader='details'>
 				<Grid container justify='center' alignItems='center' spacing={2}>
 					<Grid item xs={12}>
 						<List>
 							{this.props.messages &&
-								this.props.messages.map((message) => {
+								this.props.messages.map(message => {
 									return (
 										<ListItem
 											button
 											key={message.id}
 											selected={this.state.selected === message.id}
 											onClick={() => {
-												this.setState({selected: message.id });
+												this.setState({ selected: message.id });
 											}}>
 											<ListItemText>{message.username}</ListItemText>
 										</ListItem>
@@ -62,15 +74,23 @@ class MessagesCenter extends Component {
 					</Grid>
 				</Grid>
 				<Grid container justify='center' alignItems='center' spacing={2}>
+					{this.state.selected !== null && (
+						<Grid item xs>
+							<Button
+								className={classes.button}
+								size='small'
+								variant='contained'
+								color='primary'>
+								Reply to Conversation
+							</Button>
+							<MessageDialog open={this.state.dialogOpen}/>
+						</Grid>
+					)}
 					{this.state.selected !== null &&
 						this.props.messages &&
-						this.props.messages[this.state.selected].messages
-							.map((message, index) => {
-								return (
-									<ConversationListItem message={message} key={message.id}/>
-									)
-								})
-							}
+						this.props.messages[this.state.selected].messages.map((message, index) => {
+							return <ConversationListItem message={message} key={message.id} />;
+						})}
 				</Grid>
 			</TwoColumnLayout>
 		);
@@ -86,4 +106,4 @@ const mapStateToProps = store => {
 	};
 };
 
-export default connect(mapStateToProps)(MessagesCenter);
+export default connect(mapStateToProps)(withStyles(styles)(MessagesCenter));
