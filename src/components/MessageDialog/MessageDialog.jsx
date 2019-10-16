@@ -13,12 +13,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
 	button: {
-		padding: theme.spacing(0),
-		margin: theme.spacing(0)
+		padding: theme.spacing(1),
+		margin: theme.spacing(1)
 	}
 }));
 
 function MessageDialog(props) {
+	//re-usable message dialog component, pass it a recipient={id: #, username: 'name'} in props
 	const [open, setOpen] = useState(props.open);
 	const [message, setMessage] = useState('');
 	const classes = useStyles();
@@ -38,7 +39,7 @@ function MessageDialog(props) {
 				variant='contained'
 				color='primary'
 				onClick={handleClickOpen}>
-				Reply
+				Send Message
 			</Button>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle id='message-dialog'>Send Message</DialogTitle>
