@@ -1,12 +1,11 @@
 import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
-//gets list of applicants for specified job
+//CLIENT: gets list of applicants for specified job
 function* fetchApplicants(action) {
     try {
         let id = action.payload.id;
         let response = yield axios.get(`/api/applicants/list/${id}`);
-        // console.log(response)
         yield put({
             type: 'SET_APPLICANTS',
             payload: response.data
@@ -16,12 +15,11 @@ function* fetchApplicants(action) {
     }
 }
 
-//gets applicant details
+//CLIENT: gets applicant details
 function* fetchApplicantDetail(action) {
     try {
         let id = action.payload.id;
         let response = yield axios.get(`/api/applicants/detail/${id}`);
-        console.log(response.data);
         yield put({
             type: 'SET_APPLICANT_DETAIL',
             payload: response.data
@@ -31,11 +29,15 @@ function* fetchApplicantDetail(action) {
     }
 }
 
-//hire applicant and update job listing
+//CLIENT: hire applicant and update job listing
 function* hireApplicant(action) {
     try {
         let application = action.payload;
         yield axios.patch('/api/applicants/hire', application);
+        yield put({
+            type: 'FETCH_APPLICANTS',
+            payload: {id: application.jobId}
+        })
     } catch (error) {
         console.log(error);
     }

@@ -84,7 +84,9 @@ class UserPage extends Component {
                     );
                 } else if (this.props.user.approved_mentor === 2) {
                     return (
-                        <Typography className={classes.statusBadge}>Pending Admin Approval</Typography>
+                        <Typography className={classes.statusBadge}>
+                            Pending Admin Approval
+                        </Typography>
                     );
                 } else {
                     return (
@@ -104,7 +106,7 @@ class UserPage extends Component {
 
         return (
             <OneColumnLayout header="Your Profile">
-                <Grid container justify="space-around" className={classes.root}>
+                <Grid container justify="space-around">
                     <Grid item xs={12}>
                         {this.state.inEditMode ? (
                             <EditProfile

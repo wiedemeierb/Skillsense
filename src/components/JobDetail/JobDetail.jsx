@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
 //COMPONENT IMPORTS
 import SkillList from '../SkillList/SkillList';
+
 //MATERIAL-UI IMPORTS
 import { Typography, Button, Grid } from '@material-ui/core';
 import OneColumnLayout from '../OneColumnLayout/OneColumnLayout'
@@ -24,28 +26,32 @@ class JobDetail extends Component {
             payload: { id: Number(this.props.match.params.id) }
         });
     }
-    //find route to apply for this job.
+    //route to apply for this job (student view)
     applyNow = () => {
         this.props.history.push(`/jobs/detail/apply/${this.props.match.params.id}`);
     };
 
+    //route to view all applications for this job (client view)
     viewApplicants = () => {
         this.props.history.push(`/jobs/detail/applications/${this.props.match.params.id}`);
     };
 
+    //route to return to previous page (student view)
     routeBack = () => {
         this.props.history.push(`/search/jobs`);
     };
 
+    //route to return to previous page (client view)
     routeBackClient = () => {
         this.props.history.push(`/jobs`);
     };
 
+    //updates job status to Completed
     markedCompleted = () => {
         console.log('mark completed working')
         this.props.dispatch({
             type: 'MARK_JOB_COMPLETED',
-            payload: {id: this.props.match.params.id}
+            payload: { id: this.props.match.params.id }
         })
     }
 
@@ -61,64 +67,61 @@ class JobDetail extends Component {
         };
 
         return (
-            <div>
-                <OneColumnLayout header="Job Details">
+            <OneColumnLayout header="Job Details">
                 <Grid spacing={3} container justify="center">
-                <Grid item xs={12} align="center">
-                    <Typography variant="h3" color="primary">
-                    {details.project_title}
-                    </Typography> 
-                </Grid>
-                 <Grid item xs={12} align="center">  
-                    <Typography variant="h4" color="secondary">
-                    Client: {details.username}
-                    </Typography>
-                    <Typography>Seeking: {details.position_title}</Typography>
-                    <Typography>Location: {details.location}</Typography>
-                    <Typography>Duration: {details.duration}</Typography>
-                    <Typography>Budget: {details.budget}</Typography>
-                </Grid>
-                <Grid item xs={12} align="center">
-                    <Typography variant="h5" color="primary">
-                    Description:
-                    </Typography>
-                    <Typography>{details.description}</Typography>
-                </Grid>
-                <Grid item xs={12} align="center">
-                <Typography variant="h5" color="primary">
-                    Desired Skills:
-                </Typography>
-                <SkillList skillList={details.skills} />
-                </Grid>
+                    <Grid item xs={12} align="center">
+                        <Typography variant="h3" color="primary">
+                            {details.project_title}
+                        </Typography>
+                        <Typography variant="h5" color="secondary">
+                            Seeking: {details.position_title}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={6} align="left">
+                        <Typography variant="h5" color="secondary">Client: {details.username}</Typography>
+                        <Typography>Location: {details.location}</Typography>
+                        <Typography>Duration: {details.duration}</Typography>
+                        <Typography>Budget: ${details.budget}</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={6} align="left">
+                        <Typography variant="h5" color="secondary">
+                            Description:
+                        </Typography>
+                        <Typography>{details.description}</Typography>
+                    </Grid>
+                    <Grid item xs={12} align="left">
+                        <Typography variant="h5" color="secondary">
+                            Desired Skills:
+                        </Typography>
+                        <SkillList skillList={details.skills} />
+                    </Grid>
 
-                {isStudent() && this.props.details.hired === null ?
-                <Grid item xs={12} align="center">
-                    <Button variant="contained" color="primary" onClick={this.applyNow}>Apply</Button>
-                        <Button
-                            variant="contained" color="secondary" align="space-around" onClick={() => this.routeBack()}>
-                            Back
-                        </Button>
-                </Grid> : null}
+                    {isStudent() && this.props.details.hired === null ?
+                        <Grid item xs={12} align="center">
+                            <Button variant="contained" color="primary" onClick={this.applyNow}>Apply</Button>
+                            <Button
+                                variant="contained" color="secondary" align="space-around" onClick={() => this.routeBack()}>
+                                Back
+                            </Button>
+                        </Grid> : null}
 
-                {isClient() && (
-                <Grid item xs={12} align="center">
-                    <Button variant="contained" color="primary" onClick={this.viewApplicants}>
-                        View Applicants
-                    </Button>
-                    {this.props.details.status_id === 3 &&
-                    <Button variant="outlined" color="primary" onClick={this.markedCompleted}>
-                        Completed Project
-                    </Button>}
-                    <Button
-                        variant="contained" color="secondary" align="space-around" onClick={() => this.routeBackClient()}>
-                        Back
-                    </Button>
+                    {isClient() && (
+                        <Grid item xs={12} align="center">
+                            <Button variant="contained" color="primary" onClick={this.viewApplicants}>
+                                View Applicants
+                            </Button>
+                            {this.props.details.status_id === 3 &&
+                                <Button variant="outlined" color="primary" onClick={this.markedCompleted}>
+                                    Completed Project
+                                </Button>}
+                            <Button
+                                variant="contained" color="secondary" align="space-around" onClick={() => this.routeBackClient()}>
+                                Back
+                            </Button>
+                        </Grid>
+                    )}
                 </Grid>
-                )}
-                </Grid>
-                </OneColumnLayout>
-            </div>
-            
+            </OneColumnLayout>
         );
     }
 }

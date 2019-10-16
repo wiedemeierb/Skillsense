@@ -10,8 +10,11 @@ const styles = theme => ({
         padding: '2% 0'
     },
     gridHeaders: {
-        padding: theme.spacing(1, 0),
-        margin: theme.spacing(1, 0)
+        padding: theme.spacing(1),
+        margin: theme.spacing(1)
+    },
+    headerText: {
+        fontWeight: 700
     },
     gridItem: {
         margin: theme.spacing(1),
@@ -34,26 +37,35 @@ class TwoColumnLayout extends Component {
         const { classes } = this.props;
 
         return (
-            <Grid container className={classes.root}>
+            <Grid container className={classes.root} spacing={4}>
                 <Grid
                     item
                     container
-                    justify="space-around"
+                    justify="flex-start"
                     align="top"
-                    spacing={3}
                     className={classes.gridHeaders}>
+                    {/* COLUMN HEADERS */}
                     <Grid item xs={12} sm={6}>
-                        <Typography variant="h4" align="center">
+                        {/* left header */}
+                        <Typography
+                            variant="h4"
+                            align="left"
+                            color="secondary"
+                            className={classes.headerText}>
                             {this.props.leftHeader}
                         </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    {/* right header */}
+                    {/* <Grid item xs={12} sm={6} className={classes.headerText}>
                         <Typography variant="h4" align="right">
                             {this.props.rightHeader}
                         </Typography>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
-                <Grid container justify="space-around" spacing={8}>
+
+                {/* PAGE BODY CONTENT */}
+                <Grid container justify="space-around" className={classes.gridItem}>
+                    {/* CONTENT ENCLOSED IN COMPONENT FROM PAGE */}
                     {this.props.children &&
                         this.props.children.map((child, index) => (
                             <Grid key={index} item xs={12} sm={6}>

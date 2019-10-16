@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
+//sends Resume attachment to AWS
 function* uploadFile(action) {
 	try {
 		let awsSignedResponse = yield axios.post('/api/upload', {
