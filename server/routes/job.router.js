@@ -35,14 +35,14 @@ router.get('/', (req, res) => {
 	ORDER BY "id" DESC;
 	`;
 
-	pool
-		.query(queryText)
+	pool.query(queryText)
 		.then(result => {
 			//attach a "skills" property that is combined id and name
 			result.rows.forEach(row => {
-				row.skills = row.tag_ids.map((id, index) => {
-					return { id: id, tag: row.skill_names[index] };
-				});
+				row.tag_ids &&
+					(row.skills = row.tag_ids.map((id, index) => {
+						return { id: id, tag: row.skill_names[index] };
+					}));
 			});
 			res.send(result.rows);
 		})
@@ -89,8 +89,7 @@ router.get('/client/:jobType', rejectIfNotClient, (req, res) => {
 	ORDER BY "id" DESC;
 	`;
 
-	pool
-		.query(queryText, [jobType, userId])
+	pool.query(queryText, [jobType, userId])
 		.then(result => {
 			//attach a "skills" property that is combined id and name
 			result.rows.forEach(row => {
@@ -108,8 +107,7 @@ router.get('/client/:jobType', rejectIfNotClient, (req, res) => {
 
 /** GET (SEARCH) ROUTE BY JOB TITLE AND/OR SKILL TAG **/
 router.get('/search', (req, res) => {
-	const searchTerm =
-		req.query.searchTerm !== '' ? `%${req.query.searchTerm}%` : `%%`;
+	const searchTerm = req.query.searchTerm !== '' ? `%${req.query.searchTerm}%` : `%%`;
 	const searchSkill = req.query.skill != 0 ? Number(req.query.skill) : 0;
 	const queryStart = `
   SELECT
@@ -158,8 +156,7 @@ router.get('/search', (req, res) => {
 		}
 	};
 
-	pool
-		.query(queryText(), queryParams())
+	pool.query(queryText(), queryParams())
 		.then(result => {
 			//attach a "skills" property that is combined id and name
 			result.rows.forEach(row => {
@@ -212,8 +209,7 @@ router.get('/active', rejectUnauthenticated, (req, res) => {
     GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;
     `;
 
-	pool
-		.query(queryText, [userId])
+	pool.query(queryText, [userId])
 		.then(result => {
 			//attach a "skills" property that is combined id and name
 			result.rows.forEach(row => {
@@ -264,8 +260,7 @@ router.get('/applied', (req, res) => {
     GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;
     `;
 
-	pool
-		.query(queryText, [userId])
+	pool.query(queryText, [userId])
 		.then(result => {
 			//attach a "skills" property that is combined id and name
 			result.rows.forEach(row => {
@@ -317,8 +312,7 @@ router.get('/completed', (req, res) => {
     GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;
     `;
 
-	pool
-		.query(queryText, [userId])
+	pool.query(queryText, [userId])
 		.then(result => {
 			//attach a "skills" property that is combined id and name
 			result.rows.forEach(row => {
@@ -364,14 +358,15 @@ LEFT JOIN (SELECT * FROM "job_applicants" WHERE "student_id" = $1) AS "applied" 
   GROUP BY "jobs"."id","users"."id", "applied"."hired"
   ORDER BY "id" DESC;`;
 
-	pool
-		.query(queryText, [req.user.id, req.params.id])
+	pool.query(queryText, [req.user.id, req.params.id])
 		.then(result => {
 			//attach a "skills" property that is combined id and name
 			result.rows.forEach(row => {
-				row.skills = row.tag_ids.map((id, index) => {
-					return { id: id, tag: row.skill_names[index] };
-				});
+				row.tag_ids[0] !== null
+					? (row.skills = row.tag_ids.map((id, index) => {
+							return { id: id, tag: row.skill_names[index] };
+					  }))
+					: (row.skills = []);
 			});
 			res.send(result.rows[0]);
 		})
@@ -386,10 +381,11 @@ router.put('/detail/:id', (req, res) => {
 	pool.query(queryText, [req.params.id])
 		.then(result => {
 			res.sendStatus(200);
-		}).catch(error => {
+		})
+		.catch(error => {
 			console.log('error with the patch completed jobs', error);
 			res.sendStatus(500);
-		})
+		});
 });
 
 /** POST ROUTE FOR NEW JOB AND ASSOCIATED SKILL TAGS **/
@@ -420,10 +416,10 @@ router.post('/new', rejectUnauthenticated, async (req, res) => {
 		]);
 		let jobId = result.rows[0].id;
 		for (let tag of job.selected) {
-			await connection.query(
-				`INSERT INTO "job_tags" ("job_id","tag_id") VALUES ($1, $2);`,
-				[jobId, tag.id]
-			);
+			await connection.query(`INSERT INTO "job_tags" ("job_id","tag_id") VALUES ($1, $2);`, [
+				jobId,
+				tag.id
+			]);
 		}
 		await connection.query(`COMMIT;`);
 		res.sendStatus(201);
@@ -445,15 +441,14 @@ router.post('/apply', rejectUnauthenticated, (req, res) => {
     VALUES
       ($1,$2,$3,$4,$5,$6);`;
 
-	pool
-		.query(queryText, [
-			req.body.job_id,
-			req.user.id,
-			req.body.payment_terms,
-			req.body.cover_letter,
-			req.body.attachment_url,
-			req.body.mentor_id
-		])
+	pool.query(queryText, [
+		req.body.job_id,
+		req.user.id,
+		req.body.payment_terms,
+		req.body.cover_letter,
+		req.body.attachment_url,
+		req.body.mentor_id
+	])
 		.then(response => {
 			res.sendStatus(201);
 		})
