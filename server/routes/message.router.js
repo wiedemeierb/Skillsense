@@ -22,14 +22,14 @@ where messages.sender_id = $1 OR messages.recipient_id = $1;`;
 					!userList.map(user => user.username).includes(message.rname) &&
 					message.rname !== req.user.username
 				) {
-					userList.push({ id: counter, username: message.rname });
+					userList.push({ username: message.rname, id: message.rid });
 					counter++;
 				}
 				if (
 					!userList.map(user => user.username).includes(message.sname) &&
 					message.sname !== req.user.username
 				) {
-					userList.push({ id: counter, username: message.sname });
+					userList.push({ username: message.sname, id: message.rid });
 					counter++;
 				}
 			}
@@ -39,6 +39,7 @@ where messages.sender_id = $1 OR messages.recipient_id = $1;`;
 				);
 				user.messages.sort((a, b) => b.date_time - a.date_time);
 			}
+			console.log(userList);
 			res.send(userList);
 		})
 		.catch(error => {

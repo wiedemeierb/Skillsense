@@ -35,7 +35,9 @@ const styles = theme => ({
 class MessagesCenter extends Component {
 	state = {
 		selected: null,
-		dialogOpen: false
+		selectedUser: '',
+		dialogOpen: false,
+		messages: []
 	};
 
 	componentDidMount() {
@@ -46,8 +48,8 @@ class MessagesCenter extends Component {
 	}
 
 	toggleDialog = () => {
-		this.setState({dialogOpen: !this.state.dialogOpen})
-	}
+		this.setState({ dialogOpen: !this.state.dialogOpen });
+	};
 
 	render() {
 		const { classes } = this.props;
@@ -64,7 +66,11 @@ class MessagesCenter extends Component {
 											key={message.id}
 											selected={this.state.selected === message.id}
 											onClick={() => {
-												this.setState({ selected: message.id });
+												this.setState({
+													selected: message.id,
+													selectedUser: message.username,
+													messages: message.messages
+												});
 											}}>
 											<ListItemText>{message.username}</ListItemText>
 										</ListItem>
@@ -74,23 +80,23 @@ class MessagesCenter extends Component {
 					</Grid>
 				</Grid>
 				<Grid container justify='center' alignItems='center' spacing={2}>
-					{this.state.selected !== null && (
-						<Grid item xs>
-							<Button
-								className={classes.button}
-								size='small'
-								variant='contained'
-								color='primary'>
-								Reply to Conversation
-							</Button>
-							<MessageDialog open={this.state.dialogOpen}/>
-						</Grid>
-					)}
-					{this.state.selected !== null &&
-						this.props.messages &&
-						this.props.messages[this.state.selected].messages.map((message, index) => {
-							return <ConversationListItem message={message} key={message.id} />;
-						})}
+					<>
+						{this.state.selected !== null && (
+							<Grid item xs>
+								<MessageDialog
+									open={this.state.dialogOpen}
+									recipient={{
+										id: this.state.selected,
+										username: this.state.selectedUser
+									}}
+								/>
+							</Grid>
+						)}
+						{this.state.messages &&
+							this.state.messages.map((message, index) => {
+								return <ConversationListItem message={message} key={message.id} />;
+							})}
+					</>
 				</Grid>
 			</TwoColumnLayout>
 		);
