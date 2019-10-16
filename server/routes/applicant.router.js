@@ -33,7 +33,6 @@ router.get('/detail/:id', (req, res) => {
         JOIN "users" ON "job_applicants".student_id = "users".id 
         JOIN "jobs" ON "jobs".id = "job_applicants".job_id WHERE "job_applicants".id = $1;
         `;
-
     pool.query(queryText, [applicantId])
         .then(result => {
             res.send(result.rows[0]);
@@ -46,15 +45,11 @@ router.get('/detail/:id', (req, res) => {
 
 /** UPDATE APPLICATION + JOB UPON HIRING **/
 router.patch('/hire', async (req, res) => {
-    console.log(req.body);
-
     const applicantId = req.body.applicantId;
     const jobId = req.body.jobId;
-
     const queryText = `
         UPDATE "job_applicants" SET "hired" = true WHERE "id" = $1;
         `;
-
     const connection = await pool.connect();
     try {
         await connection.query(`BEGIN;`);

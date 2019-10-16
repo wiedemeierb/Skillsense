@@ -2,11 +2,10 @@ import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 import Swal from 'sweetalert2';
 
-//gets all open jobs
+//STUDENT: gets all open jobs
 function* fetchAllJobs() {
 	try {
 		let response = yield axios.get('/api/jobs');
-		// console.log(response.data);
 		yield put({
 			type: 'SET_ALL_JOBS',
 			payload: response.data
@@ -16,7 +15,7 @@ function* fetchAllJobs() {
 	}
 }
 
-//gets job search results
+//STUDENT: gets job search results
 function* fetchJobSearch(action) {
 	try {
 		const config = {
@@ -24,7 +23,6 @@ function* fetchJobSearch(action) {
 			params: action.payload
 		};
 		let response = yield axios.get(`/api/jobs/search`, config);
-		// console.log(response.data);
 		yield put({
 			type: 'SET_ALL_JOBS',
 			payload: response.data
@@ -34,11 +32,10 @@ function* fetchJobSearch(action) {
 	}
 }
 
-//get users current jobs
+//STUDENT: get users current jobs
 function* fetchActiveJobs() {
 	try {
 		let response = yield axios.get('/api/jobs/active');
-		// console.log(response.data);
 		yield put({
 			type: 'SET_ALL_JOBS',
 			payload: response.data
@@ -48,11 +45,10 @@ function* fetchActiveJobs() {
 	}
 }
 
-//get users jobs pending hire
+//STUDENT: get users jobs pending hire
 function* fetchAppliedJobs() {
 	try {
 		let response = yield axios.get('/api/jobs/applied');
-		// console.log(response.data);
 		yield put({
 			type: 'SET_ALL_JOBS',
 			payload: response.data
@@ -62,11 +58,10 @@ function* fetchAppliedJobs() {
 	}
 }
 
-//get users job history
+//STUDENT: get users job history
 function* fetchCompletedJobs() {
 	try {
 		let response = yield axios.get('/api/jobs/completed');
-		// console.log(response.data);
 		yield put({
 			type: 'SET_ALL_JOBS',
 			payload: response.data
@@ -76,12 +71,11 @@ function* fetchCompletedJobs() {
 	}
 }
 
-//gets clients current jobs
+//CLIENT: gets clients current jobs
 function* fetchClientJobs(action) {
 	let jobType = action.payload;
 	try {
 		let response = yield axios.get(`/api/jobs/client/${jobType}`);
-		// console.log(response.data);
 		yield put({
 			type: 'SET_ALL_JOBS',
 			payload: response.data
@@ -91,9 +85,8 @@ function* fetchClientJobs(action) {
 	}
 }
 
-//gets selected job details
+//STUDENT OR CLIENT: gets selected job details
 function* fetchJobDetail(action) {
-	// console.log(action.payload);
 	try {
 		let response = yield axios.get(`api/jobs/detail/${action.payload.id}`);
 		yield put({
@@ -104,32 +97,34 @@ function* fetchJobDetail(action) {
 		console.log(error);
 	}
 }
-// patch for completed jobs
+
+//CLIENT: patch for completed jobs
 function* markJobCompleted(action) {
 	try {
-		console.log('this is the put', action.payload)
 		yield axios.put(`api/jobs/detail/${action.payload.id}`);
-		// yield put ({
-		// 	type: 'FETCH_CLIENT_JOBS'
-		// })
+		yield put ({
+			type: 'FETCH_CLIENT_JOBS',
+			payload: 3
+		})
 	} catch (error) {
 		console.log(error);
 	}
 }
 
-//posts new job details
+//CLIENT: posts new job details
 function* postJob(action) {
 	try {
 		yield axios.post('api/jobs/new', action.payload);
 		yield put({
-			type: 'FETCH_ALL_JOBS'
-		});
+			type: 'FETCH_CLIENT_JOBS',
+			payload: 3
+		})
 	} catch (error) {
 		console.log(error);
 	}
 }
 
-//posts job application
+//STUDENT: posts job application
 function* submitApplication(action) {
 	try {
 		if (action.payload.file !== null) {
@@ -153,6 +148,9 @@ function* submitApplication(action) {
 				}
 			});
 			yield axios.post('api/jobs/apply', action.payload);
+			yield put ({
+				type: 'FETCH_ALL_JOBS'
+			})
 			Swal.fire('Congrats!', 'Your application has been submitted!', 'success');
 		} else {
 			yield axios.post('api/jobs/apply', action.payload);

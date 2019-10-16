@@ -34,7 +34,6 @@ router.post('/register', (req, res, next) => {
 		'INSERT INTO "users" (username, email, password, location, access_id, focus_skill, bio, linkedin_url, github_url, website_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id';
 	pool.query(queryText, values)
 		.then(result => {
-			// console.log('successful insert into users db table, new user registered');
 			res.sendStatus(201);
 		})
 		.catch(error => {
@@ -58,9 +57,45 @@ router.post('/logout', (req, res) => {
 	res.sendStatus(200);
 });
 
+//PUT ROUTE FOR EDITING USER PROFILE
+router.put('/edit/:id', rejectUnauthenticated, (req, res) => {
+	if (req.user.id === Number(req.params.id)) {
+		const queryText = `UPDATE "users" SET
+	"email" = $1,
+	"focus_skill" = $2,
+	"github_url" = $3,
+	"linkedin_url" = $4,
+	"location" = $5,
+	"username" = $6,
+	"website_url" = $7,
+	"bio" = $8
+	WHERE "id" = $9;`;
+		pool.query(queryText, [
+			req.body.email,
+			req.body.focus_skill,
+			req.body.github_url,
+			req.body.linkedin_url,
+			req.body.location,
+			req.body.username,
+			req.body.website_url,
+			req.body.bio,
+			req.user.id
+		])
+			.then(result => {
+				res.send(result.rows);
+			})
+			.catch(error => {
+				console.log('error with student edit put', error);
+				res.sendStatus(500);
+			});
+	} else {
+		console.log('you are not authorized to edit this user');
+		res.sendStatus(403);
+	}
+});
+
 //route to get SELECTED user's information
 router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
-	console.log(req.user)
 	const sqlText = () => {
 		if (req.user.user_type === 'Mentor') {
 			return `SELECT
@@ -178,50 +213,12 @@ router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 	}
 	pool.query(sqlText(), values)
 		.then(result => {
-			// console.log('specific user details retrieved from database');
 			res.send(result.rows[0]);
 		})
 		.catch(error => {
 			console.log('error on retrieving specific user details from database: ', error);
 			res.sendStatus(500);
 		});
-});
-
-//PUT ROUTE FOR EDITING USER PROFILE
-router.put('/edit/:id', rejectUnauthenticated, (req, res) => {
-	if (req.user.id === Number(req.params.id)) {
-		const queryText = `UPDATE "users" SET
-	"email" = $1,
-	"focus_skill" = $2,
-	"github_url" = $3,
-	"linkedin_url" = $4,
-	"location" = $5,
-	"username" = $6,
-	"website_url" = $7,
-	"bio" = $8
-	WHERE "id" = $9;`;
-		pool.query(queryText, [
-			req.body.email,
-			req.body.focus_skill,
-			req.body.github_url,
-			req.body.linkedin_url,
-			req.body.location,
-			req.body.username,
-			req.body.website_url,
-			req.body.bio,
-			req.user.id
-		])
-			.then(result => {
-				res.send(result.rows);
-			})
-			.catch(error => {
-				console.log('error with student edit put', error);
-				res.sendStatus(500);
-			});
-	} else {
-		console.log('you are not authorized to edit this user');
-		res.sendStatus(403);
-	}
 });
 
 module.exports = router;
