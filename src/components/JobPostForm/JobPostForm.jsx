@@ -22,18 +22,23 @@ import { withStyles } from '@material-ui/core/styles';
 import Swal from 'sweetalert2';
 
 const styles = theme => ({
+    root: {
+        margin: 'auto',
+        width: '70vw'
+    },
     paper: {
         width: '100%',
         minWidth: 200,
-        height: 230,
+        height: 250,
         overflow: 'scroll'
     },
     formControl: {
-        margin: 'auto'
+        margin: theme.spacing(0),
+        padding: theme.spacing(0),
+        minWidth: 200
     },
     largeFormControl: {
-        margin: theme.spacing(3, 0),
-        padding: theme.spacing(1)
+        margin: theme.spacing(3, 0)
     },
     divider: {
         margin: theme.spacing(3, 0)
@@ -63,7 +68,7 @@ class JobPostForm extends Component {
         this.props.dispatch({ type: 'FETCH_ALL_SKILLS' });
     };
 
-    //Saves the text from input on change
+    //saves the text from input on change
     handleInput = (event, property) => {
         this.setState({
             ...this.state,
@@ -147,83 +152,78 @@ class JobPostForm extends Component {
             <OneColumnLayout header="Post New Job">
                 {isClient() ? (
                     <form onSubmit={this.handleSubmit}>
-                        <Grid item container spacing={4} justify="space-around" align="center">
+                        <Grid
+                            item
+                            container
+                            spacing={4}
+                            justify="space-around"
+                            align="center"
+                            className={classes.root}>
                             {/* NEW JOB DETAILS */}
-                            <Grid
-                                item
-                                container
-                                xs={8}
-                                spacing={4}
-                                justify="space-around"
-                                align="center">
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        className={classes.formControl}
-                                        label="Project Name"
-                                        fullWidth
-                                        value={this.state.project_title}
-                                        onChange={event => {
-                                            this.handleInput(event, 'project_title');
-                                        }}
-                                        required={true}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        className={classes.formControl}
-                                        label="Seeking Position"
-                                        fullWidth
-                                        value={this.state.position_title}
-                                        onChange={event => {
-                                            this.handleInput(event, 'position_title');
-                                        }}
-                                        required={true}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        className={classes.formControl}
-                                        label="Project Duration"
-                                        fullWidth
-                                        value={this.state.duration}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    <ScheduleIcon
-                                                        fontSize="small"
-                                                        color="secondary"
-                                                    />
-                                                </InputAdornment>
-                                            )
-                                        }}
-                                        onChange={event => {
-                                            this.handleInput(event, 'duration');
-                                        }}
-                                        required={true}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        className={classes.formControl}
-                                        label="Project Budget"
-                                        fullWidth
-                                        value={this.state.budget}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    <AttachMoneyIcon
-                                                        fontSize="small"
-                                                        color="secondary"
-                                                    />
-                                                </InputAdornment>
-                                            )
-                                        }}
-                                        onChange={event => {
-                                            this.handleInput(event, 'budget');
-                                        }}
-                                        required={true}
-                                    />
-                                </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    className={classes.formControl}
+                                    label="Project Name"
+                                    value={this.state.project_title}
+                                    onChange={event => {
+                                        this.handleInput(event, 'project_title');
+                                    }}
+                                    required={true}
+                                    fullWidth
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    className={classes.formControl}
+                                    label="Seeking Position"
+                                    value={this.state.position_title}
+                                    onChange={event => {
+                                        this.handleInput(event, 'position_title');
+                                    }}
+                                    required={true}
+                                    fullWidth
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    className={classes.formControl}
+                                    label="Project Duration"
+                                    value={this.state.duration}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <ScheduleIcon fontSize="small" color="secondary" />
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                    onChange={event => {
+                                        this.handleInput(event, 'duration');
+                                    }}
+                                    required={true}
+                                    fullWidth
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    className={classes.formControl}
+                                    label="Project Budget"
+                                    value={this.state.budget}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AttachMoneyIcon
+                                                    fontSize="small"
+                                                    color="secondary"
+                                                />
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                    onChange={event => {
+                                        this.handleInput(event, 'budget');
+                                    }}
+                                    required={true}
+                                    fullWidth
+                                />
                             </Grid>
                         </Grid>
 
@@ -234,8 +234,10 @@ class JobPostForm extends Component {
                                 label="Project Description"
                                 multiline
                                 rows="4"
+                                align="left"
                                 variant="outlined"
-                                helperText="Please write a short description of any job specifications you might have."
+                                helperText="Please write a short description 
+                                of any job specifications you might have."
                                 value={this.state.description}
                                 onChange={event => {
                                     this.handleInput(event, 'description');

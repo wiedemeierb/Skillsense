@@ -12,9 +12,6 @@ import EmailIcon from '@material-ui/icons/Email';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        margin: 'auto'
-    },
     username: {
         fontWeight: 'bold'
     },
@@ -66,7 +63,7 @@ function PublicProfile(props) {
     const classes = useStyles();
 
     return (
-        <Grid className={classes.root} container spacing={4} justify="space-around">
+        <Grid container spacing={4} justify="space-around">
             {/* USER DETAILS: NAME, FOCUS, LOCATION, TYPE */}
             <Grid item xs={12} align="center">
                 <Typography color="primary" variant="h4" className={classes.username}>
@@ -106,8 +103,15 @@ function PublicProfile(props) {
             </Grid>
 
             {/* NETWORKING LINKS */}
-            <Grid item container xs={12} align="center" className={classes.section}>
-                <Grid item xs={6} md={3}>
+            <Grid
+                item
+                container
+                xs={12}
+                sm={8}
+                align="center"
+                justify="space-around"
+                className={classes.section}>
+                <Grid item xs={6} sm={3} md={2}>
                     <Link href={displayedUser.linkedin_url}>
                         <Typography className={classes.link}>
                             <LinkedInIcon fontSize="large" />
@@ -115,7 +119,7 @@ function PublicProfile(props) {
                         <Typography className={classes.link}>LinkedIn</Typography>
                     </Link>
                 </Grid>
-                <Grid item xs={6} md={3}>
+                <Grid item xs={6} sm={3} md={2}>
                     <Link href={displayedUser.website_url}>
                         <Typography className={classes.link}>
                             <LanguageIcon fontSize="large" />
@@ -123,7 +127,7 @@ function PublicProfile(props) {
                         <Typography className={classes.link}>Website</Typography>
                     </Link>
                 </Grid>
-                <Grid item xs={6} md={3}>
+                <Grid item xs={6} sm={3} md={2}>
                     <Link href={displayedUser.github_url}>
                         <Typography className={classes.link}>
                             <GitHubIcon fontSize="large" />
@@ -131,7 +135,7 @@ function PublicProfile(props) {
                         <Typography className={classes.link}>GitHub</Typography>
                     </Link>
                 </Grid>
-                <Grid item xs={6} md={3}>
+                <Grid item xs={6} sm={3} md={2}>
                     <Link target="_blank" href={`mailto:${displayedUser.email}`}>
                         <Typography className={classes.link}>
                             <EmailIcon fontSize="large" />

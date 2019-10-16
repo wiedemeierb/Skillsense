@@ -10,8 +10,8 @@ const styles = theme => ({
         padding: '2% 0'
     },
     gridHeaders: {
-        padding: theme.spacing(1, 0),
-        margin: theme.spacing(1, 0)
+        padding: theme.spacing(1),
+        margin: theme.spacing(1)
     },
     headerText: {
         fontWeight: 700
@@ -37,13 +37,12 @@ class TwoColumnLayout extends Component {
         const { classes } = this.props;
 
         return (
-            <Grid container className={classes.root}>
+            <Grid container className={classes.root} spacing={4}>
                 <Grid
                     item
                     container
                     justify="flex-start"
                     align="top"
-                    spacing={3}
                     className={classes.gridHeaders}>
                     {/* COLUMN HEADERS */}
                     <Grid item xs={12} sm={6}>
@@ -63,8 +62,9 @@ class TwoColumnLayout extends Component {
                         </Typography>
                     </Grid> */}
                 </Grid>
+
                 {/* PAGE BODY CONTENT */}
-                <Grid container justify="space-around" spacing={8}>
+                <Grid container justify="space-around" className={classes.gridItem}>
                     {/* CONTENT ENCLOSED IN COMPONENT FROM PAGE */}
                     {this.props.children &&
                         this.props.children.map((child, index) => (

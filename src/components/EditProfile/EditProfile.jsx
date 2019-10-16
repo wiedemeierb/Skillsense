@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Button, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 //COMPONENT IMPORTS
 import TransferList from '../TransferList/TransferList';
@@ -10,7 +10,8 @@ import TransferList from '../TransferList/TransferList';
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
-        padding: theme.spacing(2)
+        padding: theme.spacing(2),
+        width: '70vw'
     },
     button: {
         color: 'white'
@@ -30,7 +31,7 @@ function EditProfile(props) {
 
     useEffect(() => {
         setUser(reduxUser);
-        }, [reduxUser]);
+    }, [reduxUser]);
 
     const editStudentInfo = () => {
         dispatch({
@@ -43,7 +44,7 @@ function EditProfile(props) {
             title: 'Your profile has been edited',
             showConfirmButton: false,
             timer: 1500
-        })
+        });
         props.toggleEdit();
     };
 
