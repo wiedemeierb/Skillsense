@@ -235,6 +235,7 @@ class JobPostForm extends Component {
                                 multiline
                                 rows="4"
                                 variant="outlined"
+                                fullWidth
                                 helperText="Please write a short description of any job specifications you might have."
                                 value={this.state.description}
                                 onChange={event => {
