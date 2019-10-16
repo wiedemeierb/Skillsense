@@ -174,7 +174,7 @@ class MentorSearch extends Component {
                             </Grid>
                         ) : (
                             <Typography variant="h6" align="center">
-                                Select a mentor to see more information.
+                                Select a Mentor to see more information.
                             </Typography>
                         )}
                     </TwoColumnLayout>

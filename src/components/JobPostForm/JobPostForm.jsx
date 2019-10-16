@@ -270,7 +270,7 @@ class JobPostForm extends Component {
                                 </Typography>
                             </Grid>
                             <Grid item xs={5}>
-                                <Typography variant="subtitle1" align="center" color="secondary">
+                                <Typography variant="subtitle1" align="center" color="primary">
                                     Available Skills
                                 </Typography>
                             </Grid>
