@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
 //get all message for current user
-function* fetchAllMessages(action) {
+function* fetchAllMessages() {
 	try {
 		let response = yield axios.get('/api/messages');
 		console.log(response);
@@ -15,7 +15,7 @@ function* fetchAllMessages(action) {
 	}
 }
 
-function* sendMessage() {
+function* sendMessage(action) {
 	try {
 		yield axios.post('/api/messages', action.payload);
 		yield put({

@@ -51,6 +51,7 @@ function MessageDialog(props) {
 								type: 'SEND_MESSAGE',
 								payload: { recipient: props.recipient, message: message }
 							});
+							setMessage('')
 							handleClose();
 						}}
 						color='primary'>
