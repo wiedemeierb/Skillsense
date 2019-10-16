@@ -12,9 +12,6 @@ import EmailIcon from '@material-ui/icons/Email';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        margin: 'auto'
-    },
     username: {
         fontWeight: 'bold'
     },
@@ -66,7 +63,7 @@ function PublicProfile(props) {
     const classes = useStyles();
 
     return (
-        <Grid className={classes.root} container spacing={4} justify="space-around">
+        <Grid container spacing={4} justify="space-around">
             {/* USER DETAILS: NAME, FOCUS, LOCATION, TYPE */}
             <Grid item xs={12} align="center">
                 <Typography color="primary" variant="h4" className={classes.username}>

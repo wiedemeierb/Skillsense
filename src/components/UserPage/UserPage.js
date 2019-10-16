@@ -11,10 +11,6 @@ import { Grid, Button, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-    root: {
-        margin: 'auto',
-        width: '70vw'
-    },
     button: {
         display: 'block',
         margin: theme.spacing(3, 0),
@@ -110,7 +106,7 @@ class UserPage extends Component {
 
         return (
             <OneColumnLayout header="Your Profile">
-                <Grid container justify="space-around" className={classes.root}>
+                <Grid container justify="space-around">
                     <Grid item xs={12}>
                         {this.state.inEditMode ? (
                             <EditProfile

@@ -10,8 +10,8 @@ const styles = theme => ({
         padding: '2% 0'
     },
     gridHeaders: {
-        margin: theme.spacing(1, 0),
-        padding: theme.spacing(1, 0)
+        margin: theme.spacing(1),
+        padding: theme.spacing(1)
     },
     headerText: {
         fontWeight: 700
@@ -33,13 +33,12 @@ class OneColumnLayout extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Grid container className={classes.root}>
+            <Grid container className={classes.root} spacing={4}>
                 <Grid
                     container
                     justify="space-around"
                     align="top"
                     item
-                    xs={12}
                     className={classes.gridHeaders}>
                     {/* PAGE HEADER TEXT HERE */}
                     <Grid item xs={12}>
