@@ -51,7 +51,7 @@ class MyJobs extends Component {
             <div className="list">{jobList}</div>
           </OneColumnLayout >
 
-          : <Typography>You are not authorized to viewthis page</Typography>}
+          : <Typography>You are not authorized to view this page</Typography>}
       </div>
     );
   }

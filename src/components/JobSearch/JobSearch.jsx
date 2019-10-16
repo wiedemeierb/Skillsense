@@ -23,9 +23,6 @@ import {
 import SearchIcon from '@material-ui/icons/Search';
 
 const styles = theme => ({
-    root: {
-        display: 'flex'
-    },
     search: {
         display: 'flex',
         justifyContent: 'space-around',
