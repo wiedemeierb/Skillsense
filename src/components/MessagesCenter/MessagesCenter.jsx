@@ -68,10 +68,21 @@ class MessagesCenter extends Component {
 											onClick={() => {
 												this.setState({
 													selected: message.id,
-													selectedUser: message.username,
+													selectedUser: message.username
 												});
 											}}>
-											<ListItemText>{message.username}</ListItemText>
+											<ListItemText
+												primary={message.username}
+												secondary={message.focus_skill}
+												primaryTypographyProps={{
+													variant: 'h6',
+													color: 'primary'
+												}}
+												secondaryTypographyProps={{
+													variant: 'subtitle1',
+													color: 'secondary'
+												}}
+											/>
 										</ListItem>
 									);
 								})}
@@ -81,15 +92,13 @@ class MessagesCenter extends Component {
 				<Grid container justify='center' alignItems='center' spacing={2}>
 					<>
 						{this.state.selected !== null && (
-							<Grid item xs>
-								<MessageDialog
-									open={this.state.dialogOpen}
-									recipient={{
-										id: this.state.selected,
-										username: this.state.selectedUser
-									}}
-								/>
-							</Grid>
+							<MessageDialog
+								open={this.state.dialogOpen}
+								recipient={{
+									id: this.state.selected,
+									username: this.state.selectedUser
+								}}
+							/>
 						)}
 						{this.state.selected &&
 							this.props.messages

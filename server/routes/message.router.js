@@ -7,7 +7,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 //NEEDS DEVELOPMENT: SHOULD PULL WHERE SENDER OR RECEIVER ID IS THE CURRENT USER, GROUP BY OTHER USER
 router.get('/', rejectUnauthenticated, (req, res) => {
 	const queryText = `
-select messages.id, message, date_time, sId, sName, rId, rName from messages
+select messages.id, message, date_time, sId, sName, sfocus_skill, rId, rName, rfocus_skill from messages
 join (select users.id as sId, users.username as sName, users.focus_skill as sfocus_skill from users) AS sent
 	ON sent.sId = messages.sender_id
 join (select users.id as rId, users.username as rName, users.focus_skill as rfocus_skill from users) as recipient
@@ -15,7 +15,6 @@ join (select users.id as rId, users.username as rName, users.focus_skill as rfoc
 where messages.sender_id = $1 OR messages.recipient_id = $1;`;
 	pool.query(queryText, [req.user.id])
 		.then(result => {
-			console.log(result.rows)
 			let userList = [];
 			for (let message of result.rows) {
 				if (
@@ -31,6 +30,7 @@ where messages.sender_id = $1 OR messages.recipient_id = $1;`;
 					userList.push({ username: message.sname, id: message.sid, focus_skill: message.sfocus_skill });
 				}
 			}
+			//sort messages on each user into date_time order by most recent
 			for (let user of userList) {
 				user.messages = result.rows.filter(
 					message => message.rname === user.username || message.sname === user.username
@@ -40,7 +40,6 @@ where messages.sender_id = $1 OR messages.recipient_id = $1;`;
 			res.send(userList);
 		})
 		.catch(error => {
-			console.log(error);
 			res.sendStatus(500);
 		});
 });

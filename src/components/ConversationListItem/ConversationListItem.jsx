@@ -2,7 +2,9 @@ import React from 'react';
 import { Grid, Typography, Button, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({}));
+const useStyles = makeStyles(theme => ({
+	
+}));
 
 function ConversationListItem(props) {
 	const classes = useStyles();
@@ -11,18 +13,18 @@ function ConversationListItem(props) {
 	return (
 		<Grid item container spacing={2} xs={12}>
 			<Grid item xs={6}>
-				<Typography color='primary' align='left'>
+				<Typography variant="h5" color='primary' align='left'>
 					To: {props.message.rname}
 				</Typography>
-				<Typography color='secondary' align='left'>
+				<Typography variant="subtitle1" color='secondary' align='left'>
 					From: {props.message.sname}
 				</Typography>
 			</Grid>
 			<Grid item xs={6}>
-				<Typography variant='subtitle1' align='right'>
+				<Typography variant='subtitle2' align='right'>
 					{messageDate.toDateString()}
 				</Typography>
-				<Typography variant='subtitle1' align='right'>
+				<Typography variant='subtitle2' align='right'>
 					{messageDate.toLocaleTimeString('en-US', {
 						hour12: true,
 						timeStyle: 'short'
@@ -30,7 +32,7 @@ function ConversationListItem(props) {
 				</Typography>
 			</Grid>
 			<Grid item xs={12}>
-				<Typography>{props.message.message}</Typography>
+				<Typography variant="body1">{props.message.message}</Typography>
 			</Grid>
 			<Grid item xs={12}>
 				<Divider />
