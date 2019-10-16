@@ -25,7 +25,7 @@ const styles = theme => ({
 	messageListItem: {}
 });
 
-class Messages extends Component {
+class MessagesCenter extends Component {
 	state = {
 		selected: null
 	};
@@ -44,11 +44,12 @@ class Messages extends Component {
 					<Grid item xs={12}>
 						<List>
 							{this.props.messages &&
-								this.props.messages.map((message, index) => {
+								this.props.messages.map((message) => {
 									return (
 										<ListItem
 											button
-											key={index}
+											key={message.id}
+											selected={this.state.selected === message.id}
 											onClick={() => {
 												this.setState({selected: message.id });
 											}}>
@@ -110,4 +111,4 @@ const mapStateToProps = store => {
 	};
 };
 
-export default connect(mapStateToProps)(Messages);
+export default connect(mapStateToProps)(MessagesCenter);
