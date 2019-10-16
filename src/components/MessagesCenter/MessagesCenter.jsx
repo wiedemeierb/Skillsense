@@ -69,7 +69,6 @@ class MessagesCenter extends Component {
 												this.setState({
 													selected: message.id,
 													selectedUser: message.username,
-													messages: message.messages
 												});
 											}}>
 											<ListItemText>{message.username}</ListItemText>
@@ -92,10 +91,12 @@ class MessagesCenter extends Component {
 								/>
 							</Grid>
 						)}
-						{this.state.messages &&
-							this.state.messages.map((message, index) => {
-								return <ConversationListItem message={message} key={message.id} />;
-							})}
+						{this.state.selected &&
+							this.props.messages
+								.filter(message => message.id === this.state.selected)[0]
+								.messages.map(message => (
+									<ConversationListItem message={message} key={message.id} />
+								))}
 					</>
 				</Grid>
 			</TwoColumnLayout>
