@@ -16,6 +16,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 //component import
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
+import ConversationListItem from '../ConversationListItem/ConversationListItem';
 
 const styles = theme => ({
 	root: {
@@ -64,36 +65,10 @@ class MessagesCenter extends Component {
 					{this.state.selected !== null &&
 						this.props.messages &&
 						this.props.messages[this.state.selected].messages
-							.map((note, index) => {
-									let noteDate = new Date(note.date_time);
-									return (
-										<Grid key={index} item container spacing={2} xs={12}>
-											<Grid item xs={6}>
-												<Typography color='primary' align='left'>
-													To: {note.rname}
-												</Typography>
-												<Typography color='secondary' align='left'>
-													From: {note.sname}
-												</Typography>
-											</Grid>
-											<Grid item xs={6}>
-												<Typography variant='subtitle1' align='right'>
-													{noteDate.toDateString()}
-												</Typography>
-												<Typography variant='subtitle1' align='right'>
-													{noteDate.toLocaleTimeString('en-US', {
-														hour12: true, timeStyle: 'short'
-													})}
-												</Typography>
-											</Grid>
-											<Grid item xs={12}>
-												<Typography>{note.message}</Typography>
-											</Grid>
-											<Grid item xs={12}>
-												<Divider />
-											</Grid>
-										</Grid>
-									);
+							.map((message, index) => {
+								return (
+									<ConversationListItem message={message} key={message.id}/>
+									)
 								})
 							}
 				</Grid>
