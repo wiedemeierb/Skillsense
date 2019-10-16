@@ -81,9 +81,7 @@ class LoginPage extends Component {
             position: 'center',
             type: 'error',
             title: 'Error Logging In',
-            text: `${this.props.errors.loginMessage}`,
-            showConfirmButton: false,
-            timer: 1500
+            text: 'Complete all fields.'
         });
     }
 

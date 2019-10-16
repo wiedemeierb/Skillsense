@@ -74,13 +74,6 @@ class RegisterPage extends Component {
                 type: 'REGISTER',
                 payload: this.state
             });
-            Swal.fire({
-                position: 'center',
-                type: 'success',
-                title: 'Welcome to SkillSense',
-                showConfirmButton: false,
-                timer: 1500
-            });
             this.props.history.push('/home');
         } else {
             this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
@@ -93,9 +86,7 @@ class RegisterPage extends Component {
             position: 'center',
             type: 'error',
             title: 'Error Registering',
-            text: `${this.props.errors.registrationMessage}`,
-            showConfirmButton: false,
-            timer: 1500
+            text: 'Complete all required fields.'
         });
     }
 
