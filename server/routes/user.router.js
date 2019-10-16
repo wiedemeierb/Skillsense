@@ -111,7 +111,8 @@ router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 		users.access_id,
 		users.active,
 		user_type.user_type,
-		requested.accepted
+		requested.accepted,
+		json_agg(job_applicants) as job_list
 	FROM
 		users
 	LEFT JOIN
@@ -119,6 +120,13 @@ router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 			ON
 		user_type.id = users.access_id
 		LEFT JOIN (SELECT * FROM "student_mentor" WHERE "mentor_id" = $2) AS "requested" ON "requested"."student_id" = "users".id
+		LEFT JOIN (SELECT job_id, student_id, project_title, position_title, username AS client_name, description, duration, budget, mentor_accepted, hired, job_status 
+			FROM job_applicants 
+			JOIN jobs ON jobs.id = job_applicants.job_id 
+			JOIN users ON jobs.client_id = users.id 
+			JOIN job_status ON jobs.status_id = job_status.id 
+			WHERE job_applicants.student_id = $1) AS "job_applicants" 
+			ON job_applicants.student_id = users.id
 	WHERE users.id = $1
 	GROUP BY
 		users.id,
@@ -133,7 +141,8 @@ router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 		users.access_id,
 		users.active,
 		user_type.user_type,
-		requested.accepted;`;
+		requested.accepted,
+		job_applicants.student_id;`;
 		} else if (req.user.user_type === 'Student') {
 			return `SELECT
 		users.id,
