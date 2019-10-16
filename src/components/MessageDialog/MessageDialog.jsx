@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 
 function MessageDialog(props) {
 	//re-usable message dialog component, pass it a recipient={id: #, username: 'name'} in props
-	const [open, setOpen] = useState(props.open);
+	const [open, setOpen] = useState(false);
 	const [message, setMessage] = useState('');
 	const classes = useStyles();
 
