@@ -93,6 +93,9 @@ function* acceptMentorship(action) {
     yield put({
       type: 'FETCH_INVITED_MENTORS'
     });
+    yield put({
+      type: 'CLEAR_SELECTED_USER'
+    });
   } catch (error) {
     console.log(error);
   }
@@ -104,6 +107,9 @@ function* declineMentorship(action) {
     yield axios.delete(`/api/mentors/decline/${action.payload.student_id}`)
     yield put({
       type: 'FETCH_INVITED_MENTORS'
+    });
+    yield put({
+      type: 'CLEAR_SELECTED_USER'
     });
   } catch (error) {
     console.log(error);

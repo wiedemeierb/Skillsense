@@ -10,7 +10,7 @@ import UserListItem from '../UserListItem/UserListItem';
 import PublicProfile from '../PublicProfile/PublicProfile';
 
 //MATERIAL-UI IMPORTS
-import { Typography, Button } from '@material-ui/core';
+import { Typography, Button, Grid } from '@material-ui/core';
 
 class MyMentorships extends Component {
   componentDidMount() {
@@ -27,31 +27,36 @@ class MyMentorships extends Component {
 
   //sends put request to the database to update the relationship to accepted: true
   acceptMentorship = () => {
-    this.props.dispatch({
-      type: 'ACCEPT_MENTORSHIP',
-      payload: { student_id: this.props.selectedUser.id }
-    })
+
     Swal.fire({
-      position: 'center',
+      title: 'Are you sure?',
       type: 'success',
-      title: 'You have accepted this Mentorship!',
-      showConfirmButton: false,
-      timer: 1500
-    })
-  }
+      showCancelButton: true,
+      confirmButtonColor: '#04b8f3',
+      cancelButtonColor: '#505d68',
+      confirmButtonText: 'Yes, accept this Mentorship!'
+    }).then(result => {
+      if (result.value) {
+        this.props.dispatch({
+          type: 'ACCEPT_MENTORSHIP',
+          payload: { student_id: this.props.selectedUser.id }
+    })}})}
 
   //sends delete request to the database to remove the relationship to decline
   declineMentorship = () => {
-    this.props.dispatch({
-      type: 'DECLINE_MENTORSHIP',
-      payload: { student_id: this.props.selectedUser.id }
-    })
     Swal.fire({
-      type: 'error',
-      title: 'You have declined this Mentorship!',
-      timer: 1500
-    })
-  }
+      title: 'Are you sure?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#04b8f3',
+      cancelButtonColor: '#505d68',
+      confirmButtonText: 'Yes, decline this Mentorship!'
+    }).then(result => {
+      if (result.value) {
+        this.props.dispatch({
+          type: 'DECLINE_MENTORSHIP',
+          payload: { student_id: this.props.selectedUser.id }
+    })}})}
 
   sendMessage = () => {
     // this.props.history.push(`/messages/${this.props.selectedUser.id}`)
@@ -91,16 +96,19 @@ class MyMentorships extends Component {
                   <PublicProfile />
                   {isMentor() && this.props.selectedUser.accepted === false ?
                     <>
+                      <Grid align="center">
                       <Typography variant="subtitle1">Mentor Actions:</Typography>
-                      <Button variant="contained" color="primary" onClick={this.acceptMentorship}>Accept</Button>
-                      <Button variant="contained" color="secondary" onClick={this.declineMentorship}>Decline</Button>
+                      <Button align="center" variant="contained" color="primary" onClick={this.acceptMentorship}>Accept</Button>
+                      <Button align="center" variant="contained" color="secondary" onClick={this.declineMentorship}>Decline</Button>
+                      </Grid>
                     </>
-                    : <Button variant="contained" color="primary" onClick={()=>this.sendMessage()}>Send Message</Button>
+                    : <Grid align="center"><Button variant="contained" color="primary" onClick={()=>this.sendMessage()}>Send Message</Button>
+                    </Grid>
                   }
                 </>
               ) : (
                   <Typography variant="h6" align="center">
-                    Select a user to see more information.
+                    Select a User to see more information.
                 </Typography>
                 )}
             </>

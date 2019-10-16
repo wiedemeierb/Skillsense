@@ -67,7 +67,7 @@ class JobApplication extends Component {
 						...this.state,
 						job_id: Number(this.props.match.params.id)
 					}
-				});this.props.history.push(`/jobs/detail/${this.props.match.params.id}`)
+				});this.props.history.push(`/jobs`)
 			}
 		});
 	};
@@ -149,7 +149,7 @@ class JobApplication extends Component {
 								</Typography>
 								<TextField
 									id='standard-name'
-									label='Add your cover letter...'
+									label='Add Your Cover Letter...'
 									value={this.state.cover_letter}
 									onChange={event => {
 										this.handleInput(event, 'cover_letter');
@@ -162,14 +162,14 @@ class JobApplication extends Component {
 							{/* Insert Resume attachment functionality here */}
 							<Grid item xs={12}>
 								<TextField
-									helperText='Attach Project Proposal'
+									helperText='Attach Any Additional Files As Needed'
 									type='file'
 									onChange={this.handleUploadInputChange}
 								/>
 								{/* Mentor Info */}
 							</Grid>
 						</Grid>
-						<Typography variant='h6'>Select One of Your Mentors</Typography>
+						<Typography variant='h6'>Select One Of Your Mentors</Typography>
 						<Grid
 							className={classes.mentorList}
 							item
@@ -196,7 +196,7 @@ class JobApplication extends Component {
 						<br />
 						{/* User Info */}
 						<Grid item xs={12}>
-							<Typography variant='h6'>Your Account Information</Typography>
+							<Typography variant='h6'>Your Account Information:</Typography>
 							<Typography>{this.props.user.username}</Typography>
 							<Typography>{this.props.user.focus_skill}</Typography>
 							<Typography>{this.props.user.location}</Typography>
