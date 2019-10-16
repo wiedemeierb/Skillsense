@@ -60,7 +60,7 @@ class Messages extends Component {
 					</Grid>
 				</Grid>
 				<Grid container justify='center' alignItems='center' spacing={2}>
-					{this.state.selected &&
+					{this.state.selected !== null &&
 						this.props.messages &&
 						this.props.messages[this.state.selected].messages
 							.map((note, index) => {
@@ -71,7 +71,7 @@ class Messages extends Component {
 												<Typography color='primary' align='left'>
 													To: {note.rname}
 												</Typography>
-												<Typography color='primary' align='left'>
+												<Typography color='secondary' align='left'>
 													From: {note.sname}
 												</Typography>
 											</Grid>
