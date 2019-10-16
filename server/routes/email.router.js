@@ -20,21 +20,17 @@ transporter.verify((error, success) => {
 });
 
 router.post('/', (req, res, next) => {
-  console.log('Sending email...');
   var sender = 'delaney.sharratt@gmail.com';
-
   var name = req.body.name;
   var email = req.body.email;
   var message = req.body.message;
   var content = `Hello ${name}, \n message: ${message} \n From, \n SkillSense`;
-
   var mail = {
     from: sender,
     to: email, //Change to email address that you want to receive messages on
     subject: 'Message from SkillSense',
     text: content
   };
-
   transporter.sendMail(mail, (err, data) => {
     if (err) {
       res.json({

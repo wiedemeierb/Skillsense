@@ -190,18 +190,6 @@ router.get('/invited', rejectUnauthenticated, (req, res) => {
 		});
 });
 
-/** PUT ROUTE FOR MENTOR TO ACCEPT STUDENT CONNECTION **/
-router.put('/accept/:id', rejectUnauthenticated, (req, res) => {
-	const queryText = `UPDATE "student_mentor" SET "accepted" = true WHERE "mentor_id" = $1 AND "student_id" = $2;`
-	pool.query(queryText, [req.user.id, req.params.id])
-})
-
-/** DELETE ROUTE FOR MENTOR TO DECLINE STUDENT CONNECTION **/
-router.delete('/decline/:id', rejectUnauthenticated, (req, res) => {
-	const queryText = `DELETE FROM "student_mentor" WHERE "mentor_id" = $1 AND "student_id" = $2;`
-	pool.query(queryText, [req.user.id, req.params.id])
-})
-
 /** GET (SEARCH) ROUTE BY MENTOR NAME AND/OR SKILL TAG **/
 router.get('/search/', rejectUnauthenticated, (req, res) => {
 	const searchTerm =
@@ -334,10 +322,6 @@ router.get('/pending', rejectIfNotAdmin, (req, res) => {
 	pool
 		.query(queryText)
 		.then(result => {
-			// console.log(
-			// 	'successful GET of mentors pending approval with result: ',
-			// 	result.rows
-			// );
 			//creates an array in each row that consists of skill objects {id: name}
 			result.rows.forEach(row => {
 				row.skills = row.skill_ids.map((id, index) => {
@@ -351,6 +335,18 @@ router.get('/pending', rejectIfNotAdmin, (req, res) => {
 			res.sendStatus(500);
 		});
 });
+
+/** PUT ROUTE FOR MENTOR TO ACCEPT STUDENT CONNECTION **/
+router.put('/accept/:id', rejectUnauthenticated, (req, res) => {
+	const queryText = `UPDATE "student_mentor" SET "accepted" = true WHERE "mentor_id" = $1 AND "student_id" = $2;`
+	pool.query(queryText, [req.user.id, req.params.id])
+})
+
+/** DELETE ROUTE FOR MENTOR TO DECLINE STUDENT CONNECTION **/
+router.delete('/decline/:id', rejectUnauthenticated, (req, res) => {
+	const queryText = `DELETE FROM "student_mentor" WHERE "mentor_id" = $1 AND "student_id" = $2;`
+	pool.query(queryText, [req.user.id, req.params.id])
+})
 
 /** POST (STUDENT: SEND MENTOR REQUEST) ROUTE **/
 router.post('/request', rejectUnauthenticated, async (req, res) => {
@@ -366,8 +362,6 @@ router.post('/request', rejectUnauthenticated, async (req, res) => {
 	try {
 		await connection.query(`BEGIN;`);
 		let result = await connection.query(queryText, [userId, mentorId, message]);
-		// console.log(result.rows);
-
 		let messageId = result.rows[0].id;
 		await connection.query(
 			`INSERT INTO "student_mentor" ("student_id", "mentor_id", "message_id")
@@ -388,14 +382,12 @@ router.post('/request', rejectUnauthenticated, async (req, res) => {
 /** PATCH (ADMIN: UPDATE MENTOR APPROVAL STATUS) ROUTE **/
 router.patch(`/admin/:id`, rejectIfNotAdmin, (req, res) => {
 	//expects a req.body with {newStatus: #}
-	// console.log(req.user);
 	const queryText = `UPDATE users SET approved_mentor = $1  WHERE users.id = $2`;
 	const values = [req.body.newStatus, req.params.id];
 
 	pool
 		.query(queryText, values)
 		.then(result => {
-			// console.log('successful update of mentor status');
 			res.sendStatus(200);
 		})
 		.catch(error => {
@@ -412,7 +404,6 @@ router.patch(`/request`, rejectIfNotMentor, (req, res) => {
 	pool
 		.query(queryText, values)
 		.then(result => {
-			// console.log('successful update to request admin approval');
 			res.sendStatus(200);
 		})
 		.catch(error => {

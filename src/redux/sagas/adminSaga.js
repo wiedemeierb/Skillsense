@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
-//changes mentor status to approved
+//ADMIN: changes mentor status to approved
 function* approveMentor(action) {
 	try {
 		yield axios.patch(`/api/mentors/admin/${action.payload}`, { newStatus: 3 });
@@ -12,7 +12,7 @@ function* approveMentor(action) {
 	}
 }
 
-//changes mentor status back to Not Submitted
+//ADMIN: changes mentor status back to Not Submitted
 function* declineMentor(action) {
 	try {
 		yield axios.patch(`/api/mentors/admin/${action.payload}`, { newStatus: 1 });
@@ -23,7 +23,7 @@ function* declineMentor(action) {
 	}
 }
 
-//changes mentor status to pending
+//MENTOR: changes mentor status to pending
 function* requestAdminReview(action) {
 	try {
 		yield axios.patch(`/api/mentors/request`)

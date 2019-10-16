@@ -334,6 +334,64 @@ router.get('/completed', (req, res) => {
 		});
 });
 
+/** GET ROUTE FOR SELECTED JOB DETAILS **/
+router.get('/detail/:id', rejectUnauthenticated, (req, res) => {
+	const queryText = `
+  SELECT
+    "jobs"."id",
+    "project_title",
+    "position_title",
+    "description",
+    "duration",
+    "budget",
+    "mentor_required",
+    "status_id",
+    "username","location",
+    "users".username,
+    "client_id",
+    array_agg("job_tags"."tag_id") AS "tag_ids",
+	array_agg("skill_tags"."tag") AS "skill_names",
+	hired
+  FROM jobs
+  LEFT JOIN "job_tags"
+    ON jobs."id" = "job_tags".job_id
+  LEFT JOIN "skill_tags"
+    ON "job_tags".tag_id = "skill_tags"."id"
+  LEFT JOIN "users"
+	ON jobs."client_id" = "users"."id"
+LEFT JOIN (SELECT * FROM "job_applicants" WHERE "student_id" = $1) AS "applied" ON jobs.id = applied.job_id
+  WHERE jobs.id = $2
+  GROUP BY "jobs"."id","users"."id", "applied"."hired"
+  ORDER BY "id" DESC;`;
+
+	pool
+		.query(queryText, [req.user.id, req.params.id])
+		.then(result => {
+			//attach a "skills" property that is combined id and name
+			result.rows.forEach(row => {
+				row.skills = row.tag_ids.map((id, index) => {
+					return { id: id, tag: row.skill_names[index] };
+				});
+			});
+			res.send(result.rows[0]);
+		})
+		.catch(error => {
+			console.log('error in getting job details', error);
+			res.sendStatus(500);
+		});
+});
+
+router.put('/detail/:id', (req, res) => {
+	let queryText = `UPDATE "jobs" SET "status_id" = 4 WHERE "id" = $1;`;
+	pool.query(queryText, [req.params.id])
+		.then(result => {
+			res.sendStatus(200);
+		}).catch(error => {
+			console.log('error with the patch completed jobs', error);
+			res.sendStatus(500);
+		})
+});
+
 /** POST ROUTE FOR NEW JOB AND ASSOCIATED SKILL TAGS **/
 router.post('/new', rejectUnauthenticated, async (req, res) => {
 	const job = req.body;
@@ -403,65 +461,6 @@ router.post('/apply', rejectUnauthenticated, (req, res) => {
 			console.log('error on posting new job application: ', error);
 			res.sendStatus(500);
 		});
-});
-
-/** GET ROUTE FOR SELECTED JOB DETAILS **/
-router.get('/detail/:id', rejectUnauthenticated, (req, res) => {
-	const queryText = `
-  SELECT
-    "jobs"."id",
-    "project_title",
-    "position_title",
-    "description",
-    "duration",
-    "budget",
-    "mentor_required",
-    "status_id",
-    "username","location",
-    "users".username,
-    "client_id",
-    array_agg("job_tags"."tag_id") AS "tag_ids",
-	array_agg("skill_tags"."tag") AS "skill_names",
-	hired
-  FROM jobs
-  LEFT JOIN "job_tags"
-    ON jobs."id" = "job_tags".job_id
-  LEFT JOIN "skill_tags"
-    ON "job_tags".tag_id = "skill_tags"."id"
-  LEFT JOIN "users"
-	ON jobs."client_id" = "users"."id"
-LEFT JOIN (SELECT * FROM "job_applicants" WHERE "student_id" = $1) AS "applied" ON jobs.id = applied.job_id
-  WHERE jobs.id = $2
-  GROUP BY "jobs"."id","users"."id", "applied"."hired"
-  ORDER BY "id" DESC;`;
-
-	pool
-		.query(queryText, [req.user.id, req.params.id])
-		.then(result => {
-			//attach a "skills" property that is combined id and name
-			result.rows.forEach(row => {
-				row.skills = row.tag_ids.map((id, index) => {
-					return { id: id, tag: row.skill_names[index] };
-				});
-			});
-			res.send(result.rows[0]);
-		})
-		.catch(error => {
-			console.log('error in getting job details', error);
-			res.sendStatus(500);
-		});
-});
-
-router.put('/detail/:id', (req, res) => {
-	let queryText = `UPDATE "jobs" SET "status_id" = 4 WHERE "id" = $1;`;
-	pool.query(queryText, [req.params.id])
-	// console.log('put completed job', req.params)
-	.then(result => {
-		res.sendStatus(200);
-	}).catch(error => {
-		console.log('error with the patch completed jobs', error);
-		res.sendStatus(500);
-	})
 });
 
 module.exports = router;

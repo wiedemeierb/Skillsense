@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
-//get all approved mentors
+//STUDENT: get all approved mentors
 function* fetchAllMentors() {
   try {
     let response = yield axios.get('/api/mentors/all');
-    // console.log(response.data);
     yield put({
       type: 'SET_ALL_MENTORS',
       payload: response.data
@@ -15,7 +14,7 @@ function* fetchAllMentors() {
   }
 }
 
-//get mentor search results
+//STUDENT: get mentor search results
 function* fetchMentorSearch(action) {
   try {
     const config = {
@@ -23,23 +22,9 @@ function* fetchMentorSearch(action) {
       params: action.payload
     };
     let response = yield axios.get(`/api/mentors/search`, config);
-    // console.log(response.data);
     yield put({
       type: 'SET_ALL_MENTORS',
       payload: response.data
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-//STUDENT: SEND MENTOR REQUEST
-function* sendMentorRequest(action) {
-  try {
-    let request = action.payload;
-    yield axios.post('/api/mentors/request', request);
-    yield put({
-      type: 'FETCH_ALL_MENTORS'
     });
   } catch (error) {
     console.log(error);
@@ -88,6 +73,20 @@ function* fetchPendingMentors() {
   }
 }
 
+//STUDENT: SEND MENTOR REQUEST
+function* sendMentorRequest(action) {
+  try {
+    let request = action.payload;
+    yield axios.post('/api/mentors/request', request);
+    yield put({
+      type: 'FETCH_ALL_MENTORS'
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+//MENTORS: UPDATE STUDENT_MENTOR TO APPROVED: TRUE
 function* acceptMentorship(action) {
   try {
     yield axios.put(`/api/mentors/accept/${action.payload.student_id}`)
@@ -99,6 +98,7 @@ function* acceptMentorship(action) {
   }
 }
 
+//MENTORS: DELETE STUDENT_MENTOR RELATIONSHIP
 function* declineMentorship(action) {
   try {
     yield axios.delete(`/api/mentors/decline/${action.payload.student_id}`)
