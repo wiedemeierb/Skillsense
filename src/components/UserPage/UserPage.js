@@ -11,6 +11,10 @@ import { Grid, Button, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
+    root: {
+        margin: 'auto',
+        width: '70vw'
+    },
     button: {
         display: 'block',
         margin: theme.spacing(3, 0),
@@ -84,7 +88,9 @@ class UserPage extends Component {
                     );
                 } else if (this.props.user.approved_mentor === 2) {
                     return (
-                        <Typography className={classes.statusBadge}>Pending Admin Approval</Typography>
+                        <Typography className={classes.statusBadge}>
+                            Pending Admin Approval
+                        </Typography>
                     );
                 } else {
                     return (
