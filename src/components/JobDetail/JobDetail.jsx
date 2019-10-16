@@ -9,6 +9,7 @@ import SkillList from '../SkillList/SkillList';
 import { Typography, Button, Grid } from '@material-ui/core';
 import OneColumnLayout from '../OneColumnLayout/OneColumnLayout'
 import { withStyles } from '@material-ui/core/styles';
+import Swal from 'sweetalert2';
 
 const styles = theme => ({
     button: {
@@ -49,11 +50,22 @@ class JobDetail extends Component {
     //updates job status to Completed
     markedCompleted = () => {
         console.log('mark completed working')
-        this.props.dispatch({
-            type: 'MARK_JOB_COMPLETED',
-            payload: { id: this.props.match.params.id }
-        })
-    }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You will not be able to reverse this command!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#04b8f3',
+            cancelButtonColor: '#505d68',
+            confirmButtonText: 'Yes, submit it!'
+        }).then(result => {
+            if (result.value) {
+                this.props.dispatch({
+                    type: 'MARK_JOB_COMPLETED',
+                    payload: { id: this.props.match.params.id }
+                });this.props.history.push(`/jobs`)
+            }
+        });}
 
     render() {
         let { details } = this.props;
