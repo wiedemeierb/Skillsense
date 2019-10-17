@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 
 //COMPONENT IMPORTS
 import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
+import ApplicantDetailStudent from '../ApplicantDetailStudent/ApplicantDetailStudent';
+import ApplicantDetailMentor from '../ApplicantDetailMentor/ApplicantDetailMentor';
 import SkillList from '../SkillList/SkillList';
 
 //MATERIAL-UI IMPORTS
-import { Typography, Button, Link, Grid } from '@material-ui/core';
+import { Typography, Button, Link, Grid, Divider } from '@material-ui/core';
 import DescriptionIcon from '@material-ui/icons/Description';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -16,12 +18,14 @@ import EmailIcon from '@material-ui/icons/Email';
 //STYLING IMPORTS
 import { withStyles } from '@material-ui/core/styles';
 import Swal from 'sweetalert2';
-import ApplicantDetailStudent from '../ApplicantDetailStudent/ApplicantDetailStudent';
 
 const styles = theme => ({
 	root: {
 		margin: 'auto',
 		width: '90vh'
+	},
+	divider: {
+		margin: theme.spacing(2)
 	},
 	section: {
 		padding: theme.spacing(2, 0)
@@ -91,9 +95,15 @@ class ApplicantDetail extends Component {
 						{this.props.applicant && (
 							<ApplicantDetailStudent applicant={this.props.applicant} />
 						)}
-
+						<Divider className={classes.divider} variant='fullWidth' />
+						{this.props.applicant.mentor && (
+							<ApplicantDetailMentor mentor={this.props.applicant.mentor} />
+						)}
+						<Divider className={classes.divider} variant='fullWidth' />
 						{/* Buttons: Back & Hire */}
-
+						<Typography variant="h5" align="center" color="primary">
+							Actions
+						</Typography>
 						<Grid
 							item
 							container
