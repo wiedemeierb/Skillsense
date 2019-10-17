@@ -74,13 +74,6 @@ class RegisterPage extends Component {
                 type: 'REGISTER',
                 payload: this.state
             });
-            Swal.fire({
-                position: 'center',
-                type: 'success',
-                title: 'Welcome to SkillSense',
-                showConfirmButton: false,
-                timer: 1500
-            });
             this.props.history.push('/home');
         } else {
             this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
@@ -93,9 +86,7 @@ class RegisterPage extends Component {
             position: 'center',
             type: 'error',
             title: 'Error Registering',
-            text: `${this.props.errors.registrationMessage}`,
-            showConfirmButton: false,
-            timer: 1500
+            text: 'Complete all required fields.'
         });
     }
 
@@ -137,7 +128,7 @@ class RegisterPage extends Component {
                     </Grid>
                     <Grid item xs={12} sm={6} md={4}>
                         <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor="userTypeHelper">I am a...</InputLabel>
+                            <InputLabel required htmlFor="userTypeHelper"></InputLabel>
                             <Select
                                 value={this.state.userType}
                                 required
@@ -155,7 +146,7 @@ class RegisterPage extends Component {
                                     }
                                 })}
                             </Select>
-                            <FormHelperText>Choose your account type...</FormHelperText>
+                            <FormHelperText>Choose Your Account Type</FormHelperText>
                         </FormControl>
                     </Grid>
 
@@ -194,7 +185,7 @@ class RegisterPage extends Component {
                         <TextField
                             className={classes.formControl}
                             label="LinkedIn"
-                            helperText="Link to your LinkedIn Profile"
+                            helperText="Link To Your LinkedIn Profile"
                             value={this.state.linkedin_url}
                             onChange={e => this.handleInputChangeFor('linkedin_url', e)}
                         />
@@ -203,7 +194,7 @@ class RegisterPage extends Component {
                         <TextField
                             className={classes.formControl}
                             label="Github"
-                            helperText="Link to your Github Profile"
+                            helperText="Link To Your Github Profile"
                             value={this.state.github_url}
                             onChange={e => this.handleInputChangeFor('github_url', e)}
                         />
@@ -212,7 +203,7 @@ class RegisterPage extends Component {
                         <TextField
                             className={classes.formControl}
                             label="Other Website"
-                            helperText="Link to your portfolio, etc..."
+                            helperText="Link To Your Portfolio, Etc..."
                             value={this.state.website_url}
                             onChange={e => this.handleInputChangeFor('website_url', e)}
                         />

@@ -108,7 +108,7 @@ class ApplicantDetail extends Component {
                                 )}
                                 {this.props.applicant.attachment_url !== null && (
                                     <Grid item xs={12} align="center">
-                                        <Link href={this.props.applicant.attachment_url}>
+                                        <Link target="_blank" ref="noopener noreferrer" href={this.props.applicant.attachment_url}>
                                             <Button
                                                 color="primary"
                                                 size="large"

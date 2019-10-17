@@ -77,7 +77,7 @@ const Nav = props => (
             <li>
                 <Link className="nav-link" to="/home">
                     {/* Show My Profile if user is logged in, otherwise show Login/Register */}
-                    {props.user.id ? 'Profile' : 'Login / Register'}
+                    {props.user.id ? 'Profile' : ''}
                 </Link>
             </li>
 
