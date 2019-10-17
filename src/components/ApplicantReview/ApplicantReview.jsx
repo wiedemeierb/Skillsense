@@ -8,6 +8,7 @@ import UserListItem from '../UserListItem/UserListItem';
 //MATERIAL-UI IMPORTS
 import { withStyles } from '@material-ui/core/styles';
 import {
+	List,
 	Typography,
 	ExpansionPanel,
 	ExpansionPanelDetails,
@@ -20,6 +21,7 @@ const styles = theme => ({
 		display: 'flex'
 	},
 	expansionPanel: {
+		// display: 'flex',
 		boxShadow: 'none'
 	}
 });
@@ -50,39 +52,49 @@ class ApplicantReview extends Component {
 	};
 
 	render() {
-		//uses the UserListItem component to render applicant results
-		let applicantList = this.props.applicants.map((applicant, i) => {
-			return <UserListItem key={applicant.student_id} listUser={applicant} />;
-		});
+		//finds hired applicant if one exists in list
+		let hiredApplicant = this.props.applicants.find(applicant => applicant.hired === true);
+		//uses the UserListItem component to render applicant results --filters out hired applciants
+		let applicantList = this.props.applicants
+			.filter(applicant => !applicant.hired)
+			.map((applicant, i) => {
+				return <UserListItem key={applicant.student_id} listUser={applicant} />;
+			});
 		//for component styling
 		const { classes } = this.props;
 
 		return (
-			<ExpansionPanel
-				className={classes.expansionPanel}
-				expanded={this.state.expanded}
-				onChange={this.handleExpandChange}>
-				<ExpansionPanelSummary
-					expandIcon={<ExpandMoreIcon />}
-					aria-controls='applicant-expansion-panel-content'
-					id='applicant-panel-header'>
-					<Typography variant='h6' color='primary'>
-						View Applications:
-					</Typography>
-				</ExpansionPanelSummary>
-				<ExpansionPanelDetails>
-					<div className='list'>{applicantList}</div>
-				</ExpansionPanelDetails>
-			</ExpansionPanel>
+			<div>
+				{hiredApplicant && (
+					<List>
+						<UserListItem listUser={hiredApplicant} hired={true} />
+					</List>
+				)}
+
+				<ExpansionPanel
+					className={classes.expansionPanel}
+					expanded={this.state.expanded}
+					onChange={this.handleExpandChange}>
+					<ExpansionPanelSummary
+						expandIcon={<ExpandMoreIcon />}
+						aria-controls='applicant-expansion-panel-content'
+						id='applicant-panel-header'>
+						<Typography variant='h6' color='primary'>
+							View Applications:
+						</Typography>
+					</ExpansionPanelSummary>
+					<ExpansionPanelDetails style={{display: "block"}}>
+						<List>{applicantList}</List>
+					</ExpansionPanelDetails>
+				</ExpansionPanel>
+			</div>
 		);
 	}
 }
 
 const mapStateToProps = store => {
 	return {
-		applicants: store.applicantReducer,
-		details: store.selectedJobReducer,
-		user: store.user
+		applicants: store.applicantReducer
 	};
 };
 

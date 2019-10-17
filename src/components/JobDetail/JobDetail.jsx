@@ -135,7 +135,7 @@ class JobDetail extends Component {
 
 					{isClient() && (
 						<Grid item xs={12} align='center'>
-							{this.props.details.status_id === 1 && (
+							{(this.props.details.status_id === 1 || this.props.details.status_id === 3) && (
 								<>
 									<Divider />
 									<ApplicantReview />
