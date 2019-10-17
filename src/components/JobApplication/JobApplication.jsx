@@ -30,6 +30,12 @@ const styles = theme => ({
     },
     largeFormControl: {
         margin: theme.spacing(1)
+    },
+    file: {
+        margin: theme.spacing(1)
+    },
+    button: {
+        padding: theme.spacing(0,2,0,0)
     }
 });
 class JobApplication extends Component {
@@ -135,16 +141,16 @@ class JobApplication extends Component {
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography variant="subtitle2" color="secondary">
-                                    <b>Duration:</b>  <span>{this.props.job.duration}</span>
-                                </Typography>
-                                <Typography variant="subtitle2" color="secondary">
-                                    <b>Budget:</b>  <span>${this.props.job.budget}</span>
-                                </Typography>
-                                <Typography variant="subtitle2" color="secondary">
                                     <b>Client:</b>  <span>{this.props.job.username}</span>
                                 </Typography>
                                 <Typography variant="subtitle2" color="secondary">
                                     <b>Location:</b>  <span>{this.props.job.location}</span>
+                                </Typography>
+                                <Typography variant="subtitle2" color="secondary">
+                                    <b>Duration:</b>  <span>{this.props.job.duration}</span>
+                                </Typography>
+                                <Typography variant="subtitle2" color="secondary">
+                                    <b>Budget:</b>  <span>${this.props.job.budget}</span>
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -207,8 +213,8 @@ class JobApplication extends Component {
                                     onChange={this.handleUploadInputChange}
                                 />
                                 <label htmlFor="file-upload">
-                                    <Button variant="contained" color="primary" component="span">
-                                        <AttachFileIcon />{' '}
+                                    <Button variant="contained" color="primary" component="span" className={classes.button}>
+                                        <AttachFileIcon fontSize="small" className={classes.file}/>{' '}
                                         <Typography>Upload PDF File</Typography>
                                     </Button>
                                 </label>
