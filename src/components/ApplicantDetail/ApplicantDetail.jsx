@@ -72,6 +72,7 @@ class ApplicantDetail extends Component {
 	};
 
 	routeBack = () => {
+		this.props.dispatch({type: 'CLEAR_APPLICANT_DETAIL'})
 		this.props.history.push(`/jobs/detail/${this.props.applicant.job_id}`);
 	};
 

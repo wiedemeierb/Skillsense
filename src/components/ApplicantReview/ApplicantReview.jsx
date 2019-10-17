@@ -66,9 +66,9 @@ class ApplicantReview extends Component {
 		return (
 			<div>
 				{hiredApplicant && (
-					<List>
+
 						<UserListItem listUser={hiredApplicant} hired={true} />
-					</List>
+
 				)}
 
 				<ExpansionPanel
@@ -80,10 +80,10 @@ class ApplicantReview extends Component {
 						aria-controls='applicant-expansion-panel-content'
 						id='applicant-panel-header'>
 						<Typography variant='h6' color='primary'>
-							View Applications:
+							{hiredApplicant ? 'View Other Applicants: ' : 'View Applicants'}
 						</Typography>
 					</ExpansionPanelSummary>
-					<ExpansionPanelDetails style={{display: "block"}}>
+					<ExpansionPanelDetails style={{ display: 'block' }}>
 						<List>{applicantList}</List>
 					</ExpansionPanelDetails>
 				</ExpansionPanel>

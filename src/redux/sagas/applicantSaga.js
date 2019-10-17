@@ -19,21 +19,23 @@ function* fetchApplicants(action) {
 function* fetchApplicantDetail(action) {
 	try {
 		let id = action.payload.id;
+		let returnPayload;
 		const response = yield axios.get(`/api/applicants/detail/${id}`);
+		returnPayload = { ...response.data };
 		const studentSkillsResponse = yield axios.get(
 			`/api/userskills/?id=${response.data.student_id}`
 		);
-		const mentorResponse = yield axios.get(`/api/user/specific/${response.data.mentor_id}`);
-		const mentorSkillsResponse = yield axios.get(
-			`api/userskills/?id=${response.data.mentor_id}`
-		);
+		returnPayload.studentSkills = studentSkillsResponse.data
+		if (response.data.mentor_id) {
+			const mentorResponse = yield axios.get(`/api/user/specific/${response.data.mentor_id}`);
+			const mentorSkillsResponse = yield axios.get(
+				`api/userskills/?id=${response.data.mentor_id}`
+			);
+			returnPayload.mentor = {...mentorResponse.data, skills: mentorSkillsResponse.data}
+		}
 		yield put({
 			type: 'SET_APPLICANT_DETAIL',
-			payload: {
-				...response.data,
-				studentSkills: studentSkillsResponse.data,
-				mentor: { ...mentorResponse.data, skills: mentorSkillsResponse.data }
-			}
+			payload: returnPayload
 		});
 	} catch (error) {
 		console.log(error);

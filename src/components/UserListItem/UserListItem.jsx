@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 //MATERIAL-UI IMPORTS
 import { withStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Button } from '@material-ui/core';
+import MessageDialog from '../MessageDialog/MessageDialog';
 
 const styles = theme => ({
 	root: {
@@ -59,7 +60,8 @@ class UserListItem extends Component {
 					<Typography variant='h6'>{this.props.listUser.focus_skill}</Typography>
 				</Grid>
 				{/* right side info */}
-				<Grid item xs={6} align='right'>
+                <Grid item xs={6} align='right'>
+                    {this.props.hired && (<MessageDialog recipient={{id: this.props.listUser.student_id, username: this.props.listUser.username}} />)}
 					<Button
 						variant='contained'
 						color='primary'
