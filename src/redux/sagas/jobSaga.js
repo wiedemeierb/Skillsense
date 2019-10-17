@@ -148,6 +148,10 @@ function* submitApplication(action) {
 				}
 			});
 			yield axios.post('api/jobs/apply', action.payload);
+			yield put({
+				type: 'FETCH_JOB_DETAIL',
+				payload: {id: action.payload.job_id}
+			})
 			yield put ({
 				type: 'FETCH_ALL_JOBS'
 			})

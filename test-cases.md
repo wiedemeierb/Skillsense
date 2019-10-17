@@ -7,6 +7,7 @@
  - [ ] Student is able to add skills
  - [ ] Student is able to remove skills
  - [ ] Student is able to view their accepted mentorship relationships
+ - [ ] Student is able to send messages to mentors
  - [ ] Student is able to view their pending invites for mentorship relationships
  - [ ] Student is able to click on a mentor to view their profile information
  - [ ] Student is able to search admin-approved mentors by name
