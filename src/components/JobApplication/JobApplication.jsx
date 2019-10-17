@@ -5,7 +5,15 @@ import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
 import SkillList from '../SkillList/SkillList';
 import JobApplicationMentorListItem from '../JobApplicationMentorListItem/JobApplicationMentorListItem';
 //MATERIAL-UI IMPORTS
-import { Grid, Typography, TextField, Button, Divider } from '@material-ui/core';
+import {
+    Grid,
+    Typography,
+    TextField,
+    Button,
+    Divider
+    // InputAdornment
+} from '@material-ui/core';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
 //STYLING IMPORTS
 import { withStyles } from '@material-ui/core/styles';
 import Swal from 'sweetalert2';
@@ -18,7 +26,7 @@ const styles = theme => ({
     mentorList: {
         overflowX: 'scroll',
         overflowY: 'hidden',
-        maxHeight: '20vh'
+        maxHeight: '50vh'
     },
     largeFormControl: {
         margin: theme.spacing(1)
@@ -30,7 +38,7 @@ class JobApplication extends Component {
         mentor_id: null,
         payment_terms: 'negotiable',
         attachment_url: '',
-        file: null
+        file: { name: '' }
     };
     componentDidMount() {
         this.props.dispatch({
@@ -81,7 +89,7 @@ class JobApplication extends Component {
 
     //upload resume file
     handleUploadInputChange = e => {
-        // console.log(e.target.files[0])
+        console.log(e.target.files[0]);
         this.setState({ file: e.target.files[0] });
     };
 
@@ -115,19 +123,16 @@ class JobApplication extends Component {
                 {isStudent() ? (
                     <Grid container className={classes.root} spacing={4}>
                         {/* JOB INFO */}
-                        <Grid item container xs={12} sm={6}>
+                        <Grid item container xs={12} sm={6} spacing={4}>
                             <Grid item xs={12}>
                                 <Typography variant="h4" color="primary">
                                     {this.props.job.position_title}
                                 </Typography>
-                                <Typography variant="h5" color="secondary">
+                                <Typography variant="h5" gutterBottom>
                                     {this.props.job.project_title}
                                 </Typography>
-                                <Typography variant="h6">
+                                <Typography variant="h6" color="secondary">
                                     {this.props.job.username}, {this.props.job.location}
-                                </Typography>
-                                <Typography variant="subtitle1">
-                                    {this.props.job.location}
                                 </Typography>
                             </Grid>
                             <Grid item xs={12}>
@@ -160,7 +165,7 @@ class JobApplication extends Component {
                                 </Typography>
                                 <TextField
                                     id="standard-name"
-                                    align="left"
+                                    align="center"
                                     multiline
                                     rows="4"
                                     fullWidth
@@ -174,19 +179,68 @@ class JobApplication extends Component {
                                     className={classes.largeFormControl}
                                 />
                             </Grid>
+                        </Grid>
 
-                            {/* RESUME UPLOAD */}
+                        {/* RESUME UPLOAD */}
+                        <Grid
+                            item
+                            container
+                            xs={12}
+                            spacing={4}
+                            align="left"
+                            justify="space-around">
                             <Grid item xs={12}>
-                                <TextField
-                                    helperText="Attach Project Proposal"
+                                <Typography variant="h6">Attach Resume</Typography>
+                            </Grid>
+                            <Grid item>
+                                <input
+                                    accept=".pdf"
+                                    className={classes.input}
+                                    style={{ display: 'none' }}
+                                    id="file-upload"
+                                    multiple
                                     type="file"
                                     onChange={this.handleUploadInputChange}
+                                />
+                                <label htmlFor="file-upload">
+                                    <Button color="primary" component="span" size="large">
+                                        <AttachFileIcon />{' '}
+                                        <Typography variant="h6">Upload PDF File</Typography>
+                                    </Button>
+                                </label>
+                            </Grid>
+                            <Grid item xs={4} sm={6} md={8}>
+                                <TextField
+                                    id="resume-file-name"
+                                    value={this.state.file.name}
+                                    margin="normal"
+                                    fullWidth
+                                    InputProps={{
+                                        readOnly: true
+                                    }}
                                 />
                             </Grid>
                         </Grid>
 
-                        {/* Mentor Info */}
-                        <Grid container>
+                        {/* alternate option for upload display => */}
+                        {/* <TextField
+                                    type="file"
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AttachFileIcon
+                                                    fontSize="small"
+                                                    color="secondary"
+                                                />
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                    onChange={this.handleUploadInputChange}
+                                    className={classes.fileUpload}
+                                /> */}
+
+                        {/* MENTOR SELECT */}
+                        <Grid item container xs={12} spacing={4}>
                             <Grid item xs={12}>
                                 <Typography variant="h6">Select a Mentor</Typography>
                             </Grid>
@@ -216,19 +270,27 @@ class JobApplication extends Component {
                         </Grid>
 
                         {/* SUBMIT & BACK BUTTONS */}
-                        <Grid item xs={12} align="space-around">
-                            <Grid item xs={6}>
+                        <Grid
+                            item
+                            container
+                            xs={12}
+                            spacing={4}
+                            justify="space-around"
+                            align="center">
+                            <Grid item xs={6} sm={4}>
                                 <Button
                                     variant="contained"
                                     color="secondary"
+                                    fullWidth
                                     onClick={() => this.routeBack()}>
                                     Back
                                 </Button>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={6} sm={4}>
                                 <Button
                                     variant="contained"
                                     color="primary"
+                                    fullWidth
                                     onClick={this.handleSubmit}>
                                     Submit
                                 </Button>
