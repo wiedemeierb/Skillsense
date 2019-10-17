@@ -25,13 +25,13 @@ function* fetchApplicantDetail(action) {
 		const studentSkillsResponse = yield axios.get(
 			`/api/userskills/?id=${response.data.student_id}`
 		);
-		returnPayload.studentSkills = studentSkillsResponse.data
+		returnPayload.studentSkills = studentSkillsResponse.data;
 		if (response.data.mentor_id) {
 			const mentorResponse = yield axios.get(`/api/user/specific/${response.data.mentor_id}`);
 			const mentorSkillsResponse = yield axios.get(
 				`api/userskills/?id=${response.data.mentor_id}`
 			);
-			returnPayload.mentor = {...mentorResponse.data, skills: mentorSkillsResponse.data}
+			returnPayload.mentor = { ...mentorResponse.data, skills: mentorSkillsResponse.data };
 		}
 		yield put({
 			type: 'SET_APPLICANT_DETAIL',
@@ -47,6 +47,11 @@ function* hireApplicant(action) {
 	try {
 		let application = action.payload;
 		yield axios.patch('/api/applicants/hire', application);
+		yield put({
+			type: 'FETCH_CLIENT_JOBS',
+			//active job status by default
+			payload: 3
+		});
 		yield put({
 			type: 'FETCH_APPLICANTS',
 			payload: { id: application.jobId }
