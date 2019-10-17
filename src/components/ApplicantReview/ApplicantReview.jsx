@@ -47,30 +47,24 @@ class ApplicantReview extends Component {
         });
 
         return (
-            <OneColumnLayout header="Applicant Review">
-                {isClient() ? (
+            // <OneColumnLayout header="Applicant Review">
+                // {isClient() ? (
                     <Grid container>
                         <Grid item xs={12} align="center">
-                            <Typography variant="h4" color="primary" align="center" gutterBottom>
-                                "{this.props.details.project_title}"
+                            <Typography variant="h6" color="primary" align="center" gutterBottom>
+                                Applications Received
                             </Typography>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                align="space-around"
-                                onClick={() => this.routeBack()}>
-                                Back
-                            </Button>
+
                         </Grid>
                         <Grid item xs={12}>
                             {/* Job Search List */}
                             <div className="list">{applicantList}</div>
                         </Grid>
                     </Grid>
-                ) : (
-                    <Typography>You are not authorized to view this page.</Typography>
-                )}
-            </OneColumnLayout>
+                // ) : (
+                    // <Typography>You are not authorized to view this page.</Typography>
+                // )}
+            // </OneColumnLayout>
         );
     }
 }
