@@ -1,6 +1,5 @@
 import React from 'react';
-import { Grid, Typography, Button, Link } from '@material-ui/core';
-import DescriptionIcon from '@material-ui/icons/Description';
+import { Grid, Typography, Link } from '@material-ui/core';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LanguageIcon from '@material-ui/icons/Language';

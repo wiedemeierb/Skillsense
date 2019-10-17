@@ -133,16 +133,25 @@ class JobDetail extends Component {
 
 					{isClient() && (
 						<Grid item xs={12} align='center'>
+							<Button
+								className={classes.button}
+								variant='contained'
+								color='secondary'
+								align='space-around'
+								onClick={() => this.routeBackClient()}>
+								Back
+							</Button>
 							{this.props.details.status_id === 1 && (
 								<>
-									<ApplicantReview />
 									<Button
 										className={classes.button}
 										variant='contained'
 										color='primary'
+										align="space-around"
 										onClick={this.viewApplicants}>
 										View Applicants
 									</Button>
+									<ApplicantReview />
 								</>
 							)}
 							{this.props.details.status_id === 3 && (
@@ -154,14 +163,6 @@ class JobDetail extends Component {
 									Mark Project Completed
 								</Button>
 							)}
-							<Button
-								className={classes.button}
-								variant='contained'
-								color='secondary'
-								align='space-around'
-								onClick={() => this.routeBackClient()}>
-								Back
-							</Button>
 						</Grid>
 					)}
 				</Grid>

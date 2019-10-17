@@ -5,15 +5,9 @@ import { connect } from 'react-redux';
 import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
 import ApplicantDetailStudent from '../ApplicantDetailStudent/ApplicantDetailStudent';
 import ApplicantDetailMentor from '../ApplicantDetailMentor/ApplicantDetailMentor';
-import SkillList from '../SkillList/SkillList';
 
 //MATERIAL-UI IMPORTS
-import { Typography, Button, Link, Grid, Divider } from '@material-ui/core';
-import DescriptionIcon from '@material-ui/icons/Description';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import LanguageIcon from '@material-ui/icons/Language';
-import EmailIcon from '@material-ui/icons/Email';
+import { Typography, Button, Grid, Divider } from '@material-ui/core';
 
 //STYLING IMPORTS
 import { withStyles } from '@material-ui/core/styles';
