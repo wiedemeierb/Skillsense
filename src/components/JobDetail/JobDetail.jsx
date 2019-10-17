@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-//COMPONENT IMPORTS
-import SkillList from '../SkillList/SkillList';
-import ApplicantReview from '../ApplicantReview/ApplicantReview';
-
 //MATERIAL-UI IMPORTS
 import { Typography, Button, Grid, Divider } from '@material-ui/core';
 import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
 import { withStyles } from '@material-ui/core/styles';
 import Swal from 'sweetalert2';
+
+//COMPONENT IMPORTS
+import SkillList from '../SkillList/SkillList';
+import ApplicantReviewClient from '../ApplicantReviewClient/ApplicantReviewClient';
+import ApplicantReviewStudent from '../ApplicantReviewStudent/ApplicantReviewStudent';
+import MessageDialog from '../MessageDialog/MessageDialog';
 
 const styles = theme => ({
 	button: {
@@ -101,6 +103,11 @@ class JobDetail extends Component {
 						<Typography>Location: {details.location}</Typography>
 						<Typography>Duration: {details.duration}</Typography>
 						<Typography>Budget: ${details.budget}</Typography>
+						{isStudent() && details.hired && (
+							<MessageDialog
+								recipient={{ id: details.client_id, username: details.username }}
+							/>
+						)}
 					</Grid>
 					<Grid item xs={12} sm={6} align='left'>
 						<Typography variant='h5' color='secondary'>
@@ -118,11 +125,18 @@ class JobDetail extends Component {
 							</>
 						)}
 					</Grid>
-					{isStudent() && this.props.details.hired === null ? (
+					{isStudent() && (
+						<>
+							<Divider />
+							<ApplicantReviewStudent
+								listUser={this.props.user}
+								jobDetails={this.props.details}
+							/>
+							<Divider />
+						</>
+					)}
+					{isStudent() && (
 						<Grid item xs={12} align='center'>
-							<Button variant='contained' color='primary' onClick={this.applyNow}>
-								Apply
-							</Button>
 							<Button
 								variant='contained'
 								color='secondary'
@@ -130,15 +144,21 @@ class JobDetail extends Component {
 								onClick={() => this.routeBack()}>
 								Back
 							</Button>
+							{this.props.details.hired === null && (
+								<Button variant='contained' color='primary' onClick={this.applyNow}>
+									Apply
+								</Button>
+							)}
 						</Grid>
-					) : null}
+					)}
 
 					{isClient() && (
 						<Grid item xs={12} align='center'>
-							{(this.props.details.status_id === 1 || this.props.details.status_id === 3) && (
+							{(this.props.details.status_id === 1 ||
+								this.props.details.status_id === 3) && (
 								<>
 									<Divider />
-									<ApplicantReview />
+									<ApplicantReviewClient />
 									<Divider />
 								</>
 							)}

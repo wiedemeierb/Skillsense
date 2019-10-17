@@ -85,8 +85,6 @@ class ApplicantDetail extends Component {
 
 		return (
 			<OneColumnLayout header='Application Details'>
-				{isClient() ? (
-					<>
 						<Divider className={classes.divider} variant='fullWidth' />
 						{this.props.applicant && (
 							<ApplicantDetailStudent applicant={this.props.applicant} />
@@ -117,7 +115,7 @@ class ApplicantDetail extends Component {
 								</Button>
 							</Grid>
 
-							{this.props.applicant.status_id === 1 && (
+							{isClient() && this.props.applicant.status_id === 1 && (
 								<Grid item xs={4}>
 									<Button
 										variant='contained'
@@ -130,10 +128,6 @@ class ApplicantDetail extends Component {
 								</Grid>
 							)}
 						</Grid>
-					</>
-				) : (
-					<Typography>You are not authorized to view this page.</Typography>
-				)}
 			</OneColumnLayout>
 		);
 	}
