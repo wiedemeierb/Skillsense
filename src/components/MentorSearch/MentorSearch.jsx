@@ -30,8 +30,7 @@ const styles = theme => ({
     search: {
         display: 'flex',
         justifyContent: 'space-around',
-        width: '100%',
-        padding: theme.spacing(1)
+        width: '100%'
     },
     formControl: {
         margin: theme.spacing(3),
@@ -39,7 +38,8 @@ const styles = theme => ({
         minWidth: 150
     },
     select: {
-        width: '100%'
+        minWidth: 150,
+        margin: theme.spacing(1, 0)
     }
 });
 
@@ -47,7 +47,7 @@ class MentorSearch extends Component {
     state = {
         search: {
             searchTerm: '',
-            skill: 0
+            skill: ''
         }
     };
 
@@ -114,12 +114,13 @@ class MentorSearch extends Component {
             <>
                 {isStudent() ? (
                     <TwoColumnLayout rightHeader="Details" leftHeader="Search for Mentors">
-                        <Grid container spacing={4}>
+                        <Grid container>
                             {/* MENTOR SEARCH INPUTS */}
                             <Grid item xs={12}>
-                                <Paper className={classes.search}>
+                                <Paper className={classes.search} mb={1}>
                                     <FormGroup row={true}>
                                         <FormControl className={classes.formControl}>
+                                            {/* Mentor name search form */}
                                             <TextField
                                                 onChange={event =>
                                                     this.handleSearch('searchTerm', event)
@@ -129,6 +130,8 @@ class MentorSearch extends Component {
                                                 onKeyUp={this.handleKeyUp}
                                             />
                                         </FormControl>
+
+                                        {/* Skill Select */}
                                         <FormControl className={classes.formControl}>
                                             <InputLabel htmlFor="skill-search">
                                                 Search by skill...
@@ -139,7 +142,6 @@ class MentorSearch extends Component {
                                                 onChange={event =>
                                                     this.handleSearch('skill', event)
                                                 }>
-                                                <MenuItem value={0}>Select Skill</MenuItem>
                                                 {/* Skill tag list dropdown options */}
                                                 {skillList}
                                             </Select>
@@ -155,7 +157,7 @@ class MentorSearch extends Component {
                             </Grid>
 
                             {/* MENTOR SEARCH RESULT LIST */}
-                            <Grid item xs={12} className="list">
+                            <Grid item container xs={12} className="list">
                                 {mentorList}
                             </Grid>
                         </Grid>
