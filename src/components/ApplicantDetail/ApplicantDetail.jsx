@@ -86,6 +86,7 @@ class ApplicantDetail extends Component {
 			<OneColumnLayout header='Application Details'>
 				{isClient() ? (
 					<>
+						<Divider className={classes.divider} variant='fullWidth' />
 						{this.props.applicant && (
 							<ApplicantDetailStudent applicant={this.props.applicant} />
 						)}
@@ -95,7 +96,7 @@ class ApplicantDetail extends Component {
 						)}
 						<Divider className={classes.divider} variant='fullWidth' />
 						{/* Buttons: Back & Hire */}
-						<Typography variant="h5" align="center" color="primary">
+						<Typography variant='h5' align='center' color='primary'>
 							Actions
 						</Typography>
 						<Grid

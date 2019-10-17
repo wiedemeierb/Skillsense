@@ -7,7 +7,7 @@ import SkillList from '../SkillList/SkillList';
 import ApplicantReview from '../ApplicantReview/ApplicantReview';
 
 //MATERIAL-UI IMPORTS
-import { Typography, Button, Grid } from '@material-ui/core';
+import { Typography, Button, Grid, Divider } from '@material-ui/core';
 import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
 import { withStyles } from '@material-ui/core/styles';
 import Swal from 'sweetalert2';
@@ -84,12 +84,15 @@ class JobDetail extends Component {
 			<OneColumnLayout header='Job Details'>
 				<Grid spacing={3} container justify='center'>
 					<Grid item xs={12} align='center'>
-						<Typography variant='h3' color='primary'>
+						<Typography variant='h4' color='primary'>
 							{details.project_title}
 						</Typography>
 						<Typography variant='h5' color='secondary'>
 							Seeking: {details.position_title}
 						</Typography>
+					</Grid>
+					<Grid item xs={12}>
+						<Divider />
 					</Grid>
 					<Grid item xs={12} sm={6} align='left'>
 						<Typography variant='h5' color='secondary'>
@@ -115,7 +118,6 @@ class JobDetail extends Component {
 							</>
 						)}
 					</Grid>
-
 					{isStudent() && this.props.details.hired === null ? (
 						<Grid item xs={12} align='center'>
 							<Button variant='contained' color='primary' onClick={this.applyNow}>
@@ -133,25 +135,11 @@ class JobDetail extends Component {
 
 					{isClient() && (
 						<Grid item xs={12} align='center'>
-							<Button
-								className={classes.button}
-								variant='contained'
-								color='secondary'
-								align='space-around'
-								onClick={() => this.routeBackClient()}>
-								Back
-							</Button>
 							{this.props.details.status_id === 1 && (
 								<>
-									<Button
-										className={classes.button}
-										variant='contained'
-										color='primary'
-										align="space-around"
-										onClick={this.viewApplicants}>
-										View Applicants
-									</Button>
+									<Divider />
 									<ApplicantReview />
+									<Divider />
 								</>
 							)}
 							{this.props.details.status_id === 3 && (
@@ -163,6 +151,14 @@ class JobDetail extends Component {
 									Mark Project Completed
 								</Button>
 							)}
+							<Button
+								className={classes.button}
+								variant='contained'
+								color='secondary'
+								align='space-around'
+								onClick={() => this.routeBackClient()}>
+								Back
+							</Button>
 						</Grid>
 					)}
 				</Grid>
