@@ -7,7 +7,7 @@ import PublicProfile from '../PublicProfile/PublicProfile';
 import EditProfile from '../EditProfile/EditProfile';
 
 //MATERIAL-UI IMPORTS
-import { Grid, Button, Typography } from '@material-ui/core';
+import { Grid, Button, Typography, Chip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -21,7 +21,19 @@ const styles = theme => ({
         display: 'block',
         margin: theme.spacing(1),
         padding: theme.spacing(1)
-    }
+    },
+    mentorAccountBadge: {
+        color: 'white',
+        fontWeight: 'bold',
+        background: '#43a047',
+        padding: theme.spacing(0, 2)
+    },
+    mentorPendingAccountBadge: {
+        color: 'white',
+        fontWeight: 'bold',
+        background: '#ef6c00',
+        padding: theme.spacing(0, 2)
+    },
 });
 
 class UserPage extends Component {
@@ -80,13 +92,17 @@ class UserPage extends Component {
             if (this.props.user.user_type === 'Mentor') {
                 if (this.props.user.approved_mentor === 3) {
                     return (
-                        <Typography className={classes.statusBadge}>Approved by Admin</Typography>
+                        <Chip
+                            label={"Approved by Admin"}
+                            className={classes.mentorAccountBadge}
+                        />
                     );
                 } else if (this.props.user.approved_mentor === 2) {
                     return (
-                        <Typography className={classes.statusBadge}>
-                            Pending Admin Approval
-                        </Typography>
+                        <Chip
+                            label={"Pending Admin Approval"}
+                            className={classes.mentorPendingAccountBadge}
+                        />
                     );
                 } else {
                     return (

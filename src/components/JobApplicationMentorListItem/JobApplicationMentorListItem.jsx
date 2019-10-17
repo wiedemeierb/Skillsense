@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
 		display: 'inline',
 		minWidth: '15vw',
 		backgroundColor: theme.palette.secondary.dark,
+		color: 'white',
 		padding: theme.spacing(1),
 		margin: theme.spacing(1)
 	},
@@ -47,6 +48,7 @@ function JobApplicationMentorListItem(props) {
 			</Typography>
 			<Button
 				size='small'
+				variant="contained"
 				color='primary'
 				className={classes.button}
 				onClick={() => props.selectMentor(props.listUser.id)}>
