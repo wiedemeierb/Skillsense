@@ -123,24 +123,30 @@ class JobApplication extends Component {
                 {isStudent() ? (
                     <Grid container className={classes.root} spacing={4}>
                         {/* JOB INFO */}
-                        <Grid item container xs={12} sm={6} spacing={4}>
+                        <Grid item container xs={12} sm={6} spacing={2}>
                             <Grid item xs={12}>
                                 <Typography variant="h4" color="primary">
                                     {this.props.job.position_title}
                                 </Typography>
-                                <Typography variant="h5" gutterBottom>
+                                <Typography variant="h5" >
                                     {this.props.job.project_title}
                                 </Typography>
-                                <Typography variant="h6" color="secondary">
+                                {/* <Typography variant="body1" color="secondary">
                                     {this.props.job.username}, {this.props.job.location}
-                                </Typography>
+                                </Typography> */}
                             </Grid>
                             <Grid item xs={12}>
-                                <Typography variant="subtitle1" color="secondary">
-                                    Duration: <span>{this.props.job.duration}</span>
+                                <Typography variant="subtitle2" color="secondary">
+                                    <b>Duration:</b>  <span>{this.props.job.duration}</span>
                                 </Typography>
-                                <Typography variant="subtitle1" color="secondary">
-                                    Budget: $<span>{this.props.job.budget}</span>
+                                <Typography variant="subtitle2" color="secondary">
+                                    <b>Budget:</b>  <span>${this.props.job.budget}</span>
+                                </Typography>
+                                <Typography variant="subtitle2" color="secondary">
+                                    <b>Client:</b>  <span>{this.props.job.username}</span>
+                                </Typography>
+                                <Typography variant="subtitle2" color="secondary">
+                                    <b>Location:</b>  <span>{this.props.job.location}</span>
                                 </Typography>
                             </Grid>
                         </Grid>
