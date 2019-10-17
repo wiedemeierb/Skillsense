@@ -4,77 +4,79 @@ import { withRouter } from 'react-router-dom';
 //MATERIAL-UI IMPORTS
 import { withStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Button } from '@material-ui/core';
+import MessageDialog from '../MessageDialog/MessageDialog';
 
 const styles = theme => ({
-    root: {
-        display: 'flexbox',
-        flexDirection: 'column'
-    },
-    listItem: {
-        display: 'inline-flex',
-        justifyContent: 'space-between',
-        padding: '20px 20px 10px',
-        borderBottom: '1px solid gray'
-    },
-    button: {
-        margin: theme.spacing(1),
-        color: 'white'
-    }
+	root: {
+		display: 'flexbox',
+		flexDirection: 'column'
+	},
+	listItem: {
+		display: 'inline-flex',
+		justifyContent: 'space-between',
+		padding: '20px 20px 10px',
+		borderBottom: '1px solid gray'
+	},
+	button: {
+		margin: theme.spacing(1),
+		color: 'white'
+	}
 });
 
 class UserListItem extends Component {
-    viewDetails = () => {
-        //this dispatch for clients viewing student applications
-        if (this.props.user.user_type === 'Client') {
-            this.props.history.push(`/jobs/detail/applicant/${this.props.listUser.id}`);
-            this.props.dispatch({
-                type: 'FETCH_APPLICATION',
-                //payload is job_applicant id
-                payload: this.props.listUser.id
-            });
-        } else {
-            //dispatch for any other user details
-            this.props.dispatch({
-                type: 'FETCH_SELECTED_USER',
-                payload: this.props.listUser.id
-            });
-        }
-    };
+	viewDetails = () => {
+		//this dispatch for clients viewing student applications
+		if (this.props.user.user_type === 'Client') {
+			this.props.history.push(`/jobs/detail/applicant/${this.props.listUser.id}`);
+			this.props.dispatch({
+				type: 'FETCH_APPLICATION',
+				//payload is job_applicant id
+				payload: this.props.listUser.id
+			});
+		} else {
+			//dispatch for any other user details
+			this.props.dispatch({
+				type: 'FETCH_SELECTED_USER',
+				payload: this.props.listUser.id
+			});
+		}
+	};
 
-    render() {
-        const { classes } = this.props;
+	render() {
+		const { classes } = this.props;
 
-        return (
-            <Grid
-                container
-                direction="row"
-                justify="space-between"
-                align="top"
-                className={classes.listItem}>
-                {/* left side info */}
-                <Grid item xs={6}>
-                    <Typography color="primary" variant="h5">
-                        {this.props.listUser.username}
-                    </Typography>
-                    <Typography variant="h6">{this.props.listUser.focus_skill}</Typography>
-                </Grid>
-                {/* right side info */}
-                <Grid item xs={6} align="right">
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        className={classes.button}
-                        onClick={() => this.viewDetails()}>
-                        View Details
-                    </Button>
-                </Grid>
-            </Grid>
-        );
-    }
+		return (
+			<Grid
+				container
+				direction='row'
+				justify='space-between'
+				align='top'
+				className={classes.listItem}>
+				{/* left side info */}
+				<Grid item xs={6}>
+					<Typography color='primary' variant='h5'>
+						{this.props.listUser.username}  {this.props.hired && '(Hired)'}
+					</Typography>
+					<Typography variant='h6'>{this.props.listUser.focus_skill}</Typography>
+				</Grid>
+				{/* right side info */}
+                <Grid item xs={6} align='right'>
+                    {this.props.hired && (<MessageDialog recipient={{id: this.props.listUser.student_id, username: this.props.listUser.username}} />)}
+					<Button
+						variant='contained'
+						color='primary'
+						className={classes.button}
+						onClick={() => this.viewDetails()}>
+						View Details
+					</Button>
+				</Grid>
+			</Grid>
+		);
+	}
 }
 
 const mapStateToProps = state => ({
-    user: state.user
+	user: state.user
 });
 
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(UserListItem)));
