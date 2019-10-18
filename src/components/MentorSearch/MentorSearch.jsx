@@ -143,6 +143,9 @@ class MentorSearch extends Component {
 													this.handleSearch('skill', event)
 												}>
 												{/* Skill tag list dropdown options */}
+												<MenuItem value={0}>
+													Select a Skill...
+												</MenuItem>
 												{skillList}
 											</Select>
 										</FormControl>
