@@ -47,7 +47,7 @@ class MentorSearch extends Component {
 	state = {
 		search: {
 			searchTerm: '',
-			skill: null
+			skill: ''
 		}
 	};
 
