@@ -55,6 +55,7 @@ class MessagesCenter extends Component {
 									return (
 										<ListItem
 											button
+											divider={true}
 											key={message.id}
 											selected={this.state.selected === message.id}
 											onClick={() => {
