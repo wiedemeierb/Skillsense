@@ -7,19 +7,19 @@ import { Grid, Typography, Button } from '@material-ui/core';
 import MessageDialog from '../MessageDialog/MessageDialog';
 
 const styles = theme => ({
-    root: {
-        display: 'flexbox',
-        flexDirection: 'column'
-    },
-    listItem: {
-        display: 'inline-flex',
-        justifyContent: 'space-between',
-        padding: '20px 20px 10px',
-        borderBottom: '1px solid gray'
-    },
-    button: {
-        margin: theme.spacing(1)
-    }
+	root: {
+		display: 'flexbox',
+		flexDirection: 'column'
+	},
+	listItem: {
+		display: 'inline-flex',
+		justifyContent: 'space-between',
+		padding: '20px 20px 10px',
+		// borderBottom: '1px solid gray'
+	},
+	button: {
+		margin: theme.spacing(1),
+	}
 });
 
 class UserListItem extends Component {
@@ -44,7 +44,7 @@ class UserListItem extends Component {
 	render() {
 		const { classes } = this.props;
 
-        return (
+    return (
             <Grid
                 container
                 direction="row"
@@ -54,7 +54,7 @@ class UserListItem extends Component {
                 {/* left side info */}
                 <Grid item xs={8}>
                     <Typography variant="h5" color="primary">
-                        {this.props.listUser.username} - {this.props.hired && '(Hired)'}
+                        {this.props.listUser.username}{this.props.hired && ' (Hired)'}
                     </Typography>
                     <Typography variant="h6" color="secondary">
                         {this.props.listUser.focus_skill}
@@ -64,15 +64,15 @@ class UserListItem extends Component {
                 <Grid item xs={4} align="right">
                     {this.props.hired && (
                         <MessageDialog recipient={{
-                               id: this.props.listUser.student_id, 
-                               username: this.props.listUser.username}} 
+                               id: this.props.listUser.student_id,
+                               username: this.props.listUser.username}}
                           />)}
                     <Button
                         variant="contained"
-                        color="primary"
+                        color={this.props.hired ? 'secondary' : 'primary'}
                         className={classes.button}
                         onClick={() => this.viewDetails()}>
-                        View Details
+                        Details
                     </Button>
                 </Grid>
             </Grid>

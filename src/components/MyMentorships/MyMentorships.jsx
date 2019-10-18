@@ -9,10 +9,18 @@ import MentorTabs from '../MentorTabs/MentorTabs';
 import UserListItem from '../UserListItem/UserListItem';
 import PublicProfile from '../PublicProfile/PublicProfile';
 import JobListItem from '../JobListItem/JobListItem';
-import MessageDialog from '../MessageDialog/MessageDialog'
+import MessageDialog from '../MessageDialog/MessageDialog';
 
 //MATERIAL-UI IMPORTS
-import { Typography, Button, Grid } from '@material-ui/core';
+import { Typography, Button, Grid, Divider } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+	button: {
+		margin: theme.spacing(1),
+		padding: theme.spacing(1)
+	}
+});
 
 class MyMentorships extends Component {
 	componentDidMount() {
@@ -40,7 +48,7 @@ class MyMentorships extends Component {
 			if (result.value) {
 				this.props.dispatch({
 					type: 'ACCEPT_MENTORSHIP',
-					payload: { student_id: this.props.selectedUser.id }
+					payload: { student_id: this.props.selectedUser.id, mentor: this.props.user }
 				});
 			}
 		});
@@ -70,11 +78,7 @@ class MyMentorships extends Component {
 	};
 
 	render() {
-		//maps over the allMentorsReducer and feeds each user to the UserListItem component for rendering
-		let mentorList = this.props.mentors.map((mentor, i) => {
-			return <UserListItem key={i} listUser={mentor} />;
-		});
-
+		const { classes } = this.props;
 		//checks if user type should be able to view this page
 		let isStudent = () => {
 			return this.props.user.user_type === 'Student';
@@ -85,14 +89,62 @@ class MyMentorships extends Component {
 			return this.props.user.user_type === 'Mentor';
 		};
 
-		//uses the JobListItem component to render the job search results
-		let jobList =
-			this.props.selectedUser.job_list &&
-			this.props.selectedUser.job_list.map((job, i) => {
-				return <JobListItem key={i} job={job} />;
-			});
+		//maps over the allMentorsReducer and feeds each user to the UserListItem component for rendering
+		let mentorList = this.props.mentors.map((mentor, i) => {
+			return (
+				<div key={mentor.id}>
+					<UserListItem listUser={mentor} />
+					{mentor.inviteMessage && (
+						<Typography variant='subtitle2' align='right'>
+							{isStudent() ? 'You sent: ' : 'Student Message: '}
+							{mentor.inviteMessage.message}
+						</Typography>
+					)}
+					<Divider />
+				</div>
+			);
+		});
 
-		console.log(this.props.selectedUser.job_list);
+		//uses the JobListItem component to render the job search results
+		let studentHiredJobList =
+			isMentor() &&
+			this.props.selectedUser &&
+			this.props.selectedUser.job_list &&
+			this.props.selectedUser.job_list[0] !== null
+				? this.props.selectedUser.job_list &&
+				  this.props.selectedUser.job_list
+						.filter(job => job.hired === true)
+						.map((job, i) => {
+							if (job.applicant_mentor === this.props.user.id) {
+								return (
+									<div key={i}>
+										<JobListItem job={job} />
+										<Divider />
+									</div>
+								);
+							}
+						})
+				: null;
+		let studentPendingJobList =
+			isMentor() &&
+			this.props.selectedUser &&
+			this.props.selectedUser.job_list &&
+			this.props.selectedUser.job_list[0] !== null
+				? this.props.selectedUser.job_list &&
+				  this.props.selectedUser.job_list
+						.filter(job => job.hired !== true)
+						.map((job, i) => {
+							if (job.applicant_mentor === this.props.user.id) {
+								return (
+									<div key={i}>
+										<JobListItem job={job} />
+										<Divider />
+									</div>
+								);
+							}
+						})
+				: null;
+
 		return (
 			<>
 				{isStudent() || isMentor() ? (
@@ -116,44 +168,66 @@ class MyMentorships extends Component {
 								<>
 									<PublicProfile />
 									{isMentor() && this.props.selectedUser.accepted === false ? (
-										<>
-											<Grid align='center'>
+										<Grid item container align='center' justify='center'>
+											<Grid item xs={12}>
 												<Typography variant='subtitle1'>
 													Mentor Actions:
 												</Typography>
-
+											</Grid>
+											<Grid item xs={12}>
 												<Button
-													align='center'
 													variant='contained'
 													color='primary'
+													className={classes.button}
 													onClick={this.acceptMentorship}>
 													Accept
 												</Button>
 												<Button
-													align='center'
 													variant='contained'
 													color='secondary'
+													className={classes.button}
 													onClick={this.declineMentorship}>
 													Decline
 												</Button>
 											</Grid>
-										</>
+										</Grid>
 									) : (
-										<>
-                        <Grid align='center'>
-                        <MessageDialog recipient={{id: this.props.selectedUser.id, username: this.props.selectedUser.username}} />
-											</Grid>
+										<Grid
+											container
+											spacing={4}
+											justify='center'
+											alignItems='center'>
+											{this.props.selectedUser && (
+												<MessageDialog
+													recipient={{
+														id: this.props.selectedUser.id,
+														username: this.props.selectedUser.username
+													}}
+												/>
+											)}
 											{isMentor() &&
-											this.props.selectedUser.job_list[0] !== null ? (
-												<>
-													<br />
-													<Typography variant='h5' align='center'>
-														Student's Jobs
-													</Typography>
-													<div className='list'>{jobList}</div>
-												</>
+											(this.props.selectedUser.job_list &&
+												this.props.selectedUser.job_list[0] !== null) ? (
+												<Grid item xs={12}>
+													<Grid item xs={12} className='list'>
+														<Typography variant='h5' align='center'>
+															Student's Active Jobs:
+														</Typography>
+														<div className='list'>
+															{studentHiredJobList}
+														</div>
+													</Grid>
+													<Grid item xs={12} className='list'>
+														<Typography variant='h5' align='center'>
+															Student's Applied Jobs:
+														</Typography>
+														<div className='list'>
+															{studentPendingJobList}
+														</div>
+													</Grid>
+												</Grid>
 											) : null}
-										</>
+										</Grid>
 									)}
 								</>
 							) : (
@@ -180,4 +254,4 @@ const mapStateToProps = store => {
 	};
 };
 
-export default withRouter(connect(mapStateToProps)(MyMentorships));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(MyMentorships)));

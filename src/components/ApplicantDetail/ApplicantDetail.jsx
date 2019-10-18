@@ -59,11 +59,13 @@ class ApplicantDetail extends Component {
 			confirmButtonText: 'Yes!'
 		}).then(result => {
 			if (result.value) {
+
 				this.props.dispatch({
 					type: 'HIRE_APPLICANT',
 					payload: {
 						applicantId: Number(this.props.match.params.id),
-						jobId: this.props.applicant.job_id
+						jobId: this.props.applicant.job_id,
+						application: this.props.applicant
 					}
 				});
 				this.props.history.push(`/jobs`);

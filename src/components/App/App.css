@@ -73,3 +73,6 @@ input {
     color: #c2d1d9;
     background-color: #505d68;
 }
+ button {
+     font-weight: 700 !important;
+ }

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
+//material-ui imports
 import {
 	Dialog,
 	DialogActions,
@@ -30,6 +32,20 @@ function MessageDialog(props) {
 	const handleClose = () => {
 		setOpen(false);
 	};
+	const handleSendClick = () => {
+		dispatch({
+			type: 'SEND_MESSAGE',
+			payload: { recipient: props.recipient, message: message }
+		});
+		Swal.fire({
+			position: 'center',
+			type: 'success',
+			title: 'Your message has been sent!',
+			timer: 1500
+		});
+		setMessage('');
+		handleClose();
+	};
 	const dispatch = useDispatch();
 
 	return (
@@ -44,7 +60,9 @@ function MessageDialog(props) {
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle id='message-dialog'>Send Message</DialogTitle>
 				<DialogContent>
-					<DialogContentText>
+					<DialogContentText
+						// onClick = {()=>{setMessage('Great job applying to jobs, but be careful not to overcommit yourself!')}}
+					>
 						Please type your message to send to {props.recipient.username}
 					</DialogContentText>
 					<TextField
@@ -52,23 +70,19 @@ function MessageDialog(props) {
 						margin='dense'
 						label='Your Message'
 						fullWidth
+						multiline
 						value={message}
+						// onClick = {() => setMessage('Wednesday would be perfect! The project I have now has some tricky tables, and I have not been able to figure out the SQL to get all the information I need!')}
 						onChange={e => setMessage(e.target.value)}
 					/>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose} color='secondary'>
+					<Button variant="contained" onClick={handleClose} color='secondary'>
 						Cancel
 					</Button>
-					<Button
-						onClick={() => {
-							dispatch({
-								type: 'SEND_MESSAGE',
-								payload: { recipient: props.recipient, message: message }
-							});
-							setMessage('');
-							handleClose();
-						}}
+				<Button
+					variant="contained"
+						onClick={handleSendClick}
 						color='primary'>
 						Send Message
 					</Button>

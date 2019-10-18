@@ -53,6 +53,13 @@ function* hireApplicant(action) {
 			payload: 3
 		});
 		yield put({
+			type: 'SEND_MESSAGE',
+			payload: {
+				recipient: { id: action.payload.application.student_id },
+				message: `***SYSTEM GENERATED MESSAGE*** YOU HAVE BEEN HIRED FOR ${action.payload.application.project_title}.  SEE YOUR ACTIVE JOBS FOR MORE INFORMATION.`
+			}
+		});
+		yield put({
 			type: 'FETCH_APPLICANTS',
 			payload: { id: application.jobId }
 		});
