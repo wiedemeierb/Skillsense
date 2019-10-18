@@ -47,7 +47,7 @@ CREATE TABLE "messages" (
   "id" serial PRIMARY KEY,
   "sender_id" integer NOT NULL references "users",
   "recipient_id" integer NOT NULL references "users",
-  "message" VARCHAR(510) NOT NULL,
+  "message" TEXT NOT NULL,
   "date_time" TIMESTAMP NOT NULL
 );
 

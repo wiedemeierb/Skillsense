@@ -26,7 +26,7 @@ const styles = theme => ({
 	}
 });
 
-class ApplicantReview extends Component {
+class ApplicantReviewClient extends Component {
 	state = {
 		expanded: false
 	};
@@ -98,4 +98,4 @@ const mapStateToProps = store => {
 	};
 };
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(ApplicantReview)));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(ApplicantReviewClient)));

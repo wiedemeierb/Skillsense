@@ -2,15 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //material-ui imports
 import {
-	Typography,
-	Paper,
-	Button,
 	Grid,
 	List,
 	ListItem,
 	ListItemText,
-	Divider,
-	IconButton
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -35,9 +30,6 @@ const styles = theme => ({
 class MessagesCenter extends Component {
 	state = {
 		selected: null,
-		selectedUser: '',
-		dialogOpen: false,
-		messages: []
 	};
 
 	componentDidMount() {
@@ -93,7 +85,6 @@ class MessagesCenter extends Component {
 					<>
 						{this.state.selected !== null && (
 							<MessageDialog
-								open={this.state.dialogOpen}
 								recipient={{
 									id: this.state.selected,
 									username: this.state.selectedUser

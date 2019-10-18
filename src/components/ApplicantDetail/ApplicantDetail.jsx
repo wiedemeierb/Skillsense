@@ -3,231 +3,142 @@ import { connect } from 'react-redux';
 
 //COMPONENT IMPORTS
 import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
-// import SkillList from '../SkillList/SkillList';
+import ApplicantDetailStudent from '../ApplicantDetailStudent/ApplicantDetailStudent';
+import ApplicantDetailMentor from '../ApplicantDetailMentor/ApplicantDetailMentor';
 
 //MATERIAL-UI IMPORTS
-import { Typography, Button, Link, Grid } from '@material-ui/core';
-import DescriptionIcon from '@material-ui/icons/Description';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import LanguageIcon from '@material-ui/icons/Language';
-import EmailIcon from '@material-ui/icons/Email';
+import { Typography, Button, Grid, Divider } from '@material-ui/core';
 
 //STYLING IMPORTS
 import { withStyles } from '@material-ui/core/styles';
 import Swal from 'sweetalert2';
 
 const styles = theme => ({
-    root: {
-        margin: 'auto',
-        width: '90vh'
-    },
-    section: {
-        padding: theme.spacing(2, 0)
-    },
-    link: {
-        fontWeight: 'bold'
-    },
-    resumeLink: {
-        display: 'inline-block',
-        fontWeight: 'bold',
-        verticalAlign: 'middle'
-    },
-    button: {
-        color: 'white'
-    }
+	root: {
+		margin: 'auto',
+		width: '90vh'
+	},
+	divider: {
+		margin: theme.spacing(2)
+	},
+	section: {
+		padding: theme.spacing(2, 0)
+	},
+	link: {
+		fontWeight: 'bold'
+	},
+	resumeLink: {
+		display: 'inline-block',
+		fontWeight: 'bold',
+		verticalAlign: 'middle'
+	},
+	button: {
+		padding: theme.spacing(1),
+		margin: theme.spacing(1)
+	}
 });
 
 class ApplicantDetail extends Component {
-    componentDidMount() {
-        this.props.dispatch({
-            type: 'FETCH_APPLICANT_DETAIL',
-            payload: { id: Number(this.props.match.params.id) }
-        });
-    }
+	componentDidMount() {
+		this.props.dispatch({
+			type: 'FETCH_APPLICANT_DETAIL',
+			payload: { id: Number(this.props.match.params.id) }
+		});
+	}
 
-    handleSubmit = event => {
-        event.preventDefault();
+	handleSubmit = event => {
+		event.preventDefault();
 
-        Swal.fire({
-            title: 'Are you sure you want to hire this applicant?',
-            text: "You won't be able to reverse this decision!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#04b8f3',
-            cancelButtonColor: '#505d68',
-            confirmButtonText: 'Yes!'
-        }).then(result => {
-            if (result.value) {
-                this.props.dispatch({
-                    type: 'HIRE_APPLICANT',
-                    payload: {
-                        applicantId: Number(this.props.match.params.id),
-                        jobId: this.props.applicant.job_id
-                    }
-                });this.props.history.push(`/jobs`);
-            }
-        });
-    };
+		Swal.fire({
+			title: 'Are you sure you want to hire this applicant?',
+			text: "You won't be able to reverse this decision!",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#04b8f3',
+			cancelButtonColor: '#505d68',
+			confirmButtonText: 'Yes!'
+		}).then(result => {
+			if (result.value) {
+				this.props.dispatch({
+					type: 'HIRE_APPLICANT',
+					payload: {
+						applicantId: Number(this.props.match.params.id),
+						jobId: this.props.applicant.job_id
+					}
+				});
+				this.props.history.push(`/jobs`);
+			}
+		});
+	};
 
-    routeBack = () => {
-        this.props.history.push(`/jobs/detail/${this.props.applicant.job_id}`);
-    };
+	routeBack = () => {
+		this.props.dispatch({type: 'CLEAR_APPLICANT_DETAIL'})
+		this.props.history.push(`/jobs/detail/${this.props.applicant.job_id}`);
+	};
 
-    render() {
-        const { classes } = this.props;
+	render() {
+		const { classes } = this.props;
 
-        let isClient = () => {
-            return this.props.user.user_type === 'Client';
-        };
+		let isClient = () => {
+			return this.props.user.user_type === 'Client';
+		};
 
-        return (
-            <OneColumnLayout header="Application Details">
-                {isClient() ? (
-                    <Grid container justify="space-around" spacing={4} className={classes.root}>
-                        {/* Applicant Info */}
-                        <Grid item xs={6}>
-                            <Typography variant="h4" color="primary">
-                                {this.props.applicant.username}
-                            </Typography>
-                            <Typography variant="h5">{this.props.applicant.focus_skill}</Typography>
-                            <Typography variant="subtitle1" gutterBottom>
-                                {this.props.applicant.location}
-                            </Typography>
-                        </Grid>
+		return (
+			<OneColumnLayout header='Application Details'>
+						<Divider className={classes.divider} variant='fullWidth' />
+						{this.props.applicant && (
+							<ApplicantDetailStudent applicant={this.props.applicant} />
+						)}
+						<Divider className={classes.divider} variant='fullWidth' />
+						{this.props.applicant.mentor && (
+							<ApplicantDetailMentor mentor={this.props.applicant.mentor} />
+						)}
+						<Divider className={classes.divider} variant='fullWidth' />
+						{/* Buttons: Back & Hire */}
+						<Typography variant='h5' align='center' color='primary'>
+							Actions
+						</Typography>
+						<Grid
+							item
+							container
+							align='center'
+							justify='space-between'
+							className={classes.section}>
+							<Grid item xs={4}>
+								<Button
+									variant='contained'
+									color='secondary'
+									fullWidth
+									className={classes.button}
+									onClick={this.routeBack}>
+									Back
+								</Button>
+							</Grid>
 
-                        {/* Bio & Resume */}
-                        <Grid item xs={6}>
-                            <Grid container justify="space-around">
-                                {this.props.applicant.bio !== null && (
-                                    <Grid item xs={12}>
-                                        <Typography variant="caption" gutterBottom>
-                                            {this.props.applicant.bio}
-                                        </Typography>
-                                    </Grid>
-                                )}
-                                {this.props.applicant.attachment_url !== null && (
-                                    <Grid item xs={12} align="center">
-                                        <Link target="_blank" ref="noopener noreferrer" href={this.props.applicant.attachment_url}>
-                                            <Button
-                                                color="primary"
-                                                size="large"
-                                                fullWidth
-                                                startIcon={<DescriptionIcon />}
-                                                onClick={() => this.viewResume}>
-                                                View Resume
-                                            </Button>
-                                        </Link>
-                                    </Grid>
-                                )}
-                            </Grid>
-                        </Grid>
-
-                        {/* Cover Letter */}
-                        <Grid item container className={classes.section}>
-                            <Grid item xs={12}>
-                                <Typography variant="h6" align="left">
-                                    Cover Letter:
-                                </Typography>
-                                <Grid item xs={12}>
-                                    <Typography variant="body2">
-                                        {this.props.applicant.cover_letter}
-                                    </Typography>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-
-                        {/* User Info */}
-                        <Grid container align="center" className={classes.section}>
-                            {this.props.applicant.linkedin_url !== null && (
-                                <Grid item xs={3}>
-                                    <Link href={this.props.applicant.linkedin_url}>
-                                        <Typography className={classes.link}>
-                                            <LinkedInIcon fontSize="large" />
-                                        </Typography>
-                                        <Typography className={classes.link}>LinkedIn</Typography>
-                                    </Link>
-                                </Grid>
-                            )}
-                            {this.props.applicant.github_url !== null && (
-                                <Grid item xs={3}>
-                                    <Link href={this.props.applicant.github_url}>
-                                        <Typography className={classes.link}>
-                                            <GitHubIcon fontSize="large" />
-                                        </Typography>
-                                        <Typography className={classes.link}>GitHub</Typography>
-                                    </Link>
-                                </Grid>
-                            )}
-                            {this.props.applicant.website_url !== null && (
-                                <Grid item xs={3}>
-                                    <Link href={this.props.applicant.website_url}>
-                                        <Typography className={classes.link}>
-                                            <LanguageIcon fontSize="large" />
-                                        </Typography>
-                                        <Typography className={classes.link}>Website</Typography>
-                                    </Link>
-                                </Grid>
-                            )}
-                            {this.props.applicant.email !== null && (
-                                <Grid item xs={3}>
-                                    <Link
-                                        target="_blank"
-                                        href={`mailto:${this.props.applicant.email}`}>
-                                        <Typography className={classes.link}>
-                                            <EmailIcon fontSize="large" />
-                                        </Typography>
-                                        <Typography className={classes.link}>E-Mail</Typography>
-                                    </Link>
-                                </Grid>
-                            )}
-                        </Grid>
-
-                        {/* Buttons: Back & Hire */}
-                        <Grid
-                            item
-                            container
-                            align="center"
-                            justify="space-between"
-                            className={classes.section}>
-                            <Grid item xs={4}>
-                                <Button
-                                    variant="contained"
-                                    color="secondary"
-                                    fullWidth
-                                    className={classes.button}
-                                    onClick={this.routeBack}>
-                                    Back
-                                </Button>
-                            </Grid>
-
-                            {this.props.applicant.status_id === 1 &&
-                            <Grid item xs={4}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    fullWidth
-                                    className={classes.button}
-                                    onClick={this.handleSubmit}>
-                                    Hire
-                                </Button>
-                            </Grid>}
-                        </Grid>
-                    </Grid>
-                ) : (
-                    <Typography>You are not authorized to view this page.</Typography>
-                )}
-            </OneColumnLayout>
-        );
-    }
+							{isClient() && this.props.applicant.status_id === 1 && (
+								<Grid item xs={4}>
+									<Button
+										variant='contained'
+										color='primary'
+										fullWidth
+										className={classes.button}
+										onClick={this.handleSubmit}>
+										Hire
+									</Button>
+								</Grid>
+							)}
+						</Grid>
+			</OneColumnLayout>
+		);
+	}
 }
 
 const mapStateToProps = store => {
-    return {
-        job: store.selectedJobReducer,
-        applicant: store.selectedApplicantReducer,
-        user: store.user
-    };
+	return {
+		job: store.selectedJobReducer,
+		applicant: store.selectedApplicantReducer,
+		user: store.user
+	};
 };
 
 export default connect(mapStateToProps)(withStyles(styles)(ApplicantDetail));
