@@ -92,13 +92,13 @@ class LoginPage extends Component {
                 <Grid container spacing={4} alignItems="center" justify="space-between">
                     <Grid className={classes.aboutText} item xs={12}>
                         <Typography paragraph variant="subtitle1">
-                            Freelancing can be especially difficult to break into for new software
-                            developers, but it is often the connections that students make with
-                            industry professionals which serve as the best avenue for success.
+                            Freelancing can be especially difficult to break into as a new software
+                            developer. Often the connections that Students make with
+                            industry professionals will be the key to success.
                         </Typography>
                         <Typography paragraph variant="subtitle1">
-                            SkillSense helps create that avenue by bringing together students,
-                            mentors, and clients alike for freelance projects.
+                            SkillSense helps create these connections by bringing together Students,
+                            Mentors, and Clients alike for freelance projects.
                         </Typography>
                     </Grid>
                 </Grid>
