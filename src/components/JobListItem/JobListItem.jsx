@@ -33,7 +33,7 @@ const styles = theme => ({
 class JobListItem extends Component {
     //When list item is clicked, user is taken to that job detail page
     viewDetail = () => {
-        this.props.history.push(`/jobs/detail/${this.props.job.id}`);
+        this.props.history.push(`/jobs/detail/${this.props.job.job_id || this.props.job.id}`);
     };
 
     render() {
@@ -46,7 +46,7 @@ class JobListItem extends Component {
                 align="top"
                 spacing={3}
                 className={classes.listItem}>
-                    
+
                 {/* left side info */}
                 <Grid item xs={5} display="flex" alignContent="center">
                     <Typography variant="h5" color="primary">{this.props.job.project_title}</Typography>

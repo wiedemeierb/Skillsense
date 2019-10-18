@@ -48,8 +48,8 @@ function ApplicantReviewStudent(props) {
 				<Typography color='primary' variant='h6'>
 					{props.jobDetails.application_id &&
 						(props.jobDetails.hired
-							? "You've been hired for this job!"
-							: 'You have applied to this job.')}
+							? "Your student has been hired for this job."
+							: 'Your student has applied for this job.')}
 				</Typography>
 			</Grid>
 			{/* right side info */}
@@ -60,7 +60,7 @@ function ApplicantReviewStudent(props) {
 						color='primary'
 						className={classes.button}
 						onClick={() => viewApplication()}>
-						View Your Application
+						View Student Application
 					</Button>
 				)}
 			</Grid>
