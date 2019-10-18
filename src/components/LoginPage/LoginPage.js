@@ -23,7 +23,6 @@ const styles = theme => ({
         padding: theme.spacing(2)
     },
     button: {
-        color: 'white',
         margin: theme.spacing(3, 1),
         padding: theme.spacing(1)
     }
