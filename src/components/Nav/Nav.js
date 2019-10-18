@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 //LOGO IMPORT
 import { ReactComponent as SkillSenseLogo } from '../../skillSenseLogo.svg';
 //STYLING IMPORTS
@@ -22,75 +22,110 @@ const isStudent = props => {
 
 const Nav = props => (
     <nav className="nav">
-        <Link to="/home">
+        <NavLink to="/home">
             <SkillSenseLogo alt="skill-sense logo" className="logo" />
-        </Link>
+        </NavLink>
         <div className="nav-right nav-hover">
             {/* Show My Mentorships if user is Student or Mentor */}
             {isStudent(props) || isMentor(props) ? (
                 <li>
-                    <Link data-hover="My MentorShips" className="nav-link" to="/mentors">
+                    <NavLink
+                        data-hover="My Mentorships"
+                        className="nav-link"
+                        to="/mentors"
+                        activeClassName="selected">
                         My Mentorships
-                    </Link>
+                    </NavLink>
                 </li>
             ) : null}
             {/* Show Mentor Search if user is Student */}
             {isStudent(props) && (
                 <li>
-                    <Link className="nav-link" to="/search/mentors">
+                    <NavLink
+                        data-hover="Mentor Search"
+                        className="nav-link"
+                        to="/search/mentors"
+                        activeClassName="selected">
                         Mentor Search
-                    </Link>
+                    </NavLink>
                 </li>
             )}
             {/* Show My Jobs if user is Student or Client */}
             {isStudent(props) || isClient(props) ? (
                 <li>
-                    <Link className="nav-link" to="/jobs">
+                    <NavLink
+                        data-hover="My Jobs"
+                        className="nav-link"
+                        to="/jobs"
+                        activeClassName="selected">
                         My Jobs
-                    </Link>
+                    </NavLink>
                 </li>
             ) : null}
 
             {/* Show Job Search if user is Student */}
             {isStudent(props) && (
                 <li>
-                    <Link className="nav-link" to="/search/jobs">
+                    <NavLink
+                        data-hover="Job Search"
+                        className="nav-link"
+                        to="/search/jobs"
+                        activeClassName="selected">
                         Job Search
-                    </Link>
+                    </NavLink>
                 </li>
             )}
             {isClient(props) && (
                 <li>
-                    <Link className="nav-link" to="/jobs/new">
+                    <NavLink
+                        data-hover="Post New Job"
+                        className="nav-link"
+                        to="/jobs/new"
+                        activeClassName="selected">
                         Post New Job
-                    </Link>
+                    </NavLink>
                 </li>
             )}
             {/* Show Admin if user is Admin */}
             {isAdmin(props) && (
                 <li>
-                    <Link className="nav-link" to="/admin">
+                    <NavLink
+                        data-hover="Admin"
+                        className="nav-link"
+                        to="/admin"
+                        activeClassName="selected">
                         Admin
-                    </Link>
+                    </NavLink>
                 </li>
             )}
             <li>
-                <Link className="nav-link" to="/home">
+                <NavLink
+                    data-hover={props.user.id ? 'Profile' : ''}
+                    className="nav-link"
+                    to="/home"
+                    activeClassName="selected">
                     {/* Show My Profile if user is logged in, otherwise show Login/Register */}
                     {props.user.id ? 'Profile' : ''}
-                </Link>
+                </NavLink>
             </li>
 
             {/* Show the link to the logout button if the user is logged in */}
             {props.user.id && (
                 <>
                     <li>
-                        <Link className="nav-link" to="/messages">
+                        <NavLink
+                            data-hover="Messages"
+                            className="nav-link"
+                            to="/messages"
+                            activeClassName="selected">
                             Messages
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link className="nav-link" onClick={() => props.dispatch({ type: 'LOGOUT' })}>
+                        <Link
+                            data-hover="Log Out"
+                            className="nav-link"
+                            onClick={() => props.dispatch({ type: 'LOGOUT' })}>
                             Log Out
                         </Link>
                     </li>
@@ -104,4 +139,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps)(Nav);
+export default withRouter(connect(mapStateToProps)(Nav));
