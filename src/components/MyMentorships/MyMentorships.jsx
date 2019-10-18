@@ -106,36 +106,44 @@ class MyMentorships extends Component {
 		});
 
 		//uses the JobListItem component to render the job search results
-		let studentHiredJobList = isMentor()
-			? this.props.selectedUser.job_list &&
-			  this.props.selectedUser.job_list
-					.filter(job => job.hired === true)
-					.map((job, i) => {
-						if (job.applicant_mentor === this.props.user.id) {
-							return (
-								<div key={i}>
-									<JobListItem job={job} />
-									<Divider />
-								</div>
-							);
-						}
-					})
-			: null;
-		let studentPendingJobList = isMentor()
-			? this.props.selectedUser.job_list &&
-			  this.props.selectedUser.job_list
-					.filter(job => job.hired !== true)
-					.map((job, i) => {
-						if (job.applicant_mentor === this.props.user.id) {
-							return (
-								<div key={i}>
-									<JobListItem job={job} />
-									<Divider />
-								</div>
-							);
-						}
-					})
-			: null;
+		let studentHiredJobList =
+			isMentor() &&
+			this.props.selectedUser &&
+			this.props.selectedUser.job_list &&
+			this.props.selectedUser.job_list[0] !== null
+				? this.props.selectedUser.job_list &&
+				  this.props.selectedUser.job_list
+						.filter(job => job.hired === true)
+						.map((job, i) => {
+							if (job.applicant_mentor === this.props.user.id) {
+								return (
+									<div key={i}>
+										<JobListItem job={job} />
+										<Divider />
+									</div>
+								);
+							}
+						})
+				: null;
+		let studentPendingJobList =
+			isMentor() &&
+			this.props.selectedUser &&
+			this.props.selectedUser.job_list &&
+			this.props.selectedUser.job_list[0] !== null
+				? this.props.selectedUser.job_list &&
+				  this.props.selectedUser.job_list
+						.filter(job => job.hired !== true)
+						.map((job, i) => {
+							if (job.applicant_mentor === this.props.user.id) {
+								return (
+									<div key={i}>
+										<JobListItem job={job} />
+										<Divider />
+									</div>
+								);
+							}
+						})
+				: null;
 
 		return (
 			<>
