@@ -7,7 +7,7 @@ import PublicProfile from '../PublicProfile/PublicProfile';
 import EditProfile from '../EditProfile/EditProfile';
 
 //MATERIAL-UI IMPORTS
-import { Grid, Button, Typography, Chip } from '@material-ui/core';
+import { Grid, Button, Chip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({

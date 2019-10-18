@@ -11,8 +11,7 @@ const styles = theme => ({
     },
     gridHeaders: {
         padding: theme.spacing(1),
-        margin: theme.spacing(1),
-        
+        margin: theme.spacing(1)
     },
     headerText: {
         fontWeight: 700
@@ -50,7 +49,7 @@ class TwoColumnLayout extends Component {
                         {/* left header */}
                         <Typography
                             variant="h4"
-                            align="center"
+                            align="left"
                             color="secondary"
                             className={classes.headerText}>
                             {this.props.leftHeader}
