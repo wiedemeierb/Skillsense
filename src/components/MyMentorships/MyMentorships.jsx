@@ -170,7 +170,7 @@ class MyMentorships extends Component {
 													}}
 												/>
 											</Grid>
-											{isMentor() &&
+											{this.props.selectedUser.job_list !== undefined && (isMentor() && 
 											this.props.selectedUser.job_list[0] !== null ? (
 												<>
 													<br />
@@ -179,7 +179,7 @@ class MyMentorships extends Component {
 													</Typography>
 													<div className='list'>{jobList}</div>
 												</>
-											) : null}
+											) : null)}
 										</>
 									)}
 								</>
