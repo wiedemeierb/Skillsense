@@ -95,6 +95,13 @@ function* acceptMentorship(action) {
 	try {
 		yield axios.put(`/api/mentors/accept/${action.payload.student_id}`);
 		yield put({
+			type: 'SEND_MESSAGE',
+			payload: {
+				recipient: { id: action.payload.student_id },
+				message: `***SYSTEM GENERATED MESSAGE*** YOUR REQUEST FOR MENTORSHIP WITH HAS BEEN ACCEPTED.  SEE YOUR MENTORSHIPS PAGE FOR MORE INFORMATION ABOUT THIS MENTOR OR REPLY TO THIS MESSAGE TO START A CONVERSATION.`
+			}
+		});
+		yield put({
 			type: 'FETCH_INVITED_MENTORS'
 		});
 		yield put({

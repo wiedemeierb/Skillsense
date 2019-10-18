@@ -62,7 +62,6 @@ router.post(`/`, (req, res) => {
 	const values = [req.user.id, req.body.recipient.id, req.body.message];
 	pool.query(sqlText, values)
 		.then(result => {
-			console.log('successful send new message');
 			res.sendStatus(200);
 		})
 		.catch(error => {
