@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 'bold',
         verticalAlign: 'middle'
     },
+    inactiveLink: {},
     studentAccountBadge: {
         color: 'white',
         fontWeight: 'bold',
@@ -112,7 +113,10 @@ function PublicProfile(props) {
                 justify="space-around"
                 className={classes.section}>
                 <Grid item xs={6} sm={3} md={2}>
-                    <Link href={displayedUser.linkedin_url}>
+                    <Link
+                        href={displayedUser.linkedin_url}
+                        color={displayedUser.linkedin_url ? 'primary' : 'error'}
+                        style={displayedUser.linkedin_url ? {} : { pointerEvents: 'none' }}>
                         <Typography className={classes.link}>
                             <LinkedInIcon fontSize="large" />
                         </Typography>
@@ -120,15 +124,10 @@ function PublicProfile(props) {
                     </Link>
                 </Grid>
                 <Grid item xs={6} sm={3} md={2}>
-                    <Link href={displayedUser.website_url}>
-                        <Typography className={classes.link}>
-                            <LanguageIcon fontSize="large" />
-                        </Typography>
-                        <Typography className={classes.link}>Website</Typography>
-                    </Link>
-                </Grid>
-                <Grid item xs={6} sm={3} md={2}>
-                    <Link href={displayedUser.github_url}>
+                    <Link
+                        href={displayedUser.github_url}
+                        color={displayedUser.github_url ? 'primary' : 'error'}
+                        style={displayedUser.github_url ? {} : { pointerEvents: 'none' }}>
                         <Typography className={classes.link}>
                             <GitHubIcon fontSize="large" />
                         </Typography>
@@ -136,11 +135,26 @@ function PublicProfile(props) {
                     </Link>
                 </Grid>
                 <Grid item xs={6} sm={3} md={2}>
-                    <Link target="_blank" href={`mailto:${displayedUser.email}`}>
+                    <Link
+                        href={displayedUser.website_url}
+                        color={displayedUser.website_url ? 'primary' : 'error'}
+                        style={displayedUser.website_url ? {} : { pointerEvents: 'none' }}>
+                        <Typography className={classes.link}>
+                            <LanguageIcon fontSize="large" />
+                        </Typography>
+                        <Typography className={classes.link}>Website</Typography>
+                    </Link>
+                </Grid>
+                <Grid item xs={6} sm={3} md={2}>
+                    <Link
+                        target="_blank"
+                        href={`mailto:${displayedUser.email}`}
+                        color={displayedUser.email ? 'primary' : 'error'}
+                        style={displayedUser.email ? {} : { pointerEvents: 'none' }}>
                         <Typography className={classes.link}>
                             <EmailIcon fontSize="large" />
                         </Typography>
-                        <Typography className={classes.link}>E-Mail</Typography>
+                        <Typography className={classes.link}>Email</Typography>
                     </Link>
                 </Grid>
             </Grid>
