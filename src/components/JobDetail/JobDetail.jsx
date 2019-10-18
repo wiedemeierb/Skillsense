@@ -83,6 +83,9 @@ class JobDetail extends Component {
 		let isClient = () => {
 			return this.props.user.user_type === 'Client';
 		};
+		let isMentor = () => {
+			return this.props.user.user_type === 'Mentor';
+		}
 
 		return (
 			<OneColumnLayout header='Job Details'>
@@ -127,7 +130,7 @@ class JobDetail extends Component {
 							</>
 						)}
 					</Grid>
-					{isStudent() && (
+					{(isStudent() || isMentor()) && (
 						<>
 							<Divider />
 							<ApplicantReviewStudent
