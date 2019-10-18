@@ -12,9 +12,6 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         padding: theme.spacing(2),
         width: '70vw'
-    },
-    button: {
-        color: 'white'
     }
 }));
 
@@ -46,6 +43,16 @@ function EditProfile(props) {
             timer: 1500
         });
         props.toggleEdit();
+    };
+
+    //checks if user type should be able to view this page
+    let isStudent = () => {
+        return props.user.user_type === 'Student';
+    };
+
+    //checks if user type should be able to view this page
+    let isMentor = () => {
+        return props.user.user_type === 'Mentor';
     };
 
     return (
@@ -165,9 +172,11 @@ function EditProfile(props) {
                     }}
                 />
             </Grid>
-            <Grid item xs={12} align="center">
-                <TransferList allSkills={skills} user={reduxUser} />
-            </Grid>
+            {isStudent() || isMentor() ? 
+                <Grid item xs={12} align="center">
+                    <TransferList allSkills={skills} user={reduxUser} />
+                </Grid> 
+            : null}
             {/* ROW FIVE: SAVE */}
             <Grid item xs={6} align="center">
                 <Button

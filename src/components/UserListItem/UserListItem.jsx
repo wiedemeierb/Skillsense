@@ -19,7 +19,6 @@ const styles = theme => ({
 	},
 	button: {
 		margin: theme.spacing(1),
-		color: 'white'
 	}
 });
 
@@ -64,7 +63,7 @@ class UserListItem extends Component {
                     {this.props.hired && (<MessageDialog recipient={{id: this.props.listUser.student_id, username: this.props.listUser.username}} />)}
 					<Button
 						variant='contained'
-						color='primary'
+						color={this.props.hired ? 'secondary' : 'primary'}
 						className={classes.button}
 						onClick={() => this.viewDetails()}>
 						View Details

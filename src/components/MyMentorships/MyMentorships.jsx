@@ -143,7 +143,7 @@ class MyMentorships extends Component {
                         <Grid align='center'>
                         <MessageDialog recipient={{id: this.props.selectedUser.id, username: this.props.selectedUser.username}} />
 											</Grid>
-											{isMentor() &&
+											{this.props.selectedUser.job_list !== undefined && (isMentor() && 
 											this.props.selectedUser.job_list[0] !== null ? (
 												<>
 													<br />
@@ -152,7 +152,7 @@ class MyMentorships extends Component {
 													</Typography>
 													<div className='list'>{jobList}</div>
 												</>
-											) : null}
+											) : null)}
 										</>
 									)}
 								</>
