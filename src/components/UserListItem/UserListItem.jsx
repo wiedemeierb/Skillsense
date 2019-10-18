@@ -19,7 +19,6 @@ const styles = theme => ({
 	},
 	button: {
 		margin: theme.spacing(1),
-		color: 'white'
 	}
 });
 
@@ -45,7 +44,7 @@ class UserListItem extends Component {
 	render() {
 		const { classes } = this.props;
 
-        return (
+    return (
             <Grid
                 container
                 direction="row"
@@ -73,10 +72,10 @@ class UserListItem extends Component {
                           />)}
                     <Button
                         variant="contained"
-                        color="primary"
+                        color={this.props.hired ? 'secondary' : 'primary'}
                         className={classes.button}
                         onClick={() => this.viewDetails()}>
-                        View Details
+                        Details
                     </Button>
                 </Grid>
             </Grid>

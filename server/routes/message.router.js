@@ -12,7 +12,7 @@ join (select users.id as sId, users.username as sName, users.focus_skill as sfoc
 	ON sent.sId = messages.sender_id
 join (select users.id as rId, users.username as rName, users.focus_skill as rfocus_skill from users) as recipient
 	on recipient.rid = messages.recipient_id
-where messages.sender_id = $1 OR messages.recipient_id = $1;`;
+where messages.sender_id = $1 OR messages.recipient_id = $1 ORDER BY date_time DESC;`;
 	pool.query(queryText, [req.user.id])
 		.then(result => {
 			let userList = [];
@@ -62,7 +62,6 @@ router.post(`/`, (req, res) => {
 	const values = [req.user.id, req.body.recipient.id, req.body.message];
 	pool.query(sqlText, values)
 		.then(result => {
-			console.log('successful send new message');
 			res.sendStatus(200);
 		})
 		.catch(error => {

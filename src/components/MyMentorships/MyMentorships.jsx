@@ -48,7 +48,7 @@ class MyMentorships extends Component {
 			if (result.value) {
 				this.props.dispatch({
 					type: 'ACCEPT_MENTORSHIP',
-					payload: { student_id: this.props.selectedUser.id }
+					payload: { student_id: this.props.selectedUser.id, mentor: this.props.user }
 				});
 			}
 		});
@@ -92,7 +92,7 @@ class MyMentorships extends Component {
 		//maps over the allMentorsReducer and feeds each user to the UserListItem component for rendering
 		let mentorList = this.props.mentors.map((mentor, i) => {
 			return (
-				<>
+				<div key={mentor.id}>
 					<UserListItem listUser={mentor} />
 					{mentor.inviteMessage && (
 						<Typography variant='subtitle2' align='right'>
@@ -101,18 +101,50 @@ class MyMentorships extends Component {
 						</Typography>
 					)}
 					<Divider />
-				</>
+				</div>
 			);
 		});
 
 		//uses the JobListItem component to render the job search results
-		let jobList =
+		let studentHiredJobList =
+			isMentor() &&
+			this.props.selectedUser &&
 			this.props.selectedUser.job_list &&
-			this.props.selectedUser.job_list.map((job, i) => {
-				return <JobListItem key={i} job={job} />;
-			});
+			this.props.selectedUser.job_list[0] !== null
+				? this.props.selectedUser.job_list &&
+				  this.props.selectedUser.job_list
+						.filter(job => job.hired === true)
+						.map((job, i) => {
+							if (job.applicant_mentor === this.props.user.id) {
+								return (
+									<div key={i}>
+										<JobListItem job={job} />
+										<Divider />
+									</div>
+								);
+							}
+						})
+				: null;
+		let studentPendingJobList =
+			isMentor() &&
+			this.props.selectedUser &&
+			this.props.selectedUser.job_list &&
+			this.props.selectedUser.job_list[0] !== null
+				? this.props.selectedUser.job_list &&
+				  this.props.selectedUser.job_list
+						.filter(job => job.hired !== true)
+						.map((job, i) => {
+							if (job.applicant_mentor === this.props.user.id) {
+								return (
+									<div key={i}>
+										<JobListItem job={job} />
+										<Divider />
+									</div>
+								);
+							}
+						})
+				: null;
 
-		console.log(this.props.selectedUser.job_list);
 		return (
 			<>
 				{isStudent() || isMentor() ? (
@@ -136,14 +168,14 @@ class MyMentorships extends Component {
 								<>
 									<PublicProfile />
 									{isMentor() && this.props.selectedUser.accepted === false ? (
-										<>
-											<Grid align='center'>
+										<Grid item container align='center' justify='center'>
+											<Grid item xs={12}>
 												<Typography variant='subtitle1'>
 													Mentor Actions:
 												</Typography>
-
+											</Grid>
+											<Grid item xs={12}>
 												<Button
-													align='center'
 													variant='contained'
 													color='primary'
 													className={classes.button}
@@ -151,7 +183,6 @@ class MyMentorships extends Component {
 													Accept
 												</Button>
 												<Button
-													align='center'
 													variant='contained'
 													color='secondary'
 													className={classes.button}
@@ -159,28 +190,44 @@ class MyMentorships extends Component {
 													Decline
 												</Button>
 											</Grid>
-										</>
+										</Grid>
 									) : (
-										<>
-											<Grid align='center'>
+										<Grid
+											container
+											spacing={4}
+											justify='center'
+											alignItems='center'>
+											{this.props.selectedUser && (
 												<MessageDialog
 													recipient={{
 														id: this.props.selectedUser.id,
 														username: this.props.selectedUser.username
 													}}
 												/>
-											</Grid>
+											)}
 											{isMentor() &&
-											this.props.selectedUser.job_list[0] !== null ? (
-												<>
-													<br />
-													<Typography variant='h5' align='center'>
-														Student's Jobs
-													</Typography>
-													<div className='list'>{jobList}</div>
-												</>
+											(this.props.selectedUser.job_list &&
+												this.props.selectedUser.job_list[0] !== null) ? (
+												<Grid item xs={12}>
+													<Grid item xs={12} className='list'>
+														<Typography variant='h5' align='center'>
+															Student's Active Jobs:
+														</Typography>
+														<div className='list'>
+															{studentHiredJobList}
+														</div>
+													</Grid>
+													<Grid item xs={12} className='list'>
+														<Typography variant='h5' align='center'>
+															Student's Applied Jobs:
+														</Typography>
+														<div className='list'>
+															{studentPendingJobList}
+														</div>
+													</Grid>
+												</Grid>
 											) : null}
-										</>
+										</Grid>
 									)}
 								</>
 							) : (

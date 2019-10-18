@@ -178,15 +178,6 @@ class JobDetail extends Component {
 									<Divider />
 								</>
 							)}
-							{this.props.details.status_id === 3 && (
-								<Button
-									className={classes.button}
-									variant='outlined'
-									color='primary'
-									onClick={this.markedCompleted}>
-									Mark Project Completed
-								</Button>
-							)}
 							<Button
 								className={classes.button}
 								variant='contained'
@@ -195,6 +186,15 @@ class JobDetail extends Component {
 								onClick={() => this.routeBackClient()}>
 								Back
 							</Button>
+							{this.props.details.status_id === 3 && (
+								<Button
+									className={classes.button}
+									variant='contained'
+									color='primary'
+									onClick={this.markedCompleted}>
+									Mark Project Completed
+								</Button>
+							)}
 						</Grid>
 					)}
 				</Grid>
