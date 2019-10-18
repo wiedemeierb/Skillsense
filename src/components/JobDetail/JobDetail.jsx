@@ -16,7 +16,7 @@ import MessageDialog from '../MessageDialog/MessageDialog';
 
 const styles = theme => ({
 	button: {
-		margin: theme.spacing(2),
+		margin: theme.spacing(1),
 		padding: theme.spacing(1)
 	}
 });
@@ -39,10 +39,12 @@ class JobDetail extends Component {
 	};
 
 	//route to return to previous page (student view)
-	routeBack = () => {
+	routeToSearch = () => {
 		this.props.history.push(`/search/jobs`);
 	};
-
+	routeToMyJobs = () => {
+		this.props.history.push('/jobs');
+	};
 	//route to return to previous page (client view)
 	routeBackClient = () => {
 		this.props.history.push(`/jobs`);
@@ -81,6 +83,9 @@ class JobDetail extends Component {
 		let isClient = () => {
 			return this.props.user.user_type === 'Client';
 		};
+		let isMentor = () => {
+			return this.props.user.user_type === 'Mentor';
+		}
 
 		return (
 			<OneColumnLayout header='Job Details'>
@@ -125,7 +130,7 @@ class JobDetail extends Component {
 							</>
 						)}
 					</Grid>
-					{isStudent() && (
+					{(isStudent() || isMentor()) && (
 						<>
 							<Divider />
 							<ApplicantReviewStudent
@@ -133,23 +138,34 @@ class JobDetail extends Component {
 								jobDetails={this.props.details}
 							/>
 							<Divider />
-						</>
-					)}
-					{isStudent() && (
-						<Grid item xs={12} align='center'>
-							<Button
-								variant='contained'
-								color='secondary'
-								align='space-around'
-								onClick={() => this.routeBack()}>
-								Back
-							</Button>
-							{this.props.details.hired === null && (
-								<Button variant='contained' color='primary' onClick={this.applyNow}>
-									Apply
+							<Grid item xs={12} align='center'>
+								<Button
+									variant='contained'
+									color='secondary'
+									align='space-around'
+									className={classes.button}
+									onClick={() => this.routeToMyJobs()}>
+									Go To My Jobs
 								</Button>
-							)}
-						</Grid>
+								<Button
+									variant='contained'
+									color='secondary'
+									align='space-around'
+									className={classes.button}
+									onClick={() => this.routeToSearch()}>
+									Search for New jobs
+								</Button>
+								{this.props.details.hired === null && (
+									<Button
+										variant='contained'
+										color='primary'
+										className={classes.button}
+										onClick={this.applyNow}>
+										Apply
+									</Button>
+								)}
+							</Grid>
+						</>
 					)}
 
 					{isClient() && (

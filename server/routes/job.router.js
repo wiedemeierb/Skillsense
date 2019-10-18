@@ -346,6 +346,7 @@ router.get('/detail/:id', rejectUnauthenticated, (req, res) => {
     array_agg("job_tags"."tag_id") AS "tag_ids",
 	array_agg("skill_tags"."tag") AS "skill_names",
 	hired,
+	mentor_id,
 	applied.id as application_id
   FROM jobs
   LEFT JOIN "job_tags"
@@ -356,7 +357,7 @@ router.get('/detail/:id', rejectUnauthenticated, (req, res) => {
 	ON jobs."client_id" = "users"."id"
 LEFT JOIN (SELECT * FROM "job_applicants" WHERE "student_id" = $1) AS "applied" ON jobs.id = applied.job_id
   WHERE jobs.id = $2
-  GROUP BY "jobs"."id","users"."id", "applied"."hired", "applied".id
+  GROUP BY "jobs"."id","users"."id", "applied"."hired", "applied".id, mentor_id
   ORDER BY "id" DESC;`;
 
 	pool.query(queryText, [req.user.id, req.params.id])

@@ -9,10 +9,18 @@ import MentorTabs from '../MentorTabs/MentorTabs';
 import UserListItem from '../UserListItem/UserListItem';
 import PublicProfile from '../PublicProfile/PublicProfile';
 import JobListItem from '../JobListItem/JobListItem';
-import MessageDialog from '../MessageDialog/MessageDialog'
+import MessageDialog from '../MessageDialog/MessageDialog';
 
 //MATERIAL-UI IMPORTS
-import { Typography, Button, Grid } from '@material-ui/core';
+import { Typography, Button, Grid, Divider } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+	button: {
+		margin: theme.spacing(1),
+		padding: theme.spacing(1)
+	}
+});
 
 class MyMentorships extends Component {
 	componentDidMount() {
@@ -70,11 +78,7 @@ class MyMentorships extends Component {
 	};
 
 	render() {
-		//maps over the allMentorsReducer and feeds each user to the UserListItem component for rendering
-		let mentorList = this.props.mentors.map((mentor, i) => {
-			return <UserListItem key={i} listUser={mentor} />;
-		});
-
+		const { classes } = this.props;
 		//checks if user type should be able to view this page
 		let isStudent = () => {
 			return this.props.user.user_type === 'Student';
@@ -84,6 +88,22 @@ class MyMentorships extends Component {
 		let isMentor = () => {
 			return this.props.user.user_type === 'Mentor';
 		};
+
+		//maps over the allMentorsReducer and feeds each user to the UserListItem component for rendering
+		let mentorList = this.props.mentors.map((mentor, i) => {
+			return (
+				<>
+					<UserListItem listUser={mentor} />
+					{mentor.inviteMessage && (
+						<Typography variant='subtitle2' align='right'>
+							{isStudent() ? 'You sent: ' : 'Student Message: '}
+							{mentor.inviteMessage.message}
+						</Typography>
+					)}
+					<Divider />
+				</>
+			);
+		});
 
 		//uses the JobListItem component to render the job search results
 		let jobList =
@@ -126,6 +146,7 @@ class MyMentorships extends Component {
 													align='center'
 													variant='contained'
 													color='primary'
+													className={classes.button}
 													onClick={this.acceptMentorship}>
 													Accept
 												</Button>
@@ -133,6 +154,7 @@ class MyMentorships extends Component {
 													align='center'
 													variant='contained'
 													color='secondary'
+													className={classes.button}
 													onClick={this.declineMentorship}>
 													Decline
 												</Button>
@@ -140,8 +162,13 @@ class MyMentorships extends Component {
 										</>
 									) : (
 										<>
-                        <Grid align='center'>
-                        <MessageDialog recipient={{id: this.props.selectedUser.id, username: this.props.selectedUser.username}} />
+											<Grid align='center'>
+												<MessageDialog
+													recipient={{
+														id: this.props.selectedUser.id,
+														username: this.props.selectedUser.username
+													}}
+												/>
 											</Grid>
 											{this.props.selectedUser.job_list !== undefined && (isMentor() && 
 											this.props.selectedUser.job_list[0] !== null ? (
@@ -180,4 +207,4 @@ const mapStateToProps = store => {
 	};
 };
 
-export default withRouter(connect(mapStateToProps)(MyMentorships));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(MyMentorships)));

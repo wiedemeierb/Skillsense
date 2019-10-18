@@ -15,7 +15,7 @@ const styles = theme => ({
 		display: 'inline-flex',
 		justifyContent: 'space-between',
 		padding: '20px 20px 10px',
-		borderBottom: '1px solid gray'
+		// borderBottom: '1px solid gray'
 	},
 	button: {
 		margin: theme.spacing(1),
@@ -44,34 +44,40 @@ class UserListItem extends Component {
 	render() {
 		const { classes } = this.props;
 
-		return (
-			<Grid
-				container
-				direction='row'
-				justify='space-between'
-				align='top'
-				className={classes.listItem}>
-				{/* left side info */}
-				<Grid item xs={6}>
-					<Typography color='primary' variant='h5'>
-						{this.props.listUser.username}  {this.props.hired && '(Hired)'}
-					</Typography>
-					<Typography variant='h6'>{this.props.listUser.focus_skill}</Typography>
-				</Grid>
-				{/* right side info */}
-                <Grid item xs={6} align='right'>
-                    {this.props.hired && (<MessageDialog recipient={{id: this.props.listUser.student_id, username: this.props.listUser.username}} />)}
-					<Button
-						variant='contained'
-						color={this.props.hired ? 'secondary' : 'primary'}
-						className={classes.button}
-						onClick={() => this.viewDetails()}>
-						View Details
-					</Button>
-				</Grid>
-			</Grid>
-		);
-	}
+    return (
+            <Grid
+                container
+                direction="row"
+                justify="space-between"
+                align="top"
+                className={classes.listItem}>
+                {/* left side info */}
+                <Grid item xs={8}>
+                    <Typography variant="h5" color="primary">
+                        {this.props.listUser.username} {this.props.hired && ' \- (Hired)'}
+                    </Typography>
+                    <Typography variant="h6" color="secondary">
+                        {this.props.listUser.focus_skill}
+                    </Typography>
+                </Grid>
+                {/* right side info */}
+                <Grid item xs={4} align="right">
+                    {this.props.hired && (
+                        <MessageDialog recipient={{
+                               id: this.props.listUser.student_id,
+                               username: this.props.listUser.username}}
+                          />)}
+                    <Button
+                        variant="contained"
+                        color={this.props.hired ? 'secondary' : 'primary'}
+                        className={classes.button}
+                        onClick={() => this.viewDetails()}>
+                        View Details
+                    </Button>
+                </Grid>
+            </Grid>
+        );
+    }
 }
 
 const mapStateToProps = state => ({
