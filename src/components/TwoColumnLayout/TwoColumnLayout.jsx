@@ -35,28 +35,28 @@ const styles = theme => ({
 class TwoColumnLayout extends Component {
 	render() {
 		const { classes } = this.props;
-
-		return (
-			<Grid container className={classes.root} spacing={4}>
-				<Grid
-					item
-					container
-					justify='flex-start'
-					align='top'
-					className={classes.gridHeaders}>
-					{/* COLUMN HEADERS */}
-					<Grid item xs={12} sm={6}>
-						{/* left header */}
-						<Typography
-							variant='h4'
-							align='left'
-							color='secondary'
-							className={classes.headerText}>
-							{this.props.leftHeader}
-						</Typography>
-					</Grid>
-					{/* right header */}
-					{/* <Grid item xs={12} sm={6} className={classes.headerText}>
+    
+        return (
+            <Grid container className={classes.root} spacing={4}>
+                <Grid
+                    item
+                    container
+                    justify="flex-start"
+                    align="top"
+                    className={classes.gridHeaders}>
+                    {/* COLUMN HEADERS */}
+                    <Grid item xs={12} sm={12}>
+                        {/* left header */}
+                        <Typography
+                            variant="h4"
+                            align="left"
+                            color="secondary"
+                            className={classes.headerText}>
+                            {this.props.leftHeader}
+                        </Typography>
+                    </Grid>
+                    {/* right header */}
+                    {/* <Grid item xs={12} sm={6} className={classes.headerText}>
                         <Typography variant="h4" align="right">
                             {this.props.rightHeader}
                         </Typography>

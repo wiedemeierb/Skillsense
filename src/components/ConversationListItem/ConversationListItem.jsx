@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, Button, Divider } from '@material-ui/core';
+import { Grid, Typography, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({

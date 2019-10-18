@@ -54,11 +54,14 @@ class UserListItem extends Component {
                 {/* left side info */}
                 <Grid item xs={8}>
                     <Typography variant="h5" color="primary">
-                        {this.props.listUser.username}{this.props.hired && ' (Hired)'}
+                        {this.props.listUser.username}
                     </Typography>
                     <Typography variant="h6" color="secondary">
                         {this.props.listUser.focus_skill}
                     </Typography>
+                    {this.props.hired && (<Typography variant="button" color="primary">
+                        (Hired)
+                    </Typography>)}
                 </Grid>
                 {/* right side info */}
                 <Grid item xs={4} align="right">

@@ -122,12 +122,13 @@ const Nav = props => (
                         </NavLink>
                     </li>
                     <li>
-                        <a
+                        <Link
+                            to="/home"
                             data-hover="Log Out"
                             className="nav-link"
                             onClick={() => props.dispatch({ type: 'LOGOUT' })}>
                             Log Out
-                        </a>
+                        </Link>
                     </li>
                 </>
             )}
