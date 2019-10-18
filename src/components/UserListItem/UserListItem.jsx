@@ -17,8 +17,7 @@ const styles = theme => ({
         borderBottom: '1px solid gray'
     },
     button: {
-        margin: theme.spacing(1),
-        color: 'white'
+        margin: theme.spacing(1)
     }
 });
 
@@ -52,14 +51,16 @@ class UserListItem extends Component {
                 align="top"
                 className={classes.listItem}>
                 {/* left side info */}
-                <Grid item xs={6}>
-                    <Typography color="primary" variant="h5">
+                <Grid item xs={8}>
+                    <Typography variant="h5" color="primary">
                         {this.props.listUser.username}
                     </Typography>
-                    <Typography variant="h6">{this.props.listUser.focus_skill}</Typography>
+                    <Typography variant="h6" color="secondary">
+                        {this.props.listUser.focus_skill}
+                    </Typography>
                 </Grid>
                 {/* right side info */}
-                <Grid item xs={6} align="right">
+                <Grid item xs={4} align="right">
                     <Button
                         variant="contained"
                         color="primary"
