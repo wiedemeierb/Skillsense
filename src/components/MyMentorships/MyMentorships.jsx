@@ -48,7 +48,7 @@ class MyMentorships extends Component {
 			if (result.value) {
 				this.props.dispatch({
 					type: 'ACCEPT_MENTORSHIP',
-					payload: { student_id: this.props.selectedUser.id }
+					payload: { student_id: this.props.selectedUser.id, mentor: this.props.user }
 				});
 			}
 		});
@@ -160,12 +160,13 @@ class MyMentorships extends Component {
 								<>
 									<PublicProfile />
 									{isMentor() && this.props.selectedUser.accepted === false ? (
-										<Grid container alignItems='center' justify='center'>
+										<Grid item container align='center' justify='center'>
 											<Grid item xs={12}>
 												<Typography variant='subtitle1'>
 													Mentor Actions:
 												</Typography>
-
+											</Grid>
+											<Grid item xs={12}>
 												<Button
 													variant='contained'
 													color='primary'
@@ -174,7 +175,6 @@ class MyMentorships extends Component {
 													Accept
 												</Button>
 												<Button
-													align='center'
 													variant='contained'
 													color='secondary'
 													className={classes.button}

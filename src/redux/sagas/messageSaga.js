@@ -18,6 +18,7 @@ function* fetchAllMessages() {
 function* sendMessage(action) {
 	try {
 		yield axios.post('/api/messages', action.payload);
+
 		yield put({
 			type: 'FETCH_ALL_MESSAGES'
 		});
