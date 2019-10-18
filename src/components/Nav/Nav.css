@@ -15,11 +15,13 @@
     padding: 10px 20px;
 
     /* FORMER COLOR */
-    /* color: #505d68; */
+    /* background-color: #c2d1d9; */
+    background-image: linear-gradient(#fafafa 30%, #c2d1d9);
+    box-shadow: 0px .5px 5px #9aa6b1;
 
     /* ADDITIONAL COLOR/STYLING OPTION FOR NAV */
-    /* background-image: linear-gradient( #d5d9dc); */
-    /* box-shadow: 0px .5px 5px #9aa6b1; */
+    /* background-image: linear-gradient(#fafafa, #d5d9dc);
+    box-shadow: 0px .5px 5px #9aa6b1; */
 }
 
 .nav-link {
