@@ -73,7 +73,7 @@ class UserListItem extends Component {
                         color="primary"
                         className={classes.button}
                         onClick={() => this.viewDetails()}>
-                        View Details
+                        Details
                     </Button>
                 </Grid>
             </Grid>

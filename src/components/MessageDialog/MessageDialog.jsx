@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
+//material-ui imports
 import {
 	Dialog,
 	DialogActions,
@@ -30,6 +32,20 @@ function MessageDialog(props) {
 	const handleClose = () => {
 		setOpen(false);
 	};
+	const handleSendClick = () => {
+		dispatch({
+			type: 'SEND_MESSAGE',
+			payload: { recipient: props.recipient, message: message }
+		});
+		Swal.fire({
+			position: 'center',
+			type: 'success',
+			title: 'Your message has been sent!',
+			timer: 1500
+		});
+		setMessage('');
+		handleClose();
+	};
 	const dispatch = useDispatch();
 
 	return (
@@ -52,6 +68,7 @@ function MessageDialog(props) {
 						margin='dense'
 						label='Your Message'
 						fullWidth
+						multiline
 						value={message}
 						onChange={e => setMessage(e.target.value)}
 					/>
@@ -61,14 +78,7 @@ function MessageDialog(props) {
 						Cancel
 					</Button>
 					<Button
-						onClick={() => {
-							dispatch({
-								type: 'SEND_MESSAGE',
-								payload: { recipient: props.recipient, message: message }
-							});
-							setMessage('');
-							handleClose();
-						}}
+						onClick={handleSendClick}
 						color='primary'>
 						Send Message
 					</Button>
