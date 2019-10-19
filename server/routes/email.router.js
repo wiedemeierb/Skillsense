@@ -20,9 +20,9 @@ transporter.verify((error, success) => {
 });
 
 router.post('/', (req, res, next) => {
-  const sender = 'delaney.sharratt@gmail.com';
+  const sender = 'delaney.sharratt@gmail.com'; //TODO: create SkillSense admin email
   const name = req.body.recipient.name;
-  const email = req.body.recipient.email;
+  const email = 'd.m.heisel@gmail.com'; //TODO: change to req.body.recipient.email before handoff
   const message = req.body.message;
   const content = `Hello ${name}, \n ${message} \n From, \n SkillSense`;
   const mail = {

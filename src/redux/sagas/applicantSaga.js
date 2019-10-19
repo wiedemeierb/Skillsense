@@ -45,23 +45,26 @@ function* fetchApplicantDetail(action) {
 //CLIENT: hire applicant and update job listing
 function* hireApplicant(action) {
 	try {
-		let application = action.payload;
-		yield axios.patch('/api/applicants/hire', application);
+		yield axios.patch('/api/applicants/hire', action.payload);
 		yield put({
 			type: 'FETCH_CLIENT_JOBS',
 			//active job status by default
 			payload: 3
 		});
 		yield put({
-			type: 'SEND_MESSAGE',
+			type: 'SEND_SYSTEM_MESSAGE',
 			payload: {
-				recipient: { id: action.payload.application.student_id },
-				message: `***SYSTEM GENERATED MESSAGE*** YOU HAVE BEEN HIRED FOR ${action.payload.application.project_title}.  SEE YOUR ACTIVE JOBS FOR MORE INFORMATION.`
+				recipient: {
+					id: action.payload.applicant.student_id,
+					email: action.payload.applicant.email,
+					name: action.payload.applicant.username
+				},
+				message: `***NOTICE*** You have been hired through SkillSense for ${action.payload.applicant.project_title}.  Log in and see your active jobs for more information.`
 			}
 		});
 		yield put({
 			type: 'FETCH_APPLICANTS',
-			payload: { id: application.jobId }
+			payload: { id: action.payload.applicant.job_id }
 		});
 	} catch (error) {
 		console.log(error);
