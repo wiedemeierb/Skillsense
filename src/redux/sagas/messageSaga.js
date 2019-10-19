@@ -27,9 +27,23 @@ function* sendMessage(action) {
 	}
 }
 
+function* sendSystemMessage(action) {
+	try {
+		//needs an action payload set up like: {recipient: {id: #, name: '', email: ''}, message: ''}
+		yield axios.post('/api/messages', action.payload);
+		yield axios.post('/api/email', action.payload);
+		yield put({
+			type: 'FETCH_ALL_MESSAGES'
+		});
+	} catch (error) {
+		console.log('error on sending system generated message: ', error);
+	}
+}
+
 function* messageSaga() {
 	yield takeEvery('FETCH_ALL_MESSAGES', fetchAllMessages);
 	yield takeEvery('SEND_MESSAGE', sendMessage);
+	yield takeEvery('SEND_SYSTEM_MESSAGE', sendSystemMessage);
 }
 
 export default messageSaga;

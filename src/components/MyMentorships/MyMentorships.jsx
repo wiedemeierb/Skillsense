@@ -48,7 +48,7 @@ class MyMentorships extends Component {
 			if (result.value) {
 				this.props.dispatch({
 					type: 'ACCEPT_MENTORSHIP',
-					payload: { student_id: this.props.selectedUser.id, mentor: this.props.user }
+					payload: { student: this.props.selectedUser, mentor: this.props.user }
 				});
 			}
 		});

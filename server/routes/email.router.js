@@ -20,12 +20,12 @@ transporter.verify((error, success) => {
 });
 
 router.post('/', (req, res, next) => {
-  var sender = 'delaney.sharratt@gmail.com';
-  var name = req.body.name;
-  var email = req.body.email;
-  var message = req.body.message;
-  var content = `Hello ${name}, \n message: ${message} \n From, \n SkillSense`;
-  var mail = {
+  const sender = 'delaney.sharratt@gmail.com';
+  const name = req.body.recipient.name;
+  const email = req.body.recipient.email;
+  const message = req.body.message;
+  const content = `Hello ${name}, \n ${message} \n From, \n SkillSense`;
+  const mail = {
     from: sender,
     to: email, //Change to email address that you want to receive messages on
     subject: 'Message from SkillSense',
@@ -33,11 +33,11 @@ router.post('/', (req, res, next) => {
   };
   transporter.sendMail(mail, (err, data) => {
     if (err) {
+      console.log('error in post', err);
       res.json({
         msg: 'fail'
       });
     } else {
-      console.log('error in post', err);
       res.json({
         msg: 'success'
       });
