@@ -51,14 +51,13 @@ function* hireApplicant(action) {
 			//active job status by default
 			payload: 3
 		});
+		let recipientResponse = yield axios.get(
+			`/api/user/specific/${action.payload.applicant.student_id}`
+		);
 		yield put({
 			type: 'SEND_SYSTEM_MESSAGE',
 			payload: {
-				recipient: {
-					id: action.payload.applicant.student_id,
-					email: action.payload.applicant.email,
-					name: action.payload.applicant.username
-				},
+				recipient: recipientResponse.data,
 				message: `***NOTICE*** You have been hired through SkillSense for ${action.payload.applicant.project_title}.  Log in and see your active jobs for more information.`
 			}
 		});
