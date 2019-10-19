@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	link: {
 		fontWeight: 'bold'
-	},
+	}
 }));
 
 function ApplicantDetailStudent(props) {
@@ -65,46 +65,57 @@ function ApplicantDetailStudent(props) {
 				</Typography>
 				{/* </Grid> */}
 				<Grid item container align='center' xs={12}>
-					{props.mentor.linkedin_url !== null && (
-						<Grid item xs={3}>
-							<Link href={props.mentor.linkedin_url}>
-								<Typography className={classes.link}>
-									<LinkedInIcon fontSize='large' />
-								</Typography>
-								<Typography className={classes.link}>LinkedIn</Typography>
-							</Link>
-						</Grid>
-					)}
-					{props.mentor.github_url !== null && (
-						<Grid item xs={3}>
-							<Link href={props.mentor.github_url}>
-								<Typography className={classes.link}>
-									<GitHubIcon fontSize='large' />
-								</Typography>
-								<Typography className={classes.link}>GitHub</Typography>
-							</Link>
-						</Grid>
-					)}
-					{props.mentor.website_url !== null && (
-						<Grid item xs={3}>
-							<Link href={props.mentor.website_url}>
-								<Typography className={classes.link}>
-									<LanguageIcon fontSize='large' />
-								</Typography>
-								<Typography className={classes.link}>Website</Typography>
-							</Link>
-						</Grid>
-					)}
-					{props.mentor.email !== null && (
-						<Grid item xs={3}>
-							<Link target='_blank' href={`mailto:${props.mentor.email}`}>
-								<Typography className={classes.link}>
-									<EmailIcon fontSize='large' />
-								</Typography>
-								<Typography className={classes.link}>E-Mail</Typography>
-							</Link>
-						</Grid>
-					)}
+					<Grid item xs={3}>
+						<Link
+							target='_blank'
+							href={props.mentor.linkedin_url}
+							color={props.mentor.linkedin_url ? 'primary' : 'error'}
+							style={props.mentor.linkedin_url ? {} : { pointerEvents: 'none' }}>
+							<Typography className={classes.link}>
+								<LinkedInIcon fontSize='large' />
+							</Typography>
+							<Typography className={classes.link}>LinkedIn</Typography>
+						</Link>
+					</Grid>
+
+					<Grid item xs={3}>
+						<Link
+							target='_blank'
+							href={props.mentor.github_url}
+							color={props.mentor.github_url ? 'primary' : 'error'}
+							style={props.mentor.github_url ? {} : { pointerEvents: 'none' }}>
+							<Typography className={classes.link}>
+								<GitHubIcon fontSize='large' />
+							</Typography>
+							<Typography className={classes.link}>GitHub</Typography>
+						</Link>
+					</Grid>
+
+					<Grid item xs={3}>
+						<Link
+							target='_blank'
+							href={props.mentor.website_url}
+							color={props.mentor.website_url ? 'primary' : 'error'}
+							style={props.mentor.website_url ? {} : { pointerEvents: 'none' }}>
+							<Typography className={classes.link}>
+								<LanguageIcon fontSize='large' />
+							</Typography>
+							<Typography className={classes.link}>Website</Typography>
+						</Link>
+					</Grid>
+
+					<Grid item xs={3}>
+						<Link
+							target='_blank'
+							href={`mailto:${props.mentor.email}`}
+							color={props.mentor.email ? 'primary' : 'error'}
+							style={props.mentor.email ? {} : { pointerEvents: 'none' }}>
+							<Typography className={classes.link}>
+								<EmailIcon fontSize='large' />
+							</Typography>
+							<Typography className={classes.link}>E-Mail</Typography>
+						</Link>
+					</Grid>
 				</Grid>
 			</Grid>
 
