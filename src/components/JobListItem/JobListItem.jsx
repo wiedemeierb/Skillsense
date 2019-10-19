@@ -44,10 +44,10 @@ class JobListItem extends Component {
 				direction='row'
 				justify='space-between'
 				align='top'
-				spacing={3}
+				spacing={2}
 				className={classes.listItem}>
 				{/* left side info */}
-				<Grid item xs={5} display='flex'>
+				<Grid item xs={6} display='flex'>
 					<Typography variant='h5' color='primary'>
 						{this.props.job.project_title}
 					</Typography>
@@ -61,7 +61,7 @@ class JobListItem extends Component {
 				</Grid>
 
 				{/* center info */}
-				<Grid item xs={4}>
+				<Grid item xs={3}>
 					<Typography color='secondary'>
 						<b>Budget:</b> ${this.props.job.budget}
 					</Typography>
@@ -71,7 +71,7 @@ class JobListItem extends Component {
 				</Grid>
 
 				{/* right side info */}
-				<Grid item vs={3} align='right'>
+				<Grid item xs={3} align='right'>
 					<Button
 						variant='contained'
 						color='primary'
