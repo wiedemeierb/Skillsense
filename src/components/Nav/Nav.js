@@ -123,7 +123,7 @@ const Nav = props => (
                     </li>
                     <li>
                         <Link
-                            to="/home"
+
                             data-hover="Log Out"
                             className="nav-link"
                             onClick={() => props.dispatch({ type: 'LOGOUT' })}>
