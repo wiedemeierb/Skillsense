@@ -102,10 +102,10 @@ function* fetchJobDetail(action) {
 function* markJobCompleted(action) {
 	try {
 		yield axios.put(`api/jobs/detail/${action.payload.id}`);
-		yield put ({
+		yield put({
 			type: 'FETCH_CLIENT_JOBS',
 			payload: 3
-		})
+		});
 	} catch (error) {
 		console.log(error);
 	}
@@ -118,7 +118,7 @@ function* postJob(action) {
 		yield put({
 			type: 'FETCH_CLIENT_JOBS',
 			payload: 3
-		})
+		});
 	} catch (error) {
 		console.log(error);
 	}
@@ -127,8 +127,10 @@ function* postJob(action) {
 //STUDENT: posts job application
 function* submitApplication(action) {
 	try {
-		if (action.payload.file !== null) {
-			let file = action.payload.file;
+		let application = action.payload.application;
+		let job = action.payload.job;
+		if (application.file !== null) {
+			let file = application.file;
 			let fileParts = file.name.split('.');
 			let fileName = fileParts[0];
 			let fileType = fileParts[1];
@@ -140,26 +142,34 @@ function* submitApplication(action) {
 			const signedRequest = returnData.signedRequest;
 			const url = returnData.url;
 			// console.log('url from aws: ', url);
-			action.payload.attachment_url = url;
+			application.attachment_url = url;
 			// console.log('new payload: ', action.payload);
-			yield axios.put(signedRequest, action.payload.file, {
+			yield axios.put(signedRequest, file, {
 				headers: {
-					'Content-Type': action.payload.fileType
+					'Content-Type': fileType
 				}
 			});
-			yield axios.post('api/jobs/apply', action.payload);
-			yield put({
-				type: 'FETCH_JOB_DETAIL',
-				payload: {id: action.payload.job_id}
-			})
-			yield put ({
-				type: 'FETCH_ALL_JOBS'
-			})
-			Swal.fire('Congrats!', 'Your application has been submitted!', 'success');
-		} else {
-			yield axios.post('api/jobs/apply', action.payload);
-			Swal.fire('Congrats!', 'Your application has been submitted!', 'success');
 		}
+		yield axios.post('api/jobs/apply', {
+			application: application,
+			job: job
+		});
+		let recipientResponse = yield axios.get(`api/user/specific/${job.client_id}`);
+		yield put({
+			type: 'SEND_SYSTEM_MESSAGE',
+			payload: {
+				recipient: recipientResponse.data,
+				message: `***NOTICE*** You have received a new application through SkillSense on your posting for ${job.project_title}.  Log in to you SkillSense Jobs Portal for more information!`
+			}
+		});
+		yield put({
+			type: 'FETCH_JOB_DETAIL',
+			payload: { id: job.id }
+		});
+		yield put({
+			type: 'FETCH_ALL_JOBS'
+		});
+		Swal.fire('Congrats!', 'Your application has been submitted!', 'success');
 	} catch (error) {
 		console.log(error);
 	}
