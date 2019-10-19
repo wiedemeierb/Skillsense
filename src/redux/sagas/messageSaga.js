@@ -18,7 +18,6 @@ function* fetchAllMessages() {
 function* sendMessage(action) {
 	try {
 		yield axios.post('/api/messages', action.payload);
-
 		yield put({
 			type: 'FETCH_ALL_MESSAGES'
 		});
@@ -29,9 +28,11 @@ function* sendMessage(action) {
 
 function* sendSystemMessage(action) {
 	try {
-		//needs an action payload set up like: {recipient: {id: #, name: '', email: ''}, message: ''}
-		yield axios.post('/api/messages', action.payload);
-		yield axios.post('/api/email', action.payload);
+		//needs an action payload set up like: {id: #, message: ''}
+		let recipientResponse = yield axios.get(`/api/user/specific/${action.payload.id}`);
+		let newPayload = { recipient: recipientResponse.data, message: action.payload.message };
+		yield put({ type: 'SEND_MESSAGE', payload: newPayload });
+		yield axios.post('/api/email', newPayload);
 		yield put({
 			type: 'FETCH_ALL_MESSAGES'
 		});

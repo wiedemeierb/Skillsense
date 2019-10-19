@@ -154,11 +154,10 @@ function* submitApplication(action) {
 			application: application,
 			job: job
 		});
-		let recipientResponse = yield axios.get(`api/user/specific/${job.client_id}`);
 		yield put({
 			type: 'SEND_SYSTEM_MESSAGE',
 			payload: {
-				recipient: recipientResponse.data,
+				id: job.client_id,
 				message: `***NOTICE*** You have received a new application through SkillSense on your posting for ${job.project_title}.  Log in to you SkillSense Jobs Portal for more information!`
 			}
 		});

@@ -6,11 +6,11 @@ function* approveMentor(action) {
 	try {
 		yield axios.patch(`/api/mentors/admin/${action.payload}`, { newStatus: 3 });
 		yield put({
-			type: 'SEND_MESSAGE',
+			type: 'SEND_SYSTEM_MESSAGE',
 			payload: {
-				recipient: { id: action.payload },
+				id: action.payload,
 				message:
-					'***YOUR REQUEST TO BE A SKILLSENSE MENTOR HAS BEEN APPROVED BY AN ADMINISTRATOR.'
+					`***NOTICE*** Your request to join SkillSense's professional mentorship program has been approved!`
 			}
 		});
 		yield put({ type: 'FETCH_PENDING_MENTORS' });
@@ -25,11 +25,11 @@ function* declineMentor(action) {
 	try {
 		yield axios.patch(`/api/mentors/admin/${action.payload}`, { newStatus: 1 });
 		yield put({
-			type: 'SEND_MESSAGE',
+			type: 'SEND_SYSTEM_MESSAGE',
 			payload: {
-				recipient: { id: action.payload },
+				id: action.payload,
 				message:
-					'***YOUR REQUEST TO BE A SKILLSENSE MENTOR HAS BEEN DENIED.  RESPOND TO THIS MESSAGE FOR MORE INFORMATION OR UPDATE YOUR PROFILE AND RE-SUBMIT FOR REVIEW.'
+					`***NOTICE*** You have been denied for SkillSense's professional mentorship program.  Please respond to this message for more information or edit your profile and re-submit for admin review.`
 			}
 		});
 		yield put({ type: 'FETCH_PENDING_MENTORS' });
