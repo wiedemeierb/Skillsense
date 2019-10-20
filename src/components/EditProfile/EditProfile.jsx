@@ -172,11 +172,11 @@ function EditProfile(props) {
                     }}
                 />
             </Grid>
-            {isStudent() || isMentor() ? 
+            {isStudent() || isMentor() ?
                 <Grid item xs={12} align="center">
                     <TransferList allSkills={skills} user={reduxUser} />
-                </Grid> 
-            : null}
+                </Grid>
+                : null}
             {/* ROW FIVE: SAVE */}
             <Grid item xs={6} align="center">
                 <Button

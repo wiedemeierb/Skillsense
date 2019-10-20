@@ -77,7 +77,7 @@ class MentorReview extends Component {
       <Paper>
         {isAdmin() ?
           <TwoColumnLayout leftHeader="Pending Mentors" rightHeader="Details">
-            <List>{mentorsList}</List>
+            {this.props.pendingMentors.length !== 0 ? <List>{mentorsList}</List> : <Typography variant="h6" align="center">No items to show</Typography>}
             {this.props.selectedUser.id ? (
               <Grid
                 container
@@ -90,15 +90,16 @@ class MentorReview extends Component {
                   <PublicProfile />
                 </Grid>
                 <Divider />
-                <Grid item xs={12}>
+                <Grid item xs={12} className={classes.buttonContainer}>
                   <Typography variant="subtitle1">Admin Review Actions:</Typography>
-                  <div className={classes.buttonContainer}>
+                  <div>
+                  {/* <div className={classes.buttonContainer}> */}
                     <Button variant="contained" color="secondary" className={classes.button} onClick={this.declineMentor}>
                       Decline
-                </Button>
+                  </Button>
                     <Button variant="contained" color="primary" className={classes.button} onClick={this.approveMentor}>
                       Approve
-                </Button>
+                  </Button>
                   </div>
                 </Grid>
               </Grid>

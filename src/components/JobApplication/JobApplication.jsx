@@ -264,8 +264,11 @@ class JobApplication extends Component {
                                 className={classes.mentorList}>
                                 {this.props.mentors &&
                                     this.props.job &&
-                                    this.props.job.skills &&
-                                    this.sortMentors(this.props.mentors, this.props.job.skills).map(
+                                    this.props.job.skills 
+                                    &&
+                                    // ?
+                                    (this.props.mentors.length !== 0 ?
+                                        this.sortMentors(this.props.mentors, this.props.job.skills).map(
                                         listUser => {
                                             return (
                                                 <JobApplicationMentorListItem
@@ -276,7 +279,9 @@ class JobApplication extends Component {
                                                 />
                                             );
                                         }
-                                    )}
+                                    ) 
+                                    : <Typography>You have not yet connected to any mentors.</Typography>)
+                                    }
                             </Grid>
                         </Grid>
 
