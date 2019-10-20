@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 //material-ui imports
 import {
+	Grid,
 	Dialog,
 	DialogActions,
 	DialogContent,
@@ -16,7 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
 	button: {
 		padding: theme.spacing(1),
-		margin: theme.spacing(1)
+		margin: theme.spacing(3,1)
 	}
 }));
 
@@ -49,11 +50,12 @@ function MessageDialog(props) {
 	const dispatch = useDispatch();
 
 	return (
-		<>
+		<Grid item container xs={6}>
 			<Button
 				className={classes.button}
-				variant='contained'
+				variant='outlined'
 				color='primary'
+				fullWidth
 				onClick={handleClickOpen}>
 				Send Message
 			</Button>
@@ -88,7 +90,7 @@ function MessageDialog(props) {
 					</Button>
 				</DialogActions>
 			</Dialog>
-		</>
+		</Grid>
 	);
 }
 export default MessageDialog;
