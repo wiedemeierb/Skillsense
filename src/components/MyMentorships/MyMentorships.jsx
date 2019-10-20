@@ -19,6 +19,12 @@ const styles = theme => ({
     button: {
         margin: theme.spacing(1),
         padding: theme.spacing(1)
+    },
+    jobs: {
+        padding: theme.spacing(2, 0, 0)
+    },
+    placeholder: {
+        padding: theme.spacing(1)
     }
 });
 
@@ -139,15 +145,20 @@ class MyMentorships extends Component {
                         }>
                         <>
                             {/* Navigation tabs on Mentorship Page:
-              (Active, Invites)
-              The MentorTabs component sends a GET request based on which tab is clicked*/}
+                                (Active, Invites)
+                            The MentorTabs component sends a GET request based on which tab is clicked*/}
                             <MentorTabs />
+
                             {/* Applicable Mentor List by Status */}
                             <div className="list">
                                 {this.props.mentors.length !== 0 ? (
                                     mentorList
                                 ) : (
-                                    <Typography variant="h6" align="center">
+                                    <Typography
+                                        variant="subtitle1"
+                                        align="center"
+                                        className={classes.placeholder}
+                                        gutterBottom>
                                         No items to display.
                                     </Typography>
                                 )}
@@ -200,16 +211,21 @@ class MyMentorships extends Component {
                                                 // this.props.selectedUser.job_list[0] !== null ?
                                                 <Grid item xs={12}>
                                                     <Grid item xs={12} className="list">
-                                                        <Typography variant="h5" align="center">
-                                                            Student's Active Jobs:
+                                                        <Typography
+                                                            variant="h5"
+                                                            align="center"
+                                                            className={classes.jobs}>
+                                                            Active Jobs:
                                                         </Typography>
                                                         <div className="list">
                                                             {studentHiredJobList == '' ||
                                                             studentHiredJobList === null ? (
                                                                 <Typography
-                                                                    variant="h6"
-                                                                    align="center">
-                                                                    No items to display
+                                                                    variant="subtitle1"
+                                                                    align="center"
+                                                                    className={classes.placeholder}
+                                                                    gutterBottom>
+                                                                    No items to display.
                                                                 </Typography>
                                                             ) : (
                                                                 studentHiredJobList
@@ -217,16 +233,21 @@ class MyMentorships extends Component {
                                                         </div>
                                                     </Grid>
                                                     <Grid item xs={12} className="list">
-                                                        <Typography variant="h5" align="center">
-                                                            Student's Applied Jobs:
+                                                        <Typography
+                                                            variant="h5"
+                                                            align="center"
+                                                            className={classes.jobs}>
+                                                            Applied Jobs:
                                                         </Typography>
                                                         <div className="list">
                                                             {studentPendingJobList == '' ||
                                                             studentPendingJobList === null ? (
                                                                 <Typography
-                                                                    variant="h6"
-                                                                    align="center">
-                                                                    No items to display
+                                                                    variant="subtitle1"
+                                                                    align="center"
+                                                                    className={classes.placeholder}
+                                                                    gutterBottom>
+                                                                    No items to display.
                                                                 </Typography>
                                                             ) : (
                                                                 studentPendingJobList
@@ -241,8 +262,8 @@ class MyMentorships extends Component {
                                     )}
                                 </>
                             ) : (
-                                <Typography variant="h6" align="center">
-                                    Select a User to see more information.
+                                <Typography variant="h6" color="secondary" align="center">
+                                    Select a user to see more information.
                                 </Typography>
                             )}
                         </>

@@ -10,7 +10,6 @@ import TransferList from '../TransferList/TransferList';
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
-        padding: theme.spacing(2),
         width: '70vw'
     }
 }));
