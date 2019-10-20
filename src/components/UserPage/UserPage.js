@@ -122,7 +122,7 @@ class UserPage extends Component {
 
         return (
             <OneColumnLayout header="Your Profile">
-                <Grid container justify="space-around">
+                <Grid container spacing={2} justify="space-around">
                     <Grid item xs={12}>
                         {this.state.inEditMode ? (
                             <EditProfile
