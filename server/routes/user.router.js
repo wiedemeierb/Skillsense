@@ -125,7 +125,10 @@ router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 			JOIN jobs ON jobs.id = job_applicants.job_id
 			JOIN users ON jobs.client_id = users.id
 			JOIN job_status ON jobs.status_id = job_status.id
-			WHERE job_applicants.student_id = $1) AS "job_applicants"
+			WHERE job_applicants.student_id = $1
+			AND job_applicants.mentor_id = $2
+			AND jobs.status_id IN (1,2,3)
+			) AS "job_applicants"
 			ON job_applicants.student_id = users.id
 	WHERE users.id = $1
 	GROUP BY

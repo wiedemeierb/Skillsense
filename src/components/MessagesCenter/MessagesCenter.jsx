@@ -6,6 +6,7 @@ import {
 	List,
 	ListItem,
 	ListItemText,
+	Typography
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -50,7 +51,7 @@ class MessagesCenter extends Component {
 				<Grid container justify='center' alignItems='center' spacing={2}>
 					<Grid item xs={12}>
 						<List>
-							{this.props.messages &&
+							{this.props.messages.length !== 0 ?
 								this.props.messages.map(message => {
 									return (
 										<ListItem
@@ -78,7 +79,7 @@ class MessagesCenter extends Component {
 											/>
 										</ListItem>
 									);
-								})}
+								}) : <ListItem><Typography variant="h6" align="center">No items to display</Typography></ListItem>}
 						</List>
 					</Grid>
 				</Grid>

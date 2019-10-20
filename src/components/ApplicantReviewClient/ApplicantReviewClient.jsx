@@ -62,7 +62,7 @@ class ApplicantReviewClient extends Component {
 			});
 		//for component styling
 		const { classes } = this.props;
-
+		console.log(applicantList)
 		return (
 			<div>
 				{hiredApplicant && (
@@ -84,7 +84,7 @@ class ApplicantReviewClient extends Component {
 						</Typography>
 					</ExpansionPanelSummary>
 					<ExpansionPanelDetails style={{ display: 'block' }}>
-						<List>{applicantList}</List>
+						{applicantList.length === 0 ? <Typography variant="h6">No applications to show</Typography> : <List>{applicantList}</List> }
 					</ExpansionPanelDetails>
 				</ExpansionPanel>
 			</div>

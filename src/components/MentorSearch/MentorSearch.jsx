@@ -161,7 +161,7 @@ class MentorSearch extends Component {
 
 							{/* MENTOR SEARCH RESULT LIST */}
 							<Grid item container xs={12} className='list'>
-								{mentorList}
+								{this.props.mentors.length !== 0 ? mentorList : <Typography variant="h6" align="center">No items to display.</Typography>}
 							</Grid>
 						</Grid>
 

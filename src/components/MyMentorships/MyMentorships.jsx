@@ -105,45 +105,32 @@ class MyMentorships extends Component {
 			);
 		});
 
-		//uses the JobListItem component to render the job search results
+		//uses the JobListItem component to render the job list results
 		let studentHiredJobList =
-			isMentor() &&
-			this.props.selectedUser &&
-			this.props.selectedUser.job_list &&
-			this.props.selectedUser.job_list[0] !== null
-				? this.props.selectedUser.job_list &&
-				  this.props.selectedUser.job_list
-						.filter(job => job.hired === true)
-						.map((job, i) => {
-							if (job.applicant_mentor === this.props.user.id) {
-								return (
-									<div key={i}>
-										<JobListItem job={job} />
-										<Divider />
-									</div>
-								);
-							}
-						})
-				: null;
+			isMentor() && this.props.selectedUser && this.props.selectedUser.job_list ? (this.props.selectedUser.job_list[0] !== null ?
+				this.props.selectedUser.job_list.filter(job => job.hired === true)
+					.map((job, i) => {
+						return (
+							<div key={i}>
+								<JobListItem job={job} />
+								<Divider />
+							</div>
+						)
+					})
+				: null) : null
+
 		let studentPendingJobList =
-			isMentor() &&
-			this.props.selectedUser &&
-			this.props.selectedUser.job_list &&
-			this.props.selectedUser.job_list[0] !== null
-				? this.props.selectedUser.job_list &&
-				  this.props.selectedUser.job_list
-						.filter(job => job.hired !== true)
-						.map((job, i) => {
-							if (job.applicant_mentor === this.props.user.id) {
-								return (
-									<div key={i}>
-										<JobListItem job={job} />
-										<Divider />
-									</div>
-								);
-							}
-						})
-				: null;
+			isMentor() && this.props.selectedUser && this.props.selectedUser.job_list ? (this.props.selectedUser.job_list[0] !== null ?
+				this.props.selectedUser.job_list.filter(job => job.hired === false)
+					.map((job, i) => {
+						return (
+							<div key={i}>
+								<JobListItem job={job} />
+								<Divider />
+							</div>
+						)
+					})
+				: null) : null
 
 		return (
 			<>
@@ -161,7 +148,9 @@ class MyMentorships extends Component {
               The MentorTabs component sends a GET request based on which tab is clicked*/}
 							<MentorTabs />
 							{/* Applicable Mentor List by Status */}
-							<div className='list'>{mentorList}</div>
+							<div className='list'>
+								{this.props.mentors.length !== 0 ? mentorList : <Typography variant="h6" align="center">No items to display.</Typography>}
+							</div>
 						</>
 						<>
 							{this.props.selectedUser.id ? (
@@ -192,54 +181,55 @@ class MyMentorships extends Component {
 											</Grid>
 										</Grid>
 									) : (
-										<Grid
-											container
-											spacing={4}
-											justify='center'
-											alignItems='center'>
-											{this.props.selectedUser && (
-												<MessageDialog
-													recipient={{
-														id: this.props.selectedUser.id,
-														username: this.props.selectedUser.username
-													}}
-												/>
-											)}
-											{isMentor() &&
-											(this.props.selectedUser.job_list &&
-												this.props.selectedUser.job_list[0] !== null) ? (
-												<Grid item xs={12}>
-													<Grid item xs={12} className='list'>
-														<Typography variant='h5' align='center'>
-															Student's Active Jobs:
+											<Grid
+												container
+												spacing={4}
+												justify='center'
+												alignItems='center'>
+												{this.props.selectedUser && (
+													<MessageDialog
+														recipient={{
+															id: this.props.selectedUser.id,
+															username: this.props.selectedUser.username
+														}}
+													/>
+												)}
+												{isMentor() &&
+													// (this.props.selectedUser.job_list &&
+													// this.props.selectedUser.job_list[0] !== null ? 
+													<Grid item xs={12}>
+														<Grid item xs={12} className='list'>
+															<Typography variant='h5' align='center'>
+																Student's Active Jobs:
 														</Typography>
-														<div className='list'>
-															{studentHiredJobList}
-														</div>
-													</Grid>
-													<Grid item xs={12} className='list'>
-														<Typography variant='h5' align='center'>
-															Student's Applied Jobs:
+															<div className='list'>
+															{studentHiredJobList == '' || studentHiredJobList === null ? <Typography variant="h6" align="center">No items to display</Typography> : studentHiredJobList }
+															</div>
+														</Grid>
+														<Grid item xs={12} className='list'>
+															<Typography variant='h5' align='center'>
+																Student's Applied Jobs:
 														</Typography>
-														<div className='list'>
-															{studentPendingJobList}
-														</div>
+															<div className='list'>
+															{studentPendingJobList == '' || studentPendingJobList === null ? <Typography variant="h6" align="center">No items to display</Typography> : studentPendingJobList}
+															</div>
+														</Grid>
 													</Grid>
-												</Grid>
-											) : null}
-										</Grid>
-									)}
+													// : null)
+												}
+											</Grid>
+										)}
 								</>
 							) : (
-								<Typography variant='h6' align='center'>
-									Select a User to see more information.
+									<Typography variant='h6' align='center'>
+										Select a User to see more information.
 								</Typography>
-							)}
+								)}
 						</>
 					</TwoColumnLayout>
 				) : (
-					<Typography>You are not authorized to view this page.</Typography>
-				)}
+						<Typography>You are not authorized to view this page.</Typography>
+					)}
 			</>
 		);
 	}
