@@ -102,12 +102,12 @@ class JobDetail extends Component {
 						<Divider />
 					</Grid>
 					<Grid item xs={12} sm={6} align='left'>
-						<Typography variant='h5' color='secondary'>
-							Client: {details.username}
+						<Typography color='secondary'>
+							<b>Client:</b> {details.username}
 						</Typography>
-						<Typography>Location: {details.location}</Typography>
-						<Typography>Duration: {details.duration}</Typography>
-						<Typography>Budget: ${details.budget}</Typography>
+						<Typography><b>Location:</b> {details.location}</Typography>
+						<Typography><b>Duration:</b> {details.duration}</Typography>
+						<Typography><b>Budget:</b> ${details.budget}</Typography>
 						{isStudent() && details.hired && (
 							<MessageDialog
 								recipient={{ id: details.client_id, username: details.username }}

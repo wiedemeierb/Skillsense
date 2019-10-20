@@ -14,7 +14,10 @@ const styles = theme => ({
 		margin: theme.spacing(1)
 	},
 	headerText: {
-		fontWeight: 700
+		fontWeight: 700,
+		letterSpacing: '1px',
+		fontStyle: 'italic',
+		textTransform: 'uppercase'		
 	},
 	gridItem: {
 		margin: theme.spacing(1),
