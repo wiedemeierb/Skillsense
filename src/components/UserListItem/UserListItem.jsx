@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 //MATERIAL-UI IMPORTS
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Button } from '@material-ui/core';
+import { Grid, Typography, Button, Divider } from '@material-ui/core';
 import MessageDialog from '../MessageDialog/MessageDialog';
 
 const styles = theme => ({
@@ -14,8 +14,7 @@ const styles = theme => ({
 	listItem: {
 		display: 'inline-flex',
 		justifyContent: 'space-between',
-		padding: '20px 20px 10px',
-		// borderBottom: '1px solid gray'
+		padding: '20px 20px 10px'
 	},
 	button: {
 		margin: theme.spacing(1),
@@ -45,12 +44,15 @@ class UserListItem extends Component {
 		const { classes } = this.props;
 
     return (
+        <Grid
+            container>
             <Grid
                 container
                 direction="row"
                 justify="space-between"
                 align="top"
                 className={classes.listItem}>
+
                 {/* left side info */}
                 <Grid item xs={8}>
                     <Typography variant="h5" color="primary">
@@ -63,6 +65,7 @@ class UserListItem extends Component {
                         (Hired)
                     </Typography>)}
                 </Grid>
+
                 {/* right side info */}
                 <Grid item xs={4} align="right">
                     {this.props.hired && (
@@ -78,6 +81,10 @@ class UserListItem extends Component {
                         Details
                     </Button>
                 </Grid>
+            </Grid>
+            <Grid item xs={12}>
+                <Divider/>
+            </Grid>
             </Grid>
         );
     }
