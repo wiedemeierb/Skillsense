@@ -158,7 +158,7 @@ class JobSearch extends Component {
 
 						{/* Job Search List */}
 						<Grid item container xs={12} className='list'>
-							{jobList}
+							{this.props.jobs.length !== 0 ? jobList : <Typography variant="h6" align="center">No items to display.</Typography>}
 						</Grid>
 					</Grid>
 				) : (

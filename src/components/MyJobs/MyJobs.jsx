@@ -48,7 +48,10 @@ class MyJobs extends Component {
               <JobTabs />
             </div>
             {/* Selected Job List */}
-            <div className="list">{jobList}</div>
+            <div className="list">
+              {/* {jobList} */}
+              {this.props.jobs.length !== 0 ? jobList : <Typography variant="h6" align="center">No items to display.</Typography>}
+            </div>
           </OneColumnLayout >
 
           : <Typography>You are not authorized to view this page</Typography>}
