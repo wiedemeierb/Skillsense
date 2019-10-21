@@ -48,6 +48,9 @@ class JobDetail extends Component {
     routeToMyJobs = () => {
         this.props.history.push('/jobs');
     };
+    routeToMyMentorships = () => {
+        this.props.history.push('/mentors');
+    };
     //route to return to previous page (client view)
     routeBackClient = () => {
         this.props.history.push(`/jobs`);
@@ -151,8 +154,14 @@ class JobDetail extends Component {
                             </>
                         )}
                     </Grid>
+
+                    {/* DIVIDER BEFORE USER SPECIFIC CONTENT */}
+                    <Grid item xs={12}>
+                        <Divider />
+                    </Grid>
+
                     {/* ACTIONS FOR STUDENTS/MENTORS */}
-                    {(isStudent() || isMentor()) && (
+                    {isStudent() && (
                         <>
                             <ApplicantReviewStudent
                                 listUser={this.props.user}
@@ -189,6 +198,19 @@ class JobDetail extends Component {
                                 )}
                             </Grid>
                         </>
+                    )}
+
+                    {isMentor() && (
+                        <Grid item xs={12} align="center">
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                align="space-around"
+                                className={classes.button}
+                                onClick={() => this.routeToMyMentorships()}>
+                                Back
+                            </Button>
+                        </Grid>
                     )}
 
                     {/* CLIENT: APPLICANT REVIEW + ACTIONS */}
