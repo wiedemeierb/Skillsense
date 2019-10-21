@@ -79,10 +79,6 @@ class MyMentorships extends Component {
         });
     };
 
-    sendMessage = () => {
-        // this.props.history.push(`/messages/${this.props.selectedUser.id}`)
-    };
-
     render() {
         const { classes } = this.props;
         //checks if user type should be able to view this page
@@ -115,10 +111,10 @@ class MyMentorships extends Component {
             isMentor() && this.props.selectedUser && this.props.selectedUser.job_list
                 ? this.props.selectedUser.job_list[0] !== null
                     ? this.props.selectedUser.job_list
-                          .filter(job => job.hired === true)
-                          .map((job, i) => {
-                              return <JobListItem key={i} job={job} />;
-                          })
+                        .filter(job => job.hired === true)
+                        .map((job, i) => {
+                            return <JobListItem key={i} job={job} />;
+                        })
                     : null
                 : null;
 
@@ -126,10 +122,10 @@ class MyMentorships extends Component {
             isMentor() && this.props.selectedUser && this.props.selectedUser.job_list
                 ? this.props.selectedUser.job_list[0] !== null
                     ? this.props.selectedUser.job_list
-                          .filter(job => job.hired === false)
-                          .map((job, i) => {
-                              return <JobListItem key={i} job={job} />;
-                          })
+                        .filter(job => job.hired === false)
+                        .map((job, i) => {
+                            return <JobListItem key={i} job={job} />;
+                        })
                     : null
                 : null;
 
@@ -154,15 +150,15 @@ class MyMentorships extends Component {
                                 {this.props.mentors.length !== 0 ? (
                                     mentorList
                                 ) : (
-                                    <Typography
-                                        variant="subtitle1"
-                                        align="center"
-                                        color="secondary"
-                                        className={classes.placeholder}
-                                        gutterBottom>
-                                        No items to display.
+                                        <Typography
+                                            variant="subtitle1"
+                                            align="center"
+                                            color="secondary"
+                                            className={classes.placeholder}
+                                            gutterBottom>
+                                            No items to display.
                                     </Typography>
-                                )}
+                                    )}
                             </div>
                         </>
                         <>
@@ -194,84 +190,80 @@ class MyMentorships extends Component {
                                             </Grid>
                                         </Grid>
                                     ) : (
-                                        <Grid
-                                            container
-                                            spacing={4}
-                                            justify="center"
-                                            alignItems="center">
-                                            {this.props.selectedUser && (
-                                                <MessageDialog
-                                                    recipient={{
-                                                        id: this.props.selectedUser.id,
-                                                        username: this.props.selectedUser.username
-                                                    }}
-                                                />
-                                            )}
-                                            {isMentor() && (
-                                                // (this.props.selectedUser.job_list &&
-                                                // this.props.selectedUser.job_list[0] !== null ?
-                                                <Grid item xs={12}>
-                                                    <Grid item xs={12} className="list">
-                                                        <Typography
-                                                            variant="h5"
-                                                            align="center"
-                                                            className={classes.jobs}>
-                                                            Active Jobs:
+                                            <Grid
+                                                container
+                                                spacing={4}
+                                                justify="center"
+                                                alignItems="center">
+                                                {this.props.selectedUser && (
+                                                    <MessageDialog
+                                                        recipient={{
+                                                            id: this.props.selectedUser.id,
+                                                            username: this.props.selectedUser.username
+                                                        }}
+                                                    />
+                                                )}
+                                                {isMentor() && (
+                                                    <Grid item xs={12}>
+                                                        <Grid item xs={12} className="list">
+                                                            <Typography
+                                                                variant="h5"
+                                                                align="center"
+                                                                className={classes.jobs}>
+                                                                Active Jobs:
                                                         </Typography>
-                                                        <div className="list">
-                                                            {studentHiredJobList == '' ||
-                                                            studentHiredJobList === null ? (
-                                                                <Typography
-                                                                    variant="subtitle1"
-                                                                    align="center"
-                                                                    className={classes.placeholder}
-                                                                    gutterBottom>
-                                                                    No items to display.
+                                                            <div className="list">
+                                                                {studentHiredJobList == '' ||
+                                                                    studentHiredJobList === null ? (
+                                                                        <Typography
+                                                                            variant="subtitle1"
+                                                                            align="center"
+                                                                            className={classes.placeholder}
+                                                                            gutterBottom>
+                                                                            No items to display.
                                                                 </Typography>
-                                                            ) : (
-                                                                studentHiredJobList
-                                                            )}
-                                                        </div>
-                                                    </Grid>
-                                                    <Grid item xs={12} className="list">
-                                                        <Typography
-                                                            variant="h5"
-                                                            align="center"
-                                                            className={classes.jobs}>
-                                                            Applied Jobs:
+                                                                    ) : (
+                                                                        studentHiredJobList
+                                                                    )}
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} className="list">
+                                                            <Typography
+                                                                variant="h5"
+                                                                align="center"
+                                                                className={classes.jobs}>
+                                                                Applied Jobs:
                                                         </Typography>
-                                                        <div className="list">
-                                                            {studentPendingJobList == '' ||
-                                                            studentPendingJobList === null ? (
-                                                                <Typography
-                                                                    variant="subtitle1"
-                                                                    align="center"
-                                                                    className={classes.placeholder}
-                                                                    gutterBottom>
-                                                                    No items to display.
+                                                            <div className="list">
+                                                                {studentPendingJobList == '' ||
+                                                                    studentPendingJobList === null ? (
+                                                                        <Typography
+                                                                            variant="subtitle1"
+                                                                            align="center"
+                                                                            className={classes.placeholder}
+                                                                            gutterBottom>
+                                                                            No items to display.
                                                                 </Typography>
-                                                            ) : (
-                                                                studentPendingJobList
-                                                            )}
-                                                        </div>
+                                                                    ) : (
+                                                                        studentPendingJobList
+                                                                    )}
+                                                            </div>
+                                                        </Grid>
                                                     </Grid>
-                                                </Grid>
-                                            )
-                                            // : null)
-                                            }
-                                        </Grid>
-                                    )}
+                                                )}
+                                            </Grid>
+                                        )}
                                 </>
                             ) : (
-                                <Typography variant="h6" color="secondary" align="center">
-                                    Select a user to see more information.
+                                    <Typography variant="h6" color="secondary" align="center">
+                                        Select a user to see more information.
                                 </Typography>
-                            )}
+                                )}
                         </>
                     </TwoColumnLayout>
                 ) : (
-                    <Typography>You are not authorized to view this page.</Typography>
-                )}
+                        <Typography>You are not authorized to view this page.</Typography>
+                    )}
             </>
         );
     }

@@ -4,14 +4,14 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LanguageIcon from '@material-ui/icons/Language';
-import EmailIcon from '@material-ui/icons/Email';
+// import EmailIcon from '@material-ui/icons/Email';
 import { makeStyles } from '@material-ui/core/styles';
 import SkillList from '../SkillList/SkillList';
 
 const useStyles = makeStyles(theme => ({
 	root: {
 		margin: 'auto',
-		width: '90vh'
+		width: '90%'
 	},
 	section: {
 		padding: theme.spacing(2, 0)
@@ -41,7 +41,7 @@ function ApplicantDetailStudent(props) {
 					Student Information:
 				</Typography>
 			</Grid>
-			<Grid item xs={6}>
+			<Grid item xs={12} md={6}>
 				<Typography variant='h5' color='primary'>
 					{props.applicant.username}
 				</Typography>
@@ -52,8 +52,8 @@ function ApplicantDetailStudent(props) {
 			</Grid>
 
 			{/* Bio & Resume */}
-			<Grid item xs={6}>
-				<Grid container direction='row' justify='space-around'>
+			<Grid item  container xs={12} md={6}>
+				<Grid item container direction='row' justify='space-around' xs={12}>
 					{props.applicant.bio !== null && (
 						<Grid item xs={12}>
 							<Typography variant='h6' color='primary'>
@@ -73,8 +73,8 @@ function ApplicantDetailStudent(props) {
 				container
 				alignItems='flex-start'
 				justify='space-between'
-				className={classes.section}>
-				<Grid item xs={8}>
+				className={classes.section} xs={12}>
+				<Grid item container xs={12} md={8}>
 					<Typography variant='h6' color='primary' align='left'>
 						Cover Letter:
 					</Typography>
@@ -83,7 +83,7 @@ function ApplicantDetailStudent(props) {
 					</Grid>
 				</Grid>
 				{props.applicant.attachment_url !== null && (
-					<Grid item xs={3}>
+					<Grid item xs={12} md={3}>
 						<Link target='_blank' href={props.applicant.attachment_url}>
 							<Button color='primary' startIcon={<DescriptionIcon />}>
 								View Attachment
@@ -94,14 +94,15 @@ function ApplicantDetailStudent(props) {
 			</Grid>
 
 			{/* User Info */}
-			<Grid item container className={classes.section}>
-				{/* <Grid item xs={8}> */}
+			<Grid item container className={classes.section} xs={12}>
+				<Grid item xs={12}>
 				<Typography variant='h6' color='primary'>
 					Student Links:
 				</Typography>
-				{/* </Grid> */}
-				<Grid item container align='center' xs={12}>
-					<Grid item xs={3}>
+				</Grid>
+				<Grid item container align='center' justify="space-around" xs={12}>
+					<Grid item xs={4} align='center' 
+>
 						<Link
 							target='_blank'
 							href={props.applicant.linkedin_url}
@@ -113,7 +114,7 @@ function ApplicantDetailStudent(props) {
 							<Typography className={classes.link}>LinkedIn</Typography>
 						</Link>
 					</Grid>
-					<Grid item xs={3}>
+					<Grid item xs={4} align='center' >
 						<Link
 							target='_blank'
 							href={props.applicant.github_url}
@@ -125,7 +126,7 @@ function ApplicantDetailStudent(props) {
 							<Typography className={classes.link}>GitHub</Typography>
 						</Link>
 					</Grid>
-					<Grid item xs={3}>
+					<Grid item xs={4} align='center'>
 						<Link
 							target='_blank'
 							href={props.applicant.website_url}
@@ -137,7 +138,7 @@ function ApplicantDetailStudent(props) {
 							<Typography className={classes.link}>Website</Typography>
 						</Link>
 					</Grid>
-					<Grid item xs={3}>
+					{/* <Grid item xs={3}>
 						<Link
 							target='_blank'
 							href={`mailto:${props.applicant.email}`}
@@ -148,7 +149,7 @@ function ApplicantDetailStudent(props) {
 							</Typography>
 							<Typography className={classes.link}>E-Mail</Typography>
 						</Link>
-					</Grid>
+					</Grid> */}
 				</Grid>
 			</Grid>
 

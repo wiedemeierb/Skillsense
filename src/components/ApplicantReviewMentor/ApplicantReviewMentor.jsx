@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
         display: 'inline-flex',
         justifyContent: 'space-between',
         padding: '20px 20px 10px'
-        // borderBottom: '1px solid gray'
     },
     button: {
         margin: theme.spacing(1),

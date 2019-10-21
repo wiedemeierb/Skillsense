@@ -53,7 +53,7 @@ function MessageDialog(props) {
         <Grid item container xs={6}>
             <Button
                 className={classes.button}
-                variant="outlined"
+                variant="contained"
                 color="primary"
                 fullWidth
                 onClick={handleClickOpen}>
@@ -63,7 +63,7 @@ function MessageDialog(props) {
                 <DialogTitle id="message-dialog">Send Message</DialogTitle>
                 <DialogContent>
                     <DialogContentText
-                    // onClick = {()=>{setMessage('Great job applying to jobs, but be careful not to overcommit yourself!')}}
+                        onClick={() => { setMessage('Great job applying to jobs, but be careful not to overcommit yourself!') }}
                     >
                         Please type your message to send to {props.recipient.username}
                     </DialogContentText>
@@ -74,7 +74,7 @@ function MessageDialog(props) {
                         fullWidth
                         multiline
                         value={message}
-                        // onClick = {() => setMessage('Wednesday would be perfect! The project I have now has some tricky tables, and I have not been able to figure out the SQL to get all the information I need!')}
+                        onClick={() => setMessage('Wednesday would be perfect! The project I have now has some tricky tables, and I have not been able to figure out the SQL to get all the information I need!')}
                         onChange={e => setMessage(e.target.value)}
                     />
                 </DialogContent>

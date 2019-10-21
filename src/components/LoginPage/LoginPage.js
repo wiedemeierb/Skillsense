@@ -16,14 +16,14 @@ const styles = theme => ({
         fontWeight: '700'
     },
     formControl: {
-        margin: theme.spacing(2, 0)
+        margin: theme.spacing(2, 1),
     },
     aboutText: {
         letterSpacing: '1px',
         padding: theme.spacing(2)
     },
     login: {
-        padding: theme.spacing(10,0,5,5)
+        padding: theme.spacing(10, 0, 5, 5)
     },
     button: {
         margin: theme.spacing(3, 1),
@@ -94,7 +94,7 @@ class LoginPage extends Component {
                 <Grid container xs={12} className={classes.aboutText} align="left" zeroMinWidth>
                     <Grid item xs={12}>
                         <Typography
-                            variant="h2"
+                            variant="h3"
                             color="primary"
                             className={classes.title}
                             gutterBottom>
@@ -121,56 +121,59 @@ class LoginPage extends Component {
                     xs={12}
                     className={classes.login}
                     justify="space-around"
-                    onKeyUp={this.handleKeyUp}>
-                    <Grid item xs={12}>
-                        <TextField
-                            className={classes.formControl}
-                            onChange={e => this.handleInputChangeFor('email', e)}
-                            value={this.state.email}
-                            fullWidth
-                            required
-                            label="E-Mail"
-                            placeholder="user@example.com"
-                            variant="outlined"
-                        />
+                    onKeyUp={this.handleKeyUp} align="center">
+                    <Grid item container xs={10} align="left">
+                        <Grid item xs={12} >
+                            <TextField
+                                className={classes.formControl}
+                                onChange={e => this.handleInputChangeFor('email', e)}
+                                value={this.state.email}
+                                fullWidth
+                                required
+                                label="E-Mail"
+                                placeholder="user@example.com"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                className={classes.formControl}
+                                onChange={event => this.handleInputChangeFor('password', event)}
+                                value={this.state.password}
+                                required
+                                fullWidth
+                                type="password"
+                                label="Password"
+                                placeholder="********"
+                                variant="outlined"
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            className={classes.formControl}
-                            onChange={event => this.handleInputChangeFor('password', event)}
-                            value={this.state.password}
-                            required
-                            fullWidth
-                            type="password"
-                            label="Password"
-                            placeholder="********"
-                            variant="outlined"
-                        />
-                    </Grid>
-
                     {/* LOGIN & REGISTER BUTTONS */}
-                    <Grid item xs={4} align="center">
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            fullWidth
-                            className={classes.button}
-                            onClick={() => this.login()}>
-                            Log In
+                    <Grid item container xs={10} justify="space-between">
+                        <Grid item xs={4} align="left">
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                fullWidth
+                                className={classes.button}
+                                onClick={() => this.login()}>
+                                Log In
                         </Button>
-                    </Grid>
+                        </Grid>
 
-                    <Grid item xs={4} align="center">
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            fullWidth
-                            className={classes.button}
-                            onClick={() => {
-                                this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' });
-                            }}>
-                            Create New Account
+                        <Grid item xs={4} align="right">
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                fullWidth
+                                className={classes.button}
+                                onClick={() => {
+                                    this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' });
+                                }}>
+                                Create New Account
                         </Button>
+                        </Grid>
                     </Grid>
                 </Grid>
             </TwoColumnLayout>

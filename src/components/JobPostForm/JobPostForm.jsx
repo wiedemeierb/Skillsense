@@ -105,7 +105,6 @@ class JobPostForm extends Component {
 
     //adds clicked skill to list of selected tags
     addSkill = skill => {
-        // console.log(skill);
         this.setState({
             selected: [...this.state.selected, skill]
         });
@@ -113,14 +112,12 @@ class JobPostForm extends Component {
 
     //removes clicked skill from list of selected tags
     removeSkill = skillToRemove => {
-        // console.log(skillToRemove);
         this.setState({
             selected: this.state.selected.filter(skill => skill !== skillToRemove)
         });
     };
 
     render() {
-        // console.log(this.state)
         const { classes } = this.props;
 
         //filters the list of all skills to remove the selected skills
@@ -164,17 +161,17 @@ class JobPostForm extends Component {
                                     className={classes.formControl}
                                     label="Project Name"
                                     value={this.state.project_title}
-                                    // onClick={() => { this.setState({ 
-                                    //     ...this.state,
-                                    //     project_title: 'Employee Volunteer Shift Schedule',
-                                    //     position_title: 'Full-Stack Developer',
-                                    //     description: 'I am looking for a platform for employees to share their availability to work events, either opt-in or opt - out of working on certain dates, and to allow an administrator to schedule additional employees for events as needed.',
-                                    //     duration: '2 weeks',
-                                    //     budget: '500',
-                                    //     mentor_required: true,
-                                    //     status_id: 1,
-                                    //     client_id: 32,
-                                    //     selected: []})}}
+                                    onClick={() => { this.setState({ 
+                                        ...this.state,
+                                        project_title: 'Employee Volunteer Shift Schedule',
+                                        position_title: 'Full-Stack Developer',
+                                        description: 'I am looking for a platform for employees to share their availability to work events, either opt-in or opt - out of working on certain dates, and to allow an administrator to schedule additional employees for events as needed.',
+                                        duration: '2 weeks',
+                                        budget: '500',
+                                        mentor_required: true,
+                                        status_id: 1,
+                                        client_id: 32,
+                                        selected: []})}}
                                     onChange={event => {
                                         this.handleInput(event, 'project_title');
                                     }}

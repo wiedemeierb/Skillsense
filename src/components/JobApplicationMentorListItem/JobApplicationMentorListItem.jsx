@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
 		display: 'inline',
 		minWidth: '15vw',
 		padding: theme.spacing(2),
-		margin: theme.spacing(0,1,2)
+		margin: theme.spacing(0, 1, 2)
 	},
 	selectedMentorListItem: {
 		display: 'inline',
@@ -20,11 +20,11 @@ const useStyles = makeStyles(theme => ({
 	},
 	matchingSkills: {
 		display: 'inline',
-		padding: theme.spacing(0,1)
+		padding: theme.spacing(0, 1)
 	},
 	button: {
 		display: 'block',
-		margin: theme.spacing(1,0),
+		margin: theme.spacing(1, 0),
 		padding: theme.spacing(1)
 	}
 }));

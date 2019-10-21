@@ -21,7 +21,6 @@ const styles = theme => ({
 		display: 'flex'
 	},
 	expansionPanel: {
-		// display: 'flex',
 		boxShadow: 'none'
 	}
 });
@@ -66,9 +65,7 @@ class ApplicantReviewClient extends Component {
 		return (
 			<div>
 				{hiredApplicant && (
-
-						<UserListItem listUser={hiredApplicant} hired={true} />
-
+					<UserListItem listUser={hiredApplicant} hired={true} />
 				)}
 
 				<ExpansionPanel
@@ -84,7 +81,7 @@ class ApplicantReviewClient extends Component {
 						</Typography>
 					</ExpansionPanelSummary>
 					<ExpansionPanelDetails style={{ display: 'block' }}>
-						{applicantList.length === 0 ? <Typography variant="h6">No applications to show</Typography> : <List>{applicantList}</List> }
+						{applicantList.length === 0 ? <Typography variant="h6">No applications to show</Typography> : <List>{applicantList}</List>}
 					</ExpansionPanelDetails>
 				</ExpansionPanel>
 			</div>

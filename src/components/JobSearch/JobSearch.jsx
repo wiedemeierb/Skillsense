@@ -121,39 +121,40 @@ class JobSearch extends Component {
                     <Grid container>
                         <Paper className={classes.search}>
                             <FormGroup row={true}>
-                                {/* Search Job input field */}
-                                <FormControl className={classes.formControl}>
-                                    <TextField
-                                        onChange={this.handleSearch}
-                                        value={this.state.searchTerm}
-                                        label="Search Jobs..."
-                                        onKeyUp={this.handleKeyUp}
-                                    />
-                                </FormControl>
-
-                                {/* Skill select for search */}
-                                <FormControl className={classes.formControl}>
-                                    <InputLabel htmlFor="skill-search">Select Skill</InputLabel>
-                                    <Select
-                                        className={classes.select}
-                                        value={this.state.skill}
-                                        onChange={this.handleDropdown}
-                                        // onKeyUp={this.handleKeyUp}
-                                    >
-                                        {/* Skill tag list dropdown options */}
-                                        <MenuItem value={0}>Select a skill...</MenuItem>
-                                        {skillList}
-                                    </Select>
-                                </FormControl>
-
-                                {/* Submit Search Button */}
-                                <IconButton
-                                    className={classes.button}
-                                    aria-label="search"
-                                    color="primary"
-                                    onClick={this.submitSearch}>
-                                    <SearchIcon />
-                                </IconButton>
+                                {/* <Grid item xs={12} sm={6} > */}
+                                    {/* Search Job input field */}
+                                    <FormControl className={classes.formControl}>
+                                        <TextField
+                                            onChange={this.handleSearch}
+                                            value={this.state.searchTerm}
+                                            label="Search Jobs..."
+                                            onKeyUp={this.handleKeyUp}
+                                        />
+                                    </FormControl>
+                                {/* </Grid> */}
+                                {/* <Grid item xs={9} sm={6}> */}
+                                    {/* Skill select for search */}
+                                    <FormControl className={classes.formControl}>
+                                        <InputLabel htmlFor="skill-search">Select Skill</InputLabel>
+                                        <Select
+                                            className={classes.select}
+                                            value={this.state.skill}
+                                            onChange={this.handleDropdown}
+                                        >
+                                            {/* Skill tag list dropdown options */}
+                                            <MenuItem value={0}>Select a skill...</MenuItem>
+                                            {skillList}
+                                        </Select>
+                                    </FormControl>
+                                    {/* Submit Search Button */}
+                                    <IconButton
+                                        className={classes.button}
+                                        aria-label="search"
+                                        color="primary"
+                                        onClick={this.submitSearch}>
+                                        <SearchIcon />
+                                    </IconButton>
+                                {/* </Grid> */}
                             </FormGroup>
                         </Paper>
 
@@ -162,20 +163,20 @@ class JobSearch extends Component {
                             {this.props.jobs.length !== 0 ? (
                                 jobList
                             ) : (
-                                <Typography
-                                    variant="subtitle1"
-                                    align="center"
-                                    color="secondary"
-                                    className={classes.placeholder}
-                                    gutterBottom>
-                                    No items to display.
+                                    <Typography
+                                        variant="subtitle1"
+                                        align="center"
+                                        color="secondary"
+                                        className={classes.placeholder}
+                                        gutterBottom>
+                                        No items to display.
                                 </Typography>
-                            )}
+                                )}
                         </Grid>
                     </Grid>
                 ) : (
-                    <Typography>You are not authorized to view this page.</Typography>
-                )}
+                        <Typography>You are not authorized to view this page.</Typography>
+                    )}
             </OneColumnLayout>
         );
     }

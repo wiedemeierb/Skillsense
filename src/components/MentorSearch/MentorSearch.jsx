@@ -119,9 +119,9 @@ class MentorSearch extends Component {
                     <TwoColumnLayout rightHeader="Details" leftHeader="Search for Mentors">
                         <Grid container>
                             {/* MENTOR SEARCH INPUTS */}
-                            <Grid item xs={12}>
-                                <Paper className={classes.search}>
-                                    <FormGroup row={true}>
+                            <Paper className={classes.search}>
+                                <FormGroup row={true}>
+                                    {/* <Grid item xs={12}  md={6}> */}
                                         <FormControl className={classes.formControl}>
                                             {/* Mentor name search form */}
                                             <TextField
@@ -133,7 +133,8 @@ class MentorSearch extends Component {
                                                 onKeyUp={this.handleKeyUp}
                                             />
                                         </FormControl>
-
+                                    {/* </Grid> */}
+                                    {/* <Grid item xs={12} md={6}> */}
                                         {/* SKILL SELECT */}
                                         <FormControl className={classes.formControl}>
                                             <InputLabel htmlFor="skill-search">
@@ -156,19 +157,20 @@ class MentorSearch extends Component {
                                             onClick={this.submitSearch}>
                                             <SearchIcon />
                                         </IconButton>
-                                    </FormGroup>
-                                </Paper>
-                            </Grid>
+                                    {/* </Grid> */}
+                                </FormGroup>
+                            </Paper>
+                            {/* </Grid> */}
 
                             {/* MENTOR SEARCH RESULT LIST */}
                             <Grid item container xs={12} className="list">
                                 {this.props.mentors.length !== 0 ? (
                                     mentorList
                                 ) : (
-                                    <Typography variant="h6" align="center">
-                                        No items to display.
+                                        <Typography variant="h6" align="center">
+                                            No items to display.
                                     </Typography>
-                                )}
+                                    )}
                             </Grid>
                         </Grid>
 
@@ -177,27 +179,28 @@ class MentorSearch extends Component {
                                 <PublicProfile />
                                 {/* If the user is a mentor, the Request Mentor button will appear in the list row */}
                                 {this.props.user.user_type === 'Student' &&
-                                this.props.selectedUser.user_type === 'Mentor' &&
-                                this.props.selectedUser.accepted === null ? (
-                                    <Grid item xs={12} align="center">
-                                        <MentorRequest mentor={this.props.selectedUser} />
-                                    </Grid>
-                                ) : null}
+                                    this.props.selectedUser.user_type === 'Mentor' &&
+                                    this.props.selectedUser.accepted === null ? (
+                                        <Grid item xs={12} align="center">
+                                            <MentorRequest mentor={this.props.selectedUser} />
+                                        </Grid>
+                                    ) : null}
                             </Grid>
                         ) : (
-                            <Typography
-                                variant="subtitle1"
-                                align="center"
-                                color="secondary"
-                                className={classes.placeholder}
-                                gutterBottom>
-                                No items to display.
+                                <Typography
+                                    variant="subtitle1"
+                                    align="center"
+                                    color="secondary"
+                                    className={classes.placeholder}
+                                    gutterBottom>
+                                    No items to display.
                             </Typography>
-                        )}
+                            )}
                     </TwoColumnLayout>
                 ) : (
-                    <Typography>You are not authorized to view this page.</Typography>
-                )}
+                        <Typography>You are not authorized to view this page.</Typography>
+                    )
+                }
             </>
         );
     }

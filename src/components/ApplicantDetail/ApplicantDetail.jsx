@@ -74,7 +74,7 @@ class ApplicantDetail extends Component {
 	};
 
 	routeBack = () => {
-		this.props.dispatch({type: 'CLEAR_APPLICANT_DETAIL'})
+		this.props.dispatch({ type: 'CLEAR_APPLICANT_DETAIL' })
 		this.props.history.push(`/jobs/detail/${this.props.applicant.job_id}`);
 	};
 
@@ -87,49 +87,49 @@ class ApplicantDetail extends Component {
 
 		return (
 			<OneColumnLayout header='Application Details'>
-						<Divider className={classes.divider} variant='fullWidth' />
-						{this.props.applicant && (
-							<ApplicantDetailStudent applicant={this.props.applicant} />
-						)}
-						<Divider className={classes.divider} variant='fullWidth' />
-						{this.props.applicant.mentor && (
-							<ApplicantDetailMentor mentor={this.props.applicant.mentor} />
-						)}
-						<Divider className={classes.divider} variant='fullWidth' />
-						{/* Buttons: Back & Hire */}
-						<Typography variant='h5' align='center' color='primary'>
-							Actions
+				<Divider className={classes.divider} variant='fullWidth' />
+				{this.props.applicant && (
+					<ApplicantDetailStudent applicant={this.props.applicant} />
+				)}
+				<Divider className={classes.divider} variant='fullWidth' />
+				{this.props.applicant.mentor && (
+					<ApplicantDetailMentor mentor={this.props.applicant.mentor} />
+				)}
+				<Divider className={classes.divider} variant='fullWidth' />
+				{/* Buttons: Back & Hire */}
+				<Typography variant='h5' align='center' color='primary'>
+					Actions
 						</Typography>
-						<Grid
-							item
-							container
-							align='center'
-							justify='space-between'
-							className={classes.section}>
-							<Grid item xs={4}>
-								<Button
-									variant='contained'
-									color='secondary'
-									fullWidth
-									className={classes.button}
-									onClick={this.routeBack}>
-									Back
+				<Grid
+					item
+					container
+					align='center'
+					justify='space-between'
+					className={classes.section}>
+					<Grid item xs={4}>
+						<Button
+							variant='contained'
+							color='secondary'
+							fullWidth
+							className={classes.button}
+							onClick={this.routeBack}>
+							Back
 								</Button>
-							</Grid>
+					</Grid>
 
-							{isClient() && this.props.applicant.status_id === 1 && (
-								<Grid item xs={4}>
-									<Button
-										variant='contained'
-										color='primary'
-										fullWidth
-										className={classes.button}
-										onClick={this.handleSubmit}>
-										Hire
+					{isClient() && this.props.applicant.status_id === 1 && (
+						<Grid item xs={4}>
+							<Button
+								variant='contained'
+								color='primary'
+								fullWidth
+								className={classes.button}
+								onClick={this.handleSubmit}>
+								Hire
 									</Button>
-								</Grid>
-							)}
 						</Grid>
+					)}
+				</Grid>
 			</OneColumnLayout>
 		);
 	}

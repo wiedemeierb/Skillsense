@@ -89,11 +89,11 @@ class JobTabs extends React.Component {
                             className={classes.tabs}
                         />
                     ) : (
-                        <Tab
-                            label={<span className={classes.tabLabel}>Pending Hire</span>}
-                            className={classes.tabs}
-                        />
-                    )}
+                            <Tab
+                                label={<span className={classes.tabLabel}>Pending Hire</span>}
+                                className={classes.tabs}
+                            />
+                        )}
 
                     <Tab
                         label={<span className={classes.tabLabel}>Completed</span>}

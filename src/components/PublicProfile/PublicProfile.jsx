@@ -7,7 +7,7 @@ import { Grid, Typography, Link, Chip } from '@material-ui/core';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LanguageIcon from '@material-ui/icons/Language';
-import EmailIcon from '@material-ui/icons/Email';
+// import EmailIcon from '@material-ui/icons/Email';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -111,11 +111,11 @@ function PublicProfile(props) {
                 item
                 container
                 xs={12}
-                sm={8}
+                // sm={8}
                 align="center"
                 justify="space-around"
                 className={classes.section}>
-                <Grid item xs={6} md={3}>
+                <Grid item xs={4}>
                     <Link
                         target="_blank"
                         href={displayedUser.linkedin_url}
@@ -127,7 +127,7 @@ function PublicProfile(props) {
                         <Typography className={classes.link}>LinkedIn</Typography>
                     </Link>
                 </Grid>
-                <Grid item xs={6} md={3}>
+                <Grid item xs={4}>
                     <Link
                         target="_blank"
                         href={displayedUser.github_url}
@@ -139,7 +139,7 @@ function PublicProfile(props) {
                         <Typography className={classes.link}>GitHub</Typography>
                     </Link>
                 </Grid>
-                <Grid item xs={6} md={3}>
+                <Grid item xs={4}>
                     <Link
                         target="_blank"
                         href={displayedUser.website_url}
@@ -151,7 +151,7 @@ function PublicProfile(props) {
                         <Typography className={classes.link}>Website</Typography>
                     </Link>
                 </Grid>
-                <Grid item xs={6} md={3}>
+                {/* <Grid item xs={6} md={3}>
                     <Link
                         target="_blank"
                         href={`mailto:${displayedUser.email}`}
@@ -162,7 +162,7 @@ function PublicProfile(props) {
                         </Typography>
                         <Typography className={classes.link}>Email</Typography>
                     </Link>
-                </Grid>
+                </Grid> */}
             </Grid>
 
             {/* SKILL LIST */}

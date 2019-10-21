@@ -56,7 +56,7 @@ export default function FormDialog(props) {
             value={message}
             type="text"
             fullWidth
-            // onClick={() => setMessage('Hi Meredith, I am looking to learn C# and am wondering if you could point me to a few good resources to get started. Would you be willing to meet up for coffee Thursday?' )}
+            onClick={() => setMessage('Hi Meredith, I am looking to learn C# and am wondering if you could point me to a few good resources to get started. Would you be willing to meet up for coffee Thursday?')}
             onChange={e => setMessage(e.target.value)}
             multiline={true}
           />
@@ -66,7 +66,6 @@ export default function FormDialog(props) {
             Cancel
           </Button>
           <Button
-            // onClick={handleClose}
             onClick={() => {
               dispatch({
                 type: 'SEND_MENTOR_REQUEST',

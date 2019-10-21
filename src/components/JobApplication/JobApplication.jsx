@@ -11,7 +11,6 @@ import {
     TextField,
     Button,
     Divider
-    // InputAdornment
 } from '@material-ui/core';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 //STYLING IMPORTS
@@ -36,7 +35,7 @@ const styles = theme => ({
     },
     button: {
         padding: theme.spacing(0,2,0,0)
-    }
+    },
 });
 class JobApplication extends Component {
 //START BRANCH
@@ -183,7 +182,7 @@ class JobApplication extends Component {
                                     helperText="Write your cover letter to the client here. 
                                     Explain what would make you a good fit for this job."
                                     value={this.state.cover_letter}
-                                    // onClick={() => { this.setState({ ...this.state, cover_letter: "Hi Jim! I've been working on React primarily for the last couple months, and Full-Stack Javascript before that. I would love the opportunity to work on your event scheduler!"}) }}
+                                    onClick={() => { this.setState({ ...this.state, cover_letter: "Hi Jim! I've been working on React primarily for the last couple months, and Full-Stack Javascript before that. I would love the opportunity to work on your event scheduler!"}) }}
                                     onChange={event => {
                                         this.handleInput(event, 'cover_letter');
                                     }}
@@ -203,7 +202,7 @@ class JobApplication extends Component {
                             <Grid item xs={12}>
                                 <Typography variant="h6">Attach Resume</Typography>
                             </Grid>
-                            <Grid item>
+                            <Grid item xs={12} md={4}>
                                 <input
                                     accept=".pdf"
                                     className={classes.input}
@@ -220,8 +219,9 @@ class JobApplication extends Component {
                                     </Button>
                                 </label>
                             </Grid>
-                            <Grid item xs={4} sm={6} md={8}>
+                            <Grid item xs={12} md={8}>
                                 <TextField
+                                    className={classes.input}
                                     id="resume-file-name"
                                     value={this.state.file.name}
                                     margin="normal"
@@ -319,218 +319,6 @@ class JobApplication extends Component {
             </OneColumnLayout>
         );
     }
-//END BRANCH
-    //START MASTER
-// <!-- 	state = {
-// 		cover_letter: '',
-// 		mentor_id: null,
-// 		payment_terms: 'negotiable',
-// 		attachment_url: '',
-// 		file: null
-// 	};
-// 	componentDidMount() {
-// 		this.props.dispatch({
-// 			type: 'FETCH_JOB_DETAIL',
-// 			payload: { id: Number(this.props.match.params.id) }
-// 		});
-// 		this.props.dispatch({
-// 			type: 'FETCH_ACTIVE_MENTORS'
-// 		});
-// 	}
-
-// 	handleInput = (event, property) => {
-// 		this.setState({
-// 			...this.state,
-// 			[property]: event.target.value
-// 		});
-// 	};
-
-// 	handleSubmit = event => {
-// 		event.preventDefault();
-
-// 		Swal.fire({
-// 			title: 'Are you sure?',
-// 			text: "You won't be able to redact your application!",
-// 			type: 'warning',
-// 			showCancelButton: true,
-// 			confirmButtonColor: '#04b8f3',
-// 			cancelButtonColor: '#505d68',
-// 			confirmButtonText: 'Yes, submit it!'
-// 		}).then(result => {
-// 			if (result.value) {
-// 				this.props.dispatch({
-// 					type: 'SUBMIT_APPLICATION',
-// 					payload: {
-// 						...this.state,
-// 						job_id: Number(this.props.match.params.id)
-// 					}
-// 				});this.props.history.push(`/jobs`)
-// 			}
-// 		});
-// 	};
-
-// 	routeBack = () => {
-// 		this.props.history.push(`/search/jobs`);
-// 	};
-
-// 	handleUploadInputChange = e => {
-// 		// console.log(e.target.files[0])
-// 		this.setState({ file: e.target.files[0] });
-// 	};
-
-// 	handleSelect = id => {
-// 		this.state.mentor_id === id
-// 			? this.setState({ mentor_id: null })
-// 			: this.setState({ mentor_id: id });
-// 	};
-
-// 	sortMentors = (mentors, jobSkills) => {
-// 		mentors.forEach(mentor => {
-// 			mentor.matchingSkillCount = mentor.skills.filter(tag =>
-// 				jobSkills.map(skill => skill.id).includes(tag.id)
-// 			).length;
-// 		});
-// 		return mentors.sort((a, b) => b.matchingSkillCount - a.matchingSkillCount);
-// 	};
-
-// 	render() {
-// 		const { classes } = this.props;
-// 		let isStudent = () => {
-// 			return this.props.user.user_type === 'Student';
-// 		};
-
-// 		return (
-// 			<Grid
-// 				container
-// 				spacing={8}
-// 				justify='space-around'
-// 				alignItems='center'
-// 				className={classes.root}>
-// 				{isStudent() ? (
-// 					<Grid item container justify='space-around' spacing={4} xs={12}>
-// 						<Grid item xs={12}>
-// 							<Typography variant='h3' align='center'>
-// 								Job Application
-// 							</Typography>
-// 						</Grid>
-// 						{/* Job Info */}
-// 						<Grid item xs={4}>
-// 							<Typography color='primary' variant='h4'>
-// 								{this.props.job.position_title}
-// 							</Typography>
-// 							<Typography color='secondary' variant='h6'>
-// 								{this.props.job.project_title}
-// 							</Typography>
-// 						</Grid>
-// 						{/* Client Info */}
-// 						<Grid item xs={4}>
-// 							<Typography variant='h6'>{this.props.job.username}</Typography>
-// 							<Typography>{this.props.job.location}</Typography>
-// 						</Grid>
-// 						<Grid item xs={4}>
-// 							{this.props.job.skills && (
-// 								<SkillList skillList={this.props.job.skills} />
-// 							)}
-// 							<Typography>
-// 								Budget: $<span>{this.props.job.budget}</span>
-// 							</Typography>
-// 							<Typography>
-// 								Duration: <span>{this.props.job.duration}</span>
-// 							</Typography>
-// 						</Grid>
-// 						{/* Cover Letter and Resume */}
-// 						<Grid item container spacing={4} xs={12} justify='center'>
-// 							<Grid item xs={12}>
-// 								<Typography variant='h6' align='left'>
-// 									Cover Letter
-// 								</Typography>
-// 								<TextField
-// 									id='standard-name'
-// 									label='Add Your Cover Letter...'
-// 									value={this.state.cover_letter}
-// 									onChange={event => {
-// 										this.handleInput(event, 'cover_letter');
-// 									}}
-// 									margin='normal'
-// 									fullWidth={true}
-// 									multiline={true}
-// 								/>
-// 							</Grid>
-// 							{/* Insert Resume attachment functionality here */}
-// 							<Grid item xs={12}>
-// 								<TextField
-// 									helperText='Attach Any Additional Files As Needed'
-// 									type='file'
-// 									onChange={this.handleUploadInputChange}
-// 								/>
-// 								{/* Mentor Info */}
-// 							</Grid>
-// 						</Grid>
-// 						<Typography variant='h6'>Select One Of Your Mentors</Typography>
-// 						<Grid
-// 							className={classes.mentorList}
-// 							item
-// 							container
-// 							direction='column'
-// 							alignContent='flex-start'
-// 							justify='flex-start'>
-// 							{this.props.mentors &&
-// 								this.props.job &&
-// 								this.props.job.skills &&
-// 								this.sortMentors(this.props.mentors, this.props.job.skills).map(
-// 									listUser => {
-// 										return (
-// 											<JobApplicationMentorListItem
-// 												key={listUser.id}
-// 												selected={listUser.id === this.state.mentor_id}
-// 												listUser={listUser}
-// 												selectMentor={this.handleSelect}
-// 											/>
-// 										);
-// 									}
-// 								)}
-// 						</Grid>
-// 						<br />
-// 						{/* User Info */}
-// 						<Grid item xs={12}>
-// 							<Typography variant='h6'>Your Account Information:</Typography>
-// 							<Typography>{this.props.user.username}</Typography>
-// 							<Typography>{this.props.user.focus_skill}</Typography>
-// 							<Typography>{this.props.user.location}</Typography>
-// 							<Typography className={classes.link}>
-// 								<Link href={this.props.user.github_url}>GitHub Profile</Link>
-// 							</Typography>
-// 							<Typography className={classes.link}>
-// 								<Link href={this.props.user.linkedin_url}>LinkedIn Profile</Link>
-// 							</Typography>
-// 							{this.props.user.website_url && (
-// 								<Typography className={classes.link}>
-// 									<Link href={this.props.user.website_url}>
-// 										Portfolio/Personal Website
-// 									</Link>
-// 								</Typography>
-// 							)}
-// 						</Grid>
-// 						{/* <Button variant="contained" color="secondary" onClick={this.props.history.push('/search/jobs')}>Cancel</Button> */}
-// 						<Grid item xs={12}>
-// 							<div>
-// 							<Button variant='contained' color='primary' onClick={this.handleSubmit}>
-// 								Submit
-// 							</Button>
-// 								<Button
-// 									variant="contained" color="secondary" align="space-around" onClick={() => this.routeBack()}>
-// 									Back
-//                     		</Button>
-// 							</div>
-// 						</Grid>
-// 					</Grid>
-// 				) : (
-// 					<Typography>You are not authorized to view this page.</Typography>
-// 				)}
-// 			</Grid>
-// 		);
-// 	} -->
-//END master
 }
 
 const mapStateToProps = store => {
