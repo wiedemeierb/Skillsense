@@ -123,7 +123,7 @@ class JobSearch extends Component {
 									<TextField
 										onChange={this.handleSearch}
 										value={this.state.searchTerm}
-										label='Search Jobs'
+										label='Search Jobs...'
 										onKeyUp={this.handleKeyUp}
 									/>
 								</FormControl>
@@ -131,7 +131,7 @@ class JobSearch extends Component {
 								{/* Skill select for search */}
 								<FormControl className={classes.formControl}>
 									<InputLabel htmlFor='skill-search'>
-										Search by skill...
+										Select Skill
 									</InputLabel>
 									<Select
 										className={classes.select}
