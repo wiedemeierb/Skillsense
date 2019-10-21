@@ -444,12 +444,12 @@ router.post('/apply', rejectUnauthenticated, (req, res) => {
       ($1,$2,$3,$4,$5,$6);`;
 
 	pool.query(queryText, [
-		req.body.job_id,
+		req.body.job.id,
 		req.user.id,
-		req.body.payment_terms,
-		req.body.cover_letter,
-		req.body.attachment_url,
-		req.body.mentor_id
+		req.body.application.payment_terms,
+		req.body.application.cover_letter,
+		req.body.application.attachment_url,
+		req.body.application.mentor_id
 	])
 		.then(response => {
 			res.sendStatus(201);

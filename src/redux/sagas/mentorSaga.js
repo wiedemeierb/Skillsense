@@ -93,12 +93,12 @@ function* sendMentorRequest(action) {
 //MENTORS: UPDATE STUDENT_MENTOR TO APPROVED: TRUE
 function* acceptMentorship(action) {
 	try {
-		yield axios.put(`/api/mentors/accept/${action.payload.student_id}`);
+		yield axios.put(`/api/mentors/accept/${action.payload.student.id}`);
 		yield put({
-			type: 'SEND_MESSAGE',
+			type: 'SEND_SYSTEM_MESSAGE',
 			payload: {
-				recipient: { id: action.payload.student_id },
-				message: `***SYSTEM GENERATED MESSAGE*** YOUR REQUEST FOR MENTORSHIP WITH HAS BEEN ACCEPTED.  SEE YOUR MENTORSHIPS PAGE FOR MORE INFORMATION ABOUT THIS MENTOR OR REPLY TO THIS MESSAGE TO START A CONVERSATION.`
+				id: action.payload.student_id,
+				message: `***Your request for mentorship with ${action.payload.mentor.username} has been accepted.  You can log in to your SkillSense Mentorships page for more information and contact them through the SkillSense messaging center.***`
 			}
 		});
 		yield put({
