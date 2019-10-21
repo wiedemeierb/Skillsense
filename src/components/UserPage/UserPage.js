@@ -31,9 +31,9 @@ const styles = theme => ({
     mentorPendingAccountBadge: {
         color: 'white',
         fontWeight: 'bold',
-        background: '#ef6c00',
+        background: '#c43e00',
         padding: theme.spacing(0, 2)
-    },
+    }
 });
 
 class UserPage extends Component {
@@ -91,16 +91,11 @@ class UserPage extends Component {
         const mentorSectionHtml = () => {
             if (this.props.user.user_type === 'Mentor') {
                 if (this.props.user.approved_mentor === 3) {
-                    return (
-                        <Chip
-                            label={"Approved by Admin"}
-                            className={classes.mentorAccountBadge}
-                        />
-                    );
+                    return <Chip label={'Admin Approved'} className={classes.mentorAccountBadge} />;
                 } else if (this.props.user.approved_mentor === 2) {
                     return (
                         <Chip
-                            label={"Pending Admin Approval"}
+                            label={'Pending Admin Approval'}
                             className={classes.mentorPendingAccountBadge}
                         />
                     );
@@ -122,7 +117,7 @@ class UserPage extends Component {
 
         return (
             <OneColumnLayout header="Your Profile">
-                <Grid container justify="space-around">
+                <Grid container spacing={2} justify="space-around">
                     <Grid item xs={12}>
                         {this.state.inEditMode ? (
                             <EditProfile
@@ -143,6 +138,8 @@ class UserPage extends Component {
                             onClick={this.toggleEdit}>
                             {this.state.inEditMode ? 'Cancel' : 'Edit'}
                         </Button>
+                    </Grid>
+                    <Grid item xs={12} align="center">
                         {this.state.inEditMode === false && mentorSectionHtml()}
                     </Grid>
                 </Grid>

@@ -3,24 +3,13 @@ import { connect } from 'react-redux';
 
 //MATERIAL-UI IMPORTS
 import { withStyles } from '@material-ui/core/styles';
-import {
-    Grid,
-    List,
-    ListItem,
-    ListItemText,
-    Typography,
-    Paper,
-    Tooltip
-} from '@material-ui/core';
+import { Grid, List, ListItem, ListItemText, Typography, Paper, Tooltip } from '@material-ui/core';
 
 const styles = theme => ({
-    root: {
-        align: 'center'
-    },
     paper: {
-        width: 250,
+        width: '100%',
+        minWidth: 200,
         height: 250,
-        align: 'center',
         overflow: 'scroll'
     },
     listField: {
@@ -76,34 +65,33 @@ class TransferList extends Component {
         const { classes } = this.props;
 
         return (
-            <Grid container direction="row" spacing={3} justify="center" className={classes.root}>
-                <Grid item container spacing={3} direction="row" xs={12} sm={6} align="center">
+            <Grid item container spacing={4} justify="center" align="center">
+                {/* AVAILABLE SKILLS LIST */}
+                <Grid item container spacing={2} xs={12} sm={5}>
                     <Grid item xs={12} align="center">
-                        <Typography variant="subtitle2" color="primary" justify="center">
-                            AVAILABLE SKILLS
+                        <Typography variant="subtitle2" color="primary" gutterBottom>
+                            <b>AVAILABLE SKILLS</b>
                         </Typography>
                     </Grid>
-
-                    <Grid item className={classes.listField} xs={6} align="center">
-                        <Paper className={classes.paper} align="center">
+                    <Grid item xs={12} className={classes.listField}>
+                        <Paper className={classes.paper} justify="center">
                             <List>{this.getAvailableSkills()}</List>
                         </Paper>
                     </Grid>
                 </Grid>
 
-                <Grid item container spacing={3} direction="row" xs={12} sm={6} align="center">
+                {/* YOUR SKILLS LIST */}
+                <Grid item container spacing={2} xs={12} sm={5}>
                     <Grid item xs={12} align="center">
-                        <Typography variant="subtitle2" align="center">
-                            YOUR SKILLS
+                        <Typography variant="subtitle2" color="secondary" gutterBottom>
+                            <b>YOUR SKILLS</b>
                         </Typography>
                     </Grid>
-
-                    <Grid item className={classes.listField} xs={6} align="center">
-                        <Paper className={classes.paper} align="center">
+                    <Grid item xs={12} className={classes.listField}>
+                        <Paper className={classes.paper} justify="center">
                             <List>{this.props.user.skills && this.getUserSkills()}</List>
                         </Paper>
                     </Grid>
-
                 </Grid>
             </Grid>
         );
