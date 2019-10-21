@@ -182,7 +182,7 @@ class JobApplication extends Component {
                                     helperText="Write your cover letter to the client here. 
                                     Explain what would make you a good fit for this job."
                                     value={this.state.cover_letter}
-                                    onClick={() => { this.setState({ ...this.state, cover_letter: "Hi Jim! I've been working on React primarily for the last couple months, and Full-Stack Javascript before that. I would love the opportunity to work on your event scheduler!"}) }}
+                                    // onClick={() => { this.setState({ ...this.state, cover_letter: "Hi Jim! I've been working on React primarily for the last couple months, and Full-Stack Javascript before that. I would love the opportunity to work on your event scheduler!"}) }}
                                     onChange={event => {
                                         this.handleInput(event, 'cover_letter');
                                     }}

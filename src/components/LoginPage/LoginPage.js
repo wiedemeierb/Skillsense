@@ -150,8 +150,20 @@ class LoginPage extends Component {
                         </Grid>
                     </Grid>
                     {/* LOGIN & REGISTER BUTTONS */}
-                    <Grid item container xs={10} justify="space-between">
-                        <Grid item xs={4} align="left">
+                    <Grid item container xs={12} justify="space-around">
+                        <Grid item xs={4}>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                fullWidth
+                                className={classes.button}
+                                onClick={() => {
+                                    this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' });
+                                }}>
+                                Register
+                        </Button>
+                        </Grid>
+                        <Grid item xs={4}>
                             <Button
                                 variant="contained"
                                 color="primary"
@@ -162,18 +174,6 @@ class LoginPage extends Component {
                         </Button>
                         </Grid>
 
-                        <Grid item xs={4} align="right">
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                fullWidth
-                                className={classes.button}
-                                onClick={() => {
-                                    this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' });
-                                }}>
-                                Create New Account
-                        </Button>
-                        </Grid>
                     </Grid>
                 </Grid>
             </TwoColumnLayout>

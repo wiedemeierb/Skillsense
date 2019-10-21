@@ -175,17 +175,17 @@ class MyMentorships extends Component {
                                             <Grid item xs={12}>
                                                 <Button
                                                     variant="contained"
-                                                    color="primary"
-                                                    className={classes.button}
-                                                    onClick={this.acceptMentorship}>
-                                                    Accept
-                                                </Button>
-                                                <Button
-                                                    variant="contained"
                                                     color="secondary"
                                                     className={classes.button}
                                                     onClick={this.declineMentorship}>
                                                     Decline
+                                                </Button>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    className={classes.button}
+                                                    onClick={this.acceptMentorship}>
+                                                    Accept
                                                 </Button>
                                             </Grid>
                                         </Grid>

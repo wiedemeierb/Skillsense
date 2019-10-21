@@ -161,17 +161,17 @@ class JobPostForm extends Component {
                                     className={classes.formControl}
                                     label="Project Name"
                                     value={this.state.project_title}
-                                    onClick={() => { this.setState({ 
-                                        ...this.state,
-                                        project_title: 'Employee Volunteer Shift Schedule',
-                                        position_title: 'Full-Stack Developer',
-                                        description: 'I am looking for a platform for employees to share their availability to work events, either opt-in or opt - out of working on certain dates, and to allow an administrator to schedule additional employees for events as needed.',
-                                        duration: '2 weeks',
-                                        budget: '500',
-                                        mentor_required: true,
-                                        status_id: 1,
-                                        client_id: 32,
-                                        selected: []})}}
+                                    // onClick={() => { this.setState({ 
+                                    //     ...this.state,
+                                    //     project_title: 'Employee Volunteer Shift Schedule',
+                                    //     position_title: 'Full-Stack Developer',
+                                    //     description: 'I am looking for a platform for employees to share their availability to work events, either opt-in or opt - out of working on certain dates, and to allow an administrator to schedule additional employees for events as needed.',
+                                    //     duration: '2 weeks',
+                                    //     budget: '500',
+                                    //     mentor_required: true,
+                                    //     status_id: 1,
+                                    //     client_id: 32,
+                                    //     selected: []})}}
                                     onChange={event => {
                                         this.handleInput(event, 'project_title');
                                     }}
