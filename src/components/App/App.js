@@ -44,7 +44,7 @@ const theme = createMuiTheme({
             contrastText: '#ffffff'
         },
         error: {
-            main: '#bdbdbd'
+            main: '#c2d1d9'
         }
     }
 });
@@ -60,35 +60,49 @@ class App extends Component {
                 <CssBaseline />
                 <Router>
                     <Nav />
-                        <Switch>
-                            {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-                            <Redirect exact from="/" to="/home" />
-                            {/* For protected routes, the view could show one of several things on the same route.
+                    <Switch>
+                        {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
+                        <Redirect exact from="/" to="/home" />
+                        {/* For protected routes, the view could show one of several things on the same route.
                               Visiting localhost:3000/home will show the UserPage if the user is logged in.
                               If the user is not logged in, the ProtectedRoute will show 'Login' or 'Register' page.
                               Even though it seems like they are different pages,
                               the user is always on localhost:3000/home */}
-                            <ProtectedRoute
-                                exact
-                                path="/home" //user profile page
-                                component={UserPage}
-                            />
-                            {/* This works the same as the other protected route,
+                        <ProtectedRoute
+                            exact
+                            path="/home" //user profile page
+                            component={UserPage}
+                        />
+                        {/* This works the same as the other protected route,
                             except that if the user is logged in, they will see the login/register page instead. */}
-                            <ProtectedRoute exact path="/search/jobs" component={JobSearch} />
-                            <ProtectedRoute exact path="/search/mentors" component={MentorSearch} />
-                            <ProtectedRoute exact path="/jobs" component={MyJobs} />
-                            <ProtectedRoute exact path="/mentors" component={MyMentorships} />
-                            <ProtectedRoute exact path="/jobs/new" component={JobPostForm} />
-                            <ProtectedRoute exact path="/jobs/detail/:id" component={JobDetail} />
-                            <ProtectedRoute exact path="/jobs/detail/apply/:id" component={JobApplication} />
-                            <ProtectedRoute exact path="/jobs/detail/applications/:id" component={ApplicantReview} />
-                            <ProtectedRoute exact path="/jobs/detail/applicant/:id" component={ApplicantDetail}/>
-                            <ProtectedRoute exact path="/admin" component={MentorReview} />
-                            <ProtectedRoute exact path="/messages" component={MessagesCenter} />
-                            {/* If none of the other routes matched, we will show a 404. */}
-                            <Route render={() => <Typography variant="h1">404: Page Not Found</Typography>} />
-                        </Switch>
+                        <ProtectedRoute exact path="/search/jobs" component={JobSearch} />
+                        <ProtectedRoute exact path="/search/mentors" component={MentorSearch} />
+                        <ProtectedRoute exact path="/jobs" component={MyJobs} />
+                        <ProtectedRoute exact path="/mentors" component={MyMentorships} />
+                        <ProtectedRoute exact path="/jobs/new" component={JobPostForm} />
+                        <ProtectedRoute exact path="/jobs/detail/:id" component={JobDetail} />
+                        <ProtectedRoute
+                            exact
+                            path="/jobs/detail/apply/:id"
+                            component={JobApplication}
+                        />
+                        <ProtectedRoute
+                            exact
+                            path="/jobs/detail/applications/:id"
+                            component={ApplicantReview}
+                        />
+                        <ProtectedRoute
+                            exact
+                            path="/jobs/detail/applicant/:id"
+                            component={ApplicantDetail}
+                        />
+                        <ProtectedRoute exact path="/admin" component={MentorReview} />
+                        <ProtectedRoute exact path="/messages" component={MessagesCenter} />
+                        {/* If none of the other routes matched, we will show a 404. */}
+                        <Route
+                            render={() => <Typography variant="h1">404: Page Not Found</Typography>}
+                        />
+                    </Switch>
                     {/* <Footer /> */}
                 </Router>
             </MuiThemeProvider>
