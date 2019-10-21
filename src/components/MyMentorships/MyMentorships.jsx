@@ -24,7 +24,7 @@ const styles = theme => ({
         padding: theme.spacing(2, 0, 0)
     },
     placeholder: {
-        padding: theme.spacing(1)
+        padding: theme.spacing(2)
     }
 });
 
@@ -157,6 +157,7 @@ class MyMentorships extends Component {
                                     <Typography
                                         variant="subtitle1"
                                         align="center"
+                                        color="secondary"
                                         className={classes.placeholder}
                                         gutterBottom>
                                         No items to display.

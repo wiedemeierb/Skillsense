@@ -40,6 +40,9 @@ const styles = theme => ({
     select: {
         minWidth: 125,
         margin: theme.spacing(1, 0)
+    },
+    placeholder: {
+        padding: theme.spacing(2)
     }
 });
 
@@ -182,8 +185,13 @@ class MentorSearch extends Component {
                                 ) : null}
                             </Grid>
                         ) : (
-                            <Typography variant="h6" align="center">
-                                Select a Mentor to see more information.
+                            <Typography
+                                variant="subtitle1"
+                                align="center"
+                                color="secondary"
+                                className={classes.placeholder}
+                                gutterBottom>
+                                No items to display.
                             </Typography>
                         )}
                     </TwoColumnLayout>
