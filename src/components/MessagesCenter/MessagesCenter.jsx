@@ -37,7 +37,7 @@ class MessagesCenter extends Component {
     };
 
     render() {
-        const { classes } = this.props;
+        // const { classes } = this.props;
         return (
             <TwoColumnLayout leftHeader="Inbox" rightHeader="details">
                 <Grid item container justify="center" alignItems="center">
@@ -73,12 +73,12 @@ class MessagesCenter extends Component {
                                     );
                                 })
                             ) : (
-                                <ListItem>
-                                    <Typography variant="h6" align="center">
-                                        No items to display
+                                    <ListItem>
+                                        <Typography variant="h6" align="center">
+                                            No items to display
                                     </Typography>
-                                </ListItem>
-                            )}
+                                    </ListItem>
+                                )}
                         </List>
                     </Grid>
                 </Grid>

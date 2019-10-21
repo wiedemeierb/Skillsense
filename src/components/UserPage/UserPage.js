@@ -126,8 +126,8 @@ class UserPage extends Component {
                                 toggleEdit={this.toggleEdit}
                             />
                         ) : (
-                            <PublicProfile user={this.props.user} />
-                        )}
+                                <PublicProfile user={this.props.user} />
+                            )}
                     </Grid>
                     <Grid item xs={3} align="center">
                         <Button

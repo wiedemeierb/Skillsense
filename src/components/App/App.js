@@ -81,21 +81,9 @@ class App extends Component {
                         <ProtectedRoute exact path="/mentors" component={MyMentorships} />
                         <ProtectedRoute exact path="/jobs/new" component={JobPostForm} />
                         <ProtectedRoute exact path="/jobs/detail/:id" component={JobDetail} />
-                        <ProtectedRoute
-                            exact
-                            path="/jobs/detail/apply/:id"
-                            component={JobApplication}
-                        />
-                        <ProtectedRoute
-                            exact
-                            path="/jobs/detail/applications/:id"
-                            component={ApplicantReview}
-                        />
-                        <ProtectedRoute
-                            exact
-                            path="/jobs/detail/applicant/:id"
-                            component={ApplicantDetail}
-                        />
+                        <ProtectedRoute exact path="/jobs/detail/apply/:id" component={JobApplication} />
+                        <ProtectedRoute exact path="/jobs/detail/applications/:id" component={ApplicantReview} />
+                        <ProtectedRoute exact path="/jobs/detail/applicant/:id" component={ApplicantDetail} />
                         <ProtectedRoute exact path="/admin" component={MentorReview} />
                         <ProtectedRoute exact path="/messages" component={MessagesCenter} />
                         {/* If none of the other routes matched, we will show a 404. */}

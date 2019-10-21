@@ -11,7 +11,6 @@ import {
     TextField,
     Button,
     Divider
-    // InputAdornment
 } from '@material-ui/core';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 //STYLING IMPORTS
@@ -36,7 +35,7 @@ const styles = theme => ({
     },
     button: {
         padding: theme.spacing(0,2,0,0)
-    }
+    },
 });
 class JobApplication extends Component {
 //START BRANCH
@@ -203,7 +202,7 @@ class JobApplication extends Component {
                             <Grid item xs={12}>
                                 <Typography variant="h6">Attach Resume</Typography>
                             </Grid>
-                            <Grid item>
+                            <Grid item xs={12} md={4}>
                                 <input
                                     accept=".pdf"
                                     className={classes.input}
@@ -220,8 +219,9 @@ class JobApplication extends Component {
                                     </Button>
                                 </label>
                             </Grid>
-                            <Grid item xs={4} sm={6} md={8}>
+                            <Grid item xs={12} md={8}>
                                 <TextField
+                                    className={classes.input}
                                     id="resume-file-name"
                                     value={this.state.file.name}
                                     margin="normal"

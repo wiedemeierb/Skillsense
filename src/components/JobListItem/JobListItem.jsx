@@ -47,21 +47,17 @@ class JobListItem extends Component {
                     spacing={2}
                     className={classes.listItem}>
                     {/* left side info */}
-                    <Grid item xs={6} display="flex">
+                    <Grid item xs={12} sm={6} display="flex">
                         <Typography variant="h5" color="primary">
                             {this.props.job.project_title}
                         </Typography>
                         <Typography variant="h6" color="secondary">
                             {this.props.job.position_title}
                         </Typography>
-                        {/* conditionally rendered so only students see client information */}
-                        {/* {this.props.user.user_type === 'Student' && (
-                            <Typography variant="subtitle2">{this.props.job.client}, {this.props.job.location}</Typography>
-                    )} */}
                     </Grid>
 
                     {/* center info */}
-                    <Grid item xs={3}>
+                    <Grid item xs={6} sm={3}>
                         <Typography color="secondary">
                             <b>Budget:</b> ${this.props.job.budget}
                         </Typography>
@@ -71,7 +67,7 @@ class JobListItem extends Component {
                     </Grid>
 
                     {/* right side info */}
-                    <Grid item xs={3} align="right">
+                    <Grid item xs={6} sm={3} align="right">
                         <Button
                             variant="contained"
                             color="primary"
@@ -81,7 +77,7 @@ class JobListItem extends Component {
                         </Button>
                     </Grid>
                 </Grid>
-				
+
                 {/* list item divider */}
                 <Grid item xs={12}>
                     <Divider />

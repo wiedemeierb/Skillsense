@@ -105,7 +105,6 @@ class JobPostForm extends Component {
 
     //adds clicked skill to list of selected tags
     addSkill = skill => {
-        // console.log(skill);
         this.setState({
             selected: [...this.state.selected, skill]
         });
@@ -113,14 +112,12 @@ class JobPostForm extends Component {
 
     //removes clicked skill from list of selected tags
     removeSkill = skillToRemove => {
-        // console.log(skillToRemove);
         this.setState({
             selected: this.state.selected.filter(skill => skill !== skillToRemove)
         });
     };
 
     render() {
-        // console.log(this.state)
         const { classes } = this.props;
 
         //filters the list of all skills to remove the selected skills

@@ -62,20 +62,20 @@ class MyJobs extends Component {
                             {this.props.jobs.length !== 0 ? (
                                 jobList
                             ) : (
-                                <Typography
-                                    variant="subtitle1"
-                                    align="center"
-                                    color="secondary"
-                                    className={classes.placeholder}
-                                    gutterBottom>
-                                    No items to display.
+                                    <Typography
+                                        variant="subtitle1"
+                                        align="center"
+                                        color="secondary"
+                                        className={classes.placeholder}
+                                        gutterBottom>
+                                        No items to display.
                                 </Typography>
-                            )}
+                                )}
                         </div>
                     </OneColumnLayout>
                 ) : (
-                    <Typography>You are not authorized to view this page</Typography>
-                )}
+                        <Typography>You are not authorized to view this page</Typography>
+                    )}
             </div>
         );
     }

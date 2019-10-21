@@ -17,7 +17,7 @@ const styles = theme => ({
         fontWeight: 700,
         letterSpacing: '1px',
         fontStyle: 'italic',
-		textTransform: 'uppercase'
+        textTransform: 'uppercase'
     },
     gridItem: {
         margin: theme.spacing(1),
@@ -70,11 +70,6 @@ class TwoColumnLayout extends Component {
                 <Grid container justify="space-around" className={classes.gridItem}>
                     {/* CONTENT ENCLOSED IN COMPONENT FROM PAGE */}
                     {this.props.children && (
-                        // this.props.children.map((child, index) => (
-                        //     <Grid key={index} item xs={12} sm={6}>
-                        //         {child}
-                        //     </Grid>
-                        // ))
                         <>
                             <Grid item xs={12} sm={5}>
                                 {this.props.children[0]}

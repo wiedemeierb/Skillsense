@@ -218,13 +218,13 @@ class JobDetail extends Component {
                         <Grid item xs={12}>
                             {(this.props.details.status_id === 1 ||
                                 this.props.details.status_id === 3) && (
-                                <>
-                                    <ApplicantReviewClient />
-                                    <Grid item xs={12}>
-                                        <Divider />
-                                    </Grid>
-                                </>
-                            )}
+                                    <>
+                                        <ApplicantReviewClient />
+                                        <Grid item xs={12}>
+                                            <Divider />
+                                        </Grid>
+                                    </>
+                                )}
                             <Grid item xs={12} className={classes.actions} align="center">
                                 <Button
                                     className={classes.button}

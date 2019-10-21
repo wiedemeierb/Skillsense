@@ -12,8 +12,6 @@ const styles = theme => ({
     display: 'flexbox',
     flexFlow: 'column-wrap',
     width: '100%'
-    // margin: 'auto',
-    // marginTop: '5%'
   },
   buttonContainer: {
     display: 'flex',
@@ -28,6 +26,9 @@ const styles = theme => ({
 class MentorReview extends Component {
   componentDidMount = () => {
     this.props.dispatch({ type: 'FETCH_PENDING_MENTORS' });
+    this.props.dispatch({
+      type: 'CLEAR_SELECTED_USER'
+    });
   };
 
   //resets the mentor status to Not Submitted
@@ -93,7 +94,6 @@ class MentorReview extends Component {
                 <Grid item xs={12} className={classes.buttonContainer}>
                   <Typography variant="subtitle1">Admin Review Actions:</Typography>
                   <div>
-                  {/* <div className={classes.buttonContainer}> */}
                     <Button variant="contained" color="secondary" className={classes.button} onClick={this.declineMentor}>
                       Decline
                   </Button>
