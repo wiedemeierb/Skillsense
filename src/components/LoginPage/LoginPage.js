@@ -12,15 +12,18 @@ const styles = theme => ({
     root: {
         display: 'flex'
     },
+    title: {
+        fontWeight: '700'
+    },
     formControl: {
-        display: 'block',
         margin: theme.spacing(2, 0)
     },
     aboutText: {
-        textIndent: '2em',
         letterSpacing: '1px',
-        margin: theme.spacing(2),
         padding: theme.spacing(2)
+    },
+    login: {
+        padding: theme.spacing(10,0,5,5)
     },
     button: {
         margin: theme.spacing(3, 1),
@@ -87,23 +90,38 @@ class LoginPage extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <TwoColumnLayout leftHeader="What is SkillSense?" rightHeader="Log In">
-                <Grid container spacing={4} alignItems="center" justify="space-between">
-                    <Grid className={classes.aboutText} item xs={12}>
-                        <Typography paragraph variant="subtitle1">
-                            Freelancing can be especially difficult to break into as a new software
-                            developer. Often the connections that Students make with
-                            industry professionals will be the key to success.
+            <TwoColumnLayout>
+                <Grid container xs={12} className={classes.aboutText} align="left" zeroMinWidth>
+                    <Grid item xs={12}>
+                        <Typography
+                            variant="h2"
+                            color="primary"
+                            className={classes.title}
+                            gutterBottom>
+                            What is SkillSense?
                         </Typography>
-                        <Typography paragraph variant="subtitle1">
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography paragraph variant="subtitle1" color="secondary" gutterBottom>
+                            Freelancing can be especially difficult to break into for new software
+                            developers. Often it is the connections students make with industry
+                            professionals that will be the key to success.
+                        </Typography>
+                        <Typography paragraph variant="subtitle1" color="secondary" gutterBottom>
                             SkillSense helps create these connections by bringing together Students,
-                            Mentors, and Clients alike for freelance projects.
+                            Mentors, and Clients alike to to team up on freelance projects.
                         </Typography>
                     </Grid>
                 </Grid>
 
                 {/* LOGIN INPUT FIELDS */}
-                <Grid container item xs={12} justify="space-around" onKeyUp={this.handleKeyUp}>
+                <Grid
+                    container
+                    item
+                    xs={12}
+                    className={classes.login}
+                    justify="space-around"
+                    onKeyUp={this.handleKeyUp}>
                     <Grid item xs={12}>
                         <TextField
                             className={classes.formControl}

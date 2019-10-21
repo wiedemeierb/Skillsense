@@ -9,9 +9,11 @@ import TransferList from '../TransferList/TransferList';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        display: 'flex',
-        padding: theme.spacing(2),
+        margin: 'auto',
         width: '70vw'
+    },
+    button: {
+        marginTop: theme.spacing(2)
     }
 }));
 
@@ -61,12 +63,12 @@ function EditProfile(props) {
             <Grid item xs={12} sm={4}>
                 <TextField
                     required
-                    id="outlined-required"
+                    id="name"
                     label="Name"
                     defaultValue={user.username}
                     fullWidth
                     margin="dense"
-                    // variant="outlined"
+                    variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'username');
                     }}
@@ -75,12 +77,12 @@ function EditProfile(props) {
             <Grid item xs={12} sm={4}>
                 <TextField
                     required
-                    id="outlined-required"
+                    id="title"
                     label="Title"
                     defaultValue={user.focus_skill}
                     fullWidth
                     margin="dense"
-                    // variant="outlined"
+                    variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'focus_skill');
                     }}
@@ -89,12 +91,12 @@ function EditProfile(props) {
             <Grid item xs={12} sm={4}>
                 <TextField
                     required
-                    id="outlined-required"
+                    id="location"
                     label="Location"
                     defaultValue={user.location}
                     fullWidth
                     margin="dense"
-                    // variant="outlined"
+                    variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'location');
                     }}
@@ -103,13 +105,14 @@ function EditProfile(props) {
             {/* ROW TWO: BIO */}
             <Grid item xs={12}>
                 <TextField
-                    id="outlined-required"
+                    id="bio"
                     label="Bio"
                     defaultValue={user.bio}
-                    rows="6"
+                    multiline
+                    rows="4"
                     fullWidth
                     margin="dense"
-                    // variant="outlined"
+                    variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'bio');
                     }}
@@ -118,13 +121,12 @@ function EditProfile(props) {
             {/* ROW THREE: LINKEDIN, GITHUB, WEBSITE */}
             <Grid item xs={12} sm={6}>
                 <TextField
-                    required
-                    id="outlined-required"
+                    id="linkedin"
                     label="LinkedIn"
                     defaultValue={user.linkedin_url}
                     fullWidth
                     margin="dense"
-                    // variant="outlined"
+                    variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'linkedin_url');
                     }}
@@ -132,13 +134,12 @@ function EditProfile(props) {
             </Grid>
             <Grid item xs={12} sm={6}>
                 <TextField
-                    required
-                    id="outlined-required"
+                    id="github"
                     label="Github"
                     defaultValue={user.github_url}
                     fullWidth
                     margin="dense"
-                    // variant="outlined"
+                    variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'github_url');
                     }}
@@ -146,13 +147,12 @@ function EditProfile(props) {
             </Grid>
             <Grid item xs={12} sm={6}>
                 <TextField
-                    required
-                    id="outlined-required"
+                    id="website"
                     label="Website"
                     defaultValue={user.website_url}
                     fullWidth
                     margin="dense"
-                    // variant="outlined"
+                    variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'website_url');
                     }}
@@ -161,22 +161,23 @@ function EditProfile(props) {
             <Grid item xs={12} sm={6}>
                 <TextField
                     required
-                    id="outlined-required"
+                    id="email"
                     label="Email"
                     defaultValue={user.email}
                     fullWidth
                     margin="dense"
-                    // variant="outlined"
+                    variant="outlined"
                     onChange={event => {
                         handleInputChangeFor(event, 'email');
                     }}
                 />
             </Grid>
-            {isStudent() || isMentor() ?
+            {isStudent() || isMentor() ? (
                 <Grid item xs={12} align="center">
                     <TransferList allSkills={skills} user={reduxUser} />
                 </Grid>
-                : null}
+            ) : null}
+
             {/* ROW FIVE: SAVE */}
             <Grid item xs={6} align="center">
                 <Button
