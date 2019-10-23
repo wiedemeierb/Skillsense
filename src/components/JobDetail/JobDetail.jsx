@@ -35,12 +35,10 @@ class JobDetail extends Component {
     applyNow = () => {
         this.props.history.push(`/jobs/detail/apply/${this.props.match.params.id}`);
     };
-
     //route to view all applications for this job (client view)
     viewApplicants = () => {
         this.props.history.push(`/jobs/detail/applications/${this.props.match.params.id}`);
     };
-
     //route to return to previous page (student view)
     routeToSearch = () => {
         this.props.history.push(`/search/jobs`);
@@ -58,7 +56,6 @@ class JobDetail extends Component {
 
     //updates job status to Completed
     markedCompleted = () => {
-        console.log('mark completed working');
         Swal.fire({
             title: 'Are you sure?',
             text: 'You will not be able to reverse this command!',

@@ -37,7 +37,6 @@ class MessagesCenter extends Component {
     };
 
     render() {
-        // const { classes } = this.props;
         return (
             <TwoColumnLayout leftHeader="Inbox" rightHeader="details">
                 <Grid item container justify="center" alignItems="center">
@@ -107,8 +106,6 @@ class MessagesCenter extends Component {
 
 const mapStateToProps = store => {
     return {
-        // mentors: store.allMentorsReducer,
-        // selectedUser: store.selectedUserReducer,
         user: store.user,
         messages: store.allMessagesReducer
     };

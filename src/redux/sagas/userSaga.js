@@ -37,7 +37,7 @@ function* fetchSelectedUser(action) {
 			payload: { ...response.data, skills: skillsResponse.data }
 		});
 	} catch (error) {
-		console.log('Failure on selected user get route: ', error);
+		console.log('error in fetchSelectedUser in userSaga: ', error);
 	}
 }
 
@@ -51,7 +51,7 @@ function* editUserInfo(action) {
 			payload: response.data.id
 		});
 	} catch (error) {
-		console.log('Error with posting addStudentInfo', error);
+		console.log('error in editUserInfo in userSaga: ', error);
 	}
 }
 

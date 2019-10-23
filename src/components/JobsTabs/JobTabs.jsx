@@ -33,7 +33,7 @@ class JobTabs extends React.Component {
         if (value === 0) {
             jobType = 3;
         } else if (value === 1) {
-            //needs to be updated to also include "offer-extended" (2)
+            // needs to be updated to also include "offer-extended" (2)
             // `1 OR "status_id" = 2` errors for integer input
             jobType = 1;
         } else if (value === 2) {

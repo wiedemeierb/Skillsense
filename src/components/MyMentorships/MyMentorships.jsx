@@ -140,11 +140,7 @@ class MyMentorships extends Component {
                                 : 'Your Mentorships'
                         }>
                         <>
-                            {/* Navigation tabs on Mentorship Page:
-                                (Active, Invites)
-                            The MentorTabs component sends a GET request based on which tab is clicked*/}
                             <MentorTabs />
-
                             {/* Applicable Mentor List by Status */}
                             <div className="list">
                                 {this.props.mentors.length !== 0 ? (
@@ -213,7 +209,7 @@ class MyMentorships extends Component {
                                                                 Active Jobs:
                                                         </Typography>
                                                             <div className="list">
-                                                                {studentHiredJobList == '' ||
+                                                                {studentHiredJobList === '' ||
                                                                     studentHiredJobList === null ? (
                                                                         <Typography
                                                                             variant="subtitle1"
@@ -235,7 +231,7 @@ class MyMentorships extends Component {
                                                                 Applied Jobs:
                                                         </Typography>
                                                             <div className="list">
-                                                                {studentPendingJobList == '' ||
+                                                                {studentPendingJobList === '' ||
                                                                     studentPendingJobList === null ? (
                                                                         <Typography
                                                                             variant="subtitle1"

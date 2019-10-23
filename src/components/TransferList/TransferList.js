@@ -99,7 +99,6 @@ class TransferList extends Component {
 }
 
 const mapStateToProps = state => ({
-    // user: state.user,
     allSkills: state.allSkillsReducer,
     userSkills: state.userSkillsReducer
 });

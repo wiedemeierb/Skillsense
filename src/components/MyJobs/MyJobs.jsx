@@ -51,14 +51,11 @@ class MyJobs extends Component {
             <div>
                 {isStudent() || isClient() ? (
                     <OneColumnLayout header="My Jobs">
-                        {/* Navigation tabs on Job Page:
-            (Active, Applied, Completed) */}
                         <div>
                             <JobTabs />
                         </div>
                         {/* Selected Job List */}
                         <div className="list">
-                            {/* {jobList} */}
                             {this.props.jobs.length !== 0 ? (
                                 jobList
                             ) : (

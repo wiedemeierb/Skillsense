@@ -34,10 +34,8 @@ SELECT
         AND
         "mentor_status".mentor_status ILIKE 'Approved'
     GROUP BY "users"."id", requested.accepted
-    ORDER BY "id" DESC;
-	`;
-	pool
-		.query(queryText, [req.user.id])
+    ORDER BY "id" DESC;`;
+	pool.query(queryText, [req.user.id])
 		.then(result => {
 			result.rows.forEach(row => {
 				row.skills = row.skill_ids.map((id, index) => {
@@ -100,13 +98,10 @@ router.get('/active', rejectUnauthenticated, (req, res) => {
         AND
       "accepted" = true
 	GROUP BY "users"."id", "student_mentor"."accepted"
-	ORDER BY "id" DESC;
-    `;
+	ORDER BY "id" DESC;`;
 		}
 	};
-
-	pool
-		.query(queryText(), [userId])
+	pool.query(queryText(), [userId])
 		.then(result => {
 			result.rows.forEach(row => {
 				row.skills = row.skill_ids.map((id, index) => {
@@ -174,8 +169,7 @@ router.get('/invited', rejectUnauthenticated, (req, res) => {
 	ORDER BY "id" DESC;`;
 		}
 	};
-	pool
-		.query(queryText(), [userId])
+	pool.query(queryText(), [userId])
 		.then(result => {
 			result.rows.forEach(row => {
 				row.skills = row.skill_ids.map((id, index) => {
@@ -195,7 +189,6 @@ router.get('/search/', rejectUnauthenticated, (req, res) => {
 	const searchTerm =
 		req.query.searchTerm !== '' ? `%${req.query.searchTerm}%` : `%%`;
 	const searchSkill = req.query.skill != 0 ? Number(req.query.skill) : 0;
-
 	const queryStart = `
 SELECT
       "users".id,
@@ -219,8 +212,7 @@ SELECT
     WHERE
       "user_type".user_type ILIKE 'Mentor'
         AND
-        "mentor_status".mentor_status ILIKE 'Approved'
-  `;
+        "mentor_status".mentor_status ILIKE 'Approved'`;
 
 	const queryInput = ` AND "username" ILIKE $2`;
 	const querySkill = ` AND "tag_id" = $3`;
@@ -243,8 +235,7 @@ SELECT
 		}
 	};
 
-	pool
-		.query(queryText(), queryParams())
+	pool.query(queryText(), queryParams())
 		.then(result => {
 			result.rows.forEach(row => {
 				row.skills =
@@ -319,8 +310,7 @@ router.get('/pending', rejectIfNotAdmin, (req, res) => {
 		mentor_status.mentor_status
 		ORDER BY "id" DESC;`;
 
-	pool
-		.query(queryText)
+	pool.query(queryText)
 		.then(result => {
 			//creates an array in each row that consists of skill objects {id: name}
 			result.rows.forEach(row => {
@@ -340,22 +330,24 @@ router.get('/pending', rejectIfNotAdmin, (req, res) => {
 router.put('/accept/:id', rejectUnauthenticated, (req, res) => {
 	const queryText = `UPDATE "student_mentor" SET "accepted" = true WHERE "mentor_id" = $1 AND "student_id" = $2;`
 	pool.query(queryText, [req.user.id, req.params.id])
-	.then(result => {
-		res.sendStatus(200)
-	}).catch(error => {
-		res.sendStatus(500)
-	})
+		.then(result => {
+			res.sendStatus(200)
+		}).catch(error => {
+			console.log('error on PUT of mentors accepting student: ', error);
+			res.sendStatus(500)
+		})
 })
 
 /** DELETE ROUTE FOR MENTOR TO DECLINE STUDENT CONNECTION **/
 router.delete('/decline/:id', rejectUnauthenticated, (req, res) => {
 	const queryText = `DELETE FROM "student_mentor" WHERE "mentor_id" = $1 AND "student_id" = $2;`
 	pool.query(queryText, [req.user.id, req.params.id])
-	.then(result => {
-		res.sendStatus(200)
-	}).catch(error => {
-		res.sendStatus(500)
-	})
+		.then(result => {
+			res.sendStatus(200)
+		}).catch(error => {
+			console.log('error in Delete for mentors declining student connection: ', error);
+			res.sendStatus(500)
+		})
 })
 
 /** POST (STUDENT: SEND MENTOR REQUEST) ROUTE **/
@@ -382,7 +374,7 @@ router.post('/request', rejectUnauthenticated, async (req, res) => {
 		res.sendStatus(201);
 	} catch (error) {
 		await connection.query(`ROLLBACK;`);
-		console.log(error);
+		console.log('error in POST of Student sending Mentor request: ', error);
 		res.sendStatus(500);
 	} finally {
 		connection.release();
@@ -394,9 +386,7 @@ router.patch(`/admin/:id`, rejectIfNotAdmin, (req, res) => {
 	//expects a req.body with {newStatus: #}
 	const queryText = `UPDATE users SET approved_mentor = $1  WHERE users.id = $2`;
 	const values = [req.body.newStatus, req.params.id];
-
-	pool
-		.query(queryText, values)
+	pool.query(queryText, values)
 		.then(result => {
 			res.sendStatus(200);
 		})
@@ -411,8 +401,7 @@ router.patch(`/request`, rejectIfNotMentor, (req, res) => {
 	const queryText = `UPDATE users SET approved_mentor = 2 WHERE users.id = $1`;
 	const values = [req.user.id];
 
-	pool
-		.query(queryText, values)
+	pool.query(queryText, values)
 		.then(result => {
 			res.sendStatus(200);
 		})

@@ -28,7 +28,6 @@ class UserListItem extends Component {
             this.props.history.push(`/jobs/detail/applicant/${this.props.listUser.id}`);
             this.props.dispatch({
                 type: 'FETCH_APPLICATION',
-                //payload is job_applicant id
                 payload: this.props.listUser.id
             });
         } else {

@@ -95,7 +95,7 @@ class JobApplication extends Component {
 
     //upload resume file
     handleUploadInputChange = e => {
-        console.log(e.target.files[0]);
+        // console.log(e.target.files[0]);
         this.setState({ file: e.target.files[0] });
     };
 
@@ -182,7 +182,6 @@ class JobApplication extends Component {
                                     helperText="Write your cover letter to the client here.
                                     Explain what would make you a good fit for this job."
                                     value={this.state.cover_letter}
-                                    // onClick={() => { this.setState({ ...this.state, cover_letter: "Hi Jim! I've been working on React primarily for the last couple months, and Full-Stack Javascript before that. I would love the opportunity to work on your event scheduler!"}) }}
                                     onChange={event => {
                                         this.handleInput(event, 'cover_letter');
                                     }}
@@ -233,23 +232,6 @@ class JobApplication extends Component {
                             </Grid>
                         </Grid>
 
-                        {/* alternate option for upload display => */}
-                        {/* <TextField
-                                    type="file"
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <AttachFileIcon
-                                                    fontSize="small"
-                                                    color="secondary"
-                                                />
-                                            </InputAdornment>
-                                        )
-                                    }}
-                                    onChange={this.handleUploadInputChange}
-                                    className={classes.fileUpload}
-                                /> */}
-
                         {/* MENTOR SELECT */}
                         <Grid item container xs={12} spacing={4}>
                             <Grid item xs={12}>
@@ -266,7 +248,6 @@ class JobApplication extends Component {
                                     this.props.job &&
                                     this.props.job.skills 
                                     &&
-                                    // ?
                                     (this.props.mentors.length !== 0 ?
                                         this.sortMentors(this.props.mentors, this.props.job.skills).map(
                                         listUser => {

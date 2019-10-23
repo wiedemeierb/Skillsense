@@ -48,7 +48,7 @@ class ApplicantDetail extends Component {
 
 	handleSubmit = event => {
 		event.preventDefault();
-
+		// sweetalerts2
 		Swal.fire({
 			title: 'Are you sure you want to hire this applicant?',
 			text: "You won't be able to reverse this decision!",
@@ -59,7 +59,6 @@ class ApplicantDetail extends Component {
 			confirmButtonText: 'Yes!'
 		}).then(result => {
 			if (result.value) {
-
 				this.props.dispatch({
 					type: 'HIRE_APPLICANT',
 					payload: {
@@ -112,7 +111,7 @@ class ApplicantDetail extends Component {
 							className={classes.button}
 							onClick={this.routeBack}>
 							Back
-								</Button>
+						</Button>
 					</Grid>
 
 					{isClient() && this.props.applicant.status_id === 1 && (
@@ -124,7 +123,7 @@ class ApplicantDetail extends Component {
 								className={classes.button}
 								onClick={this.handleSubmit}>
 								Hire
-									</Button>
+							</Button>
 						</Grid>
 					)}
 				</Grid>

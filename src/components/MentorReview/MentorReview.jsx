@@ -62,7 +62,6 @@ class MentorReview extends Component {
   render() {
     const { classes } = this.props;
 
-    //maps over the list of pending mentors
     const mentorsList =
       this.props.pendingMentors &&
       this.props.pendingMentors.map(mentor => (

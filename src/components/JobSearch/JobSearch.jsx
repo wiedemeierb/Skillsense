@@ -121,7 +121,6 @@ class JobSearch extends Component {
                     <Grid container>
                         <Paper className={classes.search}>
                             <FormGroup row={true}>
-                                {/* <Grid item xs={12} sm={6} > */}
                                     {/* Search Job input field */}
                                     <FormControl className={classes.formControl}>
                                         <TextField
@@ -131,8 +130,6 @@ class JobSearch extends Component {
                                             onKeyUp={this.handleKeyUp}
                                         />
                                     </FormControl>
-                                {/* </Grid> */}
-                                {/* <Grid item xs={9} sm={6}> */}
                                     {/* Skill select for search */}
                                     <FormControl className={classes.formControl}>
                                         <InputLabel htmlFor="skill-search">Select Skill</InputLabel>
@@ -154,10 +151,8 @@ class JobSearch extends Component {
                                         onClick={this.submitSearch}>
                                         <SearchIcon />
                                     </IconButton>
-                                {/* </Grid> */}
                             </FormGroup>
                         </Paper>
-
                         {/* Job Search List */}
                         <Grid item container xs={12} className="list">
                             {this.props.jobs.length !== 0 ? (

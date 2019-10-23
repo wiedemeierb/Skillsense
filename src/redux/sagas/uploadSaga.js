@@ -10,8 +10,6 @@ function* uploadFile(action) {
 		});
 		const returnData = yield awsSignedResponse.data.data.returnData;
 		const signedRequest = yield returnData.signedRequest;
-		// const url = returnData.url;
-		// console.log('url from aws: ', url);
 		yield put({ type: 'SET_FILE_URL' })
 		yield axios.put(signedRequest, action.payload.file, {
 			headers: {
@@ -19,7 +17,7 @@ function* uploadFile(action) {
 			}
 		});
 	} catch (error) {
-		console.log('error uploading file to aws: ', error);
+		console.log('error uploading file to aws, uploadFile in uploadSaga: ', error);
 	}
 }
 

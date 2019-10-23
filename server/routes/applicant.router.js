@@ -9,9 +9,7 @@ router.get('/list/:id', (req, res) => {
         SELECT "job_applicants".id, "job_applicants".hired, "users".username, "users".focus_skill,
         "jobs".project_title, "job_id", "student_id" FROM "job_applicants"
         JOIN "users" ON "job_applicants".student_id = "users".id
-        JOIN "jobs" ON "jobs".id = "job_applicants".job_id WHERE "job_id" = $1;
-        `;
-
+        JOIN "jobs" ON "jobs".id = "job_applicants".job_id WHERE "job_id" = $1;`;
 	pool.query(queryText, [jobId])
 		.then(result => {
 			res.send(result.rows);
@@ -31,8 +29,7 @@ router.get('/detail/:id', (req, res) => {
         "jobs".project_title, "job_id", "student_id", "payment_terms", "cover_letter",
         "attachment_url", "mentor_id", "mentor_accepted", "hired", "status_id" FROM "job_applicants"
         JOIN "users" ON "job_applicants".student_id = "users".id
-        JOIN "jobs" ON "jobs".id = "job_applicants".job_id WHERE "job_applicants".id = $1;
-        `;
+        JOIN "jobs" ON "jobs".id = "job_applicants".job_id WHERE "job_applicants".id = $1;`;
 	pool.query(queryText, [applicantId])
 		.then(result => {
 			res.send(result.rows[0]);

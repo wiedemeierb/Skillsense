@@ -4,7 +4,6 @@ const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
 const sessionMiddleware = require('./modules/session-middleware');
-
 const passport = require('./strategies/user.strategy');
 
 // Route includes
@@ -23,7 +22,7 @@ const aws_sign = require('./upload/controller/controller');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Passport Session Configuration //
+// Passport Session Configuration
 app.use(sessionMiddleware);
 
 // start up passport sessions
@@ -47,7 +46,7 @@ app.use('/api/applicants', applicantRouter);
 // Serve static files
 app.use(express.static('build'));
 
-// App Set //
+// App Set
 const PORT = process.env.PORT || 5000;
 
 /** Listen * */

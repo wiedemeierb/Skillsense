@@ -11,7 +11,7 @@ function* fetchApplicants(action) {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in fetchApplicants applicantSaga: ',error);
 	}
 }
 
@@ -38,7 +38,7 @@ function* fetchApplicantDetail(action) {
 			payload: returnPayload
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in fetchApplicantDetail applicantSaga: ',error);
 	}
 }
 
@@ -63,7 +63,7 @@ function* hireApplicant(action) {
 			payload: { id: action.payload.applicant.job_id }
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in hireApplicant applicantSaga: ',error);
 	}
 }
 

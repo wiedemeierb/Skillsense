@@ -11,7 +11,7 @@ function* fetchAllMessages() {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in fetchAllMessages in messageSaga: ',error);
 	}
 }
 
@@ -22,13 +22,12 @@ function* sendMessage(action) {
 			type: 'FETCH_ALL_MESSAGES'
 		});
 	} catch (error) {
-		console.log('error on sending message: ', error);
+		console.log('error in sendMessage in messageSaga: ',error);
 	}
 }
 
 function* sendSystemMessage(action) {
 	try {
-		//needs an action payload set up like: {id: #, message: ''}
 		let recipientResponse = yield axios.get(`/api/user/specific/${action.payload.id}`);
 		let newPayload = { recipient: recipientResponse.data, message: action.payload.message };
 		yield put({ type: 'SEND_MESSAGE', payload: newPayload });
@@ -37,7 +36,7 @@ function* sendSystemMessage(action) {
 			type: 'FETCH_ALL_MESSAGES'
 		});
 	} catch (error) {
-		console.log('error on sending system generated message: ', error);
+		console.log('error in sendSystemMessage in messageSaga: ', error);
 	}
 }
 
