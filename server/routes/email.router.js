@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-var nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-var transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
 	service: 'Gmail',
 	auth: {
-		user: 'delaney.sharratt@gmail.com',
-		pass: process.env.GOOGLE_KEY
+		user: process.env.NODE_MAILER_USER,
+		pass: process.env.NODE_MAILER_USER_KEY
 	}
 });
 
@@ -20,9 +20,9 @@ transporter.verify((error, success) => {
 });
 
 router.post('/', (req, res, next) => {
-	const sender = 'delaney.sharratt@gmail.com'; //TODO: create SkillSense admin email to send from
+	const sender = process.env.NODE_MAILER_USER; //TODO: create SkillSense admin email to send from
 	const name = req.body.recipient.username;
-	const email = 'd.m.heisel@gmail.com'; //TODO: change to req.body.recipient.email before handoff
+	const email = process.env.NODE_MAILER_USER; //TODO: change this to req.body.recipient.email 
 	const message = req.body.message;
 	const content = `Hello ${name}, \n ${message} \n From, \n SkillSense Administration Team`;
 	const mail = {
