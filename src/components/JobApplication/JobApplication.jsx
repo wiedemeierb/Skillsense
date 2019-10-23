@@ -191,7 +191,7 @@ class JobApplication extends Component {
                         </Grid>
 
                         {/* RESUME UPLOAD */}
-                        <Grid
+                        {/* <Grid
                             item
                             container
                             xs={12}
@@ -230,7 +230,7 @@ class JobApplication extends Component {
                                     }}
                                 />
                             </Grid>
-                        </Grid>
+                        </Grid> */}
 
                         {/* MENTOR SELECT */}
                         <Grid item container xs={12} spacing={4}>
@@ -246,7 +246,7 @@ class JobApplication extends Component {
                                 className={classes.mentorList}>
                                 {this.props.mentors &&
                                     this.props.job &&
-                                    this.props.job.skills 
+                                    this.props.job.skills
                                     &&
                                     (this.props.mentors.length !== 0 ?
                                         this.sortMentors(this.props.mentors, this.props.job.skills).map(
@@ -260,7 +260,7 @@ class JobApplication extends Component {
                                                 />
                                             );
                                         }
-                                    ) 
+                                    )
                                     : <Typography>You have not yet connected to any mentors.</Typography>)
                                     }
                             </Grid>
