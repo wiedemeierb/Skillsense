@@ -213,7 +213,7 @@ class MyMentorships extends Component {
                                                                 Active Jobs:
                                                         </Typography>
                                                             <div className="list">
-                                                                {studentHiredJobList == '' ||
+                                                                {studentHiredJobList === '' ||
                                                                     studentHiredJobList === null ? (
                                                                         <Typography
                                                                             variant="subtitle1"
@@ -235,7 +235,7 @@ class MyMentorships extends Component {
                                                                 Applied Jobs:
                                                         </Typography>
                                                             <div className="list">
-                                                                {studentPendingJobList == '' ||
+                                                                {studentPendingJobList === '' ||
                                                                     studentPendingJobList === null ? (
                                                                         <Typography
                                                                             variant="subtitle1"

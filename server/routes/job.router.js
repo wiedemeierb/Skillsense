@@ -32,9 +32,7 @@ router.get('/', (req, res) => {
 	ON "jobs"."client_id" = "users"."id"
   WHERE "status_id" = 1
 	GROUP BY "jobs"."id","users"."id"
-	ORDER BY "id" DESC;
-	`;
-
+	ORDER BY "id" DESC;`;
 	pool.query(queryText)
 		.then(result => {
 			//attach a "skills" property that is combined id and name
@@ -57,7 +55,6 @@ router.get('/client/:jobType', rejectIfNotClient, (req, res) => {
 	const jobType = Number(req.params.jobType);
 	const userId = req.user.id;
 	//route currently does not yet accommodate for offer extended job_status
-
 	const queryText = `
   SELECT
     "jobs"."id",
@@ -86,9 +83,7 @@ router.get('/client/:jobType', rejectIfNotClient, (req, res) => {
       AND
     "jobs".client_id = $2
 	GROUP BY "jobs"."id","users"."id"
-	ORDER BY "id" DESC;
-	`;
-
+	ORDER BY "id" DESC;`;
 	pool.query(queryText, [jobType, userId])
 		.then(result => {
 			//attach a "skills" property that is combined id and name
@@ -131,7 +126,7 @@ router.get('/search', (req, res) => {
     ON "job_tags".tag_id = "skill_tags"."id"
   LEFT JOIN "users"
 	ON "jobs"."client_id" = "users"."id"
-	WHERE "status_id" = 1`;
+	WHERE "status_id" = 1;`;
 
 	//additional sql Query text to use based on search input and skills sent on request
 	const queryInput = ` AND "project_title" ILIKE $1`;
@@ -206,9 +201,7 @@ router.get('/active', rejectUnauthenticated, (req, res) => {
     AND
 	  "job_applicants".student_id = $1
 	AND "job_applicants".hired = true
-    GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;
-    `;
-
+    GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;`;
 	pool.query(queryText, [userId])
 		.then(result => {
 			//attach a "skills" property that is combined id and name
@@ -257,9 +250,7 @@ router.get('/applied', (req, res) => {
       status_id = 1
     AND
       "job_applicants".student_id = $1
-    GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;
-    `;
-
+    GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;`;
 	pool.query(queryText, [userId])
 		.then(result => {
 			//attach a "skills" property that is combined id and name
@@ -309,9 +300,7 @@ router.get('/completed', (req, res) => {
       "job_status".job_status ILIKE 'Completed'
         AND
       "job_applicants".student_id = $1
-    GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;
-    `;
-
+    GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;`;
 	pool.query(queryText, [userId])
 		.then(result => {
 			//attach a "skills" property that is combined id and name
@@ -359,15 +348,14 @@ LEFT JOIN (SELECT * FROM "job_applicants" WHERE "student_id" = $1) AS "applied" 
   WHERE jobs.id = $2
   GROUP BY "jobs"."id","users"."id", "applied"."hired", "applied".id, mentor_id
   ORDER BY "id" DESC;`;
-
 	pool.query(queryText, [req.user.id, req.params.id])
 		.then(result => {
 			//attach a "skills" property that is combined id and name
 			result.rows.forEach(row => {
 				row.tag_ids[0] !== null
 					? (row.skills = row.tag_ids.map((id, index) => {
-							return { id: id, tag: row.skill_names[index] };
-					  }))
+						return { id: id, tag: row.skill_names[index] };
+					}))
 					: (row.skills = []);
 			});
 			res.send(result.rows[0]);
@@ -378,6 +366,7 @@ LEFT JOIN (SELECT * FROM "job_applicants" WHERE "student_id" = $1) AS "applied" 
 		});
 });
 
+//updates selected job to Completed status
 router.put('/detail/:id', (req, res) => {
 	let queryText = `UPDATE "jobs" SET "status_id" = 4 WHERE "id" = $1;`;
 	pool.query(queryText, [req.params.id])
@@ -400,9 +389,7 @@ router.post('/new', rejectUnauthenticated, async (req, res) => {
   "mentor_required","status_id","client_id")
     VALUES
       ($1,$2,$3,$4,$5,$6,$7,$8)
-    RETURNING "id";
-	`;
-
+    RETURNING "id";`;
 	const connection = await pool.connect();
 	try {
 		await connection.query(`BEGIN;`);
@@ -442,7 +429,6 @@ router.post('/apply', rejectUnauthenticated, (req, res) => {
       ("job_id", "student_id","payment_terms","cover_letter","attachment_url","mentor_id")
     VALUES
       ($1,$2,$3,$4,$5,$6);`;
-
 	pool.query(queryText, [
 		req.body.job.id,
 		req.user.id,

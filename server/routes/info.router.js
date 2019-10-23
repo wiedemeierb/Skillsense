@@ -15,8 +15,7 @@ router.get('/types/user', (req, res) => {
 
 router.get('/types/skills', (req, res) => {
 	const queryText = `SELECT * FROM "skill_tags" ORDER BY "tag" ASC;`;
-	pool
-		.query(queryText)
+	pool.query(queryText)
 		.then(result => {
 			res.send(result.rows);
 		})

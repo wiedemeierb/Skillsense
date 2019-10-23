@@ -27,7 +27,7 @@ router.post('/', (req, res, next) => {
 	const content = `Hello ${name}, \n ${message} \n From, \n SkillSense Administration Team`;
 	const mail = {
 		from: sender,
-		to: email, //Change to email address that you want to receive messages on
+		to: email,
 		subject: 'Message from SkillSense',
 		text: content
 	};

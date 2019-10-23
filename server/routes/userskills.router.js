@@ -21,8 +21,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 	ORDER BY id DESC;`;
 	//uses the current logged in user if no user is passed
 	const userId = req.query.id || req.user.id
-	pool
-		.query(queryText, [userId])
+	pool.query(queryText, [userId])
 		.then(result => {
 			res.send(result.rows);
 		})
@@ -42,8 +41,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
             (tag_id, user_id)
         VALUES
             ($1, $2);`;
-	pool
-		.query(sqlText, [tagId, userId])
+	pool.query(sqlText, [tagId, userId])
 		.then(result => {
 			res.sendStatus(200);
 		})
@@ -61,8 +59,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
         FROM "user_tags"
         WHERE (tag_id = $1) AND (user_id = $2);`;
 
-	pool
-		.query(sqlText, [tagId, userId])
+	pool.query(sqlText, [tagId, userId])
 		.then(result => {
 			res.sendStatus(204);
 		})
