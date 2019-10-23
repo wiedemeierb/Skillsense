@@ -153,5 +153,4 @@ const mapStateToProps = state => ({
     skills: state.allSkillsReducer
 });
 
-// this allows us to use <App /> in index.js
 export default connect(mapStateToProps)(withStyles(styles)(UserPage));

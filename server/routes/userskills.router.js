@@ -5,7 +5,7 @@ const {
 } = require('../modules/authentication-middleware');
 const router = express.Router();
 
-//route to get skills for logged in user or user passed as params
+//GET ROUTE of skills for logged in user or user passed as params
 router.get('/', rejectUnauthenticated, (req, res) => {
 	const queryText = `SELECT
 		"skill_tags".id,
@@ -26,13 +26,13 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 			res.send(result.rows);
 		})
 		.catch(error => {
-			console.log(error);
+			console.log('error in GET of skills for logged in user',error);
 			res.sendStatus(500);
 		});
 });
 
 
-// route to POST new skill into users list of skills
+// POST route of new skill into users list of skills
 router.post('/', rejectUnauthenticated, (req, res) => {
 	const userId = req.user.id;
 	const tagId = req.body.id;
@@ -51,14 +51,13 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 		});
 });
 
-//route to DELETE skill from user's list of skills
+//DELETE route of skill from user's list of skills
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
 	const tagId = req.params.id;
 	const userId = req.user.id;
 	const sqlText = `DELETE
         FROM "user_tags"
         WHERE (tag_id = $1) AND (user_id = $2);`;
-
 	pool.query(sqlText, [tagId, userId])
 		.then(result => {
 			res.sendStatus(204);

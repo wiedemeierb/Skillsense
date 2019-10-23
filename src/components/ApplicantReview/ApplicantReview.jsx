@@ -53,7 +53,7 @@ class ApplicantReview extends Component {
 	render() {
 		//finds hired applicant if one exists in list
 		let hiredApplicant = this.props.applicants.find(applicant => applicant.hired === true);
-		//uses the UserListItem component to render applicant results --filters out hired applciants
+		//uses the UserListItem component to render applicant results --filters out hired applicants
 		let applicantList = this.props.applicants
 			.filter(applicant => !applicant.hired)
 			.map((applicant, i) => {

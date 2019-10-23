@@ -102,19 +102,6 @@ function ApplicantDetailStudent(props) {
 							<Typography className={classes.link}>Website</Typography>
 						</Link>
 					</Grid>
-
-					{/* <Grid item xs={3}>
-						<Link
-							target='_blank'
-							href={`mailto:${props.mentor.email}`}
-							color={props.mentor.email ? 'primary' : 'error'}
-							style={props.mentor.email ? {} : { pointerEvents: 'none' }}>
-							<Typography className={classes.link}>
-								<EmailIcon fontSize='large' />
-							</Typography>
-							<Typography className={classes.link}>E-Mail</Typography>
-						</Link>
-					</Grid> */}
 				</Grid>
 			</Grid>
 

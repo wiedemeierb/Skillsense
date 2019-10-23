@@ -7,10 +7,10 @@ import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import Nav from '../Nav/Nav';
 // import Footer from '../Footer/Footer';
 
-////routes
+////ROUTES
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-////views
+////VIEWS
 import UserPage from '../UserPage/UserPage';
 import JobApplication from '../JobApplication/JobApplication';
 import JobDetail from '../JobDetail/JobDetail';
@@ -35,8 +35,7 @@ const theme = createMuiTheme({
     },
     palette: {
         primary: {
-            main: '#08b8f4', //live blue
-            // main: '#0093c7', // demo blue
+            main: '#08b8f4',
             contrastText: '#ffffff'
         },
         secondary: {
@@ -53,7 +52,6 @@ class App extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_USER' });
     }
-
     render() {
         return (
             <MuiThemeProvider theme={theme}>

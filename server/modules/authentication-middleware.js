@@ -9,7 +9,7 @@ const rejectUnauthenticated = (req, res, next) => {
 		res.sendStatus(403);
 	}
 };
-
+// authentication of the client
 const rejectIfNotClient = (req, res, next) => {
 	if (req.isAuthenticated() && req.user.user_type === 'Client') {
 		next();
@@ -17,7 +17,7 @@ const rejectIfNotClient = (req, res, next) => {
 		res.sendStatus(403);
 	}
 };
-
+// authentication of the mentor
 const rejectIfNotMentor = (req, res, next) => {
 	if (req.isAuthenticated() && req.user.user_type === 'Mentor') {
 		next();
@@ -25,7 +25,7 @@ const rejectIfNotMentor = (req, res, next) => {
 		res.sendStatus(403);
 	}
 };
-
+// authentication of the student
 const rejectIfNotStudent = (req, res, next) => {
 	if (req.isAuthenticated() && req.user.user_type === 'Student') {
 		next();
@@ -33,7 +33,7 @@ const rejectIfNotStudent = (req, res, next) => {
 		res.sendStatus(403);
 	}
 };
-
+// authentication of the admin
 const rejectIfNotAdmin = (req, res, next) => {
 	if (req.isAuthenticated() && req.user.user_type === 'Admin') {
 		next();

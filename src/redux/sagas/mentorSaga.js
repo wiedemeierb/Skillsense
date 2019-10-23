@@ -10,7 +10,7 @@ function* fetchAllMentors() {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in fetchAllMentors in mentorSaga: ',error);
 	}
 }
 
@@ -27,7 +27,7 @@ function* fetchMentorSearch(action) {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in fetchMentorSearch in mentorSaga: ',error);
 	}
 }
 
@@ -35,13 +35,12 @@ function* fetchMentorSearch(action) {
 function* fetchActiveMentors() {
 	try {
 		let response = yield axios.get('/api/mentors/active');
-		// console.log(response.data);
 		yield put({
 			type: 'SET_ALL_MENTORS',
 			payload: response.data
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in fetchActiveMentors in mentorSaga: ',error);
 	}
 }
 
@@ -53,13 +52,12 @@ function* fetchInvitedMentors() {
 			let messageResponse = yield axios.get(`/api/messages/last/${user.id}`);
 			user.inviteMessage = messageResponse.data;
 		}
-		console.log(response.data);
 		yield put({
 			type: 'SET_ALL_MENTORS',
 			payload: response.data
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in fetchInvitedMentors in mentorSaga: ',error);
 	}
 }
 
@@ -67,13 +65,12 @@ function* fetchInvitedMentors() {
 function* fetchPendingMentors() {
 	try {
 		let response = yield axios.get('/api/mentors/pending');
-		// console.log(response.data);
 		yield put({
 			type: 'SET_PENDING_MENTORS',
 			payload: response.data
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in fetchPendingMentors in mentorSaga: ',error);
 	}
 }
 
@@ -86,7 +83,7 @@ function* sendMentorRequest(action) {
 			type: 'FETCH_ALL_MENTORS'
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in sendMentorRequest in mentorSaga: ',error);
 	}
 }
 
@@ -108,7 +105,7 @@ function* acceptMentorship(action) {
 			type: 'CLEAR_SELECTED_USER'
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in acceptMentorship in mentorSaga: ',error);
 	}
 }
 
@@ -123,7 +120,7 @@ function* declineMentorship(action) {
 			type: 'CLEAR_SELECTED_USER'
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in declineMentorship in mentorSaga: ',error);
 	}
 }
 

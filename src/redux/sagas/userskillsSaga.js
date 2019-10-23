@@ -10,7 +10,7 @@ function* fetchUserSkills() {
             payload: response.data
         })
     } catch (error) {
-        console.log(error)
+        console.log('error in fetchUserSkills in userskillsSaga: ',error)
     }
 }
 
@@ -22,7 +22,7 @@ function* addSkill(action) {
             type: 'FETCH_USER_SKILLS',
         });
     } catch (error) {
-        console.log('Error with addskill', error);
+        console.log('error in addSkill in userskillsSaga: ', error);
     }
 }
 
@@ -34,7 +34,7 @@ function* removeSkill(action) {
             type: 'FETCH_USER_SKILLS'
         })
     } catch (error) {
-        console.log('Error on deleting user skill')
+        console.log('error in removeSkill in userskillsSaga: ',error)
     }
 }
 

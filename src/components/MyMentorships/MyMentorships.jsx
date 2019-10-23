@@ -140,11 +140,7 @@ class MyMentorships extends Component {
                                 : 'Your Mentorships'
                         }>
                         <>
-                            {/* Navigation tabs on Mentorship Page:
-                                (Active, Invites)
-                            The MentorTabs component sends a GET request based on which tab is clicked*/}
                             <MentorTabs />
-
                             {/* Applicable Mentor List by Status */}
                             <div className="list">
                                 {this.props.mentors.length !== 0 ? (

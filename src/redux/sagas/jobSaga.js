@@ -11,7 +11,7 @@ function* fetchAllJobs() {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in fetchAllJobs in jobSaga: ', error);
 	}
 }
 
@@ -28,7 +28,7 @@ function* fetchJobSearch(action) {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in fetchJobSearch in jobSaga: ',error);
 	}
 }
 
@@ -41,7 +41,7 @@ function* fetchActiveJobs() {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in fetchActiveJobs in jobSaga: ',error);
 	}
 }
 
@@ -54,7 +54,7 @@ function* fetchAppliedJobs() {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in fetchAppliedJobs in jobSaga: ',error);
 	}
 }
 
@@ -67,7 +67,7 @@ function* fetchCompletedJobs() {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in fetchCompletedJobs in jobSaga',error);
 	}
 }
 
@@ -81,7 +81,7 @@ function* fetchClientJobs(action) {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in fetchClientJobs in jobSaga: ',error);
 	}
 }
 
@@ -94,7 +94,7 @@ function* fetchJobDetail(action) {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in fetchJobDetail in jobSaga: ',error);
 	}
 }
 
@@ -107,7 +107,7 @@ function* markJobCompleted(action) {
 			payload: 3
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in markJobCompleted in jobSaga: ',error);
 	}
 }
 
@@ -120,7 +120,7 @@ function* postJob(action) {
 			payload: 3
 		});
 	} catch (error) {
-		console.log(error);
+		console.log('error in postJob in jobSaga: ',error);
 	}
 }
 
@@ -141,9 +141,7 @@ function* submitApplication(action) {
 			const returnData = awsSignedResponse.data.data.returnData;
 			const signedRequest = returnData.signedRequest;
 			const url = returnData.url;
-			// console.log('url from aws: ', url);
 			application.attachment_url = url;
-			// console.log('new payload: ', action.payload);
 			yield axios.put(signedRequest, file, {
 				headers: {
 					'Content-Type': fileType
@@ -170,7 +168,7 @@ function* submitApplication(action) {
 		});
 		Swal.fire('Congrats!', 'Your application has been submitted!', 'success');
 	} catch (error) {
-		console.log(error);
+		console.log('error in submitApplicant in jobSaga: ',error);
 	}
 }
 

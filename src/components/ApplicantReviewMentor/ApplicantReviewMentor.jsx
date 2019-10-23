@@ -31,7 +31,6 @@ function ApplicantReviewStudent(props) {
         history.push(`/jobs/detail/applicant/${props.jobDetails.application_id}`);
         dispatch({
             type: 'FETCH_APPLICATION',
-            //payload is job_applicant id
             payload: { id: props.jobDetails.application_id }
         });
     };

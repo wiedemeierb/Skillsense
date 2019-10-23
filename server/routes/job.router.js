@@ -127,13 +127,11 @@ router.get('/search', (req, res) => {
   LEFT JOIN "users"
 	ON "jobs"."client_id" = "users"."id"
 	WHERE "status_id" = 1;`;
-
-	//additional sql Query text to use based on search input and skills sent on request
+//additional sql Query text to use based on search input and skills sent on request
 	const queryInput = ` AND "project_title" ILIKE $1`;
 	const querySkill = ` AND "tag_id" = $2`;
 	const queryEnd = ` GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;`;
-
-	//function to add search query text to sql query text
+//function to add search query text to sql query text
 	const queryText = () => {
 		if (searchSkill !== 0) {
 			return queryStart + queryInput + querySkill + queryEnd;
@@ -141,8 +139,7 @@ router.get('/search', (req, res) => {
 			return queryStart + queryInput + queryEnd;
 		}
 	};
-
-	//function to add skill filters to sql query text
+//function to add skill filters to sql query text
 	const queryParams = () => {
 		if (searchSkill) {
 			return [searchTerm, searchSkill];
@@ -150,7 +147,6 @@ router.get('/search', (req, res) => {
 			return [searchTerm];
 		}
 	};
-
 	pool.query(queryText(), queryParams())
 		.then(result => {
 			//attach a "skills" property that is combined id and name

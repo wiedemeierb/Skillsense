@@ -121,7 +121,6 @@ class MentorSearch extends Component {
                             {/* MENTOR SEARCH INPUTS */}
                             <Paper className={classes.search}>
                                 <FormGroup row={true}>
-                                    {/* <Grid item xs={12}  md={6}> */}
                                         <FormControl className={classes.formControl}>
                                             {/* Mentor name search form */}
                                             <TextField
@@ -133,8 +132,6 @@ class MentorSearch extends Component {
                                                 onKeyUp={this.handleKeyUp}
                                             />
                                         </FormControl>
-                                    {/* </Grid> */}
-                                    {/* <Grid item xs={12} md={6}> */}
                                         {/* SKILL SELECT */}
                                         <FormControl className={classes.formControl}>
                                             <InputLabel htmlFor="skill-search">
@@ -157,10 +154,8 @@ class MentorSearch extends Component {
                                             onClick={this.submitSearch}>
                                             <SearchIcon />
                                         </IconButton>
-                                    {/* </Grid> */}
                                 </FormGroup>
                             </Paper>
-                            {/* </Grid> */}
 
                             {/* MENTOR SEARCH RESULT LIST */}
                             <Grid item container xs={12} className="list">
