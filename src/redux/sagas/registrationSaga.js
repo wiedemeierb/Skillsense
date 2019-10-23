@@ -1,6 +1,5 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
-//popup alert on registration success/error
 import Swal from 'sweetalert2';
 
 // worker Saga: will be fired on "REGISTER" actions

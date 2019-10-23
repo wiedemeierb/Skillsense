@@ -9,6 +9,4 @@ const loginMode = (state = 'login', action) => {
   }
 };
 
-// loginMode will be on the redux state at:
-// state.loginMode
 export default loginMode;

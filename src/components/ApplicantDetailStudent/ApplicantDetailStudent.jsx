@@ -101,8 +101,7 @@ function ApplicantDetailStudent(props) {
 				</Typography>
 				</Grid>
 				<Grid item container align='center' justify="space-around" xs={12}>
-					<Grid item xs={4} align='center' 
->
+					<Grid item xs={4} align='center' >
 						<Link
 							target='_blank'
 							href={props.applicant.linkedin_url}
@@ -138,18 +137,6 @@ function ApplicantDetailStudent(props) {
 							<Typography className={classes.link}>Website</Typography>
 						</Link>
 					</Grid>
-					{/* <Grid item xs={3}>
-						<Link
-							target='_blank'
-							href={`mailto:${props.applicant.email}`}
-							color={props.applicant.email ? 'primary' : 'error'}
-							style={props.applicant.email ? {} : { pointerEvents: 'none' }}>
-							<Typography className={classes.link}>
-								<EmailIcon fontSize='large' />
-							</Typography>
-							<Typography className={classes.link}>E-Mail</Typography>
-						</Link>
-					</Grid> */}
 				</Grid>
 			</Grid>
 

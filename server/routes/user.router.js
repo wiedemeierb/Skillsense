@@ -29,7 +29,6 @@ router.post('/register', (req, res, next) => {
 		req.body.github_url,
 		req.body.website_url
 	];
-
 	const queryText =
 		'INSERT INTO "users" (username, email, password, location, access_id, focus_skill, bio, linkedin_url, github_url, website_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id';
 	pool.query(queryText, values)
@@ -94,7 +93,7 @@ router.put('/edit/:id', rejectUnauthenticated, (req, res) => {
 	}
 });
 
-//route to get SELECTED user's information
+//GET ROUTE for SELECTED user's information
 router.get('/specific/:id', rejectUnauthenticated, (req, res) => {
 	const sqlText = () => {
 		if (req.user.user_type === 'Mentor') {

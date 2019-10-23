@@ -4,7 +4,6 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 //GET ROUTE FOR ALL MESSAGES
-
 router.get('/', rejectUnauthenticated, (req, res) => {
 	const queryText = `
 select messages.id, message, date_time, sId, sName, sfocus_skill, rId, rName, rfocus_skill from messages
@@ -48,11 +47,12 @@ where messages.sender_id = $1 OR messages.recipient_id = $1 ORDER BY date_time D
 			res.send(userList);
 		})
 		.catch(error => {
+			console.log('error in GET of all messages:', error)
 			res.sendStatus(500);
 		});
 });
 
-//route to send message to user//
+// POST ROUTE TO SEND MESSAGES TO USER//
 router.post(`/`, (req, res) => {
 	const sqlText = `
 	INSERT INTO messages
@@ -70,7 +70,7 @@ router.post(`/`, (req, res) => {
 		});
 });
 
-//route to get invite message to mentor -  should be last message received by mentor from student
+// ROUTE TO GET INVITE MESSAGE TO MENTOR - LAST MESSAGE RECEIVED BY MENTOR FROM STUDENT
 router.get('/last/:id', (req, res) => {
 	const sqlText = `SELECT * FROM messages WHERE recipient_id = $1 AND sender_id = $2 ORDER BY date_time DESC LIMIT 1;`;
 	const values = [];

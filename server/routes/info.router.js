@@ -12,7 +12,7 @@ router.get('/types/user', (req, res) => {
 			res.sendStatus(500)
 		})
 });
-
+// GET SKILL TAGS AVAILABLE
 router.get('/types/skills', (req, res) => {
 	const queryText = `SELECT * FROM "skill_tags" ORDER BY "tag" ASC;`;
 	pool.query(queryText)

@@ -333,6 +333,7 @@ router.put('/accept/:id', rejectUnauthenticated, (req, res) => {
 		.then(result => {
 			res.sendStatus(200)
 		}).catch(error => {
+			console.log('error on PUT of mentors accepting student: ', error);
 			res.sendStatus(500)
 		})
 })
@@ -344,6 +345,7 @@ router.delete('/decline/:id', rejectUnauthenticated, (req, res) => {
 		.then(result => {
 			res.sendStatus(200)
 		}).catch(error => {
+			console.log('error in Delete for mentors declining student connection: ', error);
 			res.sendStatus(500)
 		})
 })
@@ -372,7 +374,7 @@ router.post('/request', rejectUnauthenticated, async (req, res) => {
 		res.sendStatus(201);
 	} catch (error) {
 		await connection.query(`ROLLBACK;`);
-		console.log(error);
+		console.log('error in POST of Student sending Mentor request: ', error);
 		res.sendStatus(500);
 	} finally {
 		connection.release();

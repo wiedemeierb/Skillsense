@@ -44,11 +44,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function PublicProfile(props) {
-    const selectedUser = useSelector(state => state.selectedUserReducer);
     //sets selectedUser variable to redux state of selected user
-
-    const displayedUser = props.user || selectedUser;
+    const selectedUser = useSelector(state => state.selectedUserReducer);
     //display the user passed as props if there is one, otherwise display selected user
+    const displayedUser = props.user || selectedUser;
 
     //determines account type
     let isStudent = () => {
@@ -111,7 +110,6 @@ function PublicProfile(props) {
                 item
                 container
                 xs={12}
-                // sm={8}
                 align="center"
                 justify="space-around"
                 className={classes.section}>

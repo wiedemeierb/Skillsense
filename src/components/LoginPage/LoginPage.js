@@ -46,18 +46,7 @@ class LoginPage extends Component {
                     password: this.state.password
                 }
             });
-
-            // if(this.props.user.user_type === 'Student'){
-            // 	this.props.history.push('/search/jobs')
-            // } else if (this.props.user.user_type === 'Mentor'){
-            // 	this.props.history.push('/mentors')
-            // } else if (this.props.user.user_type === 'Client'){
-            // 	this.props.history.push('/jobs')
-            // } else if (this.props.user.user_type === 'Admin'){
-            // 	this.props.history.push('/admin')
-            // }else {
             this.props.history.push('/');
-            // }
         } else {
             this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
             this.errorMessage();

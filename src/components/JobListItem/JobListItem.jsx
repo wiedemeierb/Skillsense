@@ -30,7 +30,6 @@ const styles = theme => ({
 });
 
 class JobListItem extends Component {
-    //When list item is clicked, user is taken to that job detail page
     viewDetail = () => {
         this.props.history.push(`/jobs/detail/${this.props.job.job_id || this.props.job.id}`);
     };

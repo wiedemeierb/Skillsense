@@ -13,7 +13,6 @@ import App from './components/App/App';
 const sagaMiddleware = createSagaMiddleware();
 
 // this line creates an array of all of redux middleware you want to use
-// we don't want a whole ton of console logs in our production code
 // logger will only be added to your project if your in development mode
 const middlewareList =
 	process.env.NODE_ENV === 'development'

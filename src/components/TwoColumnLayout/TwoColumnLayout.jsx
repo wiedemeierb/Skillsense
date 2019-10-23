@@ -58,12 +58,6 @@ class TwoColumnLayout extends Component {
                             {this.props.leftHeader}
                         </Typography>
                     </Grid>
-                    {/* right header */}
-                    {/* <Grid item xs={12} sm={6} className={classes.headerText}>
-                        <Typography variant="h4" align="right">
-                            {this.props.rightHeader}
-                        </Typography>
-                    </Grid> */}
                 </Grid>
 
                 {/* PAGE BODY CONTENT */}

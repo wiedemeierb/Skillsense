@@ -61,7 +61,7 @@ class ApplicantReviewClient extends Component {
 			});
 		//for component styling
 		const { classes } = this.props;
-		console.log(applicantList)
+		// console.log(applicantList)
 		return (
 			<div>
 				{hiredApplicant && (

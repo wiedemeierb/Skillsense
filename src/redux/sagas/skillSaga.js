@@ -10,7 +10,7 @@ function* fetchAllSkills() {
       payload: response.data
     });
   } catch (error) {
-    console.log(error);
+    console.log('error in fetchAllSkills in skillSaga: ',error);
   }
 }
 

@@ -16,7 +16,6 @@ passport.deserializeUser((id, done) => {
 		.then(result => {
 			// Handle Errors
 			const user = result && result.rows && result.rows[0];
-
 			if (user) {
 				// user found
 				delete user.password; // remove password so it doesn't get sent
@@ -37,7 +36,7 @@ passport.deserializeUser((id, done) => {
 		});
 });
 
-// Does actual work of logging in
+// Does work of logging in
 passport.use(
 	'local',
 	new LocalStrategy((email, password, done) => {
