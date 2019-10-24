@@ -108,7 +108,7 @@ This application uses the following technologies:
 ## Support
 
 For any questions, concerns, or suggestions feels free to contact any of the developers behind this project:
-[David Heisel](https://github.com/dmheisel) -- d.m.heisel@gmail.com
-[Allyson Holdahl](https://github.com/aholdahl) -- allyson.holdahl@gmail.com
-[Delaney Sharratt](https://github.com/laneymckee) -- delaney.sharratt@gmail.com
-[Brandon Weidemeier](https://github.com/wiedemeierb) -- brandon.wiedemeier@gmail.com
+- [David Heisel](https://github.com/dmheisel) -- d.m.heisel@gmail.com
+- [Allyson Holdahl](https://github.com/aholdahl) -- allyson.holdahl@gmail.com
+- [Delaney Sharratt](https://github.com/laneymckee) -- delaney.sharratt@gmail.com
+- [Brandon Weidemeier](https://github.com/wiedemeierb) -- brandon.wiedemeier@gmail.com
