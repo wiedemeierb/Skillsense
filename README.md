@@ -6,9 +6,9 @@
 
 *Project Duration: 2 Week Sprint*
 
-SkillSense is a professional networking application that brings together Students, Mentors, and Clients to complete freelance assignments. Students looking to break into the tech industry can find and connect with experienced professionals in the field willing to offer their guidance and expertise. In partnership with a chosen Mentor, Students can apply for and complete jobs that have been posted on SkillSense by prospective Clients. By creating a space that allows for professional growth while ensuring quality and productivity, SkillSense helps Students to get experience; allows Mentors to help members of their community in getting started; and enables Clients to offer first-time opportunities while ensuring that the job is done well with the help of an experienced professional.
+SkillSense is a professional networking application that brings together Students, Mentors, and Clients to complete freelance assignments. Students looking to break into the tech industry can find and connect with experienced professionals in the field willing to offer their guidance and expertise. In partnership with a chosen Mentor, Students can apply for and complete jobs that have been posted on SkillSense by Clients. By creating a space that allows for professional growth while ensuring quality and productivity, SkillSense helps Students to get experience; allows Mentors to help members of their community in getting started; and enables Clients to offer first-time opportunities while ensuring that the job is done well with the help of an experienced professional.
 
-Live Version deployed on Heroku at: []
+Live Version deployed on Heroku at: [https://quiet-meadow-31261.herokuapp.com/](https://quiet-meadow-31261.herokuapp.com/)
 
 ## Screenshot
 
@@ -26,7 +26,7 @@ Before getting started launching this application, you should have the following
 
 ## Database Setup
 
-Make a new database called `skill_sense` in PostgreSQL and use the **database.sql** file in the root of this project to set up all of your tables. This file will also include some important static data required by several tables: these will include information such as user types, skills tags for jobs/users, job status (in progress, completed, etc.), and mentor approval status.
+Make a new database called `skill_sense` in PostgreSQL and use the **database.sql** file in the root of this project to set up all of your tables. This file will also include some important static data required by several tables, these will include information such as user types, skills tags for jobs/users, job status (in progress, completed, etc.), and mentor approval status.
 
 ## Creating the .ENV
 
@@ -113,4 +113,4 @@ For any questions, concerns, or suggestions feels free to contact any of the dev
 - [David Heisel](https://github.com/dmheisel) -- d.m.heisel@gmail.com
 - [Allyson Holdahl](https://github.com/aholdahl) -- allyson.holdahl@gmail.com
 - [Delaney Sharratt](https://github.com/laneymckee) -- delaney.sharratt@gmail.com
-- [Brandon Weidemeier](https://github.com/wiedemeierb) -- brandon.wiedemeier@gmail.com
+- [Brandon Wiedemeier](https://github.com/wiedemeierb) -- brandon.wiedemeier@gmail.com
