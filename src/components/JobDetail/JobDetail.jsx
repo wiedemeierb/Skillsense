@@ -29,7 +29,7 @@ class JobDetail extends Component {
         this.props.dispatch({
             type: 'FETCH_JOB_DETAIL',
             payload: { id: Number(this.props.match.params.id) }
-        });
+        });//sends to jobSaga
     }
     //route to apply for this job (student view)
     applyNow = () => {
@@ -69,7 +69,7 @@ class JobDetail extends Component {
                 this.props.dispatch({
                     type: 'MARK_JOB_COMPLETED',
                     payload: { id: this.props.match.params.id }
-                });
+                });//sends to jobSaga
                 this.props.history.push(`/jobs`);
             }
         });
@@ -85,9 +85,6 @@ class JobDetail extends Component {
         };
         let isClient = () => {
             return this.props.user.user_type === 'Client';
-        };
-        let isMentor = () => {
-            return this.props.user.user_type === 'Mentor';
         };
 
         return (
@@ -157,7 +154,7 @@ class JobDetail extends Component {
                         <Divider />
                     </Grid>
 
-                    {/* ACTIONS FOR STUDENTS/MENTORS */}
+                    {/* ACTIONS FOR STUDENTS */}
                     {isStudent() && (
                         <>
                             <ApplicantReviewStudent
@@ -195,19 +192,6 @@ class JobDetail extends Component {
                                 )}
                             </Grid>
                         </>
-                    )}
-
-                    {isMentor() && (
-                        <Grid item xs={12} align="center">
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                align="space-around"
-                                className={classes.button}
-                                onClick={() => this.routeToMyMentorships()}>
-                                Back
-                            </Button>
-                        </Grid>
                     )}
 
                     {/* CLIENT: APPLICANT REVIEW + ACTIONS */}
@@ -252,6 +236,7 @@ class JobDetail extends Component {
 const mapStateToProps = state => ({
     user: state.user,
     skills: state.allSkillsReducer,
+    selectedUser: state.selectedUserReducer,
     selectedUserSkills: state.userSkillsReducer,
     details: state.selectedJobReducer
 });

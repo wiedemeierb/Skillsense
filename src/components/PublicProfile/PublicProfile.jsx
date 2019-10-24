@@ -1,13 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+
 //COMPONENT IMPORTS
 import SkillList from '../SkillList/SkillList';
+
 //MATERIAL-UI IMPORTS
 import { Grid, Typography, Link, Chip } from '@material-ui/core';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LanguageIcon from '@material-ui/icons/Language';
-// import EmailIcon from '@material-ui/icons/Email';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -149,18 +150,6 @@ function PublicProfile(props) {
                         <Typography className={classes.link}>Website</Typography>
                     </Link>
                 </Grid>
-                {/* <Grid item xs={6} md={3}>
-                    <Link
-                        target="_blank"
-                        href={`mailto:${displayedUser.email}`}
-                        color={displayedUser.email ? 'primary' : 'error'}
-                        style={displayedUser.email ? {} : { pointerEvents: 'none' }}>
-                        <Typography className={classes.link}>
-                            <EmailIcon fontSize="large" />
-                        </Typography>
-                        <Typography className={classes.link}>Email</Typography>
-                    </Link>
-                </Grid> */}
             </Grid>
 
             {/* SKILL LIST */}

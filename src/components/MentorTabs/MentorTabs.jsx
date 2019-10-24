@@ -34,12 +34,12 @@ class MentorTabs extends React.Component {
         if (value === 0) {
             this.props.dispatch({
                 type: 'FETCH_ACTIVE_MENTORS'
-            });
+            });//sends to mentorSaga
         }
         if (value === 1) {
             this.props.dispatch({
                 type: 'FETCH_INVITED_MENTORS'
-            });
+            });//sends to mentorSaga
         }
     };
 

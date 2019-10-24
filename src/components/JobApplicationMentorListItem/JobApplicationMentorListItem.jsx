@@ -34,7 +34,7 @@ function JobApplicationMentorListItem(props) {
 	return (
 		<Grid
 			className={props.selected ? classes.selectedMentorListItem : classes.mentorListItem}
-			item>
+			item xs={12} sm={6} md={4} lg={3}>
 			<Typography color='primary' variant='h5'>
 				{props.listUser.username}
 			</Typography>

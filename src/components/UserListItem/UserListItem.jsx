@@ -26,16 +26,12 @@ class UserListItem extends Component {
         //this dispatch for clients viewing student applications
         if (this.props.user.user_type === 'Client') {
             this.props.history.push(`/jobs/detail/applicant/${this.props.listUser.id}`);
-            this.props.dispatch({
-                type: 'FETCH_APPLICATION',
-                payload: this.props.listUser.id
-            });
         } else {
             //dispatch for any other user details
             this.props.dispatch({
                 type: 'FETCH_SELECTED_USER',
                 payload: this.props.listUser.id
-            });
+            });//sends to userSaga
         }
     };
 

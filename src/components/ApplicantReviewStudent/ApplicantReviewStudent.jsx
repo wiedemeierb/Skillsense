@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 //material-ui imports:
 import { Grid, Typography, Button } from '@material-ui/core';
@@ -22,17 +21,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function ApplicantReviewStudent(props) {
-    const dispatch = useDispatch();
     const classes = useStyles();
     const history = useHistory();
 
     const viewApplication = () => {
         history.push(`/jobs/detail/applicant/${props.jobDetails.application_id}`);
-        dispatch({
-            type: 'FETCH_APPLICATION',
-            payload: { id: props.jobDetails.application_id }
-        });
     };
+
     return (
         <Grid
             container

@@ -1,10 +1,8 @@
 import React from 'react';
-import { Grid, Typography, Button, Link } from '@material-ui/core';
-import DescriptionIcon from '@material-ui/icons/Description';
+import { Grid, Typography, Link } from '@material-ui/core';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LanguageIcon from '@material-ui/icons/Language';
-// import EmailIcon from '@material-ui/icons/Email';
 import { makeStyles } from '@material-ui/core/styles';
 import SkillList from '../SkillList/SkillList';
 
@@ -51,8 +49,8 @@ function ApplicantDetailStudent(props) {
 				</Typography>
 			</Grid>
 
-			{/* Bio & Resume */}
-			<Grid item  container xs={12} md={6}>
+			{/* Bio */}
+			<Grid item container xs={12} md={6}>
 				<Grid item container direction='row' justify='space-around' xs={12}>
 					{props.applicant.bio !== null && (
 						<Grid item xs={12}>
@@ -97,8 +95,8 @@ function ApplicantDetailStudent(props) {
 			{/* User Info */}
 			<Grid item container className={classes.section} xs={12}>
 				<Grid item xs={12}>
-				<Typography variant='h6' color='primary'>
-					Student Links:
+					<Typography variant='h6' color='primary'>
+						Student Links:
 				</Typography>
 				</Grid>
 				<Grid item container align='center' justify="space-around" xs={12}>

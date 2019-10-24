@@ -20,13 +20,13 @@ class MyJobs extends Component {
         if (this.props.user.user_type === 'Student') {
             this.props.dispatch({
                 type: 'FETCH_ACTIVE_JOBS'
-            });
+            });//sends to jobSaga
         } else if (this.props.user.user_type === 'Client') {
             this.props.dispatch({
                 type: 'FETCH_CLIENT_JOBS',
                 //active job status by default
                 payload: 3
-            });
+            });//sends to jobSaga
         }
     }
 
@@ -48,12 +48,12 @@ class MyJobs extends Component {
         };
 
         return (
-            <div>
+            <>
                 {isStudent() || isClient() ? (
                     <OneColumnLayout header="My Jobs">
-                        <div>
+                        <>
                             <JobTabs />
-                        </div>
+                        </>
                         {/* Selected Job List */}
                         <div className="list">
                             {this.props.jobs.length !== 0 ? (
@@ -73,7 +73,7 @@ class MyJobs extends Component {
                 ) : (
                         <Typography>You are not authorized to view this page</Typography>
                     )}
-            </div>
+            </>
         );
     }
 }
