@@ -3,7 +3,6 @@ import { Grid, Typography, Link } from '@material-ui/core';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LanguageIcon from '@material-ui/icons/Language';
-// import EmailIcon from '@material-ui/icons/Email';
 import { makeStyles } from '@material-ui/core/styles';
 import SkillList from '../SkillList/SkillList';
 
@@ -25,7 +24,7 @@ function ApplicantDetailStudent(props) {
 
 	return (
 		<Grid container justify='space-around' spacing={2} className={classes.root}>
-			{/* Applicant Info */}
+			{/* Invited Mentor's Info */}
 			<Grid item xs={12}>
 				<Typography variant='h5' color='secondary'>
 					Mentor Information:
@@ -41,7 +40,7 @@ function ApplicantDetailStudent(props) {
 				</Typography>
 			</Grid>
 
-			{/* Bio & Resume */}
+			{/* Bio */}
 			<Grid container item xs={12} md={6}>
 				<Grid item container xs={12} direction='row' justify='space-around'>
 					{props.mentor.bio !== null && (

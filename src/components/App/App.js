@@ -5,7 +5,7 @@ import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 //COMPONENT IMPORTS
 ////constants
 import Nav from '../Nav/Nav';
-// import Footer from '../Footer/Footer';
+import Footer from '../Footer/Footer';
 
 ////ROUTES
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -50,7 +50,9 @@ const theme = createMuiTheme({
 
 class App extends Component {
     componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_USER' });
+        this.props.dispatch({
+            type: 'FETCH_USER'
+        });//sends to userSaga
     }
     render() {
         return (
@@ -89,7 +91,7 @@ class App extends Component {
                             render={() => <Typography variant="h1">404: Page Not Found</Typography>}
                         />
                     </Switch>
-                    {/* <Footer /> */}
+                    <Footer />
                 </Router>
             </MuiThemeProvider>
         );

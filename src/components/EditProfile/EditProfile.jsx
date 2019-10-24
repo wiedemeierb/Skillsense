@@ -36,7 +36,7 @@ function EditProfile(props) {
         dispatch({
             type: 'EDIT_USER_INFO',
             payload: user
-        });
+        });//sends to userSaga
         Swal.fire({
             position: 'center',
             type: 'success',

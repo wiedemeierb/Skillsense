@@ -33,12 +33,12 @@ class MyMentorships extends Component {
         // gets all accepted mentorship relationships from the server and stores them in the allMentorsReducer
         this.props.dispatch({
             type: 'FETCH_ACTIVE_MENTORS'
-        });
+        });//sends to mentorSaga
 
         //clears the details section upon page load until user makes a selection
         this.props.dispatch({
             type: 'CLEAR_SELECTED_USER'
-        });
+        });//sends to selectedUserReducer
     }
 
     //sends put request to the database to update the relationship to accepted: true
@@ -55,7 +55,7 @@ class MyMentorships extends Component {
                 this.props.dispatch({
                     type: 'ACCEPT_MENTORSHIP',
                     payload: { student_id: this.props.selectedUser.id, mentor: this.props.user }
-                });
+                });//sends to mentorSaga
             }
         });
     };
@@ -74,7 +74,7 @@ class MyMentorships extends Component {
                 this.props.dispatch({
                     type: 'DECLINE_MENTORSHIP',
                     payload: { student_id: this.props.selectedUser.id }
-                });
+                });//sends to mentorSaga
             }
         });
     };
@@ -253,7 +253,7 @@ class MyMentorships extends Component {
                             ) : (
                                     <Typography variant="h6" color="secondary" align="center">
                                         Select a user to see more information.
-                                </Typography>
+                                    </Typography>
                                 )}
                         </>
                     </TwoColumnLayout>

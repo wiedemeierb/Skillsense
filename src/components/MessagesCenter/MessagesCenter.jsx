@@ -29,7 +29,7 @@ class MessagesCenter extends Component {
         // gets all accepted mentorship relationships from the server and stores them in the allMentorsReducer
         this.props.dispatch({
             type: 'FETCH_ALL_MESSAGES'
-        });
+        });//sends to messageSaga
     }
 
     toggleDialog = () => {

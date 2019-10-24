@@ -32,7 +32,7 @@ export default function FormDialog(props) {
   }
 
   return (
-    <div>
+    <>
       <Button variant="contained" color="primary" onClick={handleClickOpen}>
         Request Mentor
       </Button>
@@ -79,6 +79,6 @@ export default function FormDialog(props) {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }

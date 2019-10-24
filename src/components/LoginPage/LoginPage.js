@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 //COMPONENT IMPORTS
 import TwoColumnLayout from '../TwoColumnLayout/TwoColumnLayout';
+
 ///MATERIAL-UI IMPORTS
 import { Typography, TextField, Button, Grid } from '@material-ui/core';
+
 //STYLING IMPORTS
 import { withStyles } from '@material-ui/core/styles';
 import Swal from 'sweetalert2';
@@ -45,12 +48,12 @@ class LoginPage extends Component {
                     username: this.state.email,
                     password: this.state.password
                 }
-            });
+            });//sends to loginSaga
             this.props.history.push('/');
         } else {
             this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
             this.errorMessage();
-        }
+        }//sends to errorReducer
     }; // end login
 
     //saves input in local state on change
@@ -147,7 +150,9 @@ class LoginPage extends Component {
                                 fullWidth
                                 className={classes.button}
                                 onClick={() => {
-                                    this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' });
+                                    this.props.dispatch({
+                                        type: 'SET_TO_REGISTER_MODE'
+                                    });//sends to loginModeReducer
                                 }}>
                                 Register
                         </Button>
@@ -162,7 +167,6 @@ class LoginPage extends Component {
                                 Log In
                         </Button>
                         </Grid>
-
                     </Grid>
                 </Grid>
             </TwoColumnLayout>

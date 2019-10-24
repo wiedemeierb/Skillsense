@@ -43,7 +43,7 @@ class ApplicantDetail extends Component {
 		this.props.dispatch({
 			type: 'FETCH_APPLICANT_DETAIL',
 			payload: { id: Number(this.props.match.params.id) }
-		});
+		});//sends to applicantSaga
 	}
 
 	handleSubmit = event => {
@@ -64,14 +64,16 @@ class ApplicantDetail extends Component {
 					payload: {
 						applicant: this.props.applicant
 					}
-				});
+				});//sends to applicantSaga
 				this.props.history.push(`/jobs`);
 			}
 		});
 	};
 
 	routeBack = () => {
-		this.props.dispatch({ type: 'CLEAR_APPLICANT_DETAIL' })
+		this.props.dispatch({
+			type: 'CLEAR_APPLICANT_DETAIL'
+		})//sends to selectedApplicantReducer
 		this.props.history.push(`/jobs/detail/${this.props.applicant.job_id}`);
 	};
 

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
 //COMPONENT IMPORTS
 import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
+
 // MATERIAL-UI IMPORTS
 import {
     TextField,
@@ -15,6 +17,7 @@ import {
     InputLabel,
     Divider
 } from '@material-ui/core';
+
 //STYLING IMPORTS
 import { withStyles } from '@material-ui/core/styles';
 import Swal from 'sweetalert2';
@@ -57,7 +60,9 @@ class RegisterPage extends Component {
     };
 
     componentDidMount = () => {
-        this.props.dispatch({ type: 'FETCH_USER_TYPES' });
+        this.props.dispatch({
+            type: 'FETCH_USER_TYPES'
+        });//sends to userSaga
     };
 
     registerUser = event => {
@@ -72,10 +77,12 @@ class RegisterPage extends Component {
             this.props.dispatch({
                 type: 'REGISTER',
                 payload: this.state
-            });
+            });//sends to registrationSaga
             this.props.history.push('/home');
         } else {
-            this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
+            this.props.dispatch({
+                type: 'REGISTRATION_INPUT_ERROR'
+            });//sends to errorsReducer
             this.errorMessage();
         }
     }; // end registerUser
@@ -234,7 +241,9 @@ class RegisterPage extends Component {
                             color="secondary"
                             className={classes.button}
                             onClick={() => {
-                                this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' });
+                                this.props.dispatch({
+                                    type: 'SET_TO_LOGIN_MODE'
+                                });//sends to loginModeReducer
                             }}>
                             Back to Log In
                         </Button>

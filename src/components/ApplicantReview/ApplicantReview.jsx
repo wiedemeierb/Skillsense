@@ -33,11 +33,11 @@ class ApplicantReview extends Component {
 		this.props.dispatch({
 			type: 'FETCH_APPLICANTS',
 			payload: { id: Number(this.props.match.params.id) }
-		});
+		});//sends to applicantSaga
 		this.props.dispatch({
 			type: 'FETCH_JOB_DETAIL',
 			payload: { id: Number(this.props.match.params.id) }
-		});
+		});//sends to jobSaga
 	}
 
 	routeBack = () => {
@@ -63,7 +63,7 @@ class ApplicantReview extends Component {
 		const { classes } = this.props;
 
 		return (
-			<div>
+			<>
 				{hiredApplicant && (
 					<UserListItem listUser={hiredApplicant} hired={true} />
 				)}
@@ -84,7 +84,7 @@ class ApplicantReview extends Component {
 						<List>{applicantList}</List>
 					</ExpansionPanelDetails>
 				</ExpansionPanel>
-			</div>
+			</>
 		);
 	}
 }

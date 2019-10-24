@@ -57,13 +57,13 @@ class MentorSearch extends Component {
     componentDidMount() {
         this.props.dispatch({
             type: 'FETCH_ALL_MENTORS'
-        });
+        });//sends to mentorSaga
         this.props.dispatch({
             type: 'FETCH_ALL_SKILLS'
-        });
+        });//sends to skillSaga
         this.props.dispatch({
             type: 'CLEAR_SELECTED_USER'
-        });
+        });//sends to adminSaga
     }
 
     //Saves the text from input on change
@@ -81,7 +81,7 @@ class MentorSearch extends Component {
         this.props.dispatch({
             type: 'FETCH_MENTOR_SEARCH',
             payload: this.state.search
-        });
+        });//sends to mentorSaga
     };
 
     //Allows user to login using the Enter key while focus is within the Input area
@@ -121,39 +121,39 @@ class MentorSearch extends Component {
                             {/* MENTOR SEARCH INPUTS */}
                             <Paper className={classes.search}>
                                 <FormGroup row={true}>
-                                        <FormControl className={classes.formControl}>
-                                            {/* Mentor name search form */}
-                                            <TextField
-                                                onChange={event =>
-                                                    this.handleSearch('searchTerm', event)
-                                                }
-                                                value={this.state.searchTerm}
-                                                label="Search Mentors..."
-                                                onKeyUp={this.handleKeyUp}
-                                            />
-                                        </FormControl>
-                                        {/* SKILL SELECT */}
-                                        <FormControl className={classes.formControl}>
-                                            <InputLabel htmlFor="skill-search">
-                                                Select Skill
+                                    <FormControl className={classes.formControl}>
+                                        {/* Mentor name search form */}
+                                        <TextField
+                                            onChange={event =>
+                                                this.handleSearch('searchTerm', event)
+                                            }
+                                            value={this.state.searchTerm}
+                                            label="Search Mentors..."
+                                            onKeyUp={this.handleKeyUp}
+                                        />
+                                    </FormControl>
+                                    {/* SKILL SELECT */}
+                                    <FormControl className={classes.formControl}>
+                                        <InputLabel htmlFor="skill-search">
+                                            Select Skill
                                             </InputLabel>
-                                            <Select
-                                                className={classes.select}
-                                                value={this.state.search.skill}
-                                                onChange={event =>
-                                                    this.handleSearch('skill', event)
-                                                }>
-                                                {/* Skill tag list dropdown options */}
-                                                <MenuItem value={0}>Select a Skill...</MenuItem>
-                                                {skillList}
-                                            </Select>
-                                        </FormControl>
-                                        <IconButton
-                                            aria-label="search"
-                                            color="primary"
-                                            onClick={this.submitSearch}>
-                                            <SearchIcon />
-                                        </IconButton>
+                                        <Select
+                                            className={classes.select}
+                                            value={this.state.search.skill}
+                                            onChange={event =>
+                                                this.handleSearch('skill', event)
+                                            }>
+                                            {/* Skill tag list dropdown options */}
+                                            <MenuItem value={0}>Select a Skill...</MenuItem>
+                                            {skillList}
+                                        </Select>
+                                    </FormControl>
+                                    <IconButton
+                                        aria-label="search"
+                                        color="primary"
+                                        onClick={this.submitSearch}>
+                                        <SearchIcon />
+                                    </IconButton>
                                 </FormGroup>
                             </Paper>
 
@@ -189,7 +189,7 @@ class MentorSearch extends Component {
                                     className={classes.placeholder}
                                     gutterBottom>
                                     No items to display.
-                            </Typography>
+                                </Typography>
                             )}
                     </TwoColumnLayout>
                 ) : (
