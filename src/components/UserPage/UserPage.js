@@ -51,8 +51,12 @@ class UserPage extends Component {
     };
 
     componentDidMount = () => {
-        this.props.dispatch({ type: 'FETCH_USER' });
-        this.props.dispatch({ type: 'FETCH_ALL_SKILLS' });
+        this.props.dispatch({
+            type: 'FETCH_USER'
+        });//sends to userSaga
+        this.props.dispatch({
+            type: 'FETCH_ALL_SKILLS'
+        });//sends to skillSaga
         this.setState({
             ...this.props.user
         });
@@ -75,14 +79,14 @@ class UserPage extends Component {
         this.props.dispatch({
             type: 'EDIT_USER_INFO',
             payload: this.state
-        });
+        });//sends to userSaga
     };
 
     //sends mentorship application to database for admin review
     submitForReview = () => {
         this.props.dispatch({
             type: 'REQUEST_ADMIN_REVIEW'
-        });
+        });//sends to adminSaga
     };
 
     render() {

@@ -21,7 +21,7 @@ function* fetchUser() {
 		yield put({ type: 'FETCH_USER_SKILLS' });
 		yield put({ type: 'SET_USER', payload: response.data });
 	} catch (error) {
-		console.log('User get request failed', error);
+		// console.log('User get request failed', error);
 	}
 }
 
@@ -29,9 +29,7 @@ function* fetchUser() {
 function* fetchSelectedUser(action) {
 	try {
 		const response = yield axios.get(`/api/user/specific/${action.payload}`);
-		const skillsResponse = yield axios.get(
-			`api/userskills/?id=${action.payload}`
-		);
+		const skillsResponse = yield axios.get(`api/userskills/?id=${action.payload}`);
 		yield put({
 			type: 'SET_SELECTED_USER',
 			payload: { ...response.data, skills: skillsResponse.data }
@@ -58,10 +56,10 @@ function* editUserInfo(action) {
 //gets list of user types for registration dropdown
 function* fetchUserTypes() {
 	try {
-		let response = yield axios.get('/api/info/types/user')
-		yield put({ type: 'SET_USER_TYPES', payload: response.data })
+		let response = yield axios.get('/api/info/types/user');
+		yield put({ type: 'SET_USER_TYPES', payload: response.data });
 	} catch (error) {
-		console.log('error on retrieving user types from database')
+		console.log('error on retrieving user types from database');
 	}
 }
 

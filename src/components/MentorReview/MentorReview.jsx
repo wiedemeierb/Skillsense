@@ -25,10 +25,12 @@ const styles = theme => ({
 
 class MentorReview extends Component {
   componentDidMount = () => {
-    this.props.dispatch({ type: 'FETCH_PENDING_MENTORS' });
+    this.props.dispatch({
+      type: 'FETCH_PENDING_MENTORS'
+    });//sends to mentorSaga
     this.props.dispatch({
       type: 'CLEAR_SELECTED_USER'
-    });
+    });//sends to selectedUserReducer
   };
 
   //resets the mentor status to Not Submitted
@@ -41,7 +43,7 @@ class MentorReview extends Component {
     this.props.dispatch({
       type: 'ADMIN_DECLINE_MENTOR',
       payload: this.props.selectedUser.id
-    });
+    });//sends to adminSaga
   };
 
   //sets the mentor status to Approved
@@ -56,7 +58,7 @@ class MentorReview extends Component {
     this.props.dispatch({
       type: 'ADMIN_APPROVE_MENTOR',
       payload: this.props.selectedUser.id
-    });
+    });//sends to adminSaga
   };
 
   render() {
@@ -92,22 +94,22 @@ class MentorReview extends Component {
                 <Divider />
                 <Grid item xs={12} className={classes.buttonContainer}>
                   <Typography variant="subtitle1">Admin Review Actions:</Typography>
-                  <div>
+                  <>
                     <Button variant="contained" color="secondary" className={classes.button} onClick={this.declineMentor}>
                       Decline
                   </Button>
                     <Button variant="contained" color="primary" className={classes.button} onClick={this.approveMentor}>
                       Approve
                   </Button>
-                  </div>
+                  </>
                 </Grid>
               </Grid>
             ) : (
-                <div>
+                <>
                   <Typography variant="h6" align="center">
                     Select any user for more information.
-            </Typography>
-                </div>
+                  </Typography>
+                </>
               )}
           </TwoColumnLayout>
           : <Typography variant="h3">You are not authorized to view this page.</Typography>

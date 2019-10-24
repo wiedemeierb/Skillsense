@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 //COMPONENT IMPORTS
 import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
 import SkillList from '../SkillList/SkillList';
 import JobApplicationMentorListItem from '../JobApplicationMentorListItem/JobApplicationMentorListItem';
+
 //MATERIAL-UI IMPORTS
 import {
     Grid,
@@ -12,7 +14,8 @@ import {
     Button,
     Divider
 } from '@material-ui/core';
-import AttachFileIcon from '@material-ui/icons/AttachFile';
+// import AttachFileIcon from '@material-ui/icons/AttachFile'; //for resume upload
+
 //STYLING IMPORTS
 import { withStyles } from '@material-ui/core/styles';
 import Swal from 'sweetalert2';
@@ -37,8 +40,8 @@ const styles = theme => ({
         padding: theme.spacing(0,2,0,0)
     },
 });
+
 class JobApplication extends Component {
-//START BRANCH
     state = {
         cover_letter: '',
         mentor_id: null,
@@ -46,14 +49,15 @@ class JobApplication extends Component {
         attachment_url: '',
         file: { name: '' }
     };
+
     componentDidMount() {
         this.props.dispatch({
             type: 'FETCH_JOB_DETAIL',
             payload: { id: Number(this.props.match.params.id) }
-        });
+        });//sends to jobSaga
         this.props.dispatch({
             type: 'FETCH_ACTIVE_MENTORS'
-        });
+        });//sends to mentorSaga
     }
 
     handleInput = (event, property) => {
@@ -82,7 +86,7 @@ class JobApplication extends Component {
                         application: {...this.state },
                         job: this.props.job
                     }
-                });
+                });//sends to jobSaga
                 this.props.history.push(`/jobs/detail/${this.props.match.params.id}`);
             }
         });
@@ -95,7 +99,6 @@ class JobApplication extends Component {
 
     //upload resume file
     handleUploadInputChange = e => {
-        // console.log(e.target.files[0]);
         this.setState({ file: e.target.files[0] });
     };
 
@@ -139,6 +142,7 @@ class JobApplication extends Component {
                                 </Typography>
                             </Grid>
                             <Grid item xs={12}>
+                                {/* Section headers in bold */}
                                 <Typography variant="subtitle2" color="secondary">
                                     <b>Client:</b>  <span>{this.props.job.username}</span>
                                 </Typography>

@@ -25,7 +25,7 @@ function ConversationListItem(props) {
                 </Grid>
                 <Grid item xs={6}>
                     <Typography variant="subtitle2" color="secondary" align="right">
-                        <b>{messageDate.toDateString()}</b>
+                        <b>{messageDate.toDateString()}</b> {/* Date stamp in bold */}
                     </Typography>
                     <Typography variant="subtitle2" color="secondary" align="right">
                         <i>
@@ -33,7 +33,7 @@ function ConversationListItem(props) {
                                 hour12: true,
                                 timeStyle: 'short'
                             })}
-                        </i>
+                        </i> {/* Time stamp in italics */}
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>

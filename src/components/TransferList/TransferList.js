@@ -25,12 +25,18 @@ class TransferList extends Component {
 
     //sends post request for clicked skill ID
     addSkill = skillId => {
-        this.props.dispatch({ type: 'ADD_SKILL', payload: { id: skillId } });
+        this.props.dispatch({
+            type: 'ADD_SKILL',
+            payload: { id: skillId }
+        });//sends to userskillsSaga
     };
 
     //sends delete request for clicked skill ID
     removeSkill = skillId => {
-        this.props.dispatch({ type: 'REMOVE_SKILL', payload: { id: skillId } });
+        this.props.dispatch({
+            type: 'REMOVE_SKILL',
+            payload: { id: skillId }
+        });//sends to userskillsSaga
     };
 
     //function to map over all skills and remove any that are matches of user's skills
@@ -70,7 +76,7 @@ class TransferList extends Component {
                 <Grid item container spacing={2} xs={12} sm={5}>
                     <Grid item xs={12} align="center">
                         <Typography variant="subtitle2" color="primary" gutterBottom>
-                            <b>AVAILABLE SKILLS</b>
+                            <b>AVAILABLE SKILLS</b>{/* Section header in bold */}
                         </Typography>
                     </Grid>
                     <Grid item xs={12} className={classes.listField}>
@@ -84,7 +90,7 @@ class TransferList extends Component {
                 <Grid item container spacing={2} xs={12} sm={5}>
                     <Grid item xs={12} align="center">
                         <Typography variant="subtitle2" color="secondary" gutterBottom>
-                            <b>YOUR SKILLS</b>
+                            <b>YOUR SKILLS</b>{/* Section header in bold */}
                         </Typography>
                     </Grid>
                     <Grid item xs={12} className={classes.listField}>

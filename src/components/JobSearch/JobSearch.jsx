@@ -51,10 +51,10 @@ class JobSearch extends Component {
     componentDidMount() {
         this.props.dispatch({
             type: 'FETCH_ALL_JOBS'
-        });
+        });//sends to jobSaga
         this.props.dispatch({
             type: 'FETCH_ALL_SKILLS'
-        });
+        });//sends to skillSaga
     }
 
     //Saves the text from input on change
@@ -78,7 +78,7 @@ class JobSearch extends Component {
         this.props.dispatch({
             type: 'FETCH_JOB_SEARCH',
             payload: this.state
-        });
+        });//sends to jobSaga
     };
 
     //When search result is clicked, user is taken to the selected job details page
@@ -121,36 +121,36 @@ class JobSearch extends Component {
                     <Grid container>
                         <Paper className={classes.search}>
                             <FormGroup row={true}>
-                                    {/* Search Job input field */}
-                                    <FormControl className={classes.formControl}>
-                                        <TextField
-                                            onChange={this.handleSearch}
-                                            value={this.state.searchTerm}
-                                            label="Search Jobs..."
-                                            onKeyUp={this.handleKeyUp}
-                                        />
-                                    </FormControl>
-                                    {/* Skill select for search */}
-                                    <FormControl className={classes.formControl}>
-                                        <InputLabel htmlFor="skill-search">Select Skill</InputLabel>
-                                        <Select
-                                            className={classes.select}
-                                            value={this.state.skill}
-                                            onChange={this.handleDropdown}
-                                        >
-                                            {/* Skill tag list dropdown options */}
-                                            <MenuItem value={0}>Select a skill...</MenuItem>
-                                            {skillList}
-                                        </Select>
-                                    </FormControl>
-                                    {/* Submit Search Button */}
-                                    <IconButton
-                                        className={classes.button}
-                                        aria-label="search"
-                                        color="primary"
-                                        onClick={this.submitSearch}>
-                                        <SearchIcon />
-                                    </IconButton>
+                                {/* Search Job input field */}
+                                <FormControl className={classes.formControl}>
+                                    <TextField
+                                        onChange={this.handleSearch}
+                                        value={this.state.searchTerm}
+                                        label="Search Jobs..."
+                                        onKeyUp={this.handleKeyUp}
+                                    />
+                                </FormControl>
+                                {/* Skill select for search */}
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel htmlFor="skill-search">Select Skill</InputLabel>
+                                    <Select
+                                        className={classes.select}
+                                        value={this.state.skill}
+                                        onChange={this.handleDropdown}
+                                    >
+                                        {/* Skill tag list dropdown options */}
+                                        <MenuItem value={0}>Select a skill...</MenuItem>
+                                        {skillList}
+                                    </Select>
+                                </FormControl>
+                                {/* Submit Search Button */}
+                                <IconButton
+                                    className={classes.button}
+                                    aria-label="search"
+                                    color="primary"
+                                    onClick={this.submitSearch}>
+                                    <SearchIcon />
+                                </IconButton>
                             </FormGroup>
                         </Paper>
                         {/* Job Search List */}

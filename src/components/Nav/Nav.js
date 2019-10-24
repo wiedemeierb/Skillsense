@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink, Link, withRouter } from 'react-router-dom';
+
 //LOGO IMPORT
 import { ReactComponent as SkillSenseLogo } from '../../skillSenseLogo.svg';
+
 //STYLING IMPORTS
 import './Nav.css';
 
@@ -126,7 +128,9 @@ const Nav = props => (
 
                             data-hover="Log Out"
                             className="nav-link"
-                            onClick={() => props.dispatch({ type: 'LOGOUT' })}>
+                            onClick={() => props.dispatch({
+                                type: 'LOGOUT'
+                            })}>{/* sends to loginSaga */}
                             Log Out
                         </Link>
                     </li>

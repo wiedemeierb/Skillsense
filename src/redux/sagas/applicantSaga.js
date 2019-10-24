@@ -11,7 +11,10 @@ function* fetchApplicants(action) {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log('error in fetchApplicants applicantSaga: ',error);
+		console.log('error in fetchApplicants applicantSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -38,7 +41,10 @@ function* fetchApplicantDetail(action) {
 			payload: returnPayload
 		});
 	} catch (error) {
-		console.log('error in fetchApplicantDetail applicantSaga: ',error);
+		console.log('error in fetchApplicantDetail applicantSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -63,7 +69,10 @@ function* hireApplicant(action) {
 			payload: { id: action.payload.applicant.job_id }
 		});
 	} catch (error) {
-		console.log('error in hireApplicant applicantSaga: ',error);
+		console.log('error in hireApplicant applicantSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 

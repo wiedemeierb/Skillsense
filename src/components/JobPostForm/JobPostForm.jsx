@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 // COMPONENT IMPORTS
 import OneColumnLayout from '../OneColumnLayout/OneColumnLayout';
+
 // MATERIAL-UI IMPORTS
 import {
     TextField,
@@ -17,6 +19,7 @@ import {
 } from '@material-ui/core';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+
 // STYLING IMPORTS
 import { withStyles } from '@material-ui/core/styles';
 import Swal from 'sweetalert2';
@@ -64,7 +67,9 @@ class JobPostForm extends Component {
     };
 
     componentDidMount = () => {
-        this.props.dispatch({ type: 'FETCH_ALL_SKILLS' });
+        this.props.dispatch({ 
+            type: 'FETCH_ALL_SKILLS' 
+        });//sends to skillSaga
     };
 
     handleInput = (event, property) => {
@@ -80,7 +85,7 @@ class JobPostForm extends Component {
         this.props.dispatch({
             type: 'POST_JOB',
             payload: this.state
-        });
+        });//sends to jobSaga
         this.setState({
             project_title: '',
             position_title: '',

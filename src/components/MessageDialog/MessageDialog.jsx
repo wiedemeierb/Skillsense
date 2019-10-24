@@ -37,7 +37,7 @@ function MessageDialog(props) {
         dispatch({
             type: 'SEND_MESSAGE',
             payload: { recipient: props.recipient, message: message }
-        });
+        });//sends to messageSaga
         Swal.fire({
             position: 'center',
             type: 'success',

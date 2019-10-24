@@ -47,24 +47,24 @@ class JobTabs extends React.Component {
             if (value === 0) {
                 this.props.dispatch({
                     type: 'FETCH_ACTIVE_JOBS'
-                });
+                });//sends to jobSaga
             }
             if (value === 1) {
                 this.props.dispatch({
                     type: 'FETCH_APPLIED_JOBS'
-                });
+                });//sends to jobSaga
             }
             if (value === 2) {
                 this.props.dispatch({
                     type: 'FETCH_COMPLETED_JOBS'
-                });
+                });//sends to jobSaga
             }
             // dispatch actions for client
         } else if (this.props.user.user_type === 'Client') {
             this.props.dispatch({
                 type: 'FETCH_CLIENT_JOBS',
                 payload: jobType
-            });
+            });//sends to jobSaga
         }
     };
 
