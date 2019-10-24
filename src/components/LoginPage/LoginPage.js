@@ -83,7 +83,7 @@ class LoginPage extends Component {
         const { classes } = this.props;
         return (
             <TwoColumnLayout>
-                <Grid container xs={12} className={classes.aboutText} align="left" zeroMinWidth>
+                <Grid container className={classes.aboutText} align="left" item xs={12} zeroMinWidth>
                     <Grid item xs={12}>
                         <Typography
                             variant="h3"
