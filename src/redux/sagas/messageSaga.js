@@ -5,13 +5,15 @@ import { put, takeEvery } from 'redux-saga/effects';
 function* fetchAllMessages() {
 	try {
 		let response = yield axios.get('/api/messages');
-		console.log(response);
 		yield put({
 			type: 'SET_ALL_MESSAGES',
 			payload: response.data
 		});
 	} catch (error) {
-		console.log('error in fetchAllMessages in messageSaga: ',error);
+		console.log('error in fetchAllMessages in messageSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -22,7 +24,10 @@ function* sendMessage(action) {
 			type: 'FETCH_ALL_MESSAGES'
 		});
 	} catch (error) {
-		console.log('error in sendMessage in messageSaga: ',error);
+		console.log('error in sendMessage in messageSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 

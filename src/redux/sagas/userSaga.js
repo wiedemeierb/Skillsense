@@ -22,6 +22,9 @@ function* fetchUser() {
 		yield put({ type: 'SET_USER', payload: response.data });
 	} catch (error) {
 		console.log('User get request failed', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -38,6 +41,9 @@ function* fetchSelectedUser(action) {
 		});
 	} catch (error) {
 		console.log('error in fetchSelectedUser in userSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -52,6 +58,9 @@ function* editUserInfo(action) {
 		});
 	} catch (error) {
 		console.log('error in editUserInfo in userSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -62,6 +71,9 @@ function* fetchUserTypes() {
 		yield put({ type: 'SET_USER_TYPES', payload: response.data })
 	} catch (error) {
 		console.log('error on retrieving user types from database')
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 

@@ -12,6 +12,9 @@ function* fetchAllJobs() {
 		});
 	} catch (error) {
 		console.log('error in fetchAllJobs in jobSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -28,7 +31,10 @@ function* fetchJobSearch(action) {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log('error in fetchJobSearch in jobSaga: ',error);
+		console.log('error in fetchJobSearch in jobSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -41,7 +47,10 @@ function* fetchActiveJobs() {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log('error in fetchActiveJobs in jobSaga: ',error);
+		console.log('error in fetchActiveJobs in jobSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -54,7 +63,10 @@ function* fetchAppliedJobs() {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log('error in fetchAppliedJobs in jobSaga: ',error);
+		console.log('error in fetchAppliedJobs in jobSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -67,7 +79,10 @@ function* fetchCompletedJobs() {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log('error in fetchCompletedJobs in jobSaga',error);
+		console.log('error in fetchCompletedJobs in jobSaga', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -81,7 +96,10 @@ function* fetchClientJobs(action) {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log('error in fetchClientJobs in jobSaga: ',error);
+		console.log('error in fetchClientJobs in jobSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -94,7 +112,10 @@ function* fetchJobDetail(action) {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log('error in fetchJobDetail in jobSaga: ',error);
+		console.log('error in fetchJobDetail in jobSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -107,7 +128,10 @@ function* markJobCompleted(action) {
 			payload: 3
 		});
 	} catch (error) {
-		console.log('error in markJobCompleted in jobSaga: ',error);
+		console.log('error in markJobCompleted in jobSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -120,7 +144,10 @@ function* postJob(action) {
 			payload: 3
 		});
 	} catch (error) {
-		console.log('error in postJob in jobSaga: ',error);
+		console.log('error in postJob in jobSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -168,7 +195,10 @@ function* submitApplication(action) {
 		});
 		Swal.fire('Congrats!', 'Your application has been submitted!', 'success');
 	} catch (error) {
-		console.log('error in submitApplicant in jobSaga: ',error);
+		console.log('error in submitApplicant in jobSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
