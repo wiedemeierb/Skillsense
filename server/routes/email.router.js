@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 
 transporter.verify((error, success) => {
 	if (error) {
-		console.log(error);
+		console.log('Error in preparing nodemailer for messaging: ', error);
 	} else {
 		console.log('Server is ready to take messages');
 	}
@@ -33,7 +33,7 @@ router.post('/', (req, res, next) => {
 	};
 	transporter.sendMail(mail, (err, data) => {
 		if (err) {
-			console.log('error in post', err);
+			console.log('Error in sending email: ', err);
 			res.json({
 				msg: 'fail'
 			});

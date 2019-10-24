@@ -6,12 +6,12 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 //GET ROUTE FOR ALL MESSAGES
 router.get('/', rejectUnauthenticated, (req, res) => {
 	const queryText = `
-select messages.id, message, date_time, sId, sName, sfocus_skill, rId, rName, rfocus_skill from messages
-join (select users.id as sId, users.username as sName, users.focus_skill as sfocus_skill from users) AS sent
+	select messages.id, message, date_time, sId, sName, sfocus_skill, rId, rName, rfocus_skill from messages
+	join (select users.id as sId, users.username as sName, users.focus_skill as sfocus_skill from users) AS sent
 	ON sent.sId = messages.sender_id
-join (select users.id as rId, users.username as rName, users.focus_skill as rfocus_skill from users) as recipient
+	join (select users.id as rId, users.username as rName, users.focus_skill as rfocus_skill from users) as recipient
 	on recipient.rid = messages.recipient_id
-where messages.sender_id = $1 OR messages.recipient_id = $1 ORDER BY date_time DESC;`;
+	where messages.sender_id = $1 OR messages.recipient_id = $1 ORDER BY date_time DESC;`;
 	pool.query(queryText, [req.user.id])
 		.then(result => {
 			let userList = [];
@@ -47,7 +47,7 @@ where messages.sender_id = $1 OR messages.recipient_id = $1 ORDER BY date_time D
 			res.send(userList);
 		})
 		.catch(error => {
-			console.log('error in GET of all messages:', error)
+			console.log('Error in GET all messages:', error)
 			res.sendStatus(500);
 		});
 });
@@ -65,14 +65,18 @@ router.post(`/`, (req, res) => {
 			res.sendStatus(200);
 		})
 		.catch(error => {
-			console.log('error on sending new message: ', error);
+			console.log('Error on sending new message: ', error);
 			res.sendStatus(500);
 		});
 });
 
 // ROUTE TO GET INVITE MESSAGE TO MENTOR - LAST MESSAGE RECEIVED BY MENTOR FROM STUDENT
 router.get('/last/:id', (req, res) => {
-	const sqlText = `SELECT * FROM messages WHERE recipient_id = $1 AND sender_id = $2 ORDER BY date_time DESC LIMIT 1;`;
+	const sqlText = `
+	SELECT * FROM messages WHERE recipient_id = $1 AND sender_id = $2 
+	ORDER BY date_time DESC LIMIT 1;
+	`;
+
 	const values = [];
 	if (req.user.user_type === 'Mentor') {
 		values.push(req.user.id, req.params.id);
@@ -85,7 +89,7 @@ router.get('/last/:id', (req, res) => {
 			res.send(result.rows[0]);
 		})
 		.catch(error => {
-			console.log('error on getting invite message from student: ', error);
+			console.log('Error on getting invite message from student: ', error);
 			res.sendStatus(500);
 		});
 });

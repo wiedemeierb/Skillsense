@@ -26,7 +26,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 			res.send(result.rows);
 		})
 		.catch(error => {
-			console.log('error in GET of skills for logged in user',error);
+			console.log('Error in GET of skills for logged in user',error);
 			res.sendStatus(500);
 		});
 });
@@ -46,7 +46,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 			res.sendStatus(200);
 		})
 		.catch(error => {
-			console.log('error on adding user skill into db: ', error);
+			console.log('Error on adding user skill into db: ', error);
 			res.sendStatus(500);
 		});
 });
@@ -63,7 +63,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 			res.sendStatus(204);
 		})
 		.catch(error => {
-			console.log('error on deleting user skill from db: ', error);
+			console.log('Error on deleting user skill from db: ', error);
 			res.sendStatus(500);
 		});
 });
