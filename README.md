@@ -24,7 +24,7 @@ Before getting started launching this application, you should have the following
 
 ## Database Setup
 
-Make a new database called `skill_sense` in PostgreSQL and use the **database.sql** file in the root of this project to set up all of your tables. This file will also include some important static data required by several tables: these will include information such as user types, skills tags for jobs/users, job status (in progress, completed, etc.), and mentor approval status. 
+Make a new database called `skill_sense` in PostgreSQL and use the **database.sql** file in the root of this project to set up all of your tables. This file will also include some important static data required by several tables: these will include information such as user types, skills tags for jobs/users, job status (in progress, completed, etc.), and mentor approval status.
 
 ## Creating the .ENV
 
@@ -33,12 +33,12 @@ Make a new database called `skill_sense` in PostgreSQL and use the **database.sq
     SERVER_SESSION_SECRET = ***********
     AWS_ACCESS_KEY_ID = ********************
     AWS_SECRET_KEY = ********************
-    AWS_BUCKET = **************    
+    AWS_BUCKET = **************
     NODE_MAILER_USER = ****************
     NODE_MAILER_USER_KEY = **************
     ```
 
-First you will need to establish a **SERVER_SESSION_SECRET** to keep your application secure. Here's a site that can help you generate a secret: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). 
+First you will need to establish a **SERVER_SESSION_SECRET** to keep your application secure. Here's a site that can help you generate a secret: [https://passwordsgenerator.net/](https://passwordsgenerator.net/).  **NOTE** This secret should be more than 8 characters.  Having a secret key that is less than 8 characters or leaving it as "superDuperSecret" will result in a warning from the app.
 
 ### AWS
 
@@ -48,13 +48,13 @@ When setting up your account, make sure to record the **AWSAccessKeyId** and the
 
 You will also need to update your permissions on the new S3 Bucket. From the same place you accessed your CORS settings in the tutorial above, you will need to select **BLOCK PUBLIC ACCESS** and turn off any settings that are blocking public access. No other boxes on this page should be checked.
 
-### Nodemailer 
+### Nodemailer
 
 In order to use [Nodemailer](https://nodemailer.com/) to send email notifications as an admin to individual users, you will need to establish what address these messages should be sent from. The sending email address should be designated in the .env as the **NODE_MAILER_USER**. Given the standard security most email providers have in place to prevent unapproved third party sign-in and use, however, a basic user password will not be effective. The process of getting around this security measure may vary from service to service, but the path we recommend would be obtaining an **App Password** through Gmail. Instructions to create an App Password for your **NODEMAILER_USER_KEY** can be found at this [Google Account Help Article](https://support.google.com/accounts/answer/185833?hl=en).
 
 ## Installation
 
-1. Run `npm install`    
+1. Run `npm install`
 2. Start Postgres using `brew services start postgresql`
     - only required if PG is not already running
 3. Run `npm run server`
@@ -65,9 +65,9 @@ In order to use [Nodemailer](https://nodemailer.com/) to send email notification
 
 - A new user to SkillSense will register for an account either as a Student, Mentor or Client. Registration will require an email, password, a user's name, professional title, location, networking links, and a short bio, which will all be displayed (password excluded) on a user's public profile when networking or applying for jobs.
     - Subsequent logins will require email and password.
-- After logging in, a user will be brought to their profile page where all of their personal information can be updated. Students/Mentors may also add skill tags to their profile to reflect their abilities. These will aid in the application process as well as for helping Students find Mentors with a particular specialization. 
+- After logging in, a user will be brought to their profile page where all of their personal information can be updated. Students/Mentors may also add skill tags to their profile to reflect their abilities. These will aid in the application process as well as for helping Students find Mentors with a particular specialization.
 - **Students on SkillSense:**
-    - Search for available Mentors by name or skill in **Mentor Search**. View a selected Mentor's public profile and send a request to connect to open the possibility of working on future projects together. 
+    - Search for available Mentors by name or skill in **Mentor Search**. View a selected Mentor's public profile and send a request to connect to open the possibility of working on future projects together.
     - *Active* and *Invited* Mentors can be viewed in **My Mentorships**.
     - Freelance work can be found by searching project title or skills in **Job Search**. Selecting details for any job in the search results will open a page displaying important information such as: project title, position, client, location, duration, budget, a description for the job, and desired skills.
     - Apply for jobs by providing Clients with a cover letter, resume, and selected Mentor to work with.
@@ -76,11 +76,11 @@ In order to use [Nodemailer](https://nodemailer.com/) to send email notification
     - View active Mentorships and pending Invites to connect with Students in **My Mentorships*. Mentors can view details from a Student's public profile and monitor all jobs (active, applied, completed) that they are teamed up on. Access to view details for those jobs is available from this page.
 - **Clients on SkillSense:**
     - Track *Active*, *Completed*, and projects *Pending Hire* in **My Jobs**. Details for all of a Client's posted jobs are available for review. In the details page for a selected job, a Client can view their current hire or their current applicants — and hire an applicant once they've made a decision. Applicant details will include information both from the Student's profile as well as the Mentor they've requested for that project.
-    - In **Post New Job**, Clients can create a new project listing for work they're looking to have completed by Students on SkillSense. Clients will provide a project title, position, duration and budget, a description of what they're looking to have accomplished, and desired skills. 
+    - In **Post New Job**, Clients can create a new project listing for work they're looking to have completed by Students on SkillSense. Clients will provide a project title, position, duration and budget, a description of what they're looking to have accomplished, and desired skills.
 - **Messaging on SkillSense:**
-    - All users have access to a **Messages** center where they can communicate with individuals they've connected with on the application, whether it be Student, Mentor, or Client. Users must be connected on a project or through a Mentorship before they can send messages back and forth. 
+    - All users have access to a **Messages** center where they can communicate with individuals they've connected with on the application, whether it be Student, Mentor, or Client. Users must be connected on a project or through a Mentorship before they can send messages back and forth.
     - Requesting a Mentor will automatically prompt Students to send a custom message with their invitation.
-    - A *Send Message* option to start a conversation will be available on the public profile of all connected users and on the job details for an active assignment. 
+    - A *Send Message* option to start a conversation will be available on the public profile of all connected users and on the job details for an active assignment.
 
 ## Built With
 
@@ -101,9 +101,9 @@ This application uses the following technologies:
 
 ## Acknowledgements
 
-- First and foremost, we would like to dedicate this project to Jack Morey + Vivek Javangula: the two individuals who came up with the original concept for this application. They have ambitious goals for SkillSense, and we're proud to have laid down the initial groundwork for them to build from in the future. 
-- We would like to thank [Prime Digital Academy](https://github.com/PrimeAcademy) for allowing us the opportunity to put our acquired skills into action by connecting us with a real-world client with an extraordinary vision. 
-- A very special thanks to our instructors, Dane Smith and Kris Szafranksi, for providing us with the tools and knowledge to build this application. Their instruction has been invaluable in leading us down the road to successful careers as software developers. 
+- First and foremost, we would like to dedicate this project to Jack Morey + Vivek Javangula: the two individuals who came up with the original concept for this application. They have ambitious goals for SkillSense, and we're proud to have laid down the initial groundwork for them to build from in the future.
+- We would like to thank [Prime Digital Academy](https://github.com/PrimeAcademy) for allowing us the opportunity to put our acquired skills into action by connecting us with a real-world client with an extraordinary vision.
+- A very special thanks to our instructors, Dane Smith and Kris Szafranksi, for providing us with the tools and knowledge to build this application. Their instruction has been invaluable in leading us down the road to successful careers as software developers.
 
 ## Support
 
