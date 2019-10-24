@@ -10,7 +10,10 @@ function* fetchAllMentors() {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log('error in fetchAllMentors in mentorSaga: ',error);
+		console.log('error in fetchAllMentors in mentorSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -27,7 +30,10 @@ function* fetchMentorSearch(action) {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log('error in fetchMentorSearch in mentorSaga: ',error);
+		console.log('error in fetchMentorSearch in mentorSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -40,7 +46,10 @@ function* fetchActiveMentors() {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log('error in fetchActiveMentors in mentorSaga: ',error);
+		console.log('error in fetchActiveMentors in mentorSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -57,7 +66,10 @@ function* fetchInvitedMentors() {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log('error in fetchInvitedMentors in mentorSaga: ',error);
+		console.log('error in fetchInvitedMentors in mentorSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -70,7 +82,10 @@ function* fetchPendingMentors() {
 			payload: response.data
 		});
 	} catch (error) {
-		console.log('error in fetchPendingMentors in mentorSaga: ',error);
+		console.log('error in fetchPendingMentors in mentorSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -83,7 +98,10 @@ function* sendMentorRequest(action) {
 			type: 'FETCH_ALL_MENTORS'
 		});
 	} catch (error) {
-		console.log('error in sendMentorRequest in mentorSaga: ',error);
+		console.log('error in sendMentorRequest in mentorSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -105,7 +123,10 @@ function* acceptMentorship(action) {
 			type: 'CLEAR_SELECTED_USER'
 		});
 	} catch (error) {
-		console.log('error in acceptMentorship in mentorSaga: ',error);
+		console.log('error in acceptMentorship in mentorSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 
@@ -120,7 +141,10 @@ function* declineMentorship(action) {
 			type: 'CLEAR_SELECTED_USER'
 		});
 	} catch (error) {
-		console.log('error in declineMentorship in mentorSaga: ',error);
+		console.log('error in declineMentorship in mentorSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 

@@ -10,7 +10,10 @@ function* fetchAllSkills() {
       payload: response.data
     });
   } catch (error) {
-    console.log('error in fetchAllSkills in skillSaga: ',error);
+    console.log('error in fetchAllSkills in skillSaga: ', error);
+    alert(
+		'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+	);
   }
 }
 

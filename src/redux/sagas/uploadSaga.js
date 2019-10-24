@@ -18,6 +18,9 @@ function* uploadFile(action) {
 		});
 	} catch (error) {
 		console.log('error uploading file to aws, uploadFile in uploadSaga: ', error);
+		alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
 	}
 }
 

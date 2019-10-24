@@ -10,7 +10,10 @@ function* fetchUserSkills() {
             payload: response.data
         })
     } catch (error) {
-        console.log('error in fetchUserSkills in userskillsSaga: ',error)
+        console.log('error in fetchUserSkills in userskillsSaga: ', error)
+        alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
     }
 }
 
@@ -23,6 +26,9 @@ function* addSkill(action) {
         });
     } catch (error) {
         console.log('error in addSkill in userskillsSaga: ', error);
+        alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
     }
 }
 
@@ -34,7 +40,10 @@ function* removeSkill(action) {
             type: 'FETCH_USER_SKILLS'
         })
     } catch (error) {
-        console.log('error in removeSkill in userskillsSaga: ',error)
+        console.log('error in removeSkill in userskillsSaga: ', error)
+        alert(
+			'Oops!  Something appears to have gone wrong.  Refresh the page to try again, or try logging out and relogging back in.'
+		);
     }
 }
 
