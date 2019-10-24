@@ -12,9 +12,9 @@ Live Version deployed on Heroku at: []
 
 ## Screenshot
 
-![SkillSense: Login](documentation/images/skillsense-login.png)
-![SkillSense: Mentorships](documentation/images/skillsense-mentorships.png)
-![SkillSense: Job Search](documentation/images/skillsense-jobsearch.png)
+![SkillSense: Login](documentation/images/SkillSense-Login.png)
+![SkillSense: Mentorships](documentation/images/SkillSense-Mentorships.png)
+![SkillSense: Job Search](documentation/images/SkillSense-JobSearch.png)
 
 ## Prerequisites
 
