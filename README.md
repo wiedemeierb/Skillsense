@@ -8,7 +8,7 @@
 
 SkillSense is a professional networking application that brings together Students, Mentors, and Clients to complete freelance assignments. Students looking to break into the tech industry can find and connect with experienced professionals in the field willing to offer their guidance and expertise. In partnership with a chosen Mentor, Students can apply for and complete jobs that have been posted on SkillSense by Clients. By creating a space that allows for professional growth while ensuring quality and productivity, SkillSense helps Students to get experience; allows Mentors to help members of their community in getting started; and enables Clients to offer first-time opportunities while ensuring that the job is done well with the help of an experienced professional.
 
-Live Version deployed on Heroku at: [https://quiet-meadow-31261.herokuapp.com/](https://quiet-meadow-31261.herokuapp.com/)
+Live Version deployed on Heroku at: [https://skillsense.herokuapp.com/](https://skillsense.herokuapp.com/)
 
 ## Screenshot
 
