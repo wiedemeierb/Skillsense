@@ -82,7 +82,8 @@ function ApplicantDetailStudent(props) {
 						<Typography variant='body2'>{props.applicant.cover_letter}</Typography>
 					</Grid>
 				</Grid>
-				{props.applicant.attachment_url !== null && (
+				{/* ATTACHMENT SECTION */}
+				{/* {props.applicant.attachment_url !== null && (
 					<Grid item xs={12} md={3}>
 						<Link target='_blank' href={props.applicant.attachment_url}>
 							<Button color='primary' startIcon={<DescriptionIcon />}>
@@ -90,7 +91,7 @@ function ApplicantDetailStudent(props) {
 							</Button>
 						</Link>
 					</Grid>
-				)}
+				)} */}
 			</Grid>
 
 			{/* User Info */}
