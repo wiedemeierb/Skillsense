@@ -34,7 +34,8 @@ SELECT
         AND
         "mentor_status".mentor_status ILIKE 'Approved'
     GROUP BY "users"."id", requested.accepted
-    ORDER BY "id" DESC;`;
+	ORDER BY "id" DESC;`;
+	
 	pool.query(queryText, [req.user.id])
 		.then(result => {
 			result.rows.forEach(row => {
@@ -45,7 +46,7 @@ SELECT
 			res.send(result.rows);
 		})
 		.catch(error => {
-			console.log(error);
+			console.log('Error in GET approved mentors: ', error);
 			res.sendStatus(500);
 		});
 });
@@ -111,7 +112,7 @@ router.get('/active', rejectUnauthenticated, (req, res) => {
 			res.send(result.rows);
 		})
 		.catch(error => {
-			console.log(error);
+			console.log('Error in GET active mentors: ', error);
 			res.sendStatus(500);
 		});
 });
@@ -179,7 +180,7 @@ router.get('/invited', rejectUnauthenticated, (req, res) => {
 			res.send(result.rows);
 		})
 		.catch(error => {
-			console.log(error);
+			console.log('Error in GET invited mentors: ', error);
 			res.sendStatus(500);
 		});
 });
@@ -189,6 +190,7 @@ router.get('/search/', rejectUnauthenticated, (req, res) => {
 	const searchTerm =
 		req.query.searchTerm !== '' ? `%${req.query.searchTerm}%` : `%%`;
 	const searchSkill = req.query.skill != 0 ? Number(req.query.skill) : 0;
+
 	const queryStart = `
 SELECT
       "users".id,
@@ -247,7 +249,7 @@ SELECT
 			res.send(result.rows);
 		})
 		.catch(error => {
-			console.log(error);
+			console.log('Error in GET mentor search: ', error);
 			res.sendStatus(500);
 		});
 });
@@ -321,7 +323,7 @@ router.get('/pending', rejectIfNotAdmin, (req, res) => {
 			res.send(result.rows);
 		})
 		.catch(error => {
-			console.log('error on GET of mentors pending approval: ', error);
+			console.log('Error in GET mentors pending approval: ', error);
 			res.sendStatus(500);
 		});
 });
@@ -333,7 +335,7 @@ router.put('/accept/:id', rejectUnauthenticated, (req, res) => {
 		.then(result => {
 			res.sendStatus(200)
 		}).catch(error => {
-			console.log('error on PUT of mentors accepting student: ', error);
+			console.log('Error in PUT mentors accepting student: ', error);
 			res.sendStatus(500)
 		})
 })
@@ -345,7 +347,7 @@ router.delete('/decline/:id', rejectUnauthenticated, (req, res) => {
 		.then(result => {
 			res.sendStatus(200)
 		}).catch(error => {
-			console.log('error in Delete for mentors declining student connection: ', error);
+			console.log('Error in DELETE for mentors declining student connection: ', error);
 			res.sendStatus(500)
 		})
 })

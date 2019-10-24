@@ -45,7 +45,7 @@ router.get('/', (req, res) => {
 			res.send(result.rows);
 		})
 		.catch(error => {
-			console.log(error);
+			console.log('Error in GET all open jobs: ', error);
 			res.sendStatus(500);
 		});
 });
@@ -95,7 +95,7 @@ router.get('/client/:jobType', rejectIfNotClient, (req, res) => {
 			res.send(result.rows);
 		})
 		.catch(error => {
-			console.log(error);
+			console.log('Error in GET jobs for client by status: ', error);
 			res.sendStatus(500);
 		});
 });
@@ -126,11 +126,14 @@ router.get('/search', (req, res) => {
     ON "job_tags".tag_id = "skill_tags"."id"
   LEFT JOIN "users"
 	ON "jobs"."client_id" = "users"."id"
-	WHERE "status_id" = 1;`;
+	WHERE "status_id" = 1;
+	`;
+
 //additional sql Query text to use based on search input and skills sent on request
 	const queryInput = ` AND "project_title" ILIKE $1`;
 	const querySkill = ` AND "tag_id" = $2`;
 	const queryEnd = ` GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;`;
+
 //function to add search query text to sql query text
 	const queryText = () => {
 		if (searchSkill !== 0) {
@@ -139,6 +142,7 @@ router.get('/search', (req, res) => {
 			return queryStart + queryInput + queryEnd;
 		}
 	};
+
 //function to add skill filters to sql query text
 	const queryParams = () => {
 		if (searchSkill) {
@@ -147,6 +151,7 @@ router.get('/search', (req, res) => {
 			return [searchTerm];
 		}
 	};
+
 	pool.query(queryText(), queryParams())
 		.then(result => {
 			//attach a "skills" property that is combined id and name
@@ -158,7 +163,7 @@ router.get('/search', (req, res) => {
 			res.send(result.rows);
 		})
 		.catch(error => {
-			console.log(error);
+			console.log('Error in GET job search: ', error);
 			res.sendStatus(500);
 		});
 });
@@ -258,7 +263,7 @@ router.get('/applied', (req, res) => {
 			res.send(result.rows);
 		})
 		.catch(error => {
-			console.log(error);
+			console.log('Error in GET applied jobs', error);
 			res.sendStatus(500);
 		});
 });
@@ -296,7 +301,9 @@ router.get('/completed', (req, res) => {
       "job_status".job_status ILIKE 'Completed'
         AND
       "job_applicants".student_id = $1
-    GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;`;
+	GROUP BY "jobs"."id","users"."id" ORDER BY "id" DESC;
+	`;
+
 	pool.query(queryText, [userId])
 		.then(result => {
 			//attach a "skills" property that is combined id and name
@@ -308,7 +315,7 @@ router.get('/completed', (req, res) => {
 			res.send(result.rows);
 		})
 		.catch(error => {
-			console.log(error);
+			console.log('Error in GET completed jobs: ', error);
 			res.sendStatus(500);
 		});
 });
@@ -343,7 +350,9 @@ router.get('/detail/:id', rejectUnauthenticated, (req, res) => {
 LEFT JOIN (SELECT * FROM "job_applicants" WHERE "student_id" = $1) AS "applied" ON jobs.id = applied.job_id
   WHERE jobs.id = $2
   GROUP BY "jobs"."id","users"."id", "applied"."hired", "applied".id, mentor_id
-  ORDER BY "id" DESC;`;
+  ORDER BY "id" DESC;
+  `;
+
 	pool.query(queryText, [req.user.id, req.params.id])
 		.then(result => {
 			//attach a "skills" property that is combined id and name
@@ -357,7 +366,7 @@ LEFT JOIN (SELECT * FROM "job_applicants" WHERE "student_id" = $1) AS "applied" 
 			res.send(result.rows[0]);
 		})
 		.catch(error => {
-			console.log('error in getting job details', error);
+			console.log('Error in GET job details: ', error);
 			res.sendStatus(500);
 		});
 });
@@ -370,7 +379,7 @@ router.put('/detail/:id', (req, res) => {
 			res.sendStatus(200);
 		})
 		.catch(error => {
-			console.log('error with the patch completed jobs', error);
+			console.log('Error in PUT to update job completion: ', error);
 			res.sendStatus(500);
 		});
 });
@@ -385,7 +394,9 @@ router.post('/new', rejectUnauthenticated, async (req, res) => {
   "mentor_required","status_id","client_id")
     VALUES
       ($1,$2,$3,$4,$5,$6,$7,$8)
-    RETURNING "id";`;
+	RETURNING "id";
+	`;
+	
 	const connection = await pool.connect();
 	try {
 		await connection.query(`BEGIN;`);
@@ -410,7 +421,7 @@ router.post('/new', rejectUnauthenticated, async (req, res) => {
 		res.sendStatus(201);
 	} catch (error) {
 		await connection.query(`ROLLBACK;`);
-		console.log(error);
+		console.log('Error in POST new job: ', error);
 		res.sendStatus(500);
 	} finally {
 		connection.release();
@@ -437,7 +448,7 @@ router.post('/apply', rejectUnauthenticated, (req, res) => {
 			res.sendStatus(201);
 		})
 		.catch(error => {
-			console.log('error on posting new job application: ', error);
+			console.log('Error in POST new job application: ', error);
 			res.sendStatus(500);
 		});
 });
